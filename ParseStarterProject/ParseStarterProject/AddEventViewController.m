@@ -12,7 +12,7 @@
 
 @interface AddEventViewController ()
 
-@property (nonatomic) UITextField *currentTextField;
+@property (nonatomic) UIView *currentTextField;
 @property (nonatomic) UITextField *addEventField;
 @property (nonatomic) UITextField *startTimeField;
 @property (nonatomic) UITextField *endTimeField;
@@ -68,26 +68,43 @@
 }
 
 -(void)prevTextField {
-    if (self.currentTextField == self.addEventField)
-    {
-        self.currentTextField = self.startTimeField;
-        [self.startTimeField becomeFirstResponder];
+    NSInteger nextTag = self.currentTextField.tag - 1;
+    
+    if ((nextTag > 5) || (nextTag < 1)) {
+        [self.currentTextField resignFirstResponder];
+        
     } else {
-        return;
+        // Try to find next responder
+        UIView* nextResponder = [self.currentTextField.superview viewWithTag:nextTag];
+        if (nextResponder) {
+            // Found next responder, so set it.
+            self.currentTextField = nextResponder;
+            [nextResponder becomeFirstResponder];
+        } else {
+            // Not found, so remove keyboard.
+            [self.currentTextField resignFirstResponder];
+        }
     }
 
 }
 
 -(void)nextTextField {
     NSInteger nextTag = self.currentTextField.tag + 1;
-    // Try to find next responder
-    UIResponder* nextResponder = [self.currentTextField.superview viewWithTag:nextTag];
-    if (nextResponder) {
-        // Found next responder, so set it.
-        [nextResponder becomeFirstResponder];
-    } else {
-        // Not found, so remove keyboard.
+    
+    if ((nextTag > 5) || (nextTag < 1)) {
         [self.currentTextField resignFirstResponder];
+        
+    } else {
+        // Try to find next responder
+        UIView* nextResponder = [self.currentTextField.superview viewWithTag:nextTag];
+        if (nextResponder) {
+            // Found next responder, so set it.
+            self.currentTextField = nextResponder;
+            [nextResponder becomeFirstResponder];
+        } else {
+            // Not found, so remove keyboard.
+            [self.currentTextField resignFirstResponder];
+        }
     }
     
 }
@@ -139,7 +156,7 @@
     
     // The Event name field
     self.addEventField = [[UITextField alloc] initWithFrame:CGRectMake(20, eventsTop, width - 40, 30)];
-    self.addEventField.tag = 0;
+    self.addEventField.tag = 1;
     self.addEventField.placeholder = @"Event Name";
     [self.addEventField setBorderStyle:UITextBorderStyleRoundedRect];
     [self.addEventField setFont:[UIFont fontWithName:@"Helvetica" size:17]];
@@ -193,7 +210,7 @@
     double timeFieldsTop = timesTop + 25;
     
     self.startTimeField = [[UITextField alloc] initWithFrame:CGRectMake(20, timeFieldsTop, (width/2) - 28, 30)];
-    self.startTimeField.tag = 1;
+    self.startTimeField.tag = 2;
     self.startTimeField.placeholder = prettyStart;
     [self.startTimeField setBorderStyle:UITextBorderStyleRoundedRect];
     self.startTimeField.delegate = self;
@@ -219,7 +236,7 @@
     NSString *prettyEnd = [startDateFormat stringFromDate:endDate];
     
     self.endTimeField = [[UITextField alloc] initWithFrame:CGRectMake((width/2) + 6, timeFieldsTop, (width/2) - 28, 30)];
-    self.endTimeField.tag = 2;
+    self.endTimeField.tag = 3;
     self.endTimeField.placeholder = prettyEnd;
     [self.endTimeField setBorderStyle:UITextBorderStyleRoundedRect];
     self.endTimeField.delegate = self;
@@ -240,7 +257,7 @@
     double locationFieldsTop = locationTop + 25;
     
     self.locationField = [[UITextField alloc] initWithFrame:CGRectMake(20, locationFieldsTop, width - 40, 30)];
-    self.locationField.tag = 3;
+    self.locationField.tag = 4;
     self.locationField.placeholder = @"College, Building, Room";
     [self.locationField setBorderStyle:UITextBorderStyleRoundedRect];
     [self.locationField setFont:[UIFont fontWithName:@"Helvetica" size:17]];
@@ -342,7 +359,7 @@
     [scrollingView addSubview:descriptionPlace];
     
     self.descriptionField = [[UITextView alloc] initWithFrame:CGRectMake(20, descriptionFieldTop, width - 40, 75)];
-    self.descriptionField.tag = 4;
+    self.descriptionField.tag = 5;
     self.descriptionField.editable = TRUE;
     self.descriptionField.backgroundColor = [UIColor clearColor];
     [self.descriptionField setFont:[UIFont fontWithName:@"Helvetica" size:17]];
