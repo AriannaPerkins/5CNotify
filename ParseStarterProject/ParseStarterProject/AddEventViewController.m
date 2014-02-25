@@ -12,8 +12,10 @@
 
 @interface AddEventViewController ()
 
-@property (nonatomic)  UITextField *startTimeField;
-@property (nonatomic)  UITextField *endTimeField;
+@property (nonatomic) UITextField *currentTextField;
+@property (nonatomic) UITextField *addEventField;
+@property (nonatomic) UITextField *startTimeField;
+@property (nonatomic) UITextField *endTimeField;
 
 
 @end
@@ -63,6 +65,30 @@
     self.endTimeField.text = prettyEnd;
 }
 
+-(void)clearNumberPad{
+    [self.addEventField resignFirstResponder];
+    self.addEventField.text = @"";
+}
+
+-(void)nextTextField {
+    if (self.currentTextField == self.addEventField)
+    {
+        self.currentTextField = self.startTimeField;
+        [self.startTimeField becomeFirstResponder];
+    } else {
+        return;
+    }
+}
+
+-(void)doneWithNumberPad{
+    NSString *numberFromTheKeyboard = self.addEventField.text;
+    [self.addEventField resignFirstResponder];
+}
+
+-(void)textFieldDidBeginEditing:(UITextField *)textField{
+    self.currentTextField = textField;
+}
+
 
 - (void)viewDidLoad
 {
@@ -89,7 +115,7 @@
     UIScrollView* scrollingView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, width, 2 * height)];
     scrollingView.contentSize = CGSizeMake(width, 2.5 * height);
     
-    double top = 55.0;
+    double top = 52.0;
     
     UILabel* addEventLabel = [ [UILabel alloc] initWithFrame:CGRectMake(0, top, width, 30)];
     addEventLabel.textAlignment = UITextAlignmentCenter;
@@ -100,16 +126,33 @@
     
     double eventsTop = top + 40;
     
-    UITextField* addEventField = [[UITextField alloc] initWithFrame:CGRectMake(20, eventsTop, width - 40, 30)];
-    addEventField.placeholder = @"Event Name";
-    [addEventField setBorderStyle:UITextBorderStyleRoundedRect];
-    [addEventField setFont:[UIFont fontWithName:@"Helvetica" size:17]];
-    addEventField.delegate = self;
+    // The Event name field
+    self.addEventField = [[UITextField alloc] initWithFrame:CGRectMake(20, eventsTop, width - 40, 30)];
+    self.addEventField.tag = 0;
+    self.addEventField.placeholder = @"Event Name";
+    [self.addEventField setBorderStyle:UITextBorderStyleRoundedRect];
+    [self.addEventField setFont:[UIFont fontWithName:@"Helvetica" size:17]];
+    self.addEventField.delegate = self;
     
-    [scrollingView addSubview:addEventField];
+    // The keyboard bar
+    UIToolbar* numberToolbar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, 320, 50)];
+    numberToolbar.barStyle = UIBarStyleBlackTranslucent;
+    numberToolbar.items = [NSArray arrayWithObjects:
+                           [[UIBarButtonItem alloc]initWithTitle:@"Prev" style:UIBarButtonItemStyleBordered target:self action:@selector(clearNumberPad)],
+                           [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStyleBordered target:self action:@selector(nextTextField)],
+                           [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
+                           [[UIBarButtonItem alloc]initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(doneWithNumberPad)],
+                           nil];
+    [numberToolbar sizeToFit];
+    numberToolbar.backgroundColor = green;
+    numberToolbar.tintColor = lightGreen;
+    self.addEventField.inputAccessoryView = numberToolbar;
+    
+    [scrollingView addSubview:self.addEventField];
     
     double timesTop = eventsTop + 40;
     
+    // Start time
     UILabel* startTimeLabel = [ [UILabel alloc] initWithFrame:CGRectMake(20, timesTop, (width/2) - 30, 30)];
     startTimeLabel.text=@"Start Time";
     startTimeLabel.font=[UIFont fontWithName:@"Helvetica" size:15.0 ];
@@ -126,7 +169,6 @@
     UIDatePicker *startDatePicker = [[UIDatePicker alloc]
                                      initWithFrame:CGRectMake(0, 0, 250, 250)];
     startDatePicker.datePickerMode = UIDatePickerModeDateAndTime;
-    //dateobj.minimumDate=[NSDate date];
     startDatePicker.backgroundColor = datePickerGreen;
     startDatePicker.tintColor = [UIColor whiteColor];
     
@@ -140,6 +182,7 @@
     double timeFieldsTop = timesTop + 25;
     
     self.startTimeField = [[UITextField alloc] initWithFrame:CGRectMake(20, timeFieldsTop, (width/2) - 28, 30)];
+    self.startTimeField.tag = 1;
     self.startTimeField.placeholder = prettyStart;
     [self.startTimeField setBorderStyle:UITextBorderStyleRoundedRect];
     self.startTimeField.delegate = self;
@@ -148,13 +191,12 @@
     [self.startTimeField setInputView:startDatePicker];
     
     // add the field to the view
-    [scrollingView addSubview:_startTimeField];
+    [scrollingView addSubview:self.startTimeField];
     
     // The end date picker
     UIDatePicker *endDatePicker = [[UIDatePicker alloc]
                                    initWithFrame:CGRectMake(0, 0, 250, 250)];
     endDatePicker.datePickerMode = UIDatePickerModeDateAndTime;
-    //dateobj.minimumDate=[NSDate date];
     endDatePicker.backgroundColor = datePickerGreen;
     
     //get date from picker
@@ -165,6 +207,7 @@
     NSString *prettyEnd = [startDateFormat stringFromDate:endDate];
     
     self.endTimeField = [[UITextField alloc] initWithFrame:CGRectMake((width/2) + 6, timeFieldsTop, (width/2) - 28, 30)];
+    self.endTimeField.tag = 2;
     self.endTimeField.placeholder = prettyEnd;
     [self.endTimeField setBorderStyle:UITextBorderStyleRoundedRect];
     self.endTimeField.delegate = self;
@@ -294,9 +337,9 @@
     
     // Navigation Bar
     UINavigationBar* navBar = [[UINavigationBar alloc] init];
-    navBar.frame = CGRectMake(0, 0, width, 50);
+    navBar.frame = CGRectMake(0, 0, width, 48);
     navBar.backgroundColor = green;
-    navBar.translucent = FALSE;
+    //navBar.translucent = FALSE;
     [self.view addSubview:navBar];
     
     UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:self action:nil];
@@ -306,8 +349,10 @@
     navigItem.rightBarButtonItem = doneItem;
     navigItem.leftBarButtonItem = cancelItem;
     navBar.items = [NSArray arrayWithObjects: navigItem,nil];
+    navBar.tintColor = green;
     
     self.view.backgroundColor = green;
+    
 }
 
 - (void)didReceiveMemoryWarning
