@@ -12,7 +12,7 @@
 
 @interface AddEventViewController ()
 
-@property (nonatomic) UIView *currentTextField;
+@property (nonatomic) UIView      *currentTextField;
 @property (nonatomic) UITextField *addEventField;
 @property (nonatomic) UITextField *startTimeField;
 @property (nonatomic) UITextField *endTimeField;
@@ -109,7 +109,7 @@
     
 }
 
--(void)doneWithNumberPad{
+-(void)doneWithKeyboard{
     [self.currentTextField resignFirstResponder];
 }
 
@@ -124,21 +124,21 @@
 	// Do any additional setup after loading the view.
     
     // Colors
-    UIColor* green = [UIColor colorWithRed: 95.0/ 255.0
+    UIColor* green = [UIColor colorWithRed:(float) 95.0/ 255.0
                                      green:(float) 190.0/ 255.0
                                       blue:(float) 20.0/ 255.0 alpha:1.0];
     
-    UIColor* lightGreen = [UIColor colorWithRed: 200.0/ 255.0
+    UIColor* lightGreen = [UIColor colorWithRed:(float) 200.0/ 255.0
                                           green:(float) 240.0/ 255.0
                                            blue:(float) 160.0/ 255.0 alpha:1.0];
     
-    UIColor* datePickerGreen = [UIColor colorWithRed: 175.0/ 255.0
+    UIColor* datePickerGreen = [UIColor colorWithRed:(float) 175.0/ 255.0
                                                green:(float) 216.0/ 255.0
                                                 blue:(float) 154.0/ 255.0 alpha:1.0];
     
     // constants
     double height = self.view.frame.size.height;
-    double width = self.view.frame.size.width;
+    double width  = self.view.frame.size.width;
     
     UIScrollView* scrollingView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, width, 2 * height)];
     scrollingView.contentSize = CGSizeMake(width, 2.5 * height);
@@ -161,6 +161,7 @@
     [self.addEventField setBorderStyle:UITextBorderStyleRoundedRect];
     [self.addEventField setFont:[UIFont fontWithName:@"Helvetica" size:17]];
     self.addEventField.delegate = self;
+    [self.addEventField setDelegate:self];
     
     // The keyboard bar
     UIToolbar* inputToolbar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, 320, 50)];
@@ -169,7 +170,7 @@
                            [[UIBarButtonItem alloc]initWithTitle:@"Prev" style:UIBarButtonItemStyleBordered target:self action:@selector(prevTextField)],
                            [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStyleBordered target:self action:@selector(nextTextField)],
                            [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
-                           [[UIBarButtonItem alloc]initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(doneWithNumberPad)],
+                           [[UIBarButtonItem alloc]initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(doneWithKeyboard)],
                            nil];
     [inputToolbar sizeToFit];
     inputToolbar.backgroundColor = green;
@@ -260,6 +261,7 @@
     self.locationField.tag = 4;
     self.locationField.placeholder = @"College, Building, Room";
     [self.locationField setBorderStyle:UITextBorderStyleRoundedRect];
+    self.locationField.delegate = self;
     [self.locationField setFont:[UIFont fontWithName:@"Helvetica" size:17]];
     [self.locationField setInputAccessoryView:inputToolbar];
     [scrollingView addSubview:self.locationField];
@@ -361,6 +363,7 @@
     self.descriptionField = [[UITextView alloc] initWithFrame:CGRectMake(20, descriptionFieldTop, width - 40, 75)];
     self.descriptionField.tag = 5;
     self.descriptionField.editable = TRUE;
+    self.descriptionField.delegate = self;
     self.descriptionField.backgroundColor = [UIColor clearColor];
     [self.descriptionField setFont:[UIFont fontWithName:@"Helvetica" size:17]];
     self.descriptionField.delegate = self;
