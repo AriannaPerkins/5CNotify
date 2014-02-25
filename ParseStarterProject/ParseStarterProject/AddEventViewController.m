@@ -16,6 +16,8 @@
 @property (nonatomic) UITextField *addEventField;
 @property (nonatomic) UITextField *startTimeField;
 @property (nonatomic) UITextField *endTimeField;
+@property (nonatomic) UITextField *locationField;
+@property (nonatomic) UITextView  *descriptionField;
 
 
 @end
@@ -65,12 +67,7 @@
     self.endTimeField.text = prettyEnd;
 }
 
--(void)clearNumberPad{
-    [self.addEventField resignFirstResponder];
-    self.addEventField.text = @"";
-}
-
--(void)nextTextField {
+-(void)prevTextField {
     if (self.currentTextField == self.addEventField)
     {
         self.currentTextField = self.startTimeField;
@@ -78,11 +75,25 @@
     } else {
         return;
     }
+
+}
+
+-(void)nextTextField {
+    NSInteger nextTag = self.currentTextField.tag + 1;
+    // Try to find next responder
+    UIResponder* nextResponder = [self.currentTextField.superview viewWithTag:nextTag];
+    if (nextResponder) {
+        // Found next responder, so set it.
+        [nextResponder becomeFirstResponder];
+    } else {
+        // Not found, so remove keyboard.
+        [self.currentTextField resignFirstResponder];
+    }
+    
 }
 
 -(void)doneWithNumberPad{
-    NSString *numberFromTheKeyboard = self.addEventField.text;
-    [self.addEventField resignFirstResponder];
+    [self.currentTextField resignFirstResponder];
 }
 
 -(void)textFieldDidBeginEditing:(UITextField *)textField{
@@ -135,18 +146,18 @@
     self.addEventField.delegate = self;
     
     // The keyboard bar
-    UIToolbar* numberToolbar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, 320, 50)];
-    numberToolbar.barStyle = UIBarStyleBlackTranslucent;
-    numberToolbar.items = [NSArray arrayWithObjects:
-                           [[UIBarButtonItem alloc]initWithTitle:@"Prev" style:UIBarButtonItemStyleBordered target:self action:@selector(clearNumberPad)],
+    UIToolbar* inputToolbar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, 320, 50)];
+    inputToolbar.barStyle = UIBarStyleBlackTranslucent;
+    inputToolbar.items = [NSArray arrayWithObjects:
+                           [[UIBarButtonItem alloc]initWithTitle:@"Prev" style:UIBarButtonItemStyleBordered target:self action:@selector(prevTextField)],
                            [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStyleBordered target:self action:@selector(nextTextField)],
                            [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
                            [[UIBarButtonItem alloc]initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(doneWithNumberPad)],
                            nil];
-    [numberToolbar sizeToFit];
-    numberToolbar.backgroundColor = green;
-    numberToolbar.tintColor = lightGreen;
-    self.addEventField.inputAccessoryView = numberToolbar;
+    [inputToolbar sizeToFit];
+    inputToolbar.backgroundColor = green;
+    inputToolbar.tintColor = lightGreen;
+    [self.addEventField setInputAccessoryView:inputToolbar];
     
     [scrollingView addSubview:self.addEventField];
     
@@ -189,6 +200,7 @@
     [self.startTimeField setFont:[UIFont fontWithName:@"Helvetica" size:13]];
     [startDatePicker addTarget:self action:@selector(updateTextField:) forControlEvents:UIControlEventValueChanged];
     [self.startTimeField setInputView:startDatePicker];
+    [self.startTimeField setInputAccessoryView:inputToolbar];
     
     // add the field to the view
     [scrollingView addSubview:self.startTimeField];
@@ -214,6 +226,7 @@
     [self.endTimeField setFont:[UIFont fontWithName:@"Helvetica" size:13]];
     [endDatePicker addTarget:self action:@selector(updateTextField:) forControlEvents:UIControlEventValueChanged];
     [self.endTimeField setInputView:endDatePicker];
+    [self.endTimeField setInputAccessoryView:inputToolbar];
     [scrollingView addSubview:self.endTimeField];
     
     double locationTop = timeFieldsTop + 35;
@@ -226,11 +239,13 @@
     
     double locationFieldsTop = locationTop + 25;
     
-    UITextField* locationField = [[UITextField alloc] initWithFrame:CGRectMake(20, locationFieldsTop, width - 40, 30)];
-    locationField.placeholder = @"College, Building, Room";
-    [locationField setBorderStyle:UITextBorderStyleRoundedRect];
-    [locationField setFont:[UIFont fontWithName:@"Helvetica" size:17]];
-    [scrollingView addSubview:locationField];
+    self.locationField = [[UITextField alloc] initWithFrame:CGRectMake(20, locationFieldsTop, width - 40, 30)];
+    self.locationField.tag = 3;
+    self.locationField.placeholder = @"College, Building, Room";
+    [self.locationField setBorderStyle:UITextBorderStyleRoundedRect];
+    [self.locationField setFont:[UIFont fontWithName:@"Helvetica" size:17]];
+    [self.locationField setInputAccessoryView:inputToolbar];
+    [scrollingView addSubview:self.locationField];
     
     
     double openTop = locationFieldsTop + 35;
@@ -326,12 +341,15 @@
     [descriptionPlace setBorderStyle:UITextBorderStyleRoundedRect];
     [scrollingView addSubview:descriptionPlace];
     
-    UITextView* descriptionField = [[UITextView alloc] initWithFrame:CGRectMake(20, descriptionFieldTop, width - 40, 75)];
-    descriptionField.editable = TRUE;
-    descriptionField.backgroundColor = [UIColor clearColor];
-    [descriptionField setFont:[UIFont fontWithName:@"Helvetica" size:17]];
-    descriptionField.delegate = self;
-    [scrollingView addSubview:descriptionField];
+    self.descriptionField = [[UITextView alloc] initWithFrame:CGRectMake(20, descriptionFieldTop, width - 40, 75)];
+    self.descriptionField.tag = 4;
+    self.descriptionField.editable = TRUE;
+    self.descriptionField.backgroundColor = [UIColor clearColor];
+    [self.descriptionField setFont:[UIFont fontWithName:@"Helvetica" size:17]];
+    self.descriptionField.delegate = self;
+    [self.descriptionField setInputAccessoryView:inputToolbar];
+    
+    [scrollingView addSubview:self.descriptionField];
     
     [self.view addSubview:scrollingView];
     
