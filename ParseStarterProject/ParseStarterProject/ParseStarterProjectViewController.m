@@ -11,7 +11,6 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
-// ADDED THIS - 2/12 7:30pm -- ARIANNA PERKINS
 
 #pragma mark - UIViewController
 
@@ -19,8 +18,22 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    //ADDED XCODE SOURCE CONTROL!
 }
+
+-(void)viewDidAppear:(BOOL) animated
+{
+    [super viewDidAppear:animated];
+	// Do any additional setup after loading the view, typically from a nib OR NOT
+    
+    //If using TableView uncomment this part
+//    self.tableViewController = [[TableViewController alloc] init];
+//    [self presentModalViewController:self.tableViewController animated:YES];
+    
+    //If using AddEvent uncomment this part
+    self.eventViewController = [[AddEventViewController alloc] init];
+    [self presentModalViewController:self.eventViewController animated:YES];
+}
+
 
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
