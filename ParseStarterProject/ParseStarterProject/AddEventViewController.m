@@ -383,7 +383,12 @@
 
     [self.navigationItem setTitleView:notifyLabel];
     
-    self.view.backgroundColor = newLightGreen;
+    self.view.backgroundColor = green;
+    
+    UIBarButtonItem *createItem = [[UIBarButtonItem alloc] initWithTitle:@"Create" style:UIBarButtonItemStyleBordered target:self action:nil];
+    
+    self.navigationItem.rightBarButtonItem = createItem;
+
     
 }
 
