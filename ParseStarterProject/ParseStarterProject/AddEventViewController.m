@@ -147,16 +147,16 @@
     UIScrollView* scrollingView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, width, 2 * height)];
     scrollingView.contentSize = CGSizeMake(width, 2.5 * height);
     
-    double top = 52.0;
+    double top = 0;
     
-    UILabel* addEventLabel = [ [UILabel alloc] initWithFrame:CGRectMake(0, top, width, 30)];
-    addEventLabel.textAlignment = UITextAlignmentCenter;
-    addEventLabel.text=@"Add an Event";
-    addEventLabel.font=[UIFont fontWithName:@"Helvetica" size:25.0 ];
-    addEventLabel.textColor = [UIColor whiteColor];
-    [scrollingView addSubview: addEventLabel];
+//    UILabel* addEventLabel = [ [UILabel alloc] initWithFrame:CGRectMake(0, top, width, 30)];
+//    addEventLabel.textAlignment = UITextAlignmentCenter;
+//    addEventLabel.text=@"Add an Event";
+//    addEventLabel.font=[UIFont fontWithName:@"Helvetica" size:25.0 ];
+//    addEventLabel.textColor = [UIColor whiteColor];
+//    [scrollingView addSubview: addEventLabel];
     
-    double eventsTop = top + 40;
+    double eventsTop = top + 10;
     
     // The Event name field
     self.addEventField = [[UITextField alloc] initWithFrame:CGRectMake(20, eventsTop, width - 40, 30)];
@@ -376,6 +376,14 @@
     [scrollingView addSubview:self.descriptionField];
     
     [self.view addSubview:scrollingView];
+    
+    UILabel* notifyLabel = [ [UILabel alloc] initWithFrame:CGRectMake(0, 0, 80, 30)];
+    notifyLabel.textAlignment = UITextAlignmentCenter;
+    notifyLabel.text=@"Add an Event";
+    notifyLabel.font=[UIFont fontWithName:@"Helvetica" size:25.0 ];
+    notifyLabel.textColor = [UIColor whiteColor];
+
+    [self.navigationItem setTitleView:notifyLabel];
     
 //    // Navigation Bar
 //    UINavigationBar* navBar = [[UINavigationBar alloc] init];

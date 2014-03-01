@@ -48,8 +48,33 @@ UIFont* helvet15;
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // Display an Edit button in the navigation bar for this view controller.
     UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editTable)];
-    self.navigationItem.rightBarButtonItem = editButton;
+    
+    UIBarButtonItem *addItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(openAddEventView)];
+    
+    NSArray *arrBtns = [[NSArray alloc]initWithObjects:addItem,editButton, nil];
+    self.navigationItem.rightBarButtonItems = arrBtns;
+
+//    self.navigationItem.rightBarButtonItem = editButton;
 }
+
+- (IBAction)openAddEventView {
+    
+    NSLog(@"Push pressed");
+    
+    AddEventViewController *addView = [[AddEventViewController alloc] init];
+    
+    UILabel* notifyLabel = [ [UILabel alloc] initWithFrame:CGRectMake(0, 0, 80, 30)];
+    notifyLabel.textAlignment = UITextAlignmentCenter;
+    notifyLabel.text=@"Add an Event";
+    notifyLabel.font=[UIFont fontWithName:@"Helvetica" size:25.0 ];
+    notifyLabel.textColor = [UIColor whiteColor];
+    
+    [addView.navigationItem setTitleView:notifyLabel];
+    
+    [self.navigationController pushViewController:addView animated:YES];
+    
+}
+
 
 - (void)editTable
 {
