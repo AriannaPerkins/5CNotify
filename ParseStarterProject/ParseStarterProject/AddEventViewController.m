@@ -6,8 +6,6 @@
 //
 //
 
-// test
-
 #import "AddEventViewController.h"
 
 @interface AddEventViewController ()
@@ -385,22 +383,6 @@
 
     [self.navigationItem setTitleView:notifyLabel];
     
-//    // Navigation Bar
-//    UINavigationBar* navBar = [[UINavigationBar alloc] init];
-//    navBar.frame = CGRectMake(0, 0, width, 48);
-//    navBar.backgroundColor = green;
-//    //navBar.translucent = FALSE;
-//    [self.view addSubview:navBar];
-//    
-//    UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:self action:nil];
-//    UIBarButtonItem *doneItem = [[UIBarButtonItem alloc] initWithTitle:@"Create" style:UIBarButtonItemStyleBordered target:self action:nil];
-//    
-//    UINavigationItem *navigItem = [[UINavigationItem alloc] initWithTitle:@"5CNotify"];
-//    navigItem.rightBarButtonItem = doneItem;
-//    navigItem.leftBarButtonItem = cancelItem;
-//    navBar.items = [NSArray arrayWithObjects: navigItem,nil];
-//    navBar.tintColor = green;
-//    
     self.view.backgroundColor = newLightGreen;
     
 }

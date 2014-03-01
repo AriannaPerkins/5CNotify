@@ -17,6 +17,7 @@
 // Global variables (get initialized in initWithStyle)
 UIColor* green;
 UIFont* helvet15;
+BOOL* editing;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -28,6 +29,8 @@ UIFont* helvet15;
                                 green:(float) 190.0/ 255.0
                                  blue:(float) 20.0/ 255.0 alpha:1.0];
         helvet15 = [UIFont fontWithName:@"Helvetica" size:15.0 ];
+        
+        editing = NO;
         
         self.view.backgroundColor = green;
     }
@@ -53,6 +56,14 @@ UIFont* helvet15;
     
     NSArray *arrBtns = [[NSArray alloc]initWithObjects:addItem,editButton, nil];
     self.navigationItem.rightBarButtonItems = arrBtns;
+    
+    UILabel* notifyLabel = [ [UILabel alloc] initWithFrame:CGRectMake(0, 0, 80, 30)];
+    notifyLabel.textAlignment = UITextAlignmentCenter;
+    notifyLabel.text=@"5CNotify";
+    notifyLabel.font=[UIFont fontWithName:@"Helvetica" size:25.0 ];
+    notifyLabel.textColor = [UIColor whiteColor];
+    
+    [self.navigationItem setTitleView:notifyLabel];
 
 //    self.navigationItem.rightBarButtonItem = editButton;
 }
@@ -62,15 +73,6 @@ UIFont* helvet15;
     NSLog(@"Push pressed");
     
     AddEventViewController *addView = [[AddEventViewController alloc] init];
-    
-    UILabel* notifyLabel = [ [UILabel alloc] initWithFrame:CGRectMake(0, 0, 80, 30)];
-    notifyLabel.textAlignment = UITextAlignmentCenter;
-    notifyLabel.text=@"Add an Event";
-    notifyLabel.font=[UIFont fontWithName:@"Helvetica" size:25.0 ];
-    notifyLabel.textColor = [UIColor whiteColor];
-    
-    [addView.navigationItem setTitleView:notifyLabel];
-    
     [self.navigationController pushViewController:addView animated:YES];
     
 }
@@ -78,7 +80,9 @@ UIFont* helvet15;
 
 - (void)editTable
 {
-    [self.tableView setEditing:YES animated:YES];
+    editing = !editing;
+        [self.tableView setEditing:editing animated:editing];
+
 }
 
 
