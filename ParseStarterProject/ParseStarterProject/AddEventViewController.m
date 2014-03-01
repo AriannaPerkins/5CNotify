@@ -136,6 +136,10 @@
                                                green:(float) 216.0/ 255.0
                                                 blue:(float) 154.0/ 255.0 alpha:1.0];
     
+    UIColor* newLightGreen = [UIColor colorWithRed:(float) 180.0/ 255.0
+                                             green:(float) 230.0/ 255.0
+                                              blue:(float) 140.0/ 255.0 alpha:1.0];
+    
     // constants
     double height = self.view.frame.size.height;
     double width  = self.view.frame.size.width;
@@ -373,23 +377,23 @@
     
     [self.view addSubview:scrollingView];
     
-    // Navigation Bar
-    UINavigationBar* navBar = [[UINavigationBar alloc] init];
-    navBar.frame = CGRectMake(0, 0, width, 48);
-    navBar.backgroundColor = green;
-    //navBar.translucent = FALSE;
-    [self.view addSubview:navBar];
-    
-    UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:self action:nil];
-    UIBarButtonItem *doneItem = [[UIBarButtonItem alloc] initWithTitle:@"Create" style:UIBarButtonItemStyleBordered target:self action:nil];
-    
-    UINavigationItem *navigItem = [[UINavigationItem alloc] initWithTitle:@"5CNotify"];
-    navigItem.rightBarButtonItem = doneItem;
-    navigItem.leftBarButtonItem = cancelItem;
-    navBar.items = [NSArray arrayWithObjects: navigItem,nil];
-    navBar.tintColor = green;
-    
-    self.view.backgroundColor = green;
+//    // Navigation Bar
+//    UINavigationBar* navBar = [[UINavigationBar alloc] init];
+//    navBar.frame = CGRectMake(0, 0, width, 48);
+//    navBar.backgroundColor = green;
+//    //navBar.translucent = FALSE;
+//    [self.view addSubview:navBar];
+//    
+//    UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:self action:nil];
+//    UIBarButtonItem *doneItem = [[UIBarButtonItem alloc] initWithTitle:@"Create" style:UIBarButtonItemStyleBordered target:self action:nil];
+//    
+//    UINavigationItem *navigItem = [[UINavigationItem alloc] initWithTitle:@"5CNotify"];
+//    navigItem.rightBarButtonItem = doneItem;
+//    navigItem.leftBarButtonItem = cancelItem;
+//    navBar.items = [NSArray arrayWithObjects: navigItem,nil];
+//    navBar.tintColor = green;
+//    
+    self.view.backgroundColor = newLightGreen;
     
 }
 

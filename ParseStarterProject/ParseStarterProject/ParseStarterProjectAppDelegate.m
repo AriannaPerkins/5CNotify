@@ -4,6 +4,7 @@
 
 @implementation ParseStarterProjectAppDelegate
 
+@synthesize navController;
 
 #pragma mark - UIApplicationDelegate
 
@@ -29,8 +30,39 @@
     
     // Override point for customization after application launch.
      
-    self.window.rootViewController = self.viewController;
+//    self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
+    
+    UILabel* notifyLabel = [ [UILabel alloc] initWithFrame:CGRectMake(0, 0, 80, 30)];
+    notifyLabel.textAlignment = UITextAlignmentCenter;
+    notifyLabel.text=@"5CNotify";
+    notifyLabel.font=[UIFont fontWithName:@"Helvetica" size:25.0 ];
+    notifyLabel.textColor = [UIColor whiteColor];
+
+    [self.viewController.navigationItem setTitleView:notifyLabel];
+
+	// create the Navigation Controller instance:
+    UINavigationController * newnav = [[UINavigationController alloc] initWithRootViewController:self.viewController];
+
+    
+    [newnav.navigationBar setBackgroundImage: [[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
+
+    // Colors
+    UIColor* green = [UIColor colorWithRed:(float) 95.0/ 255.0
+                                     green:(float) 190.0/ 255.0
+                                      blue:(float) 20.0/ 255.0 alpha:1.0];
+
+    newnav.navigationBar.backgroundColor = green;
+
+    newnav.navigationBar.tintColor = [UIColor whiteColor];
+
+    
+    
+    // set the navController property:
+    [self setNavController:newnav];
+
+    [self.window addSubview:[self.navController view]];
+
 
     if (application.applicationState != UIApplicationStateBackground) {
         // Track an app open here if we launch with a push, unless

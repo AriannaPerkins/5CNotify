@@ -28,10 +28,11 @@
     //If using TableView uncomment this part
 //    self.tableViewController = [[TableViewController alloc] init];
 //    [self presentModalViewController:self.tableViewController animated:YES];
+//    [self.navigationController pushViewController:self.tableViewController animated:NO];
     
     //If using AddEvent uncomment this part
     self.eventViewController = [[AddEventViewController alloc] init];
-    [self presentModalViewController:self.eventViewController animated:YES];
+    [self.navigationController pushViewController:self.eventViewController animated:YES];
 }
 
 
