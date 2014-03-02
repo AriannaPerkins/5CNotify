@@ -16,6 +16,8 @@
 
 // Global variables (get initialized in initWithStyle)
 UIColor* green;
+UIColor* lightGreen;
+UIColor* lightlightGreen;
 UIFont* helvet15;
 BOOL* editing;
 
@@ -27,12 +29,33 @@ BOOL* editing;
         //Set global variables
         green = [UIColor colorWithRed: 95.0/ 255.0
                                 green:(float) 190.0/ 255.0
-                                 blue:(float) 20.0/ 255.0 alpha:1.0];
+                                 blue:(float) 20.0/ 255.0
+                                alpha:1.0];
+        lightGreen = [UIColor colorWithRed: 200.0/255.0
+                                     green: 240.0/255.0
+                                      blue: 160.0/255.0
+                                     alpha: 1.0];
+        lightlightGreen = [UIColor colorWithRed: 172.0/255.0
+                                          green: 225.0/255.0
+                                           blue: 115.0/255.0
+                                          alpha: 1.0];
         helvet15 = [UIFont fontWithName:@"Helvetica" size:15.0 ];
         
         editing = NO;
         
         self.view.backgroundColor = green;
+        
+        // Some dummy cells for now
+        EventCell *cell1 = [[EventCell alloc] initWithStyle:UITableViewStylePlain
+                                            reuseIdentifier:@"EventCell1"];
+        EventCell *cell2 = [[EventCell alloc] initWithStyle:UITableViewStylePlain
+                                            reuseIdentifier:@"EventCell2"];
+        EventCell *cell3 = [[EventCell alloc] initWithStyle:UITableViewStylePlain
+                                            reuseIdentifier:@"EventCell3"];
+        EventCell *cell4 = [[EventCell alloc] initWithStyle:UITableViewStylePlain
+                                            reuseIdentifier:@"EventCell4"];
+        
+        self.cellsArray = [NSMutableArray arrayWithObjects:cell1, cell2, cell3, cell4, nil];
     }
     return self;
 }
@@ -40,16 +63,8 @@ BOOL* editing;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    NSLog(@"At table view controller");
-    
-     self.cellsArray = [NSArray arrayWithObjects:@"Foam",@"Funball",@"Sample Party",@"Sample Party",@"Sample Party",@"Sample Party",nil];
 
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // Display an Edit button in the navigation bar for this view controller.
+     // Display an Edit button in the navigation bar for this view controller.
     UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editTable)];
     
     UIBarButtonItem *addItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(openAddEventView)];
@@ -64,8 +79,7 @@ BOOL* editing;
     notifyLabel.textColor = [UIColor whiteColor];
     
     [self.navigationItem setTitleView:notifyLabel];
-
-//    self.navigationItem.rightBarButtonItem = editButton;
+    
 }
 
 - (IBAction)openAddEventView {
@@ -107,29 +121,48 @@ BOOL* editing;
     return [self.cellsArray count];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (EventCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
+    static NSString *CellIdentifier = @"EventCell";
     // necessary to use forIndexPath:indexPath below
-    [self.tableView registerClass: [UITableViewCell class] forCellReuseIdentifier:CellIdentifier];
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    
-    
+    [self.tableView registerClass: [EventCell class] forCellReuseIdentifier:CellIdentifier];
+    EventCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+
     // Configure the cell.
-    cell.textLabel.text = [self.cellsArray objectAtIndex:indexPath.row];
+    cell = [self.cellsArray objectAtIndex:indexPath.row];
     
-    cell.backgroundColor = green;
-    cell.textLabel.font = helvet15;
-    cell.textLabel.textColor = [UIColor whiteColor];
+    if (indexPath.row % 2 == 0) {
+        cell.backgroundColor = green;
+    } else {
+        cell.backgroundColor = lightGreen;
+    }
+    
+//    cell.textLabel.textColor = [UIColor whiteColor];
     
     // Set what happens when you click on a cell
-    cell.textLabel.highlightedTextColor = green;
+    // Idea: pass this in to initWithStyle in didSelectRowAtIndexPath, then reload data.
+//    if (indexPath.row % 2 == 0) {
+//        cell.textColoring = lightGreen;
+//    } else {
+//        cell.textColoring = green;
+//    }
+    
     UIView *bgView = [[UIView alloc] init];
-    [bgView setBackgroundColor:[UIColor whiteColor]];
+    bgView.backgroundColor = [UIColor whiteColor];
     [cell setSelectedBackgroundView:bgView];
     
     return cell;
 
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSLog(@"Row at %d selected.",indexPath.row);
+//    static NSString *CellIdentifier = @"EventCell";
+//    EventCell* expandedCell = [[EventCell alloc] initLongWithStyle:UITableViewStylePlain reuseIdentifier:CellIdentifier];
+//    self.cellsArray[indexPath.row] = expandedCell;
+//    [self.tableView reloadData];
+    
 }
 
 /*
