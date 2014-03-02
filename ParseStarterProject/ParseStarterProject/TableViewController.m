@@ -65,11 +65,11 @@ BOOL* editing;
     [super viewDidLoad];
 
      // Display an Edit button in the navigation bar for this view controller.
-    UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editTable)];
+//    UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editTable)];
     
     UIBarButtonItem *addItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(openAddEventView)];
     
-    NSArray *arrBtns = [[NSArray alloc]initWithObjects:addItem,editButton, nil];
+    NSArray *arrBtns = [[NSArray alloc]initWithObjects:addItem, nil];
     self.navigationItem.rightBarButtonItems = arrBtns;
     
     UILabel* notifyLabel = [ [UILabel alloc] initWithFrame:CGRectMake(0, 0, 80, 30)];
@@ -92,12 +92,12 @@ BOOL* editing;
 }
 
 
-- (void)editTable
-{
-    editing = !editing;
-        [self.tableView setEditing:editing animated:editing];
-
-}
+//- (void)editTable
+//{
+//    editing = !editing;
+//        [self.tableView setEditing:editing animated:editing];
+//
+//}
 
 
 - (void)didReceiveMemoryWarning
