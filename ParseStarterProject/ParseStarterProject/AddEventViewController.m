@@ -7,6 +7,7 @@
 //
 
 #import "AddEventViewController.h"
+#import <Parse/Parse.h>
 
 @interface AddEventViewController ()
 
@@ -22,11 +23,14 @@
 
 @implementation AddEventViewController
 
+PFObject *newEvent;
+
 - (id)init
 {
     self = [super init];
     if (self) {
-        // Custom initialization
+        // Create NewEvent class for Parse
+        newEvent = [PFObject objectWithClassName:@"NewEvent"];
     }
     return self;
 }
@@ -63,6 +67,18 @@
     [endDateFormat setDateFormat:@"MM/dd/yy, hh:mm aa"];
     NSString *prettyEnd = [endDateFormat stringFromDate:endDate];
     self.endTimeField.text = prettyEnd;
+    
+    // For the location field
+    
+    
+    // For the description field
+    
+    
+    // Set event time information for parse
+    newEvent[@"displayedStartTime"] = self.startTimeField.text;
+    newEvent[@"displayedEndTime"] = self.endTimeField.text;
+    newEvent[@"sortingStartDate"] = startDate;
+    [newEvent saveInBackground];
 }
 
 -(void)prevTextField {
@@ -256,6 +272,19 @@
     [self.locationField setFont:[UIFont fontWithName:@"Helvetica" size:17]];
     [self.locationField setInputAccessoryView:inputToolbar];
     [scrollingView addSubview:self.locationField];
+    
+    
+    
+    
+    // Set location information for parse
+    NSString *locationString = [NSString stringWithFormat:@"%@", self.locationField.text];
+    NSLog(@"locationString is: %@", locationString);
+    newEvent[@"eventLocation"] = locationString;
+    [newEvent saveInBackground];
+    
+    
+    
+    
     
     
     double openTop = locationFieldsTop + 35;
