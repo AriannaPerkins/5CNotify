@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "AddEventViewController.h"
+#import "EventCell.h"
 
 @interface TableViewController : UITableViewController
 
-@property(nonatomic, retain) NSArray* cellsArray;
+@property(nonatomic, retain) NSMutableArray* cellsArray;
 
 @end
