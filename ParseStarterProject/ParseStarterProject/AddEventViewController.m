@@ -134,10 +134,6 @@
                                                green:(float) 216.0/ 255.0
                                                 blue:(float) 154.0/ 255.0 alpha:1.0];
     
-    UIColor* newLightGreen = [UIColor colorWithRed:(float) 180.0/ 255.0
-                                             green:(float) 230.0/ 255.0
-                                              blue:(float) 140.0/ 255.0 alpha:1.0];
-    
     // constants
     double height = self.view.frame.size.height;
     double width  = self.view.frame.size.width;
@@ -146,13 +142,6 @@
     scrollingView.contentSize = CGSizeMake(width, 2.5 * height);
     
     double top = 0;
-    
-//    UILabel* addEventLabel = [ [UILabel alloc] initWithFrame:CGRectMake(0, top, width, 30)];
-//    addEventLabel.textAlignment = UITextAlignmentCenter;
-//    addEventLabel.text=@"Add an Event";
-//    addEventLabel.font=[UIFont fontWithName:@"Helvetica" size:25.0 ];
-//    addEventLabel.textColor = [UIColor whiteColor];
-//    [scrollingView addSubview: addEventLabel];
     
     double eventsTop = top + 10;
     
@@ -282,7 +271,7 @@
     // first column of switches
     UISwitch* cmcSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(50, switchesTop, (width/2) - 30, 10)];
     cmcSwitch.transform = CGAffineTransformMakeScale(0.65, 0.65);
-    cmcSwitch.onTintColor = green;
+    cmcSwitch.onTintColor = lightGreen;
     [scrollingView addSubview:cmcSwitch];
     
     UILabel* cmcLabel = [ [UILabel alloc] initWithFrame:CGRectMake(110, switchesTop, (width/2) - 30, 30)];
@@ -293,7 +282,7 @@
     
     UISwitch* hmcSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(50, switchesTop + 25, (width/2) - 30, 10)];
     hmcSwitch.transform = CGAffineTransformMakeScale(0.65, 0.65);
-    hmcSwitch.onTintColor = green;
+    hmcSwitch.onTintColor = lightGreen;
     [scrollingView addSubview:hmcSwitch];
     
     UILabel* hmcLabel = [ [UILabel alloc] initWithFrame:CGRectMake(110, switchesTop + 25, (width/2) - 30, 30)];
@@ -304,7 +293,7 @@
     
     UISwitch* poSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(50, switchesTop + 50, (width/2) - 30, 10)];
     poSwitch.transform = CGAffineTransformMakeScale(0.65, 0.65);
-    poSwitch.onTintColor = green;
+    poSwitch.onTintColor = lightGreen;
     [scrollingView addSubview:poSwitch];
     
     UILabel* poLabel = [ [UILabel alloc] initWithFrame:CGRectMake(110, switchesTop + 50, (width/2) - 30, 30)];
@@ -317,7 +306,7 @@
     
     UISwitch* pzSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(width - 150, switchesTop, (width/2) - 30, 10)];
     pzSwitch.transform = CGAffineTransformMakeScale(0.65, 0.65);
-    pzSwitch.onTintColor = green;
+    pzSwitch.onTintColor = lightGreen;
     [scrollingView addSubview:pzSwitch];
     
     UILabel* pzLabel = [ [UILabel alloc] initWithFrame:CGRectMake(width - 90, switchesTop, (width/2) - 30, 30)];
@@ -328,7 +317,7 @@
     
     UISwitch* scSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(width - 150, switchesTop + 25, (width/2) - 30, 10)];
     scSwitch.transform = CGAffineTransformMakeScale(0.65, 0.65);
-    scSwitch.onTintColor = green;
+    scSwitch.onTintColor = lightGreen;
     [scrollingView addSubview: scSwitch];
     
     UILabel* scLabel = [ [UILabel alloc] initWithFrame:CGRectMake(width - 90, switchesTop + 25, (width/2) - 30, 30)];
@@ -339,7 +328,7 @@
     
     UISwitch* otherSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(width - 150, switchesTop + 50, (width/2) - 30, 10)];
     otherSwitch.transform = CGAffineTransformMakeScale(0.65, 0.65);
-    otherSwitch.onTintColor = green;
+    otherSwitch.onTintColor = lightGreen;
     [scrollingView addSubview:otherSwitch];
     
     UILabel* otherLabel = [ [UILabel alloc] initWithFrame:CGRectMake(width - 90, switchesTop + 50, (width/2) - 30, 30)];
