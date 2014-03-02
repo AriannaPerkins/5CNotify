@@ -368,7 +368,7 @@
     notifyLabel.textAlignment = UITextAlignmentCenter;
     notifyLabel.text=@"Add an Event";
     notifyLabel.font=[UIFont fontWithName:@"Helvetica" size:25.0 ];
-    notifyLabel.textColor = [UIColor whiteColor];
+    notifyLabel.textColor = green;
 
     [self.navigationItem setTitleView:notifyLabel];
     

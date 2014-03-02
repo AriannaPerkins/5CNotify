@@ -63,9 +63,6 @@ BOOL* editing;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-     // Display an Edit button in the navigation bar for this view controller.
-//    UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editTable)];
     
     UIBarButtonItem *addItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(openAddEventView)];
     
@@ -76,9 +73,10 @@ BOOL* editing;
     notifyLabel.textAlignment = UITextAlignmentCenter;
     notifyLabel.text=@"5CNotify";
     notifyLabel.font=[UIFont fontWithName:@"Helvetica" size:25.0 ];
-    notifyLabel.textColor = [UIColor whiteColor];
+    notifyLabel.textColor = green;
     
     [self.navigationItem setTitleView:notifyLabel];
+    [self.navigationItem setHidesBackButton:YES animated:YES];
     
 }
 
@@ -90,14 +88,6 @@ BOOL* editing;
     [self.navigationController pushViewController:addView animated:YES];
     
 }
-
-
-//- (void)editTable
-//{
-//    editing = !editing;
-//        [self.tableView setEditing:editing animated:editing];
-//
-//}
 
 
 - (void)didReceiveMemoryWarning
