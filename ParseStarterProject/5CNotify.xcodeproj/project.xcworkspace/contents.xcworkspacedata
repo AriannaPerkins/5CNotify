@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:Notify.xcodeproj">
+      location = "self:5CNotify.xcodeproj">
    </FileRef>
 </Workspace>
