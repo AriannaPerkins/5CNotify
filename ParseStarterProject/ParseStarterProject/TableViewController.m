@@ -21,6 +21,12 @@ UIColor* lightlightGreen;
 UIFont* helvet15;
 BOOL* editing;
 
+NSMutableArray* partyNames;
+NSMutableArray* partyStartTime;
+NSMutableArray* partyEndTime;
+NSMutableArray* partyLocation;
+NSMutableArray* partyDescription;
+
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -44,18 +50,36 @@ BOOL* editing;
         editing = NO;
         
         self.view.backgroundColor = green;
+        self.cellsArray = [[NSMutableArray alloc] init];
+        partyNames = [[NSMutableArray alloc] init];
+        partyLocation = [[NSMutableArray alloc] init];
+        partyStartTime = [[NSMutableArray alloc] init];
+        partyEndTime = [[NSMutableArray alloc] init];
+        partyDescription = [[NSMutableArray alloc] init];
         
-        // Some dummy cells for now
-        EventCell *cell1 = [[EventCell alloc] initWithStyle:UITableViewStylePlain
-                                            reuseIdentifier:@"EventCell1"];
-        EventCell *cell2 = [[EventCell alloc] initWithStyle:UITableViewStylePlain
-                                            reuseIdentifier:@"EventCell2"];
-        EventCell *cell3 = [[EventCell alloc] initWithStyle:UITableViewStylePlain
-                                            reuseIdentifier:@"EventCell3"];
-        EventCell *cell4 = [[EventCell alloc] initWithStyle:UITableViewStylePlain
-                                            reuseIdentifier:@"EventCell4"];
-        
-        self.cellsArray = [NSMutableArray arrayWithObjects:cell1, cell2, cell3, cell4, nil];
+        // Some dummy cells for now;
+        for (int i=0; i<5; ++i) {
+            NSString* cellName = [[NSString alloc] initWithFormat:@"EventCell%i", i];
+            EventCell *tempCell = [[EventCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                                reuseIdentifier:cellName];
+            tempCell.tag = i;
+            [self.cellsArray addObject:tempCell];
+            
+            NSString* name = [NSString stringWithFormat:@"Sample Party %i", i];
+            [partyNames addObject:name];
+            
+            NSString* loc = [NSString stringWithFormat:@"Sample Dorm %i", i];
+            [partyLocation addObject:loc];
+            
+            NSDate* start = [NSDate date];
+            [partyStartTime addObject:start];
+            
+            NSDate* end = [NSDate dateWithTimeIntervalSinceNow:60];
+            [partyEndTime addObject:end];
+            
+            NSString* descrip = [NSString stringWithFormat:@"THIS PARTY WILL BE CRAY!!!!"];
+            [partyDescription addObject:descrip];
+        }
     }
     return self;
 }
@@ -117,9 +141,8 @@ BOOL* editing;
     // necessary to use forIndexPath:indexPath below
     [self.tableView registerClass: [EventCell class] forCellReuseIdentifier:CellIdentifier];
     EventCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-
-    // Configure the cell.
-    cell = [self.cellsArray objectAtIndex:indexPath.row];
+    
+    NSInteger tag = cell.tag;
     
     if (indexPath.row % 2 == 0) {
         cell.backgroundColor = green;
@@ -127,15 +150,26 @@ BOOL* editing;
         cell.backgroundColor = lightGreen;
     }
     
-//    cell.textLabel.textColor = [UIColor whiteColor];
+    cell.eventNameLabel.text = partyNames[tag];
+    cell.locationLabel.text = partyLocation[tag];
+    
+    NSDateFormatter* dateFormat = [[NSDateFormatter alloc] init];
+    
+    NSDate* startTime = partyStartTime[tag];
+    NSDate* endTime = partyEndTime[tag];
+    NSString *startDateString = [dateFormat stringFromDate: startTime];
+    NSString *endDateString   = [dateFormat stringFromDate: endTime];
+    
+             cell.timeLabel.text = [NSString stringWithFormat:@"%@, %@", startDateString, endDateString];
+    cell.descriptionLabel.text = partyDescription[tag];
     
     // Set what happens when you click on a cell
     // Idea: pass this in to initWithStyle in didSelectRowAtIndexPath, then reload data.
-//    if (indexPath.row % 2 == 0) {
-//        cell.textColoring = lightGreen;
-//    } else {
-//        cell.textColoring = green;
-//    }
+    if (indexPath.row % 2 == 0) {
+        cell.textColoring = lightGreen;
+    } else {
+        cell.textColoring = green;
+    }
     
     UIView *bgView = [[UIView alloc] init];
     bgView.backgroundColor = [UIColor whiteColor];

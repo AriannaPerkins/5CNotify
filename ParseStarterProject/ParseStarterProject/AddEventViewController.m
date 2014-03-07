@@ -430,6 +430,7 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 216;
     self.descriptionField.tag = 5;
     self.descriptionField.delegate = self;
     self.descriptionField.backgroundColor = [UIColor whiteColor];
+    self.descriptionField.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
     [self.descriptionField setFont:[UIFont fontWithName:@"Helvetica" size:17]];
     [self.descriptionField setBorderStyle:UITextBorderStyleRoundedRect];
     [self.descriptionField setInputAccessoryView:inputToolbar];

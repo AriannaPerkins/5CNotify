@@ -10,14 +10,13 @@
 
 @interface EventCell : UITableViewCell
 
-@property(nonatomic, retain)  NSString *eventName;
-@property(nonatomic, retain)  NSString *location;
-@property(nonatomic, retain)  NSDate *startTime;
-@property(nonatomic, retain)  NSDate *endTime;
+@property(nonatomic, retain)  UILabel *eventNameLabel;
+@property(nonatomic, retain)  UILabel *locationLabel;
+@property(nonatomic, retain)  UILabel *timeLabel;
 @property(nonatomic, retain)  UIImage *checkMark;
 @property(nonatomic, retain)  UIColor *textColoring;
 @property(nonatomic, retain)  UIColor *cellBackgroundColor;
-@property(nonatomic, retain)  NSString *description;
+@property(nonatomic, retain)  UILabel *descriptionLabel;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier;
 

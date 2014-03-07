@@ -37,43 +37,33 @@ UIColor* lightGreen;
         [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
         
         // make label for the event
-        UILabel* eventNameLabel = [ [UILabel alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height*0.3)];
-        eventNameLabel.text = [NSString stringWithFormat:@"Sample Party"];
-        eventNameLabel.textColor = self.textColoring;
-        eventNameLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:18];
-        eventNameLabel.textAlignment = NSTextAlignmentLeft;
-        self.eventName = @"Sample Party";
+        self.eventNameLabel = [ [UILabel alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height*0.3)];
+        //self.eventNameLabel.text = [NSString stringWithFormat:@"Sample Party"];
+        self.eventNameLabel.textColor = self.textColoring;
+        self.eventNameLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:18];
+        self.eventNameLabel.textAlignment = NSTextAlignmentLeft;
+        
         
         // make label for the location of the event
-        UILabel* locationLabel = [ [UILabel alloc] initWithFrame:CGRectMake(0, frame.size.height*0.35, frame.size.width, frame.size.height*0.25)];
+        self.locationLabel = [ [UILabel alloc] initWithFrame:CGRectMake(0, frame.size.height*0.35, frame.size.width, frame.size.height*0.25)];
         NSString *location = @"Harvey Mudd College, North Dorm";
-        locationLabel.text = [NSString stringWithFormat:@"%@",location];
-        locationLabel.textColor = self.textColoring;
-        locationLabel.font = [UIFont fontWithName:@"Helvetica" size:14];
-        locationLabel.textAlignment = NSTextAlignmentLeft;
-        self.location = location;
+        //_locationLabel.text = [NSString stringWithFormat:@"%@",location];
+        _locationLabel.textColor = self.textColoring;
+        _locationLabel.font = [UIFont fontWithName:@"Helvetica" size:14];
+        _locationLabel.textAlignment = NSTextAlignmentLeft;
         
         // make label for the time of the event
-        UILabel* timeLabel = [ [UILabel alloc] initWithFrame:CGRectMake(0, frame.size.height*0.7, frame.size.width, frame.size.height*0.25)];
+        _timeLabel = [ [UILabel alloc] initWithFrame:CGRectMake(0, frame.size.height*0.7, frame.size.width, frame.size.height*0.25)];
         
-        
-        NSDate *startTime = [NSDate date];
-        NSDate *endTime = [startTime dateByAddingTimeInterval:60*60*3];
-        
-        NSString *startDateString = [dateFormatter stringFromDate: startTime];
-        NSString *endDateString   = [dateFormatter stringFromDate: endTime];
-        
-        timeLabel.text = [NSString stringWithFormat:@"%@ to %@",startDateString,endDateString];
-        timeLabel.textColor = self.textColoring;
-        timeLabel.font = [UIFont fontWithName:@"Helvetica" size:14];
-        timeLabel.textAlignment = NSTextAlignmentLeft;
-        self.startTime = startTime;
-        self.endTime = endTime;
+        //timeLabel.text = [NSString stringWithFormat:@"%@ to %@",startDateString,endDateString];
+        _timeLabel.textColor = self.textColoring;
+        _timeLabel.font = [UIFont fontWithName:@"Helvetica" size:14];
+        _timeLabel.textAlignment = NSTextAlignmentLeft;
         
         // add these labels to the view
-        [self addSubview:eventNameLabel];
-        [self addSubview:locationLabel];
-        [self addSubview:timeLabel];    }
+        [self addSubview:_eventNameLabel];
+        [self addSubview:_locationLabel];
+        [self addSubview:_timeLabel];    }
     return self;
 }
 
@@ -98,35 +88,32 @@ UIColor* lightGreen;
         
         
         // make label for the event
-        UILabel* eventNameLabel = [ [UILabel alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height*0.3)];
-        eventNameLabel.text = [NSString stringWithFormat:@"Sample LONG Party"];
-        eventNameLabel.textColor = self.textColoring;
-        eventNameLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:18];
-        eventNameLabel.textAlignment = NSTextAlignmentLeft;
-        self.eventName = @"Sample Party";
+        _eventNameLabel = [ [UILabel alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height*0.3)];
+        //_eventNameLabel.text = [NSString stringWithFormat:@"Sample LONG Party"];
+        _eventNameLabel.textColor = self.textColoring;
+        _eventNameLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:18];
+        _eventNameLabel.textAlignment = NSTextAlignmentLeft;
         
         // make label for the location of the event
-        UILabel* locationLabel = [ [UILabel alloc] initWithFrame:CGRectMake(0, frame.size.height*0.35, frame.size.width, frame.size.height*0.25)];
+       _locationLabel = [ [UILabel alloc] initWithFrame:CGRectMake(0, frame.size.height*0.35, frame.size.width, frame.size.height*0.25)];
         NSString *location = @"Harvey Mudd College, North Dorm";
-        locationLabel.text = [NSString stringWithFormat:@"%@",location];
-        locationLabel.textColor = self.textColoring;
-        locationLabel.font = [UIFont fontWithName:@"Helvetica" size:14];
-        locationLabel.textAlignment = NSTextAlignmentLeft;
-        self.location = location;
+        //_locationLabel.text = [NSString stringWithFormat:@"%@",location];
+        _locationLabel.textColor = self.textColoring;
+        _locationLabel.font = [UIFont fontWithName:@"Helvetica" size:14];
+        _locationLabel.textAlignment = NSTextAlignmentLeft;
         
         // make label for the time of the event
-        UILabel* timeLabel = [ [UILabel alloc] initWithFrame:CGRectMake(0, frame.size.height*0.7, frame.size.width, frame.size.height*0.25)];
+        _timeLabel = [ [UILabel alloc] initWithFrame:CGRectMake(0, frame.size.height*0.7, frame.size.width, frame.size.height*0.25)];
         NSDate *time = [NSDate date];
-        timeLabel.text = [NSString stringWithFormat:@"%@",time];
-        timeLabel.textColor = self.textColoring;
-        timeLabel.font = [UIFont fontWithName:@"Helvetica" size:14];
-        timeLabel.textAlignment = NSTextAlignmentLeft;
-        self.startTime = time;
+        //timeLabel.text = [NSString stringWithFormat:@"%@",time];
+        _timeLabel.textColor = self.textColoring;
+        _timeLabel.font = [UIFont fontWithName:@"Helvetica" size:14];
+        _timeLabel.textAlignment = NSTextAlignmentLeft;
         
         // add these labels to the view
-        [self addSubview:eventNameLabel];
-        [self addSubview:locationLabel];
-        [self addSubview:timeLabel];    }
+        [self addSubview:_eventNameLabel];
+        [self addSubview:_locationLabel];
+        [self addSubview:_timeLabel];    }
     return self;
 }
 
