@@ -16,14 +16,18 @@
 @property (nonatomic) UITextField *startTimeField;
 @property (nonatomic) UITextField *endTimeField;
 @property (nonatomic) UITextField *locationField;
-@property (nonatomic) UITextView  *descriptionField;
-
+@property (nonatomic) UITextField  *descriptionField;
 
 @end
 
 @implementation AddEventViewController
 
 PFObject *newEvent;
+CGFloat animatedDistance;
+static const CGFloat KEYBOARD_ANIMATION_DURATION = 0.3;
+static const CGFloat MINIMUM_SCROLL_FRACTION = 0.2;
+static const CGFloat MAXIMUM_SCROLL_FRACTION = 0.8;
+static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 216;
 
 - (id)init
 {
@@ -44,6 +48,57 @@ PFObject *newEvent;
 {
     NSUInteger newLength = [textField.text length] + [string length] - range.length;
     return (newLength > 30) ? NO : YES;
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    self.currentTextField = textField;
+    
+    //Get bounds of text field
+    CGRect textFieldRect = [self.view.window convertRect:textField.bounds fromView:textField];
+    CGRect viewRect = [self.view.window convertRect:self.view.bounds fromView:self.view];
+    
+    //Figure out portion of view to move upwards
+    CGFloat midline = textFieldRect.origin.y + 0.5 * textFieldRect.size.height;
+    CGFloat numerator = midline - viewRect.origin.y - MINIMUM_SCROLL_FRACTION * viewRect.size.height;
+    CGFloat denominator = (MAXIMUM_SCROLL_FRACTION - MINIMUM_SCROLL_FRACTION) * viewRect.size.height;
+    CGFloat heightFraction = numerator / denominator;
+    
+    if (heightFraction < 0.0)
+    {
+        heightFraction = 0.0;
+    }
+    else if (heightFraction > 1.0)
+    {
+        heightFraction = 1.0;
+    }
+    animatedDistance = floor(PORTRAIT_KEYBOARD_HEIGHT * heightFraction);
+    
+    //Perform animation
+    CGRect viewFrame = self.view.frame;
+    viewFrame.origin.y -= animatedDistance;
+    
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationBeginsFromCurrentState:YES];
+    [UIView setAnimationDuration:KEYBOARD_ANIMATION_DURATION];
+    
+    [self.view setFrame:viewFrame];
+    
+    [UIView commitAnimations];
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    CGRect viewFrame = self.view.frame;
+    viewFrame.origin.y += animatedDistance;
+    
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationBeginsFromCurrentState:YES];
+    [UIView setAnimationDuration:KEYBOARD_ANIMATION_DURATION];
+    
+    [self.view setFrame:viewFrame];
+    
+    [UIView commitAnimations];
 }
 
 -(void)updateTextField:(id)sender
@@ -127,10 +182,6 @@ PFObject *newEvent;
     [self.currentTextField resignFirstResponder];
 }
 
--(void)textFieldDidBeginEditing:(UITextField *)textField{
-    self.currentTextField = textField;
-}
-
 
 - (void)viewDidLoad
 {
@@ -168,7 +219,6 @@ PFObject *newEvent;
     [self.addEventField setBorderStyle:UITextBorderStyleRoundedRect];
     [self.addEventField setFont:[UIFont fontWithName:@"Helvetica" size:17]];
     self.addEventField.delegate = self;
-    [self.addEventField setDelegate:self];
     
     // The keyboard bar
     UIToolbar* inputToolbar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, 320, 50)];
@@ -376,17 +426,12 @@ PFObject *newEvent;
     
     double descriptionFieldTop = descriptionTop + 25;
     
-    UITextField* descriptionPlace = [[UITextField alloc] initWithFrame:CGRectMake(20, descriptionFieldTop, width - 40, 75)];
-    [descriptionPlace setBorderStyle:UITextBorderStyleRoundedRect];
-    [scrollingView addSubview:descriptionPlace];
-    
-    self.descriptionField = [[UITextView alloc] initWithFrame:CGRectMake(20, descriptionFieldTop, width - 40, 75)];
+    self.descriptionField = [[UITextField alloc] initWithFrame:CGRectMake(20, descriptionFieldTop, width - 40, 75)];
     self.descriptionField.tag = 5;
-    self.descriptionField.editable = TRUE;
     self.descriptionField.delegate = self;
-    self.descriptionField.backgroundColor = [UIColor clearColor];
+    self.descriptionField.backgroundColor = [UIColor whiteColor];
     [self.descriptionField setFont:[UIFont fontWithName:@"Helvetica" size:17]];
-    self.descriptionField.delegate = self;
+    [self.descriptionField setBorderStyle:UITextBorderStyleRoundedRect];
     [self.descriptionField setInputAccessoryView:inputToolbar];
     
     [scrollingView addSubview:self.descriptionField];
@@ -409,6 +454,7 @@ PFObject *newEvent;
 
     
 }
+
 
 - (void)didReceiveMemoryWarning
 {
