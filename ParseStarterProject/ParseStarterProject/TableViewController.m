@@ -50,7 +50,6 @@ NSMutableArray* partyDescription;
         editing = NO;
         
         self.view.backgroundColor = green;
-        self.cellsArray = [[NSMutableArray alloc] init];
         partyNames = [[NSMutableArray alloc] init];
         partyLocation = [[NSMutableArray alloc] init];
         partyStartTime = [[NSMutableArray alloc] init];
@@ -59,11 +58,6 @@ NSMutableArray* partyDescription;
         
         // Some dummy cells for now;
         for (int i=0; i<5; ++i) {
-            NSString* cellName = [[NSString alloc] initWithFormat:@"EventCell%i", i];
-            EventCell *tempCell = [[EventCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                                reuseIdentifier:cellName];
-            tempCell.tag = i;
-            [self.cellsArray addObject:tempCell];
             
             NSString* name = [NSString stringWithFormat:@"Sample Party %i", i];
             [partyNames addObject:name];
@@ -77,7 +71,7 @@ NSMutableArray* partyDescription;
             NSDate* end = [NSDate dateWithTimeIntervalSinceNow:60];
             [partyEndTime addObject:end];
             
-            NSString* descrip = [NSString stringWithFormat:@"THIS PARTY WILL BE CRAY!!!!"];
+            NSString* descrip = [NSString stringWithFormat:@"THIS PARTY WILL BE CRAY!!!! It will be so good I can't believe how incredible it will be, gah I'm so happy!!!!"];
             [partyDescription addObject:descrip];
         }
     }
@@ -132,17 +126,16 @@ NSMutableArray* partyDescription;
 {
 
     // Return the number of rows in the section.
-    return [self.cellsArray count];
+    return partyNames.count;
 }
 
 - (EventCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"EventCell";
-    // necessary to use forIndexPath:indexPath below
     [self.tableView registerClass: [EventCell class] forCellReuseIdentifier:CellIdentifier];
     EventCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
-    NSInteger tag = cell.tag;
+    NSInteger tag = indexPath.row;
     
     if (indexPath.row % 2 == 0) {
         cell.backgroundColor = green;
@@ -154,13 +147,14 @@ NSMutableArray* partyDescription;
     cell.locationLabel.text = partyLocation[tag];
     
     NSDateFormatter* dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"MMM dd, yyyy HH:mm"];
     
     NSDate* startTime = partyStartTime[tag];
     NSDate* endTime = partyEndTime[tag];
     NSString *startDateString = [dateFormat stringFromDate: startTime];
     NSString *endDateString   = [dateFormat stringFromDate: endTime];
     
-             cell.timeLabel.text = [NSString stringWithFormat:@"%@, %@", startDateString, endDateString];
+    cell.timeLabel.text = [NSString stringWithFormat:@"%@, %@", startDateString, endDateString];
     cell.descriptionLabel.text = partyDescription[tag];
     
     // Set what happens when you click on a cell
@@ -177,6 +171,20 @@ NSMutableArray* partyDescription;
     
     return cell;
 
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    NSString *text = [partyDescription objectAtIndex:[indexPath row]];
+    //NSString* text = @"";
+    
+    CGSize size = [text sizeWithFont:[UIFont systemFontOfSize:14]];
+    
+    CGFloat height = 80 + (size.height * 2);
+    
+    NSLog(@"height %f", height);
+    
+    return height;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

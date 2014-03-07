@@ -12,6 +12,5 @@
 
 @interface TableViewController : UITableViewController
 
-@property(nonatomic, retain) NSMutableArray* cellsArray;
 
 @end

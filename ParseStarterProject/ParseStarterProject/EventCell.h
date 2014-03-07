@@ -16,11 +16,11 @@
 @property(nonatomic, retain)  UIImage *checkMark;
 @property(nonatomic, retain)  UIColor *textColoring;
 @property(nonatomic, retain)  UIColor *cellBackgroundColor;
-@property(nonatomic, retain)  UILabel *descriptionLabel;
+@property(nonatomic, retain)  UITextView *descriptionLabel;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier;
 
-- (id)initLongWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier;
+//- (id)initLongWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier;
 
 
 
