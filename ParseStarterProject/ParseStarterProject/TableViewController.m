@@ -59,6 +59,7 @@ NSInteger selected;
         partyEndTime = [[NSMutableArray alloc] init];
         partyDescription = [[NSMutableArray alloc] init];
         
+        
         // Some dummy cells for now;
         for (int i=0; i<5; ++i) {
             
@@ -138,6 +139,8 @@ NSInteger selected;
     [self.tableView registerClass: [EventCell class] forCellReuseIdentifier:CellIdentifier];
     EventCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
+    cell.tag = indexPath.row;
+    
     NSInteger tag = indexPath.row;
     
     if (indexPath.row % 2 == 0) {
@@ -159,14 +162,6 @@ NSInteger selected;
     
     cell.timeLabel.text = [NSString stringWithFormat:@"%@, %@", startDateString, endDateString];
     cell.descriptionLabel.text = partyDescription[tag];
-    
-    // Set what happens when you click on a cell
-    // Idea: pass this in to initWithStyle in didSelectRowAtIndexPath, then reload data.
-    if (indexPath.row % 2 == 0) {
-        cell.textColoring = lightGreen;
-    } else {
-        cell.textColoring = green;
-    }
     
     UIView *bgView = [[UIView alloc] init];
     bgView.backgroundColor = [UIColor whiteColor];
@@ -192,12 +187,16 @@ NSInteger selected;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    EventCell* cell = (EventCell*)[self.tableView viewWithTag:indexPath.row];
     //Check if already selected
-    if (selected == indexPath.row)
+    if (selected == indexPath.row){
         selected=NSIntegerMin;
-    else
+        [cell returnToNormalView];
+    }else{
         selected = indexPath.row;
-    
+        CGFloat height = [self tableView:[self tableView] heightForRowAtIndexPath:indexPath];
+        [cell longView: height];
+    }
     [self.tableView reloadData];
     
 }

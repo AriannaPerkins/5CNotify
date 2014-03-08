@@ -20,9 +20,7 @@
 @property(nonatomic, retain)  UIView *cellView;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier;
-
-//- (id)initLongWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier;
-
-
+-(void) returnToNormalView;
+-(void) longView:(CGFloat) height;
 
 @end
