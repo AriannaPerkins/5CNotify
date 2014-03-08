@@ -123,16 +123,14 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 216;
     NSString *prettyEnd = [endDateFormat stringFromDate:endDate];
     self.endTimeField.text = prettyEnd;
     
-    // For the location field
     
-    
-    // For the description field
-    
-    
-    // Set event time information for parse
+    // Push event information to Parse
+    newEvent[@"eventName"] = self.addEventField.text;
     newEvent[@"displayedStartTime"] = self.startTimeField.text;
     newEvent[@"displayedEndTime"] = self.endTimeField.text;
     newEvent[@"sortingStartDate"] = startDate;
+    newEvent[@"locationText"] = self.locationField.text;
+    newEvent[@"description"] = self.descriptionField.text;
     [newEvent saveInBackground];
 }
 
@@ -234,6 +232,9 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 216;
     inputToolbar.tintColor = lightGreen;
     [self.addEventField setInputAccessoryView:inputToolbar];
     
+    // Sends event name info to method that pushes data to Parse
+    [self.addEventField addTarget:self action:@selector(updateTextField:) forControlEvents: UIControlEventEditingDidEnd];
+    
     [scrollingView addSubview:self.addEventField];
     
     double timesTop = eventsTop + 40;
@@ -321,21 +322,11 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 216;
     self.locationField.delegate = self;
     [self.locationField setFont:[UIFont fontWithName:@"Helvetica" size:17]];
     [self.locationField setInputAccessoryView:inputToolbar];
+    
+    // Sends event location info to method that pushes data to Parse
+    [self.locationField addTarget:self action:@selector(updateTextField:) forControlEvents: UIControlEventEditingDidEnd];
+    
     [scrollingView addSubview:self.locationField];
-    
-    
-    
-    
-    // Set location information for parse
-    NSString *locationString = [NSString stringWithFormat:@"%@", self.locationField.text];
-    NSLog(@"locationString is: %@", locationString);
-    newEvent[@"eventLocation"] = locationString;
-    [newEvent saveInBackground];
-    
-    
-    
-    
-    
     
     double openTop = locationFieldsTop + 35;
     
@@ -434,6 +425,9 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 216;
     [self.descriptionField setFont:[UIFont fontWithName:@"Helvetica" size:17]];
     [self.descriptionField setBorderStyle:UITextBorderStyleRoundedRect];
     [self.descriptionField setInputAccessoryView:inputToolbar];
+    
+    // Sends event description to method that pushes data to Parse
+    [self.descriptionField addTarget:self action:@selector(updateTextField:) forControlEvents: UIControlEventEditingDidEnd];
     
     [scrollingView addSubview:self.descriptionField];
     
