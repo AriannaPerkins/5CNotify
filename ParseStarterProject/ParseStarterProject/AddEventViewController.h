@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TableViewController.h"
 
 @interface AddEventViewController : UIViewController <UITextFieldDelegate>
 

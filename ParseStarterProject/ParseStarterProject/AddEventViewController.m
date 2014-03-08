@@ -28,6 +28,7 @@ static const CGFloat KEYBOARD_ANIMATION_DURATION = 0.3;
 static const CGFloat MINIMUM_SCROLL_FRACTION = 0.2;
 static const CGFloat MAXIMUM_SCROLL_FRACTION = 0.8;
 static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 216;
+BOOL createButtonPressed;
 
 - (id)init
 {
@@ -122,7 +123,6 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 216;
     [endDateFormat setDateFormat:@"MM/dd/yy, hh:mm aa"];
     NSString *prettyEnd = [endDateFormat stringFromDate:endDate];
     self.endTimeField.text = prettyEnd;
-    
     
     // Push event information to Parse
     newEvent[@"eventName"] = self.addEventField.text;
@@ -443,13 +443,37 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 216;
     
     self.view.backgroundColor = green;
     
-    UIBarButtonItem *createItem = [[UIBarButtonItem alloc] initWithTitle:@"Create" style:UIBarButtonItemStyleBordered target:self action:nil];
+    UIBarButtonItem *createItem = [[UIBarButtonItem alloc] initWithTitle:@"Create" style:UIBarButtonItemStyleBordered target:self action:@selector(createButtonPressed)];
     
     self.navigationItem.rightBarButtonItem = createItem;
 
     
 }
 
+
+- (IBAction)createButtonPressed {
+
+    NSLog(@"Create button pressed");
+    createButtonPressed =  YES;
+
+//    // Sends event name info to method that pushes data to Parse
+//    [self.addEventField addTarget:self action:@selector(updateTextField:) forControlEvents: UIControlEventEditingDidEnd];
+//    // Sends start time event info to method that pushes data to Parse
+//    UIDatePicker *startDatePicker = (UIDatePicker*)self.startTimeField.inputView;
+//    [startDatePicker addTarget:self action:@selector(updateTextField:) forControlEvents:UIControlEventEditingDidEnd];
+//    // Sends end time event info to method that pushes data to Parse
+//    UIDatePicker *endDatePicker = (UIDatePicker*)self.endTimeField.inputView;
+//    [endDatePicker addTarget:self action:@selector(updateTextField:) forControlEvents:UIControlEventEditingDidEnd];
+//    // Sends event location info to method that pushes data to Parse
+//    [self.locationField addTarget:self action:@selector(updateTextField:) forControlEvents: UIControlEventEditingDidEnd];
+//    // Sends event description to method that pushes data to Parse
+//    [self.descriptionField addTarget:self action:@selector(updateTextField:) forControlEvents: UIControlEventEditingDidEnd];
+
+    // Go back to main table
+    TableViewController *tableView = [[TableViewController alloc] init];
+    [self.navigationController pushViewController:tableView animated:YES];
+
+}
 
 - (void)didReceiveMemoryWarning
 {
