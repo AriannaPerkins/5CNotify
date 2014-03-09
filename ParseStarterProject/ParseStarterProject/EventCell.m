@@ -26,8 +26,6 @@
         CGFloat width = _cellView.frame.size.width;
         CGFloat height = _cellView.frame.size.height;
         
-        NSLog(@"width %f, height, %f", width, height);
-        
         // make label for the event
         self.eventNameLabel = [ [UILabel alloc] initWithFrame:CGRectMake(5, height*0.05, width, height*0.4)];
         //self.eventNameLabel.text = [NSString stringWithFormat:@"Sample Party"];
@@ -69,8 +67,6 @@
     CGFloat width = _cellView.frame.size.width;
     CGFloat height = _cellView.frame.size.height;
     
-    NSLog(@"width %f, height, %f", width, height);
-    
     // make label for the event
     self.eventNameLabel.frame = CGRectMake(5, height*0.05, width, height*0.4);
     
@@ -90,8 +86,6 @@
     
     CGFloat width = _cellView.frame.size.width;
     CGFloat theHeight = _cellView.frame.size.height;
-    
-    NSLog(@"width %f, height, %f", width, theHeight);
     
     // make label for the event
     self.eventNameLabel.frame =CGRectMake(5, theHeight*0.05, width, theHeight*0.2);

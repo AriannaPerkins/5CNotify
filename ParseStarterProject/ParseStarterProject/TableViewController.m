@@ -61,7 +61,7 @@ NSInteger selected;
         
         
         // Some dummy cells for now;
-        for (int i=0; i<5; ++i) {
+        for (int i=0; i<9; ++i) {
             
             NSString* name = [NSString stringWithFormat:@"Sample Party %i", i];
             [partyNames addObject:name];
@@ -69,10 +69,11 @@ NSInteger selected;
             NSString* loc = [NSString stringWithFormat:@"Sample Dorm %i", i];
             [partyLocation addObject:loc];
             
-            NSDate* start = [NSDate date];
+            int rand = arc4random()%500;
+            NSDate* start = [NSDate dateWithTimeIntervalSinceNow:rand*60];
             [partyStartTime addObject:start];
             
-            NSDate* end = [NSDate dateWithTimeIntervalSinceNow:60];
+            NSDate* end = [NSDate dateWithTimeIntervalSinceNow:rand*60+120];
             [partyEndTime addObject:end];
             
             NSString* descrip = [NSString stringWithFormat:@"THIS PARTY WILL BE CRAY!!!! I am so excited for just how good it will be"];
@@ -139,7 +140,8 @@ NSInteger selected;
     [self.tableView registerClass: [EventCell class] forCellReuseIdentifier:CellIdentifier];
     EventCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
-    cell.tag = indexPath.row;
+    //Tag cannot be 0 because they are default 0, set it to the row plus 1
+    cell.tag = indexPath.row + 1;
     
     NSInteger tag = indexPath.row;
     
@@ -187,7 +189,7 @@ NSInteger selected;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    EventCell* cell = (EventCell*)[self.tableView viewWithTag:indexPath.row];
+    EventCell* cell = (EventCell*)[self.tableView viewWithTag:indexPath.row+1];
     //Check if already selected
     if (selected == indexPath.row){
         selected=NSIntegerMin;
