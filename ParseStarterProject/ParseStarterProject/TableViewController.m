@@ -73,8 +73,6 @@ NSMutableArray* partyDescription;
                 NSLog(@"Successfully retrieved %d events.", objects.count);
                 // Do something with the found objects
                 
-                NSLog(@"events has %d objects", objects.count);
-                
                 for (int i=0; i<objects.count; ++i) {
                     
                     PFObject *event = objects[i];

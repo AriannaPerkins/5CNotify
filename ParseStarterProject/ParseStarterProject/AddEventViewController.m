@@ -28,7 +28,14 @@ static const CGFloat KEYBOARD_ANIMATION_DURATION = 0.3;
 static const CGFloat MINIMUM_SCROLL_FRACTION = 0.2;
 static const CGFloat MAXIMUM_SCROLL_FRACTION = 0.8;
 static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 216;
-BOOL createButtonPressed;
+//BOOL createButtonPressed;
+//NSString *eventName;
+//NSString *eventLocation;
+//NSString *startTime;
+//NSString *endTime;
+//NSString *description;
+//NSDate *sortingDate;
+
 
 - (id)init
 {
@@ -104,34 +111,34 @@ BOOL createButtonPressed;
 
 -(void)updateTextField:(id)sender
 {
-    // For the start time field
-    UIDatePicker *startPicker = (UIDatePicker*)self.startTimeField.inputView;
-    //get date from picker
-    NSDate *startDate = startPicker.date;
-    
-    NSDateFormatter *startDateFormat = [[NSDateFormatter alloc] init];
-    [startDateFormat setDateFormat:@"MM/dd/yy, hh:mm aa"];
-    NSString *prettyStart = [startDateFormat stringFromDate:startDate];
-    self.startTimeField.text = prettyStart;
-    
-    // For the end time field
-    UIDatePicker *endPicker = (UIDatePicker*)self.endTimeField.inputView;
-    //get date from picker
-    NSDate *endDate = endPicker.date;
-    
-    NSDateFormatter *endDateFormat = [[NSDateFormatter alloc] init];
-    [endDateFormat setDateFormat:@"MM/dd/yy, hh:mm aa"];
-    NSString *prettyEnd = [endDateFormat stringFromDate:endDate];
-    self.endTimeField.text = prettyEnd;
-    
-    // Push event information to Parse
-    newEvent[@"eventName"] = self.addEventField.text;
-    newEvent[@"displayedStartTime"] = self.startTimeField.text;
-    newEvent[@"displayedEndTime"] = self.endTimeField.text;
-    newEvent[@"sortingStartDate"] = startDate;
-    newEvent[@"locationText"] = self.locationField.text;
-    newEvent[@"description"] = self.descriptionField.text;
-    [newEvent saveInBackground];
+//    // For the start time field
+//    UIDatePicker *startPicker = (UIDatePicker*)self.startTimeField.inputView;
+//    //get date from picker
+//    NSDate *startDate = startPicker.date;
+//    
+//    NSDateFormatter *startDateFormat = [[NSDateFormatter alloc] init];
+//    [startDateFormat setDateFormat:@"MM/dd/yy, hh:mm aa"];
+//    NSString *prettyStart = [startDateFormat stringFromDate:startDate];
+//    self.startTimeField.text = prettyStart;
+//    
+//    // For the end time field
+//    UIDatePicker *endPicker = (UIDatePicker*)self.endTimeField.inputView;
+//    //get date from picker
+//    NSDate *endDate = endPicker.date;
+//    
+//    NSDateFormatter *endDateFormat = [[NSDateFormatter alloc] init];
+//    [endDateFormat setDateFormat:@"MM/dd/yy, hh:mm aa"];
+//    NSString *prettyEnd = [endDateFormat stringFromDate:endDate];
+//    self.endTimeField.text = prettyEnd;
+//    
+//    // Push event information to Parse
+//    newEvent[@"eventName"] = self.addEventField.text;
+//    newEvent[@"displayedStartTime"] = self.startTimeField.text;
+//    newEvent[@"displayedEndTime"] = self.endTimeField.text;
+//    newEvent[@"sortingStartDate"] = startDate;
+//    newEvent[@"locationText"] = self.locationField.text;
+//    newEvent[@"description"] = self.descriptionField.text;
+//    [newEvent saveInBackground];
 }
 
 -(void)prevTextField {
@@ -210,6 +217,14 @@ BOOL createButtonPressed;
     
     double eventsTop = top + 10;
     
+//    // Initialize private data members
+//    eventName = [[NSString alloc] init];
+//    eventLocation = [[NSString alloc] init];
+//    startTime = [[NSString alloc] init];
+//    endTime = [[NSString alloc] init];
+//    description = [[NSString alloc] init];
+//    sortingDate = [[NSDate alloc] init];
+    
     // The Event name field
     self.addEventField = [[UITextField alloc] initWithFrame:CGRectMake(20, eventsTop, width - 40, 30)];
     self.addEventField.tag = 1;
@@ -233,7 +248,8 @@ BOOL createButtonPressed;
     [self.addEventField setInputAccessoryView:inputToolbar];
     
     // Sends event name info to method that pushes data to Parse
-    [self.addEventField addTarget:self action:@selector(updateTextField:) forControlEvents: UIControlEventEditingDidEnd];
+//    eventName = self.addEventField.text;
+//    [self.addEventField addTarget:self action:@selector(updateTextField:) forControlEvents: UIControlEventEditingDidEnd];
     
     [scrollingView addSubview:self.addEventField];
     
@@ -274,7 +290,13 @@ BOOL createButtonPressed;
     [self.startTimeField setBorderStyle:UITextBorderStyleRoundedRect];
     self.startTimeField.delegate = self;
     [self.startTimeField setFont:[UIFont fontWithName:@"Helvetica" size:13]];
-    [startDatePicker addTarget:self action:@selector(updateTextField:) forControlEvents:UIControlEventValueChanged];
+    
+//    startTime = prettyStart;
+//    sortingDate = startDate;
+    
+    // Sends start time info to method that pushes data to Parse
+//    [startDatePicker addTarget:self action:@selector(updateTextField:) forControlEvents:UIControlEventEditingDidEnd];
+    
     [self.startTimeField setInputView:startDatePicker];
     [self.startTimeField setInputAccessoryView:inputToolbar];
     
@@ -300,7 +322,12 @@ BOOL createButtonPressed;
     [self.endTimeField setBorderStyle:UITextBorderStyleRoundedRect];
     self.endTimeField.delegate = self;
     [self.endTimeField setFont:[UIFont fontWithName:@"Helvetica" size:13]];
-    [endDatePicker addTarget:self action:@selector(updateTextField:) forControlEvents:UIControlEventValueChanged];
+    
+//    endTime = prettyEnd;
+    
+    // Sends end time info to method that pushes data to Parse
+//    [endDatePicker addTarget:self action:@selector(updateTextField:) forControlEvents:UIControlEventEditingDidEnd];
+    
     [self.endTimeField setInputView:endDatePicker];
     [self.endTimeField setInputAccessoryView:inputToolbar];
     [scrollingView addSubview:self.endTimeField];
@@ -323,8 +350,10 @@ BOOL createButtonPressed;
     [self.locationField setFont:[UIFont fontWithName:@"Helvetica" size:17]];
     [self.locationField setInputAccessoryView:inputToolbar];
     
+//    eventLocation = self.locationField.text;
+    
     // Sends event location info to method that pushes data to Parse
-    [self.locationField addTarget:self action:@selector(updateTextField:) forControlEvents: UIControlEventEditingDidEnd];
+//    [self.locationField addTarget:self action:@selector(updateTextField:) forControlEvents: UIControlEventEditingDidEnd];
     
     [scrollingView addSubview:self.locationField];
     
@@ -426,8 +455,10 @@ BOOL createButtonPressed;
     [self.descriptionField setBorderStyle:UITextBorderStyleRoundedRect];
     [self.descriptionField setInputAccessoryView:inputToolbar];
     
+//    description = self.descriptionField.text;
+    
     // Sends event description to method that pushes data to Parse
-    [self.descriptionField addTarget:self action:@selector(updateTextField:) forControlEvents: UIControlEventEditingDidEnd];
+//    [self.descriptionField addTarget:self action:@selector(updateTextField:) forControlEvents: UIControlEventEditingDidEnd];
     
     [scrollingView addSubview:self.descriptionField];
     
@@ -454,20 +485,37 @@ BOOL createButtonPressed;
 - (IBAction)createButtonPressed {
 
     NSLog(@"Create button pressed");
-    createButtonPressed =  YES;
-
-//    // Sends event name info to method that pushes data to Parse
-//    [self.addEventField addTarget:self action:@selector(updateTextField:) forControlEvents: UIControlEventEditingDidEnd];
-//    // Sends start time event info to method that pushes data to Parse
-//    UIDatePicker *startDatePicker = (UIDatePicker*)self.startTimeField.inputView;
-//    [startDatePicker addTarget:self action:@selector(updateTextField:) forControlEvents:UIControlEventEditingDidEnd];
-//    // Sends end time event info to method that pushes data to Parse
-//    UIDatePicker *endDatePicker = (UIDatePicker*)self.endTimeField.inputView;
-//    [endDatePicker addTarget:self action:@selector(updateTextField:) forControlEvents:UIControlEventEditingDidEnd];
-//    // Sends event location info to method that pushes data to Parse
-//    [self.locationField addTarget:self action:@selector(updateTextField:) forControlEvents: UIControlEventEditingDidEnd];
-//    // Sends event description to method that pushes data to Parse
-//    [self.descriptionField addTarget:self action:@selector(updateTextField:) forControlEvents: UIControlEventEditingDidEnd];
+//    createButtonPressed =  YES;
+    
+    // For the start time field
+    UIDatePicker *startPicker = (UIDatePicker*)self.startTimeField.inputView;
+    //get date from picker
+    NSDate *startDate = startPicker.date;
+    
+    NSDateFormatter *startDateFormat = [[NSDateFormatter alloc] init];
+    [startDateFormat setDateFormat:@"MM/dd/yy, hh:mm aa"];
+    NSString *prettyStart = [startDateFormat stringFromDate:startDate];
+    self.startTimeField.text = prettyStart;
+    
+    // For the end time field
+    UIDatePicker *endPicker = (UIDatePicker*)self.endTimeField.inputView;
+    //get date from picker
+    NSDate *endDate = endPicker.date;
+    
+    NSDateFormatter *endDateFormat = [[NSDateFormatter alloc] init];
+    [endDateFormat setDateFormat:@"MM/dd/yy, hh:mm aa"];
+    NSString *prettyEnd = [endDateFormat stringFromDate:endDate];
+    self.endTimeField.text = prettyEnd;
+    
+    
+    // Push event information to Parse
+    newEvent[@"eventName"] = self.addEventField.text;
+    newEvent[@"displayedStartTime"] = self.startTimeField.text;
+    newEvent[@"displayedEndTime"] = self.endTimeField.text;
+    newEvent[@"sortingStartDate"] = startDate;
+    newEvent[@"locationText"] = self.locationField.text;
+    newEvent[@"description"] = self.descriptionField.text;
+    [newEvent saveInBackground];
 
     // Go back to main table
     TableViewController *tableView = [[TableViewController alloc] init];
