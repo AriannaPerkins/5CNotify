@@ -7,6 +7,7 @@
 //
 
 #import "TableViewController.h"
+#import <Parse/Parse.h>
 
 @interface TableViewController ()
 
@@ -24,6 +25,7 @@ BOOL* editing;
 NSMutableArray* partyNames;
 NSMutableArray* partyStartTime;
 NSMutableArray* partyEndTime;
+NSMutableArray* partySortingDate;
 NSMutableArray* partyLocation;
 NSMutableArray* partyDescription;
 
@@ -54,26 +56,51 @@ NSMutableArray* partyDescription;
         partyLocation = [[NSMutableArray alloc] init];
         partyStartTime = [[NSMutableArray alloc] init];
         partyEndTime = [[NSMutableArray alloc] init];
+        partySortingDate = [[NSMutableArray alloc] init];
         partyDescription = [[NSMutableArray alloc] init];
         
-        // Some dummy cells for now;
-        for (int i=0; i<5; ++i) {
-            
-            NSString* name = [NSString stringWithFormat:@"Sample Party %i", i];
-            [partyNames addObject:name];
-            
-            NSString* loc = [NSString stringWithFormat:@"Sample Dorm %i", i];
-            [partyLocation addObject:loc];
-            
-            NSDate* start = [NSDate date];
-            [partyStartTime addObject:start];
-            
-            NSDate* end = [NSDate dateWithTimeIntervalSinceNow:60];
-            [partyEndTime addObject:end];
-            
-            NSString* descrip = [NSString stringWithFormat:@"THIS PARTY WILL BE CRAY!!!! It will be so good I can't believe how incredible it will be, gah I'm so happy!!!!"];
-            [partyDescription addObject:descrip];
-        }
+        // Get event info from Parse for events later than today
+        //NSUInteger limit = 10;
+        NSDate *currentDate = [[NSDate alloc] init];
+        
+        PFQuery *query = [PFQuery queryWithClassName:@"AddedEvents"];
+        [query whereKey:@"sortingStartDate" greaterThan:currentDate];
+        //[query setLimit: limit];
+        
+        [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+            if (!error) {
+                // The find succeeded.
+                NSLog(@"Successfully retrieved %d events.", objects.count);
+                // Do something with the found objects
+                
+                NSLog(@"events has %d objects", objects.count);
+                
+                for (int i=0; i<objects.count; ++i) {
+                    
+                    PFObject *event = objects[i];
+                    
+                    NSString *name = event[@"eventName"];
+                    NSString *location = event[@"locationText"];
+                    NSString *startTime = event[@"displayedStartTime"];
+                    NSString *endTime = event[@"displayedEndTime"];
+                    NSDate *dateForSorting = event[@"sortingStartDate"];
+                    NSString *description = event[@"description"];
+                    
+                    [partyNames addObject:name];
+                    [partyLocation addObject:location];
+                    [partyStartTime addObject:startTime];
+                    [partyEndTime addObject:endTime];
+                    [partySortingDate addObject:dateForSorting];
+                    [partyDescription addObject:description];
+                }
+                
+                [self.tableView reloadData];
+
+            } else {
+                // Log details of the failure
+                NSLog(@"Error: %@ %@", error, [error userInfo]);
+            }
+        }];
     }
     return self;
 }
@@ -149,12 +176,10 @@ NSMutableArray* partyDescription;
     NSDateFormatter* dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:@"MMM dd, yyyy HH:mm"];
     
-    NSDate* startTime = partyStartTime[tag];
-    NSDate* endTime = partyEndTime[tag];
-    NSString *startDateString = [dateFormat stringFromDate: startTime];
-    NSString *endDateString   = [dateFormat stringFromDate: endTime];
+    NSString* startTime = partyStartTime[tag];
+    NSString* endTime = partyEndTime[tag];
     
-    cell.timeLabel.text = [NSString stringWithFormat:@"%@, %@", startDateString, endDateString];
+    cell.timeLabel.text = [NSString stringWithFormat:@"%@, %@", startTime, endTime];
     cell.descriptionLabel.text = partyDescription[tag];
     
     // Set what happens when you click on a cell

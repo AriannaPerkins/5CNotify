@@ -34,8 +34,8 @@ BOOL createButtonPressed;
 {
     self = [super init];
     if (self) {
-        // Create NewEvent class for Parse
-        newEvent = [PFObject objectWithClassName:@"NewEvent"];
+        // Create AddedEvents class for Parse
+        newEvent = [PFObject objectWithClassName:@"AddedEvents"];
     }
     return self;
 }
