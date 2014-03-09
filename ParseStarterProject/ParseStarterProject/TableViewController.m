@@ -7,6 +7,7 @@
 //
 
 #import "TableViewController.h"
+#import "Event.h"
 
 @interface TableViewController ()
 
@@ -21,13 +22,8 @@ UIColor* lightlightGreen;
 UIFont* helvet15;
 BOOL* editing;
 
-NSMutableArray* partyNames;
-NSMutableArray* partyStartTime;
-NSMutableArray* partyEndTime;
-NSMutableArray* partyLocation;
-NSMutableArray* partyDescription;
-
 NSInteger selected;
+NSArray* parties;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -53,32 +49,32 @@ NSInteger selected;
         selected = NSIntegerMin;
         
         self.view.backgroundColor = green;
-        partyNames = [[NSMutableArray alloc] init];
-        partyLocation = [[NSMutableArray alloc] init];
-        partyStartTime = [[NSMutableArray alloc] init];
-        partyEndTime = [[NSMutableArray alloc] init];
-        partyDescription = [[NSMutableArray alloc] init];
         
-        
+        NSMutableArray* addParties = [[NSMutableArray alloc] init];
         // Some dummy cells for now;
         for (int i=0; i<9; ++i) {
             
             NSString* name = [NSString stringWithFormat:@"Sample Party %i", i];
-            [partyNames addObject:name];
             
             NSString* loc = [NSString stringWithFormat:@"Sample Dorm %i", i];
-            [partyLocation addObject:loc];
             
-            int rand = arc4random()%500;
+            int rand = arc4random()%5000;
             NSDate* start = [NSDate dateWithTimeIntervalSinceNow:rand*60];
-            [partyStartTime addObject:start];
             
             NSDate* end = [NSDate dateWithTimeIntervalSinceNow:rand*60+120];
-            [partyEndTime addObject:end];
             
             NSString* descrip = [NSString stringWithFormat:@"THIS PARTY WILL BE CRAY!!!! I am so excited for just how good it will be"];
-            [partyDescription addObject:descrip];
+            
+            Event* tempParty = [[Event alloc] initWith:name andLoc:loc andStart:start andEnd:end andDesciption:descrip];
+            
+            [addParties addObject:tempParty];
         }
+        
+        parties = [addParties sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+            NSDate *first = [(Event*)a start];
+            NSDate *second = [(Event*)b start];
+            return [first compare:second];
+        }];
     }
     return self;
 }
@@ -131,7 +127,7 @@ NSInteger selected;
 {
 
     // Return the number of rows in the section.
-    return partyNames.count;
+    return parties.count;
 }
 
 - (EventCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -143,7 +139,7 @@ NSInteger selected;
     //Tag cannot be 0 because they are default 0, set it to the row plus 1
     cell.tag = indexPath.row + 1;
     
-    NSInteger tag = indexPath.row;
+    Event* party = [parties objectAtIndex:indexPath.row];
     
     if (indexPath.row % 2 == 0) {
         cell.cellView.backgroundColor = green;
@@ -151,19 +147,19 @@ NSInteger selected;
         cell.cellView.backgroundColor = lightGreen;
     }
     
-    cell.eventNameLabel.text = partyNames[tag];
-    cell.locationLabel.text = partyLocation[tag];
+    cell.eventNameLabel.text = party.name;
+    cell.locationLabel.text = party.location;
     
     NSDateFormatter* dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:@"MMM dd, yyyy HH:mm"];
     
-    NSDate* startTime = partyStartTime[tag];
-    NSDate* endTime = partyEndTime[tag];
+    NSDate* startTime = party.start;
+    NSDate* endTime = party.end;
     NSString *startDateString = [dateFormat stringFromDate: startTime];
     NSString *endDateString   = [dateFormat stringFromDate: endTime];
     
     cell.timeLabel.text = [NSString stringWithFormat:@"%@, %@", startDateString, endDateString];
-    cell.descriptionLabel.text = partyDescription[tag];
+    cell.descriptionLabel.text = party.description;
     
     UIView *bgView = [[UIView alloc] init];
     bgView.backgroundColor = [UIColor whiteColor];
@@ -177,7 +173,8 @@ NSInteger selected;
     
     if (indexPath.row == selected) {
         //Sets height based on how large description is
-        NSString *text = [partyDescription objectAtIndex:[indexPath row]];
+        Event* selectedEvent = [parties objectAtIndex:indexPath.row];
+        NSString *text = selectedEvent.description;
         CGSize constraint = CGSizeMake(260, 100);
         CGSize size = [text sizeWithFont:[UIFont systemFontOfSize:14] constrainedToSize:constraint];
         CGFloat height = 60 + (size.height*1.2);
