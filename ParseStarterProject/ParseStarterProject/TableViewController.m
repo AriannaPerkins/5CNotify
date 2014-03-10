@@ -8,6 +8,7 @@
 
 #import "TableViewController.h"
 #import <Parse/Parse.h>
+#import "Event.h"
 
 @interface TableViewController ()
 
@@ -22,15 +23,8 @@ UIColor* lightlightGreen;
 UIFont* helvet15;
 BOOL* editing;
 
-NSMutableArray* partyNames;
-NSMutableArray* partyStartTime;
-NSMutableArray* partyEndTime;
-NSMutableArray* partySortingDate;
-NSMutableArray* partyLocation;
-NSMutableArray* partyDescription;
-
 NSInteger selected;
-NSArray* parties;
+NSMutableArray* parties;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -56,12 +50,7 @@ NSArray* parties;
         selected = NSIntegerMin;
         
         self.view.backgroundColor = green;
-        partyNames = [[NSMutableArray alloc] init];
-        partyLocation = [[NSMutableArray alloc] init];
-        partyStartTime = [[NSMutableArray alloc] init];
-        partyEndTime = [[NSMutableArray alloc] init];
-        partySortingDate = [[NSMutableArray alloc] init];
-        partyDescription = [[NSMutableArray alloc] init];
+        parties = [[NSMutableArray alloc] init];
         
         // Get event info from Parse for events later than today
         //NSUInteger limit = 10;
@@ -83,17 +72,12 @@ NSArray* parties;
                     
                     NSString *name = event[@"eventName"];
                     NSString *location = event[@"locationText"];
-                    NSString *startTime = event[@"displayedStartTime"];
-                    NSString *endTime = event[@"displayedEndTime"];
-                    NSDate *dateForSorting = event[@"sortingStartDate"];
+                    NSDate *startTime = event[@"startTime"];
+                    NSDate *endTime = event[@"endTime"];
                     NSString *description = event[@"description"];
                     
-                    [partyNames addObject:name];
-                    [partyLocation addObject:location];
-                    [partyStartTime addObject:startTime];
-                    [partyEndTime addObject:endTime];
-                    [partySortingDate addObject:dateForSorting];
-                    [partyDescription addObject:description];
+                    Event* temp = [[Event alloc] initWith:name andLoc:location andStart:startTime andEnd:endTime andDesciption:description];
+                    [parties addObject:temp];
                 }
                 
                 [self.tableView reloadData];
@@ -181,11 +165,13 @@ NSArray* parties;
     NSDateFormatter* dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:@"MMM dd, yyyy HH:mm"];
     
-    NSString* startTime = partyStartTime[tag];
-    NSString* endTime = partyEndTime[tag];
+    NSDate* startTime = party.start;
+    NSDate* endTime = party.end;
+    NSString *startDateString = [dateFormat stringFromDate: startTime];
+    NSString *endDateString   = [dateFormat stringFromDate: endTime];
     
-    cell.timeLabel.text = [NSString stringWithFormat:@"%@, %@", startTime, endTime];
-    cell.descriptionLabel.text = partyDescription[tag];
+    cell.timeLabel.text = [NSString stringWithFormat:@"%@, %@", startDateString, endDateString];
+    cell.descriptionLabel.text = party.description;
     
     UIView *bgView = [[UIView alloc] init];
     bgView.backgroundColor = [UIColor whiteColor];

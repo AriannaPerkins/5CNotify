@@ -492,27 +492,16 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 216;
     //get date from picker
     NSDate *startDate = startPicker.date;
     
-    NSDateFormatter *startDateFormat = [[NSDateFormatter alloc] init];
-    [startDateFormat setDateFormat:@"MM/dd/yy, hh:mm aa"];
-    NSString *prettyStart = [startDateFormat stringFromDate:startDate];
-    self.startTimeField.text = prettyStart;
-    
     // For the end time field
     UIDatePicker *endPicker = (UIDatePicker*)self.endTimeField.inputView;
     //get date from picker
     NSDate *endDate = endPicker.date;
     
-    NSDateFormatter *endDateFormat = [[NSDateFormatter alloc] init];
-    [endDateFormat setDateFormat:@"MM/dd/yy, hh:mm aa"];
-    NSString *prettyEnd = [endDateFormat stringFromDate:endDate];
-    self.endTimeField.text = prettyEnd;
-    
     
     // Push event information to Parse
     newEvent[@"eventName"] = self.addEventField.text;
-    newEvent[@"displayedStartTime"] = self.startTimeField.text;
-    newEvent[@"displayedEndTime"] = self.endTimeField.text;
-    newEvent[@"sortingStartDate"] = startDate;
+    newEvent[@"startTime"] = startDate;
+    newEvent[@"endTime"] = endDate;
     newEvent[@"locationText"] = self.locationField.text;
     newEvent[@"description"] = self.descriptionField.text;
     [newEvent saveInBackground];
