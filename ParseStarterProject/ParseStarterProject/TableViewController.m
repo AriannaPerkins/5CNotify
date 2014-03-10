@@ -29,6 +29,8 @@ NSMutableArray* partySortingDate;
 NSMutableArray* partyLocation;
 NSMutableArray* partyDescription;
 
+NSInteger selected;
+
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -50,6 +52,7 @@ NSMutableArray* partyDescription;
         helvet15 = [UIFont fontWithName:@"Helvetica" size:15.0 ];
         
         editing = NO;
+        selected = NSIntegerMin;
         
         self.view.backgroundColor = green;
         partyNames = [[NSMutableArray alloc] init];
@@ -160,12 +163,15 @@ NSMutableArray* partyDescription;
     [self.tableView registerClass: [EventCell class] forCellReuseIdentifier:CellIdentifier];
     EventCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
+    //Tag cannot be 0 because they are default 0, set it to the row plus 1
+    cell.tag = indexPath.row + 1;
+    
     NSInteger tag = indexPath.row;
     
     if (indexPath.row % 2 == 0) {
-        cell.backgroundColor = green;
+        cell.cellView.backgroundColor = green;
     } else {
-        cell.backgroundColor = lightGreen;
+        cell.cellView.backgroundColor = lightGreen;
     }
     
     cell.eventNameLabel.text = partyNames[tag];
@@ -180,14 +186,6 @@ NSMutableArray* partyDescription;
     cell.timeLabel.text = [NSString stringWithFormat:@"%@, %@", startTime, endTime];
     cell.descriptionLabel.text = partyDescription[tag];
     
-    // Set what happens when you click on a cell
-    // Idea: pass this in to initWithStyle in didSelectRowAtIndexPath, then reload data.
-    if (indexPath.row % 2 == 0) {
-        cell.textColoring = lightGreen;
-    } else {
-        cell.textColoring = green;
-    }
-    
     UIView *bgView = [[UIView alloc] init];
     bgView.backgroundColor = [UIColor whiteColor];
     [cell setSelectedBackgroundView:bgView];
@@ -198,25 +196,31 @@ NSMutableArray* partyDescription;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    NSString *text = [partyDescription objectAtIndex:[indexPath row]];
-    //NSString* text = @"";
-    
-    CGSize size = [text sizeWithFont:[UIFont systemFontOfSize:14]];
-    
-    CGFloat height = 80 + (size.height * 2);
-    
-    NSLog(@"height %f", height);
-    
-    return height;
+    if (indexPath.row == selected) {
+        //Sets height based on how large description is
+        NSString *text = [partyDescription objectAtIndex:[indexPath row]];
+        CGSize constraint = CGSizeMake(260, 100);
+        CGSize size = [text sizeWithFont:[UIFont systemFontOfSize:14] constrainedToSize:constraint];
+        CGFloat height = 60 + (size.height*1.2);
+        
+        return height;
+    }
+    return 60;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"Row at %d selected.",indexPath.row);
-//    static NSString *CellIdentifier = @"EventCell";
-//    EventCell* expandedCell = [[EventCell alloc] initLongWithStyle:UITableViewStylePlain reuseIdentifier:CellIdentifier];
-//    self.cellsArray[indexPath.row] = expandedCell;
-//    [self.tableView reloadData];
+    EventCell* cell = (EventCell*)[self.tableView viewWithTag:indexPath.row+1];
+    //Check if already selected
+    if (selected == indexPath.row){
+        selected=NSIntegerMin;
+        [cell returnToNormalView];
+    }else{
+        selected = indexPath.row;
+        CGFloat height = [self tableView:[self tableView] heightForRowAtIndexPath:indexPath];
+        [cell longView: height];
+    }
+    [self.tableView reloadData];
     
 }
 
