@@ -42,7 +42,7 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 216;
     self = [super init];
     if (self) {
         // Create AddedEvents class for Parse
-        newEvent = [PFObject objectWithClassName:@"AddedEvents"];
+        newEvent = [PFObject objectWithClassName:@"UserEvents"];
     }
     return self;
 }

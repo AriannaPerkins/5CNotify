@@ -56,8 +56,8 @@ NSMutableArray* parties;
         //NSUInteger limit = 10;
         NSDate *currentDate = [[NSDate alloc] init];
         
-        PFQuery *query = [PFQuery queryWithClassName:@"AddedEvents"];
-        [query whereKey:@"sortingStartDate" greaterThan:currentDate];
+        PFQuery *query = [PFQuery queryWithClassName:@"UserEvents"];
+        [query whereKey:@"startTime" greaterThan:currentDate];
         //[query setLimit: limit];
         
         [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
@@ -80,7 +80,6 @@ NSMutableArray* parties;
                     [parties addObject:temp];
                 }
                 
-                [self.tableView reloadData];
 
             } else {
                 // Log details of the failure
