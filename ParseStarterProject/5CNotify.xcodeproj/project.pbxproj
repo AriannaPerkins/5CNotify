@@ -36,6 +36,7 @@
 		3CD9D12E18C560C5003ACE29 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CD9D12518C560C5003ACE29 /* Default-568h@2x.png */; };
 		3CD9D12F18C560C5003ACE29 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CD9D12618C560C5003ACE29 /* Default.png */; };
 		3CD9D13018C560C5003ACE29 /* Default~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CD9D12718C560C5003ACE29 /* Default~iphone.png */; };
+		3CECA90118CD0E9B0081AEE4 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CECA90018CD0E9B0081AEE4 /* Event.m */; };
 		4998650515BF305000803E05 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4998650415BF305000803E05 /* StoreKit.framework */; };
 		743D7B6D157DA60100084B67 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 743D7B6C157DA60100084B67 /* CoreGraphics.framework */; };
 		DD952FCB16E7F5CF00470144 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97E18B1E1624CB5700B17A67 /* CoreLocation.framework */; };
@@ -79,6 +80,8 @@
 		3CD9D12518C560C5003ACE29 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../Default-568h@2x.png"; sourceTree = "<group>"; };
 		3CD9D12618C560C5003ACE29 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = ../Default.png; sourceTree = "<group>"; };
 		3CD9D12718C560C5003ACE29 /* Default~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default~iphone.png"; path = "../Default~iphone.png"; sourceTree = "<group>"; };
+		3CECA8FF18CD0E9B0081AEE4 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
+		3CECA90018CD0E9B0081AEE4 /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
 		4998650415BF305000803E05 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		6332375315E438E900AE2736 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		6372FF521613CC3C002132AF /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
@@ -164,6 +167,8 @@
 				09ABC08713A1D52E009C3FCF /* ParseStarterProjectViewController.m */,
 				3C9BFB1F18BC4595007849B9 /* TableViewController.h */,
 				3C9BFB2018BC4595007849B9 /* TableViewController.m */,
+				3CECA8FF18CD0E9B0081AEE4 /* Event.h */,
+				3CECA90018CD0E9B0081AEE4 /* Event.m */,
 				3C9BFB2518BC45E8007849B9 /* EventCell.h */,
 				3C9BFB2618BC45E8007849B9 /* EventCell.m */,
 				09ABC08313A1D52D009C3FCF /* MainWindow.xib */,
@@ -273,6 +278,7 @@
 				09ABC08813A1D52E009C3FCF /* ParseStarterProjectViewController.m in Sources */,
 				3C9BFB2718BC45E8007849B9 /* EventCell.m in Sources */,
 				3C9BFB2118BC4595007849B9 /* TableViewController.m in Sources */,
+				3CECA90118CD0E9B0081AEE4 /* Event.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

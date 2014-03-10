@@ -30,6 +30,7 @@ NSMutableArray* partyLocation;
 NSMutableArray* partyDescription;
 
 NSInteger selected;
+NSArray* parties;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -154,7 +155,7 @@ NSInteger selected;
 {
 
     // Return the number of rows in the section.
-    return partyNames.count;
+    return parties.count;
 }
 
 - (EventCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -166,7 +167,7 @@ NSInteger selected;
     //Tag cannot be 0 because they are default 0, set it to the row plus 1
     cell.tag = indexPath.row + 1;
     
-    NSInteger tag = indexPath.row;
+    Event* party = [parties objectAtIndex:indexPath.row];
     
     if (indexPath.row % 2 == 0) {
         cell.cellView.backgroundColor = green;
@@ -174,8 +175,8 @@ NSInteger selected;
         cell.cellView.backgroundColor = lightGreen;
     }
     
-    cell.eventNameLabel.text = partyNames[tag];
-    cell.locationLabel.text = partyLocation[tag];
+    cell.eventNameLabel.text = party.name;
+    cell.locationLabel.text = party.location;
     
     NSDateFormatter* dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:@"MMM dd, yyyy HH:mm"];
@@ -198,7 +199,8 @@ NSInteger selected;
     
     if (indexPath.row == selected) {
         //Sets height based on how large description is
-        NSString *text = [partyDescription objectAtIndex:[indexPath row]];
+        Event* selectedEvent = [parties objectAtIndex:indexPath.row];
+        NSString *text = selectedEvent.description;
         CGSize constraint = CGSizeMake(260, 100);
         CGSize size = [text sizeWithFont:[UIFont systemFontOfSize:14] constrainedToSize:constraint];
         CGFloat height = 60 + (size.height*1.2);
