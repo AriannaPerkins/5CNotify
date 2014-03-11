@@ -85,6 +85,7 @@ NSMutableArray* parties;
                 // Log details of the failure
                 NSLog(@"Error: %@ %@", error, [error userInfo]);
             }
+            [self.tableView reloadData];
         }];
     }
     return self;
