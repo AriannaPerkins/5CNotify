@@ -8,7 +8,9 @@
 
 #import "EventCell.h"
 
-@implementation EventCell
+@implementation EventCell{
+    CGFloat width;
+}
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier 
 {
@@ -17,14 +19,10 @@
         
         self.textColoring = [UIColor blackColor];
         
-        self.backgroundColor = [UIColor blackColor];
+        self.backgroundColor = [UIColor greenColor];
         
-        _cellView = [[UIView alloc]initWithFrame:CGRectMake(2, 2, self.viewForBaselineLayout.frame.size.width-4, 55)];
-        _cellView.layer.cornerRadius = 5;
-        _cellView.layer.masksToBounds = YES;
-        
-        CGFloat width = _cellView.frame.size.width;
-        CGFloat height = _cellView.frame.size.height;
+        width =  self.viewForBaselineLayout.frame.size.width-4;
+        CGFloat height = 55;
         
         // make label for the event
         self.eventNameLabel = [ [UILabel alloc] initWithFrame:CGRectMake(5, height*0.05, width, height*0.4)];
@@ -51,10 +49,9 @@
         
         
         // add these labels to the view
-        [self addSubview:_cellView];
-        [_cellView addSubview:_eventNameLabel];
-        [_cellView addSubview:_locationLabel];
-        [_cellView addSubview:_timeLabel];
+        [self addSubview:_eventNameLabel];
+        [self addSubview:_locationLabel];
+        [self addSubview:_timeLabel];
         
     }
     return self;
@@ -62,10 +59,7 @@
 
 -(void)returnToNormalView{
     
-    _cellView.frame = CGRectMake(2, 2, self.viewForBaselineLayout.frame.size.width-4, 55);
-    
-    CGFloat width = _cellView.frame.size.width;
-    CGFloat height = _cellView.frame.size.height;
+    CGFloat height = 55;
     
     // make label for the event
     self.eventNameLabel.frame = CGRectMake(5, height*0.05, width, height*0.4);
@@ -80,29 +74,27 @@
     [_descriptionLabel removeFromSuperview];
 }
 
--(void) longView:(CGFloat) height{
+-(void) longView:(CGFloat) currHeight{
     
-    _cellView.frame = CGRectMake(2, 2, self.viewForBaselineLayout.frame.size.width-4, height-5);
-    
-    CGFloat width = _cellView.frame.size.width;
-    CGFloat theHeight = _cellView.frame.size.height;
+    CGFloat height = currHeight-5;
     
     // make label for the event
-    self.eventNameLabel.frame =CGRectMake(5, theHeight*0.05, width, theHeight*0.2);
+    self.eventNameLabel.frame =CGRectMake(5, height*0.04, width, height*0.3);
     
     // make label for the location of the event
-    self.locationLabel.frame = CGRectMake(5, theHeight*0.25,width,theHeight*0.15);
+    self.locationLabel.frame = CGRectMake(5, height*0.33,width,height*0.18);
     
     // make label for the time of the event
-    _timeLabel.frame = CGRectMake(5, theHeight*0.42,width, theHeight*0.15);
+    _timeLabel.frame = CGRectMake(5, height*0.54,width,  height*0.15);
     
-    _descriptionLabel = [[UITextView alloc] initWithFrame: CGRectMake(0, _cellView.frame.size.height*0.5, _cellView.frame.size.width, _cellView.frame.size.height*0.55)];
+    _descriptionLabel = [[UITextView alloc] initWithFrame: CGRectMake(0, height*0.63, width, height*0.55)];
     _descriptionLabel.textColor = self.textColoring;
     _descriptionLabel.font = [UIFont fontWithName:@"Helvetica" size:14];
     _descriptionLabel.textAlignment = NSTextAlignmentLeft;
     _descriptionLabel.backgroundColor = [UIColor clearColor];
     _descriptionLabel.editable = NO;
-    [_cellView addSubview:_descriptionLabel];
+    
+    [self addSubview:_descriptionLabel];
 }
 
 @end

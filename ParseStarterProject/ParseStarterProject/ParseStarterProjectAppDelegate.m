@@ -71,6 +71,8 @@
             [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
         }
     }
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque];
+    
     [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge|
                                                     UIRemoteNotificationTypeAlert|
                                                     UIRemoteNotificationTypeSound];

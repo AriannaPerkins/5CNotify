@@ -49,7 +49,7 @@ NSMutableArray* parties;
         editing = NO;
         selected = NSIntegerMin;
         
-        self.view.backgroundColor = green;
+        self.view.backgroundColor = [UIColor blackColor];
         parties = [[NSMutableArray alloc] init];
         
         // Get event info from Parse for events later than today
@@ -63,7 +63,7 @@ NSMutableArray* parties;
         [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
             if (!error) {
                 // The find succeeded.
-                NSLog(@"Successfully retrieved %d events.", objects.count);
+                NSLog(@"Successfully retrieved %lu events.", (unsigned long)objects.count);
                 // Do something with the found objects
                 
                 for (int i=0; i<objects.count; ++i) {
@@ -148,15 +148,19 @@ NSMutableArray* parties;
     [self.tableView registerClass: [EventCell class] forCellReuseIdentifier:CellIdentifier];
     EventCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
+    [cell.layer setCornerRadius:7.0f];
+    [cell.layer setMasksToBounds:YES];
+    [cell.layer setBorderWidth:2.0f];
+    
     //Tag cannot be 0 because they are default 0, set it to the row plus 1
     cell.tag = indexPath.row + 1;
     
     Event* party = [parties objectAtIndex:indexPath.row];
     
     if (indexPath.row % 2 == 0) {
-        cell.cellView.backgroundColor = green;
+        cell.backgroundColor = green;
     } else {
-        cell.cellView.backgroundColor = lightGreen;
+        cell.backgroundColor = lightGreen;
     }
     
     cell.eventNameLabel.text = party.name;
@@ -208,9 +212,11 @@ NSMutableArray* parties;
         CGFloat height = [self tableView:[self tableView] heightForRowAtIndexPath:indexPath];
         [cell longView: height];
     }
-    [self.tableView reloadData];
+    [self.tableView beginUpdates];
+    [self.tableView endUpdates];
     
 }
+
 
 /*
 // Override to support conditional editing of the table view.
