@@ -16,7 +16,7 @@
 @property (nonatomic) UITextField *startTimeField;
 @property (nonatomic) UITextField *endTimeField;
 @property (nonatomic) UITextField *locationField;
-@property (nonatomic) UITextField  *descriptionField;
+@property (nonatomic) UITextView  *descriptionView;
 
 @end
 
@@ -28,13 +28,7 @@ static const CGFloat KEYBOARD_ANIMATION_DURATION = 0.3;
 static const CGFloat MINIMUM_SCROLL_FRACTION = 0.2;
 static const CGFloat MAXIMUM_SCROLL_FRACTION = 0.8;
 static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 216;
-//BOOL createButtonPressed;
-//NSString *eventName;
-//NSString *eventLocation;
-//NSString *startTime;
-//NSString *endTime;
-//NSString *description;
-//NSDate *sortingDate;
+
 
 
 - (id)init
@@ -49,7 +43,7 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 216;
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     NSUInteger newLength = [textView.text length] + [text length] - range.length;
-    return (newLength > 108) ? NO : YES;
+    return (newLength > 250) ? NO : YES;
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
@@ -95,6 +89,49 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 216;
     [UIView commitAnimations];
 }
 
+- (void)textViewDidBeginEditing:(UITextView *)textView
+{
+    self.currentTextField = textView;
+    
+    //Get bounds of text field
+    CGRect textViewRect = [self.view.window convertRect:textView.bounds fromView:textView];
+    CGRect viewRect = [self.view.window convertRect:self.view.bounds fromView:self.view];
+    
+    //Figure out portion of view to move upwards
+    CGFloat midline = textViewRect.origin.y + 0.5 * textViewRect.size.height;
+    CGFloat numerator = midline - viewRect.origin.y - MINIMUM_SCROLL_FRACTION * viewRect.size.height;
+    CGFloat denominator = (MAXIMUM_SCROLL_FRACTION - MINIMUM_SCROLL_FRACTION) * viewRect.size.height;
+    CGFloat heightFraction = numerator / denominator;
+    
+    if (heightFraction < 0.0)
+    {
+        heightFraction = 0.0;
+    }
+    else if (heightFraction > 1.0)
+    {
+        heightFraction = 1.0;
+    }
+    animatedDistance = floor(PORTRAIT_KEYBOARD_HEIGHT * heightFraction);
+    
+    //Perform animation
+    CGRect viewFrame = self.view.frame;
+    viewFrame.origin.y -= animatedDistance;
+    
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationBeginsFromCurrentState:YES];
+    [UIView setAnimationDuration:KEYBOARD_ANIMATION_DURATION];
+    
+    if ([textView.text isEqualToString:@"Be sure to include any information such as: \nWet/dry? Who can register guests? Url to register guest?"]) {
+        textView.text = @"";
+        textView.textColor = [UIColor blackColor]; //optional
+    }
+    [textView becomeFirstResponder];
+    
+    [self.view setFrame:viewFrame];
+    
+    [UIView commitAnimations];
+}
+
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
     CGRect viewFrame = self.view.frame;
@@ -109,36 +146,24 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 216;
     [UIView commitAnimations];
 }
 
--(void)updateTextField:(id)sender
+- (void)textViewDidEndEditing:(UITextField *)textView
 {
-//    // For the start time field
-//    UIDatePicker *startPicker = (UIDatePicker*)self.startTimeField.inputView;
-//    //get date from picker
-//    NSDate *startDate = startPicker.date;
-//    
-//    NSDateFormatter *startDateFormat = [[NSDateFormatter alloc] init];
-//    [startDateFormat setDateFormat:@"MM/dd/yy, hh:mm aa"];
-//    NSString *prettyStart = [startDateFormat stringFromDate:startDate];
-//    self.startTimeField.text = prettyStart;
-//    
-//    // For the end time field
-//    UIDatePicker *endPicker = (UIDatePicker*)self.endTimeField.inputView;
-//    //get date from picker
-//    NSDate *endDate = endPicker.date;
-//    
-//    NSDateFormatter *endDateFormat = [[NSDateFormatter alloc] init];
-//    [endDateFormat setDateFormat:@"MM/dd/yy, hh:mm aa"];
-//    NSString *prettyEnd = [endDateFormat stringFromDate:endDate];
-//    self.endTimeField.text = prettyEnd;
-//    
-//    // Push event information to Parse
-//    newEvent[@"eventName"] = self.addEventField.text;
-//    newEvent[@"displayedStartTime"] = self.startTimeField.text;
-//    newEvent[@"displayedEndTime"] = self.endTimeField.text;
-//    newEvent[@"sortingStartDate"] = startDate;
-//    newEvent[@"locationText"] = self.locationField.text;
-//    newEvent[@"description"] = self.descriptionField.text;
-//    [newEvent saveInBackground];
+    CGRect viewFrame = self.view.frame;
+    viewFrame.origin.y += animatedDistance;
+    
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationBeginsFromCurrentState:YES];
+    [UIView setAnimationDuration:KEYBOARD_ANIMATION_DURATION];
+    
+    if ([textView.text isEqualToString:@""]) {
+        textView.text = @"Be sure to include any information such as: \nWet/dry? Who can register guests? Url to register guest?";
+        textView.textColor = [UIColor lightGrayColor]; //optional
+    }
+    [textView resignFirstResponder];
+    
+    [self.view setFrame:viewFrame];
+    
+    [UIView commitAnimations];
 }
 
 -(void)prevTextField {
@@ -253,7 +278,7 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 216;
     
     [scrollingView addSubview:self.addEventField];
     
-    double timesTop = eventsTop + 40;
+    double timesTop = eventsTop + 30; //was 40
     
     // Start time
     UILabel* startTimeLabel = [ [UILabel alloc] initWithFrame:CGRectMake(20, timesTop, (width/2) - 30, 30)];
@@ -365,7 +390,7 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 216;
     openLabel.textColor = [UIColor whiteColor];
     [scrollingView addSubview: openLabel];
     
-    double switchesTop = openTop + 30;
+    double switchesTop = openTop + 25; //was 30
     
     // first column of switches
     UISwitch* cmcSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(50, switchesTop, (width/2) - 30, 10)];
@@ -436,32 +461,28 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 216;
     otherLabel.textColor = [UIColor whiteColor];
     [scrollingView addSubview: otherLabel];
     
-    double descriptionTop = switchesTop + 90;
+    double descriptionTop = switchesTop + 80;
     
-    UILabel* descriptionLabel = [ [UILabel alloc] initWithFrame:CGRectMake(20, descriptionTop, width, 30)];
+    UILabel* descriptionLabel = [ [UILabel alloc] initWithFrame:CGRectMake(20, descriptionTop, width, 25)];
     descriptionLabel.text=@"Description";
     descriptionLabel.font=[UIFont fontWithName:@"Helvetica" size:15.0 ];
     descriptionLabel.textColor = [UIColor whiteColor];
     [scrollingView addSubview: descriptionLabel];
     
-    double descriptionFieldTop = descriptionTop + 25;
+    double descriptionFieldTop = descriptionTop + 25; //it was 25
     
-    self.descriptionField = [[UITextField alloc] initWithFrame:CGRectMake(20, descriptionFieldTop, width - 40, 75)];
-    self.descriptionField.tag = 5;
-    self.descriptionField.delegate = self;
-    self.descriptionField.backgroundColor = [UIColor whiteColor];
-    self.descriptionField.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
-    [self.descriptionField setFont:[UIFont fontWithName:@"Helvetica" size:17]];
-    [self.descriptionField setBorderStyle:UITextBorderStyleRoundedRect];
-    [self.descriptionField setInputAccessoryView:inputToolbar];
+    self.descriptionView = [[UITextView alloc] initWithFrame:CGRectMake(20, descriptionFieldTop, width -
+        40, 100)];
+    self.descriptionView.tag = 5;
+    self.descriptionView.delegate = self;
+    self.descriptionView.backgroundColor = [UIColor whiteColor];
+    self.descriptionView.allowsEditingTextAttributes = YES;
+    self.descriptionView.text = @"Be sure to include any information such as: \nWet/dry? Who can register guests? Url to register guest?";
+    self.descriptionView.textColor = [UIColor lightGrayColor];
+    [self.descriptionView setFont:[UIFont fontWithName:@"Helvetica" size:14]];
+    [self.descriptionView setInputAccessoryView:inputToolbar];
     
-//    description = self.descriptionField.text;
-    
-    // Sends event description to method that pushes data to Parse
-//    [self.descriptionField addTarget:self action:@selector(updateTextField:) forControlEvents: UIControlEventEditingDidEnd];
-    
-    [scrollingView addSubview:self.descriptionField];
-    
+    [scrollingView addSubview:self.descriptionView];
     [self.view addSubview:scrollingView];
     
     UILabel* notifyLabel = [ [UILabel alloc] initWithFrame:CGRectMake(0, 0, 80, 30)];
@@ -503,7 +524,7 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 216;
     newEvent[@"startTime"] = startDate;
     newEvent[@"endTime"] = endDate;
     newEvent[@"locationText"] = self.locationField.text;
-    newEvent[@"description"] = self.descriptionField.text;
+    newEvent[@"description"] = self.descriptionView.text;
     [newEvent saveInBackground];
 
     // Go back to main table
