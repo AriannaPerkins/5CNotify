@@ -62,8 +62,10 @@ NSMutableArray* parties;
         
         [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
             if (!error) {
+                
                 // The find succeeded.
                 NSLog(@"Successfully retrieved %lu events.", (unsigned long)objects.count);
+                
                 // Do something with the found objects
                 
                 for (int i=0; i<objects.count; ++i) {
@@ -75,8 +77,9 @@ NSMutableArray* parties;
                     NSDate *startTime = event[@"startTime"];
                     NSDate *endTime = event[@"endTime"];
                     NSString *description = event[@"description"];
+                    NSMutableArray *switches = event[@"openTo"];
                     
-                    Event* temp = [[Event alloc] initWith:name andLoc:location andStart:startTime andEnd:endTime andDesciption:description];
+                    Event* temp = [[Event alloc] initWith:name andLoc:location andStart:startTime andEnd:endTime andDescription:description andOpenTo:switches];
                     [parties addObject:temp];
                 }
                 

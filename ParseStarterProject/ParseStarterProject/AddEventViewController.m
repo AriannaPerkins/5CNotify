@@ -17,6 +17,12 @@
 @property (nonatomic) UITextField *endTimeField;
 @property (nonatomic) UITextField *locationField;
 @property (nonatomic) UITextView  *descriptionView;
+@property (nonatomic) BOOL         openToCmc;
+@property (nonatomic) BOOL         openToHmc;
+@property (nonatomic) BOOL         openToPo;
+@property (nonatomic) BOOL         openToPz;
+@property (nonatomic) BOOL         openToSc;
+@property (nonatomic) BOOL         openToOther;
 
 @end
 
@@ -28,6 +34,7 @@ static const CGFloat KEYBOARD_ANIMATION_DURATION = 0.3;
 static const CGFloat MINIMUM_SCROLL_FRACTION = 0.2;
 static const CGFloat MAXIMUM_SCROLL_FRACTION = 0.8;
 static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 216;
+NSArray* switches;
 
 
 
@@ -35,8 +42,9 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 216;
 {
     self = [super init];
     if (self) {
-        // Create AddedEvents class for Parse
+        // Create UserEvents class for Parse
         newEvent = [PFObject objectWithClassName:@"UserEvents"];
+        switches = [[NSArray alloc] init];
     }
     return self;
 }
@@ -242,14 +250,6 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 216;
     
     double eventsTop = top + 10;
     
-//    // Initialize private data members
-//    eventName = [[NSString alloc] init];
-//    eventLocation = [[NSString alloc] init];
-//    startTime = [[NSString alloc] init];
-//    endTime = [[NSString alloc] init];
-//    description = [[NSString alloc] init];
-//    sortingDate = [[NSDate alloc] init];
-    
     // The Event name field
     self.addEventField = [[UITextField alloc] initWithFrame:CGRectMake(20, eventsTop, width - 40, 30)];
     self.addEventField.tag = 1;
@@ -271,10 +271,6 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 216;
     inputToolbar.backgroundColor = green;
     inputToolbar.tintColor = lightGreen;
     [self.addEventField setInputAccessoryView:inputToolbar];
-    
-    // Sends event name info to method that pushes data to Parse
-//    eventName = self.addEventField.text;
-//    [self.addEventField addTarget:self action:@selector(updateTextField:) forControlEvents: UIControlEventEditingDidEnd];
     
     [scrollingView addSubview:self.addEventField];
     
@@ -316,12 +312,6 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 216;
     self.startTimeField.delegate = self;
     [self.startTimeField setFont:[UIFont fontWithName:@"Helvetica" size:13]];
     
-//    startTime = prettyStart;
-//    sortingDate = startDate;
-    
-    // Sends start time info to method that pushes data to Parse
-//    [startDatePicker addTarget:self action:@selector(updateTextField:) forControlEvents:UIControlEventEditingDidEnd];
-    
     [self.startTimeField setInputView:startDatePicker];
     [self.startTimeField setInputAccessoryView:inputToolbar];
     
@@ -348,11 +338,6 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 216;
     self.endTimeField.delegate = self;
     [self.endTimeField setFont:[UIFont fontWithName:@"Helvetica" size:13]];
     
-//    endTime = prettyEnd;
-    
-    // Sends end time info to method that pushes data to Parse
-//    [endDatePicker addTarget:self action:@selector(updateTextField:) forControlEvents:UIControlEventEditingDidEnd];
-    
     [self.endTimeField setInputView:endDatePicker];
     [self.endTimeField setInputAccessoryView:inputToolbar];
     [scrollingView addSubview:self.endTimeField];
@@ -375,11 +360,6 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 216;
     [self.locationField setFont:[UIFont fontWithName:@"Helvetica" size:17]];
     [self.locationField setInputAccessoryView:inputToolbar];
     
-//    eventLocation = self.locationField.text;
-    
-    // Sends event location info to method that pushes data to Parse
-//    [self.locationField addTarget:self action:@selector(updateTextField:) forControlEvents: UIControlEventEditingDidEnd];
-    
     [scrollingView addSubview:self.locationField];
     
     double openTop = locationFieldsTop + 35;
@@ -397,34 +377,43 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 216;
     cmcSwitch.transform = CGAffineTransformMakeScale(0.65, 0.65);
     cmcSwitch.onTintColor = lightGreen;
     [scrollingView addSubview:cmcSwitch];
-    
+    cmcSwitch.tag = 0;
+    [cmcSwitch addTarget:self action:@selector(setState:) forControlEvents:UIControlEventValueChanged];
+
     UILabel* cmcLabel = [ [UILabel alloc] initWithFrame:CGRectMake(110, switchesTop, (width/2) - 30, 30)];
     cmcLabel.text=@"CMC";
     cmcLabel.font=[UIFont fontWithName:@"Helvetica" size:15.0 ];
     cmcLabel.textColor = [UIColor whiteColor];
     [scrollingView addSubview: cmcLabel];
     
+    
     UISwitch* hmcSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(50, switchesTop + 25, (width/2) - 30, 10)];
     hmcSwitch.transform = CGAffineTransformMakeScale(0.65, 0.65);
     hmcSwitch.onTintColor = lightGreen;
     [scrollingView addSubview:hmcSwitch];
-    
+    hmcSwitch.tag = 1;
+    [hmcSwitch addTarget:self action:@selector(setState:) forControlEvents:UIControlEventValueChanged];
+
     UILabel* hmcLabel = [ [UILabel alloc] initWithFrame:CGRectMake(110, switchesTop + 25, (width/2) - 30, 30)];
     hmcLabel.text=@"HMC";
     hmcLabel.font=[UIFont fontWithName:@"Helvetica" size:15.0 ];
     hmcLabel.textColor = [UIColor whiteColor];
     [scrollingView addSubview: hmcLabel];
     
+    
     UISwitch* poSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(50, switchesTop + 50, (width/2) - 30, 10)];
     poSwitch.transform = CGAffineTransformMakeScale(0.65, 0.65);
     poSwitch.onTintColor = lightGreen;
     [scrollingView addSubview:poSwitch];
-    
+    poSwitch.tag = 2;
+    [poSwitch addTarget:self action:@selector(setState:) forControlEvents:UIControlEventValueChanged];
+
     UILabel* poLabel = [ [UILabel alloc] initWithFrame:CGRectMake(110, switchesTop + 50, (width/2) - 30, 30)];
     poLabel.text=@"PO";
     poLabel.font=[UIFont fontWithName:@"Helvetica" size:15.0 ];
     poLabel.textColor = [UIColor whiteColor];
     [scrollingView addSubview: poLabel];
+    
     
     // second column of switches
     
@@ -432,17 +421,22 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 216;
     pzSwitch.transform = CGAffineTransformMakeScale(0.65, 0.65);
     pzSwitch.onTintColor = lightGreen;
     [scrollingView addSubview:pzSwitch];
-    
+    pzSwitch.tag = 3;
+    [pzSwitch addTarget:self action:@selector(setState:) forControlEvents:UIControlEventValueChanged];
+
     UILabel* pzLabel = [ [UILabel alloc] initWithFrame:CGRectMake(width - 90, switchesTop, (width/2) - 30, 30)];
     pzLabel.text=@"PZ";
     pzLabel.font=[UIFont fontWithName:@"Helvetica" size:15.0 ];
     pzLabel.textColor = [UIColor whiteColor];
     [scrollingView addSubview: pzLabel];
     
+    
     UISwitch* scSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(width - 150, switchesTop + 25, (width/2) - 30, 10)];
     scSwitch.transform = CGAffineTransformMakeScale(0.65, 0.65);
     scSwitch.onTintColor = lightGreen;
     [scrollingView addSubview: scSwitch];
+    scSwitch.tag = 4;
+    [scSwitch addTarget:self action:@selector(setState:) forControlEvents:UIControlEventValueChanged];
     
     UILabel* scLabel = [ [UILabel alloc] initWithFrame:CGRectMake(width - 90, switchesTop + 25, (width/2) - 30, 30)];
     scLabel.text=@"SC";
@@ -454,6 +448,9 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 216;
     otherSwitch.transform = CGAffineTransformMakeScale(0.65, 0.65);
     otherSwitch.onTintColor = lightGreen;
     [scrollingView addSubview:otherSwitch];
+    otherSwitch.tag = 5;
+    [otherSwitch addTarget:self action:@selector(setState:) forControlEvents:UIControlEventValueChanged];
+
     
     UILabel* otherLabel = [ [UILabel alloc] initWithFrame:CGRectMake(width - 90, switchesTop + 50, (width/2) - 30, 30)];
     otherLabel.text=@"Other";
@@ -502,6 +499,30 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 216;
     
 }
 
+- (void)setState:(UISwitch*)sender
+{
+    BOOL state = [sender isOn];
+    int identifier = sender.tag;
+    if (identifier == 0) {
+        self.openToCmc = state == YES ? YES: NO;
+    }
+    if (identifier == 1) {
+        self.openToHmc = state == YES ? YES: NO;
+    }
+    if (identifier == 2) {
+        self.openToPo = state == YES ? YES: NO;
+    }
+    if (identifier == 3) {
+        self.openToPz = state == YES ? YES: NO;
+    }
+    if (identifier == 4) {
+        self.openToSc = state == YES ? YES: NO;
+    }
+    if (identifier == 5) {
+        self.openToOther = state == YES ? YES: NO;
+    }
+}
+
 
 - (IBAction)createButtonPressed {
 
@@ -518,6 +539,19 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 216;
     //get date from picker
     NSDate *endDate = endPicker.date;
     
+    NSArray* switchNames = [NSArray arrayWithObjects:@"CMC", @"HMC", @"Pomona", @"Pitzer", @"Scripps",
+                            @"Other", nil];
+    
+    switches = [NSArray arrayWithObjects: [NSNumber numberWithBool:self.openToCmc], [NSNumber numberWithBool:self.openToHmc], [NSNumber numberWithBool:self.openToPo],[NSNumber numberWithBool:self.openToPz], [NSNumber numberWithBool:self.openToSc], [NSNumber numberWithBool:self.openToOther], nil];
+    
+    // Create (mutable) array for the switches (which school it's open to)
+    NSMutableArray* openToSwitches = [[NSMutableArray alloc] init];
+    for (int index=0; index<6; ++index) {
+        BOOL isItOpen = [[switches objectAtIndex:index] boolValue];
+        if (isItOpen) {
+            [openToSwitches addObject:switchNames[index]];
+        }
+    }
     
     // Push event information to Parse
     newEvent[@"eventName"] = self.addEventField.text;
@@ -525,6 +559,7 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 216;
     newEvent[@"endTime"] = endDate;
     newEvent[@"locationText"] = self.locationField.text;
     newEvent[@"description"] = self.descriptionView.text;
+    newEvent[@"openTo"] = openToSwitches;
     [newEvent saveInBackground];
 
     // Go back to main table
