@@ -36,6 +36,21 @@ static const CGFloat MAXIMUM_SCROLL_FRACTION = 0.8;
 static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 216;
 NSArray* switches;
 
+BOOL eventNameEmpty;
+BOOL startEmpty;
+BOOL endEmpty;
+BOOL locationEmpty;
+BOOL switchesEmpty;
+BOOL descriptionEmpty;
+
+UILabel* eventNameAsterisk;
+UILabel* startAsterisk;
+UILabel* endAsterisk;
+UILabel* locationAsterisk;
+UILabel* openToAsterisk;
+UILabel* descriptionAsterisk;
+
+
 
 
 - (id)init
@@ -129,7 +144,7 @@ NSArray* switches;
     [UIView setAnimationBeginsFromCurrentState:YES];
     [UIView setAnimationDuration:KEYBOARD_ANIMATION_DURATION];
     
-    if ([textView.text isEqualToString:@"Be sure to include any information such as: \nWet/dry? Who can register guests? Url to register guest?"]) {
+    if ([textView.text isEqualToString:@"Be sure to include any information such as: \nWet/dry? Who can register guests? Is there a url to register guests?"]) {
         textView.text = @"";
         textView.textColor = [UIColor blackColor]; //optional
     }
@@ -164,7 +179,7 @@ NSArray* switches;
     [UIView setAnimationDuration:KEYBOARD_ANIMATION_DURATION];
     
     if ([textView.text isEqualToString:@""]) {
-        textView.text = @"Be sure to include any information such as: \nWet/dry? Who can register guests? Url to register guest?";
+        textView.text = @"Be sure to include any information such as: \nWet/dry? Who can register guests? Is there a url to register guests?";
         textView.textColor = [UIColor lightGrayColor]; //optional
     }
     [textView resignFirstResponder];
@@ -248,7 +263,7 @@ NSArray* switches;
     
     double top = 0;
     
-    double eventsTop = top + 10;
+    double eventsTop = top + 12;
     
     // The Event name field
     self.addEventField = [[UITextField alloc] initWithFrame:CGRectMake(20, eventsTop, width - 40, 30)];
@@ -257,6 +272,12 @@ NSArray* switches;
     [self.addEventField setBorderStyle:UITextBorderStyleRoundedRect];
     [self.addEventField setFont:[UIFont fontWithName:@"Helvetica" size:17]];
     self.addEventField.delegate = self;
+    
+    // Initialize asterisk next to event name field (but does not show yet)
+    eventNameAsterisk = [[UILabel alloc] initWithFrame:CGRectMake(5, top+80, 25, 30)];
+    eventNameAsterisk.font=[UIFont fontWithName:@"Helvetica" size:30.0 ];
+    eventNameAsterisk.textColor = [UIColor redColor];
+    [scrollingView addSubview:eventNameAsterisk];
     
     // The keyboard bar
     UIToolbar* inputToolbar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, 320, 50)];
@@ -283,7 +304,7 @@ NSArray* switches;
     startTimeLabel.textColor = [UIColor whiteColor];
     [scrollingView addSubview: startTimeLabel];
     
-    UILabel* endTimeLabel = [ [UILabel alloc] initWithFrame:CGRectMake((width/2) + 10, timesTop, (width/2) - 30, 30)];
+    UILabel* endTimeLabel = [ [UILabel alloc] initWithFrame:CGRectMake((width/2) + 14, timesTop, (width/2) - 30, 30)];
     endTimeLabel.text=@"End Time";
     endTimeLabel.font=[UIFont fontWithName:@"Helvetica" size:15.0 ];
     endTimeLabel.textColor = [UIColor whiteColor];
@@ -305,7 +326,7 @@ NSArray* switches;
     
     double timeFieldsTop = timesTop + 25;
     
-    self.startTimeField = [[UITextField alloc] initWithFrame:CGRectMake(20, timeFieldsTop, (width/2) - 28, 30)];
+    self.startTimeField = [[UITextField alloc] initWithFrame:CGRectMake(20, timeFieldsTop, (width/2) - 32, 30)];
     self.startTimeField.tag = 2;
     self.startTimeField.placeholder = prettyStart;
     [self.startTimeField setBorderStyle:UITextBorderStyleRoundedRect];
@@ -317,6 +338,12 @@ NSArray* switches;
     
     // add the field to the view
     [scrollingView addSubview:self.startTimeField];
+    
+    // Initialize start asterisk (but does not show yet)
+    startAsterisk = [[UILabel alloc] initWithFrame:CGRectMake(5, top+111, 25, 30)];
+    startAsterisk.font=[UIFont fontWithName:@"Helvetica" size:30.0 ];
+    startAsterisk.textColor = [UIColor redColor];
+    [scrollingView addSubview:startAsterisk];
     
     // The end date picker
     UIDatePicker *endDatePicker = [[UIDatePicker alloc]
@@ -331,7 +358,7 @@ NSArray* switches;
     [endDateFormat setDateFormat:@"MM/dd/yy, hh:mm aa"];
     NSString *prettyEnd = [startDateFormat stringFromDate:endDate];
     
-    self.endTimeField = [[UITextField alloc] initWithFrame:CGRectMake((width/2) + 6, timeFieldsTop, (width/2) - 28, 30)];
+    self.endTimeField = [[UITextField alloc] initWithFrame:CGRectMake((width/2) + 12, timeFieldsTop, (width/2) - 32, 30)];
     self.endTimeField.tag = 3;
     self.endTimeField.placeholder = prettyEnd;
     [self.endTimeField setBorderStyle:UITextBorderStyleRoundedRect];
@@ -341,6 +368,12 @@ NSArray* switches;
     [self.endTimeField setInputView:endDatePicker];
     [self.endTimeField setInputAccessoryView:inputToolbar];
     [scrollingView addSubview:self.endTimeField];
+    
+    // Initialize end asterisk (but does not show yet)
+    endAsterisk = [[UILabel alloc] initWithFrame:CGRectMake(width/2 - 3, top+111, 25, 30)];
+    endAsterisk.font=[UIFont fontWithName:@"Helvetica" size:30.0 ];
+    endAsterisk.textColor = [UIColor redColor];
+    [scrollingView addSubview:endAsterisk];
     
     double locationTop = timeFieldsTop + 35;
     
@@ -362,6 +395,12 @@ NSArray* switches;
     
     [scrollingView addSubview:self.locationField];
     
+    // Initialize asterisk next to location field (but does not show yet)
+    locationAsterisk = [[UILabel alloc] initWithFrame:CGRectMake(5, top+171, 25, 30)];
+    locationAsterisk.font=[UIFont fontWithName:@"Helvetica" size:30.0 ];
+    locationAsterisk.textColor = [UIColor redColor];
+    [scrollingView addSubview:locationAsterisk];
+    
     double openTop = locationFieldsTop + 35;
     
     UILabel* openLabel = [ [UILabel alloc] initWithFrame:CGRectMake(20, openTop, width, 30)];
@@ -370,7 +409,13 @@ NSArray* switches;
     openLabel.textColor = [UIColor whiteColor];
     [scrollingView addSubview: openLabel];
     
-    double switchesTop = openTop + 25; //was 30
+    // Initialize asterisk next to openTo label (but does not show yet)
+    openToAsterisk = [[UILabel alloc] initWithFrame:CGRectMake(5, top+232, 25, 30)];
+    openToAsterisk.font=[UIFont fontWithName:@"Helvetica" size:30.0 ];
+    openToAsterisk.textColor = [UIColor redColor];
+    [scrollingView addSubview:openToAsterisk];
+    
+    double switchesTop = openTop + 25;
     
     // first column of switches
     UISwitch* cmcSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(50, switchesTop, (width/2) - 30, 10)];
@@ -466,21 +511,27 @@ NSArray* switches;
     descriptionLabel.textColor = [UIColor whiteColor];
     [scrollingView addSubview: descriptionLabel];
     
-    double descriptionFieldTop = descriptionTop + 25; //it was 25
+    double descriptionFieldTop = descriptionTop + 25;
     
     self.descriptionView = [[UITextView alloc] initWithFrame:CGRectMake(20, descriptionFieldTop, width -
-        40, 100)];
+        40, 85)];
     self.descriptionView.tag = 5;
     self.descriptionView.delegate = self;
     self.descriptionView.backgroundColor = [UIColor whiteColor];
     self.descriptionView.allowsEditingTextAttributes = YES;
-    self.descriptionView.text = @"Be sure to include any information such as: \nWet/dry? Who can register guests? Url to register guest?";
+    self.descriptionView.text = @"Be sure to include any information such as: \nWet/dry? Who can register guests? Is there a url to register guests?";
     self.descriptionView.textColor = [UIColor lightGrayColor];
     [self.descriptionView setFont:[UIFont fontWithName:@"Helvetica" size:14]];
     [self.descriptionView setInputAccessoryView:inputToolbar];
     
     [scrollingView addSubview:self.descriptionView];
     [self.view addSubview:scrollingView];
+    
+    // Initialize asterisk next to description label (but does not show yet)
+    descriptionAsterisk = [[UILabel alloc] initWithFrame:CGRectMake(5, top+335, 25, 30)];
+    descriptionAsterisk.font=[UIFont fontWithName:@"Helvetica" size:30.0 ];
+    descriptionAsterisk.textColor = [UIColor redColor];
+    [scrollingView addSubview:descriptionAsterisk];
     
     UILabel* notifyLabel = [ [UILabel alloc] initWithFrame:CGRectMake(0, 0, 80, 30)];
     notifyLabel.textAlignment = UITextAlignmentCenter;
@@ -496,7 +547,6 @@ NSArray* switches;
     
     self.navigationItem.rightBarButtonItem = createItem;
 
-    
 }
 
 - (void)setState:(UISwitch*)sender
@@ -539,13 +589,17 @@ NSArray* switches;
     //get date from picker
     NSDate *endDate = endPicker.date;
     
+    // Create array of college names in string format to add to the array that will be pushed to parse
     NSArray* switchNames = [NSArray arrayWithObjects:@"CMC", @"HMC", @"Pomona", @"Pitzer", @"Scripps",
                             @"Other", nil];
     
+    // Update bool array
     switches = [NSArray arrayWithObjects: [NSNumber numberWithBool:self.openToCmc], [NSNumber numberWithBool:self.openToHmc], [NSNumber numberWithBool:self.openToPo],[NSNumber numberWithBool:self.openToPz], [NSNumber numberWithBool:self.openToSc], [NSNumber numberWithBool:self.openToOther], nil];
     
     // Create (mutable) array for the switches (which school it's open to)
     NSMutableArray* openToSwitches = [[NSMutableArray alloc] init];
+    
+    // Add (in string format) all colleges that are allowed to array (this one will be pushed to parse)
     for (int index=0; index<6; ++index) {
         BOOL isItOpen = [[switches objectAtIndex:index] boolValue];
         if (isItOpen) {
@@ -553,19 +607,122 @@ NSArray* switches;
         }
     }
     
-    // Push event information to Parse
-    newEvent[@"eventName"] = self.addEventField.text;
-    newEvent[@"startTime"] = startDate;
-    newEvent[@"endTime"] = endDate;
-    newEvent[@"locationText"] = self.locationField.text;
-    newEvent[@"description"] = self.descriptionView.text;
-    newEvent[@"openTo"] = openToSwitches;
-    [newEvent saveInBackground];
-
-    // Go back to main table
-    TableViewController *tableView = [[TableViewController alloc] init];
-    [self.navigationController pushViewController:tableView animated:YES];
-
+    // Next series of if-else statements check whether any add event fields have been left blank
+    // If any of them have, a private bool variable is turned on and in viewDidLoad this prompts
+    // a message to the user to edit all fields
+    
+    // create local count variable to check if user has edited all fields
+    NSUInteger emptyFieldCount = 0;
+    
+    
+    if ([self.addEventField.text length] == 0) {
+        
+        eventNameEmpty = YES;
+        ++emptyFieldCount;
+        
+        // Add asterisk next to event name field
+        eventNameAsterisk.text = @"*";
+        [self.view addSubview:eventNameAsterisk];
+        
+    } else {
+        eventNameEmpty = NO;
+        eventNameAsterisk.text = @"";
+    }
+    
+    // see if start and end date fields are empty by checking if the entered dates are
+    // before the current date
+    NSDate *currentDate = [[NSDate alloc] init];
+    
+    if ([startDate compare:currentDate] == NSOrderedAscending) {
+        
+        startEmpty = YES;
+        ++emptyFieldCount;
+        
+        // Add asterisk next to start time field
+        startAsterisk.text = @"*";
+        [self.view addSubview:startAsterisk];
+        
+    } else {
+        startEmpty = NO;
+        startAsterisk.text = @"";
+    }
+    
+    
+    if ([endDate compare:currentDate] == NSOrderedAscending) {
+        
+        endEmpty = YES;
+        ++emptyFieldCount;
+        
+        // Add asterisk next to end time field
+        endAsterisk.text = @"*";
+        [self.view addSubview:endAsterisk];
+        
+    } else {
+        endEmpty = NO;
+        endAsterisk.text = @"";
+    }
+    
+    
+    if ([self.locationField.text length] == 0) {
+        
+        locationEmpty = YES;
+        ++emptyFieldCount;
+        
+        // Add asterisk next to location field
+        locationAsterisk.text = @"*";
+        [self.view addSubview:locationAsterisk];
+        
+    } else {
+        locationEmpty = NO;
+        locationAsterisk.text = @"";
+    }
+    
+    if ([openToSwitches count] == 0) {
+        
+        switchesEmpty = YES;
+        ++emptyFieldCount;
+        
+        // Add asterisk next to location field
+        openToAsterisk.text = @"*";
+        [self.view addSubview:openToAsterisk];
+        
+    } else {
+        switchesEmpty = NO;
+        openToAsterisk.text = @"";
+    }
+    
+    if ([self.descriptionView.text isEqualToString:@"Be sure to include any information such as: \nWet/dry? Who can register guests? Is there a url to register guests?"]) {
+        
+        descriptionEmpty = YES;
+        ++emptyFieldCount;
+        
+        // Add asterisk next to location field
+        descriptionAsterisk.text = @"*";
+        [self.view addSubview:descriptionAsterisk];
+        
+    } else {
+        descriptionEmpty = NO;
+        descriptionAsterisk.text = @"";
+    }
+    
+    NSLog(@"There are %d fields that have not been filled out", emptyFieldCount);
+    
+    // Only send info to parse and return to table view if all fields have been entered
+    
+    if (emptyFieldCount == 0) {
+        // Push event information to Parse
+        newEvent[@"eventName"] = self.addEventField.text;
+        newEvent[@"startTime"] = startDate;
+        newEvent[@"endTime"] = endDate;
+        newEvent[@"locationText"] = self.locationField.text;
+        newEvent[@"description"] = self.descriptionView.text;
+        newEvent[@"openTo"] = openToSwitches;
+        [newEvent saveInBackground];
+        
+        // Go back to table view
+        TableViewController *tableView = [[TableViewController alloc] init];
+        [self.navigationController pushViewController:tableView animated:YES];
+    }
 }
 
 - (void)didReceiveMemoryWarning
