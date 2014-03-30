@@ -1,6 +1,7 @@
 #import <Parse/Parse.h>
 #import "ParseStarterProjectAppDelegate.h"
 #import "ParseStarterProjectViewController.h"
+#import <FacebookSDK/FacebookSDK.h>
 
 @implementation ParseStarterProjectAppDelegate
 
@@ -16,7 +17,7 @@
     //
     // If you are using Facebook, uncomment and add your FacebookAppID to your bundle's plist as
     // described here: https://developers.facebook.com/docs/getting-started/facebook-sdk-for-ios/
-    // [PFFacebookUtils initializeFacebook];
+    [PFFacebookUtils initializeFacebook];
     // ****************************************************************************
 
     [PFUser enableAutomaticUser];
@@ -79,18 +80,19 @@
     return YES;
 }
 
-/*
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation {
+    return [FBAppCall handleOpenURL:url
+                  sourceApplication:sourceApplication
+                        withSession:[PFFacebookUtils session]];
+}
+
+- (void)applicationDidBecomeActive:(UIApplication *)application {
+    [FBAppCall handleDidBecomeActiveWithSession:[PFFacebookUtils session]];
+}
  
-///////////////////////////////////////////////////////////
-// Uncomment this method if you are using Facebook
-///////////////////////////////////////////////////////////
- 
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
-    sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-    return [PFFacebookUtils handleOpenURL:url];
-} 
- 
-*/
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)newDeviceToken {
     [PFPush storeDeviceToken:newDeviceToken];
@@ -140,12 +142,6 @@
      */
 }
 
-- (void)applicationDidBecomeActive:(UIApplication *)application {
-    /*
-     Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-     */
-}
-
 - (void)applicationWillTerminate:(UIApplication *)application {
     /*
      Called when the application is about to terminate.
@@ -153,6 +149,30 @@
      See also applicationDidEnterBackground:.
      */
 }
+
+//- (IBAction)loginButtonTouchHandler:(id)sender  {
+//    // The permissions requested from the user
+//    NSArray *permissionsArray = @[ @"user_about_me", @"user_relationships", @"user_birthday", @"user_location"];
+//    
+//    // Login PFUser using Facebook
+//    [PFFacebookUtils logInWithPermissions:permissionsArray block:^(PFUser *user, NSError *error) {
+//        [_activityIndicator stopAnimating]; // Hide loading indicator
+//        
+//        if (!user) {
+//            if (!error) {
+//                NSLog(@"Uh oh. The user cancelled the Facebook login.");
+//            } else {
+//                NSLog(@"Uh oh. An error occurred: %@", error);
+//            }
+//        } else if (user.isNew) {
+//            NSLog(@"User with facebook signed up and logged in!");
+//            [self.navigationController pushViewController:[[UserDetailsViewController alloc] initWithStyle:UITableViewStyleGrouped] animated:YES];
+//        } else {
+//            NSLog(@"User with facebook logged in!");
+//            [self.navigationController pushViewController:[[UserDetailsViewController alloc] initWithStyle:UITableViewStyleGrouped] animated:YES];
+//        }
+//    }];
+//}
 
 
 #pragma mark - ()
