@@ -8,6 +8,7 @@
 
 #import "AddEventViewController.h"
 #import <Parse/Parse.h>
+#import <QuartzCore/QuartzCore.h>
 
 @interface AddEventViewController ()
 
@@ -74,6 +75,7 @@ UILabel* descriptionAsterisk;
     NSUInteger newLength = [textField.text length] + [string length] - range.length;
     return (newLength > 30) ? NO : YES;
 }
+
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
@@ -164,6 +166,40 @@ UILabel* descriptionAsterisk;
     [UIView setAnimationBeginsFromCurrentState:YES];
     [UIView setAnimationDuration:KEYBOARD_ANIMATION_DURATION];
     
+    if (self.currentTextField == self.startTimeField) {
+        
+        NSLog(@"Entered start time field");
+        
+        // For the start time field
+        UIDatePicker *startPicker = (UIDatePicker*)self.startTimeField.inputView;
+        //get date from picker
+        NSDate *startDate = startPicker.date;
+        
+        NSDateFormatter *startDateFormat = [[NSDateFormatter alloc] init];
+        [startDateFormat setDateFormat:@"MM/dd/yy, hh:mm aa"];
+        NSString *prettyStart = [startDateFormat stringFromDate:startDate];
+        
+        NSLog(@"The start time is %@", prettyStart);
+        
+        self.startTimeField.text = prettyStart;
+        
+    } else if (self.currentTextField == self.endTimeField) {
+        
+        NSLog(@"Entered end time field");
+        // For the end time field
+        UIDatePicker *endPicker = (UIDatePicker*)self.endTimeField.inputView;
+        //get date from picker
+        NSDate *endDate = endPicker.date;
+        
+        NSDateFormatter *endDateFormat = [[NSDateFormatter alloc] init];
+        [endDateFormat setDateFormat:@"MM/dd/yy, hh:mm aa"];
+        NSString *prettyEnd = [endDateFormat stringFromDate:endDate];
+        
+        NSLog(@"The end time is %@", prettyEnd);
+        
+        self.endTimeField.text = prettyEnd;
+    }
+    
     [self.view setFrame:viewFrame];
     
     [UIView commitAnimations];
@@ -214,16 +250,20 @@ UILabel* descriptionAsterisk;
     NSInteger nextTag = self.currentTextField.tag + 1;
     
     if ((nextTag > 5) || (nextTag < 1)) {
+        NSLog(@"Out of bounds");
         [self.currentTextField resignFirstResponder];
         
     } else {
         // Try to find next responder
+        NSLog(@"In the correct bounds");
         UIView* nextResponder = [self.currentTextField.superview viewWithTag:nextTag];
         if (nextResponder) {
+            NSLog(@"Found next responder");
             // Found next responder, so set it.
             self.currentTextField = nextResponder;
             [nextResponder becomeFirstResponder];
         } else {
+            NSLog(@"Did not find next responder, so remove keyboard");
             // Not found, so remove keyboard.
             [self.currentTextField resignFirstResponder];
         }
@@ -325,6 +365,7 @@ UILabel* descriptionAsterisk;
     NSDateFormatter *startDateFormat = [[NSDateFormatter alloc] init];
     [startDateFormat setDateFormat:@"MM/dd/yy, hh:mm aa"];
     NSString *prettyStart = [startDateFormat stringFromDate:startDate];
+    
     
     double timeFieldsTop = timesTop + 25;
     
@@ -528,6 +569,8 @@ UILabel* descriptionAsterisk;
     self.descriptionView.text = @"Be sure to include any information such as: \nWet/dry? Who can register guests? Is there a url to register guests?";
     self.descriptionView.textColor = [UIColor lightGrayColor];
     [self.descriptionView setFont:[UIFont fontWithName:@"Helvetica" size:14]];
+    self.descriptionView.clipsToBounds = YES;
+    self.descriptionView.layer.cornerRadius = 5.0f;
     [self.descriptionView setInputAccessoryView:inputToolbar];
     
     [scrollingView addSubview:self.descriptionView];
@@ -560,6 +603,7 @@ UILabel* descriptionAsterisk;
 {
     BOOL state = [sender isOn];
     int identifier = sender.tag;
+    
     if (identifier == 0) {
         self.openToCmc = state == YES ? YES: NO;
     }
@@ -689,7 +733,7 @@ UILabel* descriptionAsterisk;
         switchesEmpty = YES;
         ++emptyFieldCount;
         
-        // Add asterisk next to location field
+        // Add asterisk next to openTo label
         openToAsterisk.textColor = [UIColor redColor];
         
     } else {
@@ -702,7 +746,7 @@ UILabel* descriptionAsterisk;
         descriptionEmpty = YES;
         ++emptyFieldCount;
         
-        // Add asterisk next to location field
+        // Add asterisk next to description label
         descriptionAsterisk.textColor = [UIColor redColor];
         
     } else {
