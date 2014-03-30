@@ -314,7 +314,7 @@ UILabel* descriptionAsterisk;
     self.addEventField.delegate = self;
     
     // Initialize asterisk next to event name field (but does not show yet)
-    eventNameAsterisk = [[UILabel alloc] initWithFrame:CGRectMake(5, top+20, 25, 30)];
+    eventNameAsterisk = [[UILabel alloc] initWithFrame:CGRectMake(5, top+18, 25, 30)];
     eventNameAsterisk.font = [UIFont fontWithName:@"Helvetica" size:30.0 ];
     eventNameAsterisk.text = @"*";
     eventNameAsterisk.textColor = green;
@@ -456,7 +456,7 @@ UILabel* descriptionAsterisk;
     [scrollingView addSubview: openLabel];
     
     // Initialize asterisk next to openTo label (but does not show yet)
-    openToAsterisk = [[UILabel alloc] initWithFrame:CGRectMake(5, top+169, 25, 30)];
+    openToAsterisk = [[UILabel alloc] initWithFrame:CGRectMake(5, top+168, 25, 30)];
     openToAsterisk.font = [UIFont fontWithName:@"Helvetica" size:30.0 ];
     openToAsterisk.text = @"*";
     openToAsterisk.textColor = green;
