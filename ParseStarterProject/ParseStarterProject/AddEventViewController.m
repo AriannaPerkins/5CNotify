@@ -274,10 +274,12 @@ UILabel* descriptionAsterisk;
     self.addEventField.delegate = self;
     
     // Initialize asterisk next to event name field (but does not show yet)
-    eventNameAsterisk = [[UILabel alloc] initWithFrame:CGRectMake(5, top+80, 25, 30)];
-    eventNameAsterisk.font=[UIFont fontWithName:@"Helvetica" size:30.0 ];
-    eventNameAsterisk.textColor = [UIColor redColor];
+    eventNameAsterisk = [[UILabel alloc] initWithFrame:CGRectMake(5, top+20, 25, 30)];
+    eventNameAsterisk.font = [UIFont fontWithName:@"Helvetica" size:30.0 ];
+    eventNameAsterisk.text = @"*";
+    eventNameAsterisk.textColor = green;
     [scrollingView addSubview:eventNameAsterisk];
+    
     
     // The keyboard bar
     UIToolbar* inputToolbar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, 320, 50)];
@@ -340,9 +342,10 @@ UILabel* descriptionAsterisk;
     [scrollingView addSubview:self.startTimeField];
     
     // Initialize start asterisk (but does not show yet)
-    startAsterisk = [[UILabel alloc] initWithFrame:CGRectMake(5, top+111, 25, 30)];
-    startAsterisk.font=[UIFont fontWithName:@"Helvetica" size:30.0 ];
-    startAsterisk.textColor = [UIColor redColor];
+    startAsterisk = [[UILabel alloc] initWithFrame:CGRectMake(5, top+48, 25, 30)];
+    startAsterisk.font = [UIFont fontWithName:@"Helvetica" size:30.0 ];
+    startAsterisk.text = @"*";
+    startAsterisk.textColor = green;
     [scrollingView addSubview:startAsterisk];
     
     // The end date picker
@@ -370,9 +373,10 @@ UILabel* descriptionAsterisk;
     [scrollingView addSubview:self.endTimeField];
     
     // Initialize end asterisk (but does not show yet)
-    endAsterisk = [[UILabel alloc] initWithFrame:CGRectMake(width/2 - 3, top+111, 25, 30)];
-    endAsterisk.font=[UIFont fontWithName:@"Helvetica" size:30.0 ];
-    endAsterisk.textColor = [UIColor redColor];
+    endAsterisk = [[UILabel alloc] initWithFrame:CGRectMake(width/2 - 3, top+48, 25, 30)];
+    endAsterisk.font = [UIFont fontWithName:@"Helvetica" size:30.0 ];
+    endAsterisk.text = @"*";
+    endAsterisk.textColor = green;
     [scrollingView addSubview:endAsterisk];
     
     double locationTop = timeFieldsTop + 35;
@@ -396,9 +400,10 @@ UILabel* descriptionAsterisk;
     [scrollingView addSubview:self.locationField];
     
     // Initialize asterisk next to location field (but does not show yet)
-    locationAsterisk = [[UILabel alloc] initWithFrame:CGRectMake(5, top+171, 25, 30)];
-    locationAsterisk.font=[UIFont fontWithName:@"Helvetica" size:30.0 ];
-    locationAsterisk.textColor = [UIColor redColor];
+    locationAsterisk = [[UILabel alloc] initWithFrame:CGRectMake(5, top+108, 25, 30)];
+    locationAsterisk.font = [UIFont fontWithName:@"Helvetica" size:30.0 ];
+    locationAsterisk.text = @"*";
+    locationAsterisk.textColor = green;
     [scrollingView addSubview:locationAsterisk];
     
     double openTop = locationFieldsTop + 35;
@@ -410,9 +415,10 @@ UILabel* descriptionAsterisk;
     [scrollingView addSubview: openLabel];
     
     // Initialize asterisk next to openTo label (but does not show yet)
-    openToAsterisk = [[UILabel alloc] initWithFrame:CGRectMake(5, top+232, 25, 30)];
-    openToAsterisk.font=[UIFont fontWithName:@"Helvetica" size:30.0 ];
-    openToAsterisk.textColor = [UIColor redColor];
+    openToAsterisk = [[UILabel alloc] initWithFrame:CGRectMake(5, top+169, 25, 30)];
+    openToAsterisk.font = [UIFont fontWithName:@"Helvetica" size:30.0 ];
+    openToAsterisk.text = @"*";
+    openToAsterisk.textColor = green;
     [scrollingView addSubview:openToAsterisk];
     
     double switchesTop = openTop + 25;
@@ -528,9 +534,10 @@ UILabel* descriptionAsterisk;
     [self.view addSubview:scrollingView];
     
     // Initialize asterisk next to description label (but does not show yet)
-    descriptionAsterisk = [[UILabel alloc] initWithFrame:CGRectMake(5, top+335, 25, 30)];
-    descriptionAsterisk.font=[UIFont fontWithName:@"Helvetica" size:30.0 ];
-    descriptionAsterisk.textColor = [UIColor redColor];
+    descriptionAsterisk = [[UILabel alloc] initWithFrame:CGRectMake(5, top+272, 25, 30)];
+    descriptionAsterisk.font = [UIFont fontWithName:@"Helvetica" size:30.0 ];
+    descriptionAsterisk.text = @"*";
+    descriptionAsterisk.textColor = green;
     [scrollingView addSubview:descriptionAsterisk];
     
     UILabel* notifyLabel = [ [UILabel alloc] initWithFrame:CGRectMake(0, 0, 80, 30)];
@@ -579,6 +586,10 @@ UILabel* descriptionAsterisk;
     NSLog(@"Create button pressed");
 //    createButtonPressed =  YES;
     
+    UIColor* green = [UIColor colorWithRed:(float) 95.0/ 255.0
+                                     green:(float) 190.0/ 255.0
+                                      blue:(float) 20.0/ 255.0 alpha:1.0];
+    
     // For the start time field
     UIDatePicker *startPicker = (UIDatePicker*)self.startTimeField.inputView;
     //get date from picker
@@ -621,12 +632,11 @@ UILabel* descriptionAsterisk;
         ++emptyFieldCount;
         
         // Add asterisk next to event name field
-        eventNameAsterisk.text = @"*";
-        [self.view addSubview:eventNameAsterisk];
+        eventNameAsterisk.textColor = [UIColor redColor];
         
     } else {
         eventNameEmpty = NO;
-        eventNameAsterisk.text = @"";
+        eventNameAsterisk.textColor = green;
     }
     
     // see if start and end date fields are empty by checking if the entered dates are
@@ -639,12 +649,11 @@ UILabel* descriptionAsterisk;
         ++emptyFieldCount;
         
         // Add asterisk next to start time field
-        startAsterisk.text = @"*";
-        [self.view addSubview:startAsterisk];
+        startAsterisk.textColor = [UIColor redColor];
         
     } else {
         startEmpty = NO;
-        startAsterisk.text = @"";
+        startAsterisk.textColor = green;
     }
     
     
@@ -654,12 +663,11 @@ UILabel* descriptionAsterisk;
         ++emptyFieldCount;
         
         // Add asterisk next to end time field
-        endAsterisk.text = @"*";
-        [self.view addSubview:endAsterisk];
+        endAsterisk.textColor = [UIColor redColor];
         
     } else {
         endEmpty = NO;
-        endAsterisk.text = @"";
+        endAsterisk.textColor = green;
     }
     
     
@@ -669,12 +677,11 @@ UILabel* descriptionAsterisk;
         ++emptyFieldCount;
         
         // Add asterisk next to location field
-        locationAsterisk.text = @"*";
-        [self.view addSubview:locationAsterisk];
+        locationAsterisk.textColor = [UIColor redColor];
         
     } else {
         locationEmpty = NO;
-        locationAsterisk.text = @"";
+        locationAsterisk.textColor = green;
     }
     
     if ([openToSwitches count] == 0) {
@@ -683,12 +690,11 @@ UILabel* descriptionAsterisk;
         ++emptyFieldCount;
         
         // Add asterisk next to location field
-        openToAsterisk.text = @"*";
-        [self.view addSubview:openToAsterisk];
+        openToAsterisk.textColor = [UIColor redColor];
         
     } else {
         switchesEmpty = NO;
-        openToAsterisk.text = @"";
+        openToAsterisk.textColor = green;
     }
     
     if ([self.descriptionView.text isEqualToString:@"Be sure to include any information such as: \nWet/dry? Who can register guests? Is there a url to register guests?"]) {
@@ -697,12 +703,11 @@ UILabel* descriptionAsterisk;
         ++emptyFieldCount;
         
         // Add asterisk next to location field
-        descriptionAsterisk.text = @"*";
-        [self.view addSubview:descriptionAsterisk];
+        descriptionAsterisk.textColor = [UIColor redColor];
         
     } else {
         descriptionEmpty = NO;
-        descriptionAsterisk.text = @"";
+        descriptionAsterisk.textColor = green;
     }
     
     NSLog(@"There are %d fields that have not been filled out", emptyFieldCount);
