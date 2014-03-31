@@ -72,16 +72,7 @@
     
     CGFloat height = self.frame.size.height-5;
     
-//    // make label for the event
-//    self.eventNameLabel.frame =CGRectMake(5, height*0.04, width, height*0.4);
-//    
-//    // make label for the location of the event
-//    self.locationLabel.frame = CGRectMake(5, height*0.33,width,height*0.18);
-//    
-//    // make label for the time of the event
-//    _timeLabel.frame = CGRectMake(5, height*0.54,width,  height*0.15);
-    
-    _descriptionLabel.frame =  CGRectMake(0, height*0.9, width, height*0.55);
+    _descriptionLabel.frame =  CGRectMake(0, height*0.9, width, height);
     _descriptionLabel.hidden = NO;
 }
 @end
