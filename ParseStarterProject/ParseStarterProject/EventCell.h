@@ -19,7 +19,5 @@
 @property(nonatomic, retain)  UITextView *descriptionLabel;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier;
--(void) returnToNormalView;
--(void) longView:(CGFloat) height;
 
 @end

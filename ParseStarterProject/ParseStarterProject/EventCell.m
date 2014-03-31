@@ -40,13 +40,24 @@
         _locationLabel.textAlignment = NSTextAlignmentLeft;
         
         // make label for the time of the event
-        _timeLabel = [ [UILabel alloc] initWithFrame:CGRectMake(5, height*0.7,width, height*0.3)];
+        _timeLabel = [ [UILabel alloc] initWithFrame:CGRectMake(5, height*0.7,width, height*0.35)];
         
         //timeLabel.text = [NSString stringWithFormat:@"%@ to %@",startDateString,endDateString];
         _timeLabel.textColor = self.textColoring;
         _timeLabel.font = [UIFont fontWithName:@"Helvetica" size:14];
         _timeLabel.textAlignment = NSTextAlignmentLeft;
         
+        _descriptionLabel = [[UITextView alloc] initWithFrame: CGRectMake(5, height*5, width, height*0.55)];
+        _descriptionLabel.textColor = self.textColoring;
+        _descriptionLabel.font = [UIFont fontWithName:@"Helvetica" size:14];
+        _descriptionLabel.textAlignment = NSTextAlignmentLeft;
+        _descriptionLabel.backgroundColor = [UIColor clearColor];
+        _descriptionLabel.editable = NO;
+        _descriptionLabel.hidden = YES;
+        
+        self.selected = NO;
+        
+        [self addSubview:_descriptionLabel];
         
         // add these labels to the view
         [self addSubview:_eventNameLabel];
@@ -57,44 +68,20 @@
     return self;
 }
 
--(void)returnToNormalView{
+-(void) setSelected:(BOOL)selected animated:(BOOL)animated{
     
-    CGFloat height = 55;
+    CGFloat height = self.frame.size.height-5;
     
-    // make label for the event
-    self.eventNameLabel.frame = CGRectMake(5, height*0.05, width, height*0.4);
+//    // make label for the event
+//    self.eventNameLabel.frame =CGRectMake(5, height*0.04, width, height*0.4);
+//    
+//    // make label for the location of the event
+//    self.locationLabel.frame = CGRectMake(5, height*0.33,width,height*0.18);
+//    
+//    // make label for the time of the event
+//    _timeLabel.frame = CGRectMake(5, height*0.54,width,  height*0.15);
     
-    
-    // make label for the location of the event
-    self.locationLabel.frame = CGRectMake(5, height*0.42,width,height*0.3);
-    
-    // make label for the time of the event
-    _timeLabel.frame = CGRectMake(5, height*0.7,width, height*0.3);
-    
-    [_descriptionLabel removeFromSuperview];
+    _descriptionLabel.frame =  CGRectMake(0, height*0.9, width, height*0.55);
+    _descriptionLabel.hidden = NO;
 }
-
--(void) longView:(CGFloat) currHeight{
-    
-    CGFloat height = currHeight-5;
-    
-    // make label for the event
-    self.eventNameLabel.frame =CGRectMake(5, height*0.04, width, height*0.3);
-    
-    // make label for the location of the event
-    self.locationLabel.frame = CGRectMake(5, height*0.33,width,height*0.18);
-    
-    // make label for the time of the event
-    _timeLabel.frame = CGRectMake(5, height*0.54,width,  height*0.15);
-    
-    _descriptionLabel = [[UITextView alloc] initWithFrame: CGRectMake(0, height*0.63, width, height*0.55)];
-    _descriptionLabel.textColor = self.textColoring;
-    _descriptionLabel.font = [UIFont fontWithName:@"Helvetica" size:14];
-    _descriptionLabel.textAlignment = NSTextAlignmentLeft;
-    _descriptionLabel.backgroundColor = [UIColor clearColor];
-    _descriptionLabel.editable = NO;
-    
-    [self addSubview:_descriptionLabel];
-}
-
 @end

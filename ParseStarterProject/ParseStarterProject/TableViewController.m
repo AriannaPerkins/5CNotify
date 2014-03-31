@@ -183,7 +183,6 @@ NSMutableArray* parties;
     UIView *bgView = [[UIView alloc] init];
     bgView.backgroundColor = [UIColor whiteColor];
     [cell setSelectedBackgroundView:bgView];
-    
     return cell;
 
 }
@@ -209,11 +208,12 @@ NSMutableArray* parties;
     //Check if already selected
     if (selected == indexPath.row){
         selected=NSIntegerMin;
-        [cell returnToNormalView];
+        cell.descriptionLabel.hidden = YES;
     }else{
         selected = indexPath.row;
-        CGFloat height = [self tableView:[self tableView] heightForRowAtIndexPath:indexPath];
-        [cell longView: height];
+        //CGFloat height = [self tableView:[self tableView] heightForRowAtIndexPath:indexPath];
+        //[cell longView: height];
+        cell.descriptionLabel.hidden = NO;
     }
     [self.tableView beginUpdates];
     [self.tableView endUpdates];

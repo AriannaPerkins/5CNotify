@@ -1,7 +1,6 @@
 #import <Parse/Parse.h>
 #import "ParseStarterProjectAppDelegate.h"
 #import "ParseStarterProjectViewController.h"
-#import <FacebookSDK/FacebookSDK.h>
 
 @implementation ParseStarterProjectAppDelegate
 
@@ -17,7 +16,7 @@
     //
     // If you are using Facebook, uncomment and add your FacebookAppID to your bundle's plist as
     // described here: https://developers.facebook.com/docs/getting-started/facebook-sdk-for-ios/
-    [PFFacebookUtils initializeFacebook];
+    //[PFFacebookUtils initializeFacebook];
     // ****************************************************************************
 
     [PFUser enableAutomaticUser];
@@ -72,7 +71,22 @@
             [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
         }
     }
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque];
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7)
+    {
+        self.window.clipsToBounds = YES;
+        [[UIApplication sharedApplication] setStatusBarStyle: UIStatusBarStyleBlackOpaque];
+        
+        UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
+        if(orientation == UIInterfaceOrientationLandscapeLeft || orientation == UIInterfaceOrientationLandscapeRight)
+        {
+            self.window.frame =  CGRectMake(20, 0,self.window.frame.size.width-20,self.window.frame.size.height);
+            self.window.bounds = CGRectMake(20, 0, self.window.frame.size.width, self.window.frame.size.height);
+        } else
+        {
+            self.window.frame =  CGRectMake(0,20,self.window.frame.size.width,self.window.frame.size.height);
+            self.window.bounds = CGRectMake(0, 20, self.window.frame.size.width, self.window.frame.size.height);
+        }
+    }
     
     [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge|
                                                     UIRemoteNotificationTypeAlert|
@@ -80,19 +94,19 @@
     return YES;
 }
 
-- (BOOL)application:(UIApplication *)application
-            openURL:(NSURL *)url
-  sourceApplication:(NSString *)sourceApplication
-         annotation:(id)annotation {
-    return [FBAppCall handleOpenURL:url
-                  sourceApplication:sourceApplication
-                        withSession:[PFFacebookUtils session]];
-}
-
-- (void)applicationDidBecomeActive:(UIApplication *)application {
-    [FBAppCall handleDidBecomeActiveWithSession:[PFFacebookUtils session]];
-}
- 
+//- (BOOL)application:(UIApplication *)application
+//            openURL:(NSURL *)url
+//  sourceApplication:(NSString *)sourceApplication
+//         annotation:(id)annotation {
+//    return [FBAppCall handleOpenURL:url
+//                  sourceApplication:sourceApplication
+//                        withSession:[PFFacebookUtils session]];
+//}
+//
+//- (void)applicationDidBecomeActive:(UIApplication *)application {
+//    [FBAppCall handleDidBecomeActiveWithSession:[PFFacebookUtils session]];
+//}
+// 
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)newDeviceToken {
     [PFPush storeDeviceToken:newDeviceToken];
