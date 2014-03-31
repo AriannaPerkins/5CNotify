@@ -146,6 +146,7 @@ UILabel* descriptionAsterisk;
     [UIView setAnimationBeginsFromCurrentState:YES];
     [UIView setAnimationDuration:KEYBOARD_ANIMATION_DURATION];
     
+    // Make the place holder text in the description box disappear when clicked
     if ([textView.text isEqualToString:@"Be sure to include any information such as: \nWet/dry? Who can register guests? Is there a url to register guests?"]) {
         textView.text = @"";
         textView.textColor = [UIColor blackColor]; //optional
@@ -166,6 +167,7 @@ UILabel* descriptionAsterisk;
     [UIView setAnimationBeginsFromCurrentState:YES];
     [UIView setAnimationDuration:KEYBOARD_ANIMATION_DURATION];
     
+    // Make the dates appear when user finishes editing
     if (self.currentTextField == self.startTimeField) {
         
         NSLog(@"Entered start time field");
@@ -337,7 +339,7 @@ UILabel* descriptionAsterisk;
     
     [scrollingView addSubview:self.addEventField];
     
-    double timesTop = eventsTop + 30; //was 40
+    double timesTop = eventsTop + 30;
     
     // Start time
     UILabel* startTimeLabel = [ [UILabel alloc] initWithFrame:CGRectMake(20, timesTop, (width/2) - 30, 30)];
@@ -369,6 +371,7 @@ UILabel* descriptionAsterisk;
     
     double timeFieldsTop = timesTop + 25;
     
+    // Create start time field
     self.startTimeField = [[UITextField alloc] initWithFrame:CGRectMake(20, timeFieldsTop, (width/2) - 32, 30)];
     self.startTimeField.tag = 2;
     self.startTimeField.placeholder = prettyStart;
@@ -402,6 +405,7 @@ UILabel* descriptionAsterisk;
     [endDateFormat setDateFormat:@"MM/dd/yy, hh:mm aa"];
     NSString *prettyEnd = [startDateFormat stringFromDate:endDate];
     
+    // Create the end time field
     self.endTimeField = [[UITextField alloc] initWithFrame:CGRectMake((width/2) + 12, timeFieldsTop, (width/2) - 32, 30)];
     self.endTimeField.tag = 3;
     self.endTimeField.placeholder = prettyEnd;
@@ -599,6 +603,7 @@ UILabel* descriptionAsterisk;
 
 }
 
+// Method that changes the states for the openTo schools switch conditions
 - (void)setState:(UISwitch*)sender
 {
     BOOL state = [sender isOn];
@@ -626,9 +631,6 @@ UILabel* descriptionAsterisk;
 
 
 - (IBAction)createButtonPressed {
-
-    NSLog(@"Create button pressed");
-//    createButtonPressed =  YES;
     
     UIColor* green = [UIColor colorWithRed:(float) 95.0/ 255.0
                                      green:(float) 190.0/ 255.0
@@ -741,6 +743,9 @@ UILabel* descriptionAsterisk;
         openToAsterisk.textColor = green;
     }
     
+    // Since the description text will remain as the placeholder (as written below) if the user leaves
+    // it blank, we must check if the text in the box is the same as the placeholder text
+    
     if ([self.descriptionView.text isEqualToString:@"Be sure to include any information such as: \nWet/dry? Who can register guests? Is there a url to register guests?"]) {
         
         descriptionEmpty = YES;
@@ -759,6 +764,7 @@ UILabel* descriptionAsterisk;
     // Only send info to parse and return to table view if all fields have been entered
     
     if (emptyFieldCount == 0) {
+        
         // Push event information to Parse
         newEvent[@"eventName"] = self.addEventField.text;
         newEvent[@"startTime"] = startDate;
