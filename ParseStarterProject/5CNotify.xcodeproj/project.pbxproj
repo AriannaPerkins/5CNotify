@@ -7,7 +7,187 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0792C4EB18E8C4E30080FE8A /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0792C4EA18E8C4E30080FE8A /* FacebookSDK.framework */; };
+		07CCB99118E90ADF00454468 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07CCB99018E90ADF00454468 /* FacebookSDK.framework */; };
+		07CCBABA18E914AF00454468 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07CCB99518E914AE00454468 /* FacebookSDK.framework */; };
+		07CCBABB18E914AF00454468 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 07CCB99618E914AE00454468 /* LICENSE */; };
+		07CCBABC18E914AF00454468 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 07CCB99718E914AE00454468 /* README.txt */; };
+		07CCBABD18E914AF00454468 /* Application.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 07CCB99A18E914AE00454468 /* Application.xcconfig */; };
+		07CCBABE18E914AF00454468 /* Project-Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 07CCB99B18E914AE00454468 /* Project-Debug.xcconfig */; };
+		07CCBABF18E914AF00454468 /* Project-Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 07CCB99C18E914AE00454468 /* Project-Release.xcconfig */; };
+		07CCBAC018E914AF00454468 /* Project.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 07CCB99D18E914AE00454468 /* Project.xcconfig */; };
+		07CCBAC118E914AF00454468 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCB9A018E914AE00454468 /* Default-568h@2x.png */; };
+		07CCBAC218E914AF00454468 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCB9A118E914AE00454468 /* Default.png */; };
+		07CCBAC318E914AF00454468 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCB9A218E914AE00454468 /* Default@2x.png */; };
+		07CCBAC418E914AF00454468 /* FPViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07CCB9A318E914AE00454468 /* FPViewController_iPad.xib */; };
+		07CCBAC518E914AF00454468 /* FPViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07CCB9A518E914AE00454468 /* FPViewController_iPhone.xib */; };
+		07CCBAC618E914AF00454468 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 07CCB9A718E914AE00454468 /* InfoPlist.strings */; };
+		07CCBAC718E914AF00454468 /* FPAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 07CCB9AA18E914AE00454468 /* FPAppDelegate.m */; };
+		07CCBAC818E914AF00454468 /* FPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07CCB9AC18E914AE00454468 /* FPViewController.m */; };
+		07CCBAC918E914AF00454468 /* FriendPickerSample-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 07CCB9AD18E914AE00454468 /* FriendPickerSample-Info.plist */; };
+		07CCBACA18E914AF00454468 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCB9AF18E914AE00454468 /* Icon-72.png */; };
+		07CCBACB18E914AF00454468 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCB9B018E914AE00454468 /* Icon-72@2x.png */; };
+		07CCBACC18E914AF00454468 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCB9B118E914AE00454468 /* Icon.png */; };
+		07CCBACD18E914AF00454468 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCB9B218E914AE00454468 /* Icon@2x.png */; };
+		07CCBACE18E914AF00454468 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 07CCB9B318E914AE00454468 /* main.m */; };
+		07CCBACF18E914AF00454468 /* ReadMe.txt in Resources */ = {isa = PBXBuildFile; fileRef = 07CCB9B718E914AE00454468 /* ReadMe.txt */; };
+		07CCBAD018E914AF00454468 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCB9BA18E914AE00454468 /* Default-568h@2x.png */; };
+		07CCBAD118E914AF00454468 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCB9BB18E914AE00454468 /* Default.png */; };
+		07CCBAD218E914AF00454468 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCB9BC18E914AE00454468 /* Default@2x.png */; };
+		07CCBAD318E914AF00454468 /* GraphApiViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07CCB9BD18E914AE00454468 /* GraphApiViewController_iPad.xib */; };
+		07CCBAD418E914AF00454468 /* GraphApiViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07CCB9BF18E914AE00454468 /* GraphApiViewController_iPhone.xib */; };
+		07CCBAD518E914AF00454468 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 07CCB9C118E914AE00454468 /* InfoPlist.strings */; };
+		07CCBAD618E914AF00454468 /* GraphApiAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 07CCB9C418E914AE00454468 /* GraphApiAppDelegate.m */; };
+		07CCBAD718E914AF00454468 /* GraphApiSample-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 07CCB9C518E914AE00454468 /* GraphApiSample-Info.plist */; };
+		07CCBAD818E914AF00454468 /* GraphApiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07CCB9C818E914AE00454468 /* GraphApiViewController.m */; };
+		07CCBAD918E914AF00454468 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCB9C918E914AE00454468 /* Icon-72.png */; };
+		07CCBADA18E914AF00454468 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCB9CA18E914AE00454468 /* Icon-72@2x.png */; };
+		07CCBADB18E914AF00454468 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCB9CB18E914AE00454468 /* Icon.png */; };
+		07CCBADC18E914AF00454468 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCB9CC18E914AE00454468 /* Icon@2x.png */; };
+		07CCBADD18E914AF00454468 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 07CCB9CD18E914AE00454468 /* main.m */; };
+		07CCBADE18E914AF00454468 /* ReadMe.txt in Resources */ = {isa = PBXBuildFile; fileRef = 07CCB9D118E914AE00454468 /* ReadMe.txt */; };
+		07CCBADF18E914AF00454468 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCB9D418E914AE00454468 /* Default-568h@2x.png */; };
+		07CCBAE018E914AF00454468 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCB9D518E914AE00454468 /* Default.png */; };
+		07CCBAE118E914AF00454468 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCB9D618E914AE00454468 /* Default@2x.png */; };
+		07CCBAE218E914AF00454468 /* HFViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07CCB9D718E914AE00454468 /* HFViewController_iPad.xib */; };
+		07CCBAE318E914AF00454468 /* HFViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07CCB9D918E914AE00454468 /* HFViewController_iPhone.xib */; };
+		07CCBAE418E914AF00454468 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 07CCB9DB18E914AE00454468 /* InfoPlist.strings */; };
+		07CCBAE518E914AF00454468 /* HelloFacebookSample-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 07CCB9DD18E914AE00454468 /* HelloFacebookSample-Info.plist */; };
+		07CCBAE618E914AF00454468 /* HFAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 07CCB9E018E914AE00454468 /* HFAppDelegate.m */; };
+		07CCBAE718E914AF00454468 /* HFViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07CCB9E218E914AE00454468 /* HFViewController.m */; };
+		07CCBAE818E914AF00454468 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCB9E318E914AE00454468 /* Icon-72.png */; };
+		07CCBAE918E914AF00454468 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCB9E418E914AE00454468 /* Icon-72@2x.png */; };
+		07CCBAEA18E914AF00454468 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCB9E518E914AE00454468 /* Icon.png */; };
+		07CCBAEB18E914AF00454468 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCB9E618E914AE00454468 /* Icon@2x.png */; };
+		07CCBAEC18E914AF00454468 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 07CCB9E718E914AE00454468 /* main.m */; };
+		07CCBAED18E914AF00454468 /* ReadMe.txt in Resources */ = {isa = PBXBuildFile; fileRef = 07CCB9EB18E914AE00454468 /* ReadMe.txt */; };
+		07CCBAEE18E914AF00454468 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCB9EE18E914AE00454468 /* Default-568h@2x.png */; };
+		07CCBAEF18E914AF00454468 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCB9EF18E914AE00454468 /* Default.png */; };
+		07CCBAF018E914AF00454468 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCB9F018E914AE00454468 /* Default@2x.png */; };
+		07CCBAF118E914AF00454468 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 07CCB9F118E914AE00454468 /* InfoPlist.strings */; };
+		07CCBAF218E914AF00454468 /* PPViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07CCB9F318E914AE00454468 /* PPViewController_iPad.xib */; };
+		07CCBAF318E914AF00454468 /* PPViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07CCB9F518E914AE00454468 /* PPViewController_iPhone.xib */; };
+		07CCBAF418E914AF00454468 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCB9F718E914AE00454468 /* Icon-72.png */; };
+		07CCBAF518E914AF00454468 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCB9F818E914AE00454468 /* Icon-72@2x.png */; };
+		07CCBAF618E914AF00454468 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCB9F918E914AE00454468 /* Icon.png */; };
+		07CCBAF718E914AF00454468 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCB9FA18E914AE00454468 /* Icon@2x.png */; };
+		07CCBAF818E914AF00454468 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 07CCB9FB18E914AE00454468 /* main.m */; };
+		07CCBAF918E914AF00454468 /* PlacePickerSample-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 07CCB9FC18E914AE00454468 /* PlacePickerSample-Info.plist */; };
+		07CCBAFA18E914AF00454468 /* PPAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 07CCB9FF18E914AE00454468 /* PPAppDelegate.m */; };
+		07CCBAFB18E914AF00454468 /* PPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07CCBA0118E914AE00454468 /* PPViewController.m */; };
+		07CCBAFC18E914AF00454468 /* ReadMe.txt in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA0518E914AE00454468 /* ReadMe.txt */; };
+		07CCBAFD18E914AF00454468 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA0818E914AE00454468 /* Default-568h@2x.png */; };
+		07CCBAFE18E914AF00454468 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA0918E914AE00454468 /* Default.png */; };
+		07CCBAFF18E914AF00454468 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA0A18E914AE00454468 /* Default@2x.png */; };
+		07CCBB0018E914AF00454468 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA0B18E914AE00454468 /* InfoPlist.strings */; };
+		07CCBB0118E914AF00454468 /* PPViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA0D18E914AE00454468 /* PPViewController_iPad.xib */; };
+		07CCBB0218E914AF00454468 /* PPViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA0F18E914AE00454468 /* PPViewController_iPhone.xib */; };
+		07CCBB0318E914AF00454468 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA1118E914AE00454468 /* Icon-72.png */; };
+		07CCBB0418E914AF00454468 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA1218E914AE00454468 /* Icon-72@2x.png */; };
+		07CCBB0518E914AF00454468 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA1318E914AE00454468 /* Icon.png */; };
+		07CCBB0618E914AF00454468 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA1418E914AE00454468 /* Icon@2x.png */; };
+		07CCBB0718E914AF00454468 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 07CCBA1518E914AE00454468 /* main.m */; };
+		07CCBB0818E914AF00454468 /* PPAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 07CCBA1718E914AE00454468 /* PPAppDelegate.m */; };
+		07CCBB0918E914AF00454468 /* PPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07CCBA1918E914AE00454468 /* PPViewController.m */; };
+		07CCBB0A18E914AF00454468 /* ProfilePictureSample-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA1A18E914AE00454468 /* ProfilePictureSample-Info.plist */; };
+		07CCBB0B18E914AF00454468 /* ReadMe.txt in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA1F18E914AE00454468 /* ReadMe.txt */; };
+		07CCBB0C18E914AF00454468 /* post_app_objects.sh in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA2118E914AE00454468 /* post_app_objects.sh */; };
+		07CCBB0D18E914AF00454468 /* ReadMe.txt in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA2218E914AE00454468 /* ReadMe.txt */; };
+		07CCBB0E18E914AF00454468 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA2418E914AE00454468 /* Default-568h@2x.png */; };
+		07CCBB0F18E914AF00454468 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA2518E914AE00454468 /* Default.png */; };
+		07CCBB1018E914AF00454468 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA2618E914AE00454468 /* Default@2x.png */; };
+		07CCBB1118E914AF00454468 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA2718E914AE00454468 /* InfoPlist.strings */; };
+		07CCBB1218E914AF00454468 /* RPSFriendsViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA2918E914AE00454468 /* RPSFriendsViewController_iPad.xib */; };
+		07CCBB1318E914AF00454468 /* RPSFriendsViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA2B18E914AE00454468 /* RPSFriendsViewController_iPhone.xib */; };
+		07CCBB1418E914AF00454468 /* RPSGameViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA2D18E914AE00454468 /* RPSGameViewController_iPad.xib */; };
+		07CCBB1518E914AF00454468 /* RPSGameViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA2F18E914AE00454468 /* RPSGameViewController_iPhone.xib */; };
+		07CCBB1618E914AF00454468 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA3118E914AE00454468 /* Icon-72.png */; };
+		07CCBB1718E914AF00454468 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA3218E914AE00454468 /* Icon-72@2x.png */; };
+		07CCBB1818E914AF00454468 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA3318E914AE00454468 /* Icon.png */; };
+		07CCBB1918E914AF00454468 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA3418E914AE00454468 /* Icon@2x.png */; };
+		07CCBB1A18E914AF00454468 /* IconFacebook-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA3518E914AE00454468 /* IconFacebook-72@2x.png */; };
+		07CCBB1B18E914AF00454468 /* left-paper-128.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA3618E914AE00454468 /* left-paper-128.png */; };
+		07CCBB1C18E914AF00454468 /* left-paper-88.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA3718E914AE00454468 /* left-paper-88.png */; };
+		07CCBB1D18E914AF00454468 /* left-rock-128.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA3818E914AE00454468 /* left-rock-128.png */; };
+		07CCBB1E18E914AF00454468 /* left-rock-88.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA3918E914AE00454468 /* left-rock-88.png */; };
+		07CCBB1F18E914AF00454468 /* left-scissors-128.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA3A18E914AE00454468 /* left-scissors-128.png */; };
+		07CCBB2018E914AF00454468 /* left-scissors-88.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA3B18E914AE00454468 /* left-scissors-88.png */; };
+		07CCBB2118E914AF00454468 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 07CCBA3C18E914AE00454468 /* main.m */; };
+		07CCBB2218E914AF00454468 /* right-paper-128.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA3E18E914AE00454468 /* right-paper-128.png */; };
+		07CCBB2318E914AF00454468 /* right-paper-88.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA3F18E914AE00454468 /* right-paper-88.png */; };
+		07CCBB2418E914AF00454468 /* right-rock-128.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA4018E914AE00454468 /* right-rock-128.png */; };
+		07CCBB2518E914AF00454468 /* right-rock-88.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA4118E914AE00454468 /* right-rock-88.png */; };
+		07CCBB2618E914AF00454468 /* right-scissors-128.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA4218E914AE00454468 /* right-scissors-128.png */; };
+		07CCBB2718E914AF00454468 /* right-scissors-88.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA4318E914AE00454468 /* right-scissors-88.png */; };
+		07CCBB2818E914AF00454468 /* RPSAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 07CCBA4518E914AE00454468 /* RPSAppDelegate.m */; };
+		07CCBB2918E914AF00454468 /* RPSCommonObjects.m in Sources */ = {isa = PBXBuildFile; fileRef = 07CCBA4718E914AE00454468 /* RPSCommonObjects.m */; };
+		07CCBB2A18E914AF00454468 /* RPSDeeplyLinkedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07CCBA4918E914AE00454468 /* RPSDeeplyLinkedViewController.m */; };
+		07CCBB2B18E914AF00454468 /* RPSDeeplyLinkedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA4A18E914AE00454468 /* RPSDeeplyLinkedViewController.xib */; };
+		07CCBB2C18E914AF00454468 /* RPSFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07CCBA4C18E914AE00454468 /* RPSFriendsViewController.m */; };
+		07CCBB2D18E914AF00454468 /* RPSGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07CCBA4E18E914AE00454468 /* RPSGameViewController.m */; };
+		07CCBB2E18E914AF00454468 /* RPSSample-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA4F18E914AE00454468 /* RPSSample-Info.plist */; };
+		07CCBB2F18E914AF00454468 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA5518E914AE00454468 /* Icon-72.png */; };
+		07CCBB3018E914AF00454468 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA5618E914AE00454468 /* Icon.png */; };
+		07CCBB3118E914AF00454468 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA5718E914AE00454468 /* Icon@2x.png */; };
+		07CCBB3218E914AF00454468 /* ReadMe.txt in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA5818E914AE00454468 /* ReadMe.txt */; };
+		07CCBB3318E914AF00454468 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA5A18E914AE00454468 /* Default-568h@2x.png */; };
+		07CCBB3418E914AF00454468 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA5B18E914AE00454468 /* Default.png */; };
+		07CCBB3518E914AF00454468 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA5C18E914AE00454468 /* Default@2x.png */; };
+		07CCBB3618E914AF00454468 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA5D18E914AE00454468 /* InfoPlist.strings */; };
+		07CCBB3718E914AF00454468 /* Scrumptious.strings in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA5F18E914AE00454468 /* Scrumptious.strings */; };
+		07CCBB3818E914AF00454468 /* SCViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA6118E914AE00454468 /* SCViewController.xib */; };
+		07CCBB3918E914AF00454468 /* FacebookSDKOverrides.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA6318E914AE00454468 /* FacebookSDKOverrides.bundle */; };
+		07CCBB3A18E914AF00454468 /* action-eating.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA6618E914AE00454468 /* action-eating.png */; };
+		07CCBB3B18E914AF00454468 /* action-location.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA6718E914AE00454468 /* action-location.png */; };
+		07CCBB3C18E914AF00454468 /* action-people.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA6818E914AE00454468 /* action-people.png */; };
+		07CCBB3D18E914AF00454468 /* action-photo.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA6918E914AE00454468 /* action-photo.png */; };
+		07CCBB3E18E914AF00454468 /* facebook.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA6A18E914AE00454468 /* facebook.png */; };
+		07CCBB3F18E914AF00454468 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 07CCBA6B18E914AE00454468 /* main.m */; };
+		07CCBB4018E914AF00454468 /* SCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 07CCBA6D18E914AE00454468 /* SCAppDelegate.m */; };
+		07CCBB4118E914AF00454468 /* SCLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07CCBA6F18E914AE00454468 /* SCLoginViewController.m */; };
+		07CCBB4218E914AF00454468 /* SCLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA7018E914AE00454468 /* SCLoginViewController.xib */; };
+		07CCBB4318E914AF00454468 /* SCPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07CCBA7218E914AE00454468 /* SCPhotoViewController.m */; };
+		07CCBB4418E914AF00454468 /* SCPhotoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA7318E914AE00454468 /* SCPhotoViewController.xib */; };
+		07CCBB4518E914AF00454468 /* scrumptious-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA7518E914AE00454468 /* scrumptious-Info.plist */; };
+		07CCBB4618E914AF00454468 /* SCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07CCBA7818E914AE00454468 /* SCViewController.m */; };
+		07CCBB4718E914AF00454468 /* ReadMe.txt in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA7D18E914AE00454468 /* ReadMe.txt */; };
+		07CCBB4818E914AF00454468 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA7F18E914AE00454468 /* Default-568h@2x.png */; };
+		07CCBB4918E914AF00454468 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA8018E914AE00454468 /* Default.png */; };
+		07CCBB4A18E914AF00454468 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA8118E914AE00454468 /* Default@2x.png */; };
+		07CCBB4B18E914AF00454468 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA8218E914AE00454468 /* InfoPlist.strings */; };
+		07CCBB4C18E914AF00454468 /* SLViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA8418E914AE00454468 /* SLViewController_iPad.xib */; };
+		07CCBB4D18E914AF00454468 /* SLViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA8618E914AE00454468 /* SLViewController_iPhone.xib */; };
+		07CCBB4E18E914AF00454468 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA8818E914AE00454468 /* Icon-72.png */; };
+		07CCBB4F18E914AF00454468 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA8918E914AE00454468 /* Icon-72@2x.png */; };
+		07CCBB5018E914AF00454468 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA8A18E914AE00454468 /* Icon.png */; };
+		07CCBB5118E914AF00454468 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA8B18E914AE00454468 /* Icon@2x.png */; };
+		07CCBB5218E914AF00454468 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 07CCBA8C18E914AE00454468 /* main.m */; };
+		07CCBB5318E914AF00454468 /* SessionLoginSample-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA8D18E914AE00454468 /* SessionLoginSample-Info.plist */; };
+		07CCBB5418E914AF00454468 /* SLAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 07CCBA9018E914AE00454468 /* SLAppDelegate.m */; };
+		07CCBB5518E914AF00454468 /* SLViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07CCBA9218E914AF00454468 /* SLViewController.m */; };
+		07CCBB5618E914AF00454468 /* ReadMe.txt in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA9718E914AF00454468 /* ReadMe.txt */; };
+		07CCBB5718E914AF00454468 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA9918E914AF00454468 /* Default-568h@2x.png */; };
+		07CCBB5818E914AF00454468 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA9A18E914AF00454468 /* Default.png */; };
+		07CCBB5918E914AF00454468 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA9B18E914AF00454468 /* Default@2x.png */; };
+		07CCBB5A18E914AF00454468 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA9C18E914AF00454468 /* InfoPlist.strings */; };
+		07CCBB5B18E914AF00454468 /* first.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA9E18E914AF00454468 /* first.png */; };
+		07CCBB5C18E914AF00454468 /* first@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBA9F18E914AF00454468 /* first@2x.png */; };
+		07CCBB5D18E914AF00454468 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBAA018E914AF00454468 /* Icon-72.png */; };
+		07CCBB5E18E914AF00454468 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBAA118E914AF00454468 /* Icon-72@2x.png */; };
+		07CCBB5F18E914AF00454468 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBAA218E914AF00454468 /* Icon.png */; };
+		07CCBB6018E914AF00454468 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBAA318E914AF00454468 /* Icon@2x.png */; };
+		07CCBB6118E914AF00454468 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 07CCBAA418E914AF00454468 /* main.m */; };
+		07CCBB6218E914AF00454468 /* second.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBAA518E914AF00454468 /* second.png */; };
+		07CCBB6318E914AF00454468 /* second@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBAA618E914AF00454468 /* second@2x.png */; };
+		07CCBB6418E914AF00454468 /* SUAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 07CCBAA818E914AF00454468 /* SUAppDelegate.m */; };
+		07CCBB6518E914AF00454468 /* SUProfileTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 07CCBAAA18E914AF00454468 /* SUProfileTableViewCell.m */; };
+		07CCBB6618E914AF00454468 /* SUSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07CCBAAC18E914AF00454468 /* SUSettingsViewController.m */; };
+		07CCBB6718E914AF00454468 /* SUSettingsViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBAAD18E914AF00454468 /* SUSettingsViewController_iPad.xib */; };
+		07CCBB6818E914AF00454468 /* SUSettingsViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBAAE18E914AF00454468 /* SUSettingsViewController_iPhone.xib */; };
+		07CCBB6918E914AF00454468 /* SUUserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 07CCBAB018E914AF00454468 /* SUUserManager.m */; };
+		07CCBB6A18E914AF00454468 /* SUUsingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07CCBAB218E914AF00454468 /* SUUsingViewController.m */; };
+		07CCBB6B18E914AF00454468 /* SUUsingViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBAB318E914AF00454468 /* SUUsingViewController_iPad.xib */; };
+		07CCBB6C18E914AF00454468 /* SUUsingViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBAB418E914AF00454468 /* SUUsingViewController_iPhone.xib */; };
+		07CCBB6D18E914AF00454468 /* SwitchUserSample-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 07CCBAB518E914AF00454468 /* SwitchUserSample-Info.plist */; };
 		09144A7313C2997E00388B00 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 09144A7213C2997E00388B00 /* Entitlements.plist */; };
 		092354B313A1D7EB00DA740F /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 092354B213A1D7EB00DA740F /* CFNetwork.framework */; };
 		092354B513A1D7F000DA740F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 092354B413A1D7F000DA740F /* SystemConfiguration.framework */; };
@@ -43,8 +223,301 @@
 		DD952FCB16E7F5CF00470144 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97E18B1E1624CB5700B17A67 /* CoreLocation.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		07CCBB6F18E914AF00454468 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 07CCB9B418E914AE00454468 /* FriendPickerSample.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E2D6B80E15413A570050835F;
+			remoteInfo = FriendPickerSample;
+		};
+		07CCBB7218E914AF00454468 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 07CCB9CE18E914AE00454468 /* GraphApiSample.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E251173D152BB6FE00CB342A;
+			remoteInfo = GraphApiSample;
+		};
+		07CCBB7518E914AF00454468 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 07CCB9E818E914AE00454468 /* HelloFacebookSample.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5F6AF1891532A37B00DDBD75;
+			remoteInfo = HelloFacebookSample;
+		};
+		07CCBB7818E914AF00454468 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 07CCBA0218E914AE00454468 /* PlacePickerSample.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = B9AF4BA4152E43EE00E9BA6C;
+			remoteInfo = PlacePickerSample;
+		};
+		07CCBB7B18E914AF00454468 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 07CCBA1C18E914AE00454468 /* ProfilePictureSample.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = B98686B8151D0B3700616412;
+			remoteInfo = ProfilePictureSample;
+		};
+		07CCBB7E18E914AF00454468 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 07CCBA5118E914AE00454468 /* RPSSample.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 84070D161540AA2B00E39703;
+			remoteInfo = RPSSample;
+		};
+		07CCBB8118E914AF00454468 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 07CCBA7918E914AE00454468 /* Scrumptious.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = B9CD0A6F150EA4DD00560A93;
+			remoteInfo = Scrumptious;
+		};
+		07CCBB8418E914AF00454468 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 07CCBA9318E914AF00454468 /* SessionLoginSample.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 84C757B8152A38770070DD9C;
+			remoteInfo = SessionLoginSample;
+		};
+		07CCBB8718E914AF00454468 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 07CCBAB718E914AF00454468 /* SwitchUserSample.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 856DB049153393C3006F6A33;
+			remoteInfo = SwitchUserSample;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
-		0792C4EA18E8C4E30080FE8A /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../../Documents/FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
+		07CCB99018E90ADF00454468 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../../Documents/FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
+		07CCB99518E914AE00454468 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
+		07CCB99618E914AE00454468 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		07CCB99718E914AE00454468 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
+		07CCB99A18E914AE00454468 /* Application.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Application.xcconfig; sourceTree = "<group>"; };
+		07CCB99B18E914AE00454468 /* Project-Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Project-Debug.xcconfig"; sourceTree = "<group>"; };
+		07CCB99C18E914AE00454468 /* Project-Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Project-Release.xcconfig"; sourceTree = "<group>"; };
+		07CCB99D18E914AE00454468 /* Project.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Project.xcconfig; sourceTree = "<group>"; };
+		07CCB9A018E914AE00454468 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		07CCB9A118E914AE00454468 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		07CCB9A218E914AE00454468 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		07CCB9A418E914AE00454468 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/FPViewController_iPad.xib; sourceTree = "<group>"; };
+		07CCB9A618E914AE00454468 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/FPViewController_iPhone.xib; sourceTree = "<group>"; };
+		07CCB9A818E914AE00454468 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		07CCB9A918E914AE00454468 /* FPAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPAppDelegate.h; sourceTree = "<group>"; };
+		07CCB9AA18E914AE00454468 /* FPAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPAppDelegate.m; sourceTree = "<group>"; };
+		07CCB9AB18E914AE00454468 /* FPViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPViewController.h; sourceTree = "<group>"; };
+		07CCB9AC18E914AE00454468 /* FPViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPViewController.m; sourceTree = "<group>"; };
+		07CCB9AD18E914AE00454468 /* FriendPickerSample-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "FriendPickerSample-Info.plist"; sourceTree = "<group>"; };
+		07CCB9AE18E914AE00454468 /* FriendPickerSample-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FriendPickerSample-Prefix.pch"; sourceTree = "<group>"; };
+		07CCB9AF18E914AE00454468 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
+		07CCB9B018E914AE00454468 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72@2x.png"; sourceTree = "<group>"; };
+		07CCB9B118E914AE00454468 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		07CCB9B218E914AE00454468 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		07CCB9B318E914AE00454468 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		07CCB9B418E914AE00454468 /* FriendPickerSample.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = FriendPickerSample.xcodeproj; sourceTree = "<group>"; };
+		07CCB9B718E914AE00454468 /* ReadMe.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ReadMe.txt; sourceTree = "<group>"; };
+		07CCB9BA18E914AE00454468 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		07CCB9BB18E914AE00454468 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		07CCB9BC18E914AE00454468 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		07CCB9BE18E914AE00454468 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/GraphApiViewController_iPad.xib; sourceTree = "<group>"; };
+		07CCB9C018E914AE00454468 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/GraphApiViewController_iPhone.xib; sourceTree = "<group>"; };
+		07CCB9C218E914AE00454468 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		07CCB9C318E914AE00454468 /* GraphApiAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphApiAppDelegate.h; sourceTree = "<group>"; };
+		07CCB9C418E914AE00454468 /* GraphApiAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphApiAppDelegate.m; sourceTree = "<group>"; };
+		07CCB9C518E914AE00454468 /* GraphApiSample-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GraphApiSample-Info.plist"; sourceTree = "<group>"; };
+		07CCB9C618E914AE00454468 /* GraphApiSample-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GraphApiSample-Prefix.pch"; sourceTree = "<group>"; };
+		07CCB9C718E914AE00454468 /* GraphApiViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphApiViewController.h; sourceTree = "<group>"; };
+		07CCB9C818E914AE00454468 /* GraphApiViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphApiViewController.m; sourceTree = "<group>"; };
+		07CCB9C918E914AE00454468 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
+		07CCB9CA18E914AE00454468 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72@2x.png"; sourceTree = "<group>"; };
+		07CCB9CB18E914AE00454468 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		07CCB9CC18E914AE00454468 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		07CCB9CD18E914AE00454468 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		07CCB9CE18E914AE00454468 /* GraphApiSample.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = GraphApiSample.xcodeproj; sourceTree = "<group>"; };
+		07CCB9D118E914AE00454468 /* ReadMe.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ReadMe.txt; sourceTree = "<group>"; };
+		07CCB9D418E914AE00454468 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		07CCB9D518E914AE00454468 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		07CCB9D618E914AE00454468 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		07CCB9D818E914AE00454468 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/HFViewController_iPad.xib; sourceTree = "<group>"; };
+		07CCB9DA18E914AE00454468 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/HFViewController_iPhone.xib; sourceTree = "<group>"; };
+		07CCB9DC18E914AE00454468 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		07CCB9DD18E914AE00454468 /* HelloFacebookSample-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "HelloFacebookSample-Info.plist"; sourceTree = "<group>"; };
+		07CCB9DE18E914AE00454468 /* HelloFacebookSample-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HelloFacebookSample-Prefix.pch"; sourceTree = "<group>"; };
+		07CCB9DF18E914AE00454468 /* HFAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HFAppDelegate.h; sourceTree = "<group>"; };
+		07CCB9E018E914AE00454468 /* HFAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HFAppDelegate.m; sourceTree = "<group>"; };
+		07CCB9E118E914AE00454468 /* HFViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HFViewController.h; sourceTree = "<group>"; };
+		07CCB9E218E914AE00454468 /* HFViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HFViewController.m; sourceTree = "<group>"; };
+		07CCB9E318E914AE00454468 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
+		07CCB9E418E914AE00454468 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72@2x.png"; sourceTree = "<group>"; };
+		07CCB9E518E914AE00454468 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		07CCB9E618E914AE00454468 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		07CCB9E718E914AE00454468 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		07CCB9E818E914AE00454468 /* HelloFacebookSample.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = HelloFacebookSample.xcodeproj; sourceTree = "<group>"; };
+		07CCB9EB18E914AE00454468 /* ReadMe.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ReadMe.txt; sourceTree = "<group>"; };
+		07CCB9EE18E914AE00454468 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		07CCB9EF18E914AE00454468 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		07CCB9F018E914AE00454468 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		07CCB9F218E914AE00454468 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		07CCB9F418E914AE00454468 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/PPViewController_iPad.xib; sourceTree = "<group>"; };
+		07CCB9F618E914AE00454468 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/PPViewController_iPhone.xib; sourceTree = "<group>"; };
+		07CCB9F718E914AE00454468 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
+		07CCB9F818E914AE00454468 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72@2x.png"; sourceTree = "<group>"; };
+		07CCB9F918E914AE00454468 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		07CCB9FA18E914AE00454468 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		07CCB9FB18E914AE00454468 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		07CCB9FC18E914AE00454468 /* PlacePickerSample-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "PlacePickerSample-Info.plist"; sourceTree = "<group>"; };
+		07CCB9FD18E914AE00454468 /* PlacePickerSample-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PlacePickerSample-Prefix.pch"; sourceTree = "<group>"; };
+		07CCB9FE18E914AE00454468 /* PPAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPAppDelegate.h; sourceTree = "<group>"; };
+		07CCB9FF18E914AE00454468 /* PPAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPAppDelegate.m; sourceTree = "<group>"; };
+		07CCBA0018E914AE00454468 /* PPViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPViewController.h; sourceTree = "<group>"; };
+		07CCBA0118E914AE00454468 /* PPViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPViewController.m; sourceTree = "<group>"; };
+		07CCBA0218E914AE00454468 /* PlacePickerSample.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = PlacePickerSample.xcodeproj; sourceTree = "<group>"; };
+		07CCBA0518E914AE00454468 /* ReadMe.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ReadMe.txt; sourceTree = "<group>"; };
+		07CCBA0818E914AE00454468 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		07CCBA0918E914AE00454468 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		07CCBA0A18E914AE00454468 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		07CCBA0C18E914AE00454468 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		07CCBA0E18E914AE00454468 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/PPViewController_iPad.xib; sourceTree = "<group>"; };
+		07CCBA1018E914AE00454468 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/PPViewController_iPhone.xib; sourceTree = "<group>"; };
+		07CCBA1118E914AE00454468 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
+		07CCBA1218E914AE00454468 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72@2x.png"; sourceTree = "<group>"; };
+		07CCBA1318E914AE00454468 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		07CCBA1418E914AE00454468 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		07CCBA1518E914AE00454468 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		07CCBA1618E914AE00454468 /* PPAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPAppDelegate.h; sourceTree = "<group>"; };
+		07CCBA1718E914AE00454468 /* PPAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPAppDelegate.m; sourceTree = "<group>"; };
+		07CCBA1818E914AE00454468 /* PPViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPViewController.h; sourceTree = "<group>"; };
+		07CCBA1918E914AE00454468 /* PPViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPViewController.m; sourceTree = "<group>"; };
+		07CCBA1A18E914AE00454468 /* ProfilePictureSample-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ProfilePictureSample-Info.plist"; sourceTree = "<group>"; };
+		07CCBA1B18E914AE00454468 /* ProfilePictureSample-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ProfilePictureSample-Prefix.pch"; sourceTree = "<group>"; };
+		07CCBA1C18E914AE00454468 /* ProfilePictureSample.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = ProfilePictureSample.xcodeproj; sourceTree = "<group>"; };
+		07CCBA1F18E914AE00454468 /* ReadMe.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ReadMe.txt; sourceTree = "<group>"; };
+		07CCBA2118E914AE00454468 /* post_app_objects.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = post_app_objects.sh; sourceTree = "<group>"; };
+		07CCBA2218E914AE00454468 /* ReadMe.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ReadMe.txt; sourceTree = "<group>"; };
+		07CCBA2418E914AE00454468 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		07CCBA2518E914AE00454468 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		07CCBA2618E914AE00454468 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		07CCBA2818E914AE00454468 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		07CCBA2A18E914AE00454468 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/RPSFriendsViewController_iPad.xib; sourceTree = "<group>"; };
+		07CCBA2C18E914AE00454468 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/RPSFriendsViewController_iPhone.xib; sourceTree = "<group>"; };
+		07CCBA2E18E914AE00454468 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/RPSGameViewController_iPad.xib; sourceTree = "<group>"; };
+		07CCBA3018E914AE00454468 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/RPSGameViewController_iPhone.xib; sourceTree = "<group>"; };
+		07CCBA3118E914AE00454468 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
+		07CCBA3218E914AE00454468 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72@2x.png"; sourceTree = "<group>"; };
+		07CCBA3318E914AE00454468 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		07CCBA3418E914AE00454468 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		07CCBA3518E914AE00454468 /* IconFacebook-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconFacebook-72@2x.png"; sourceTree = "<group>"; };
+		07CCBA3618E914AE00454468 /* left-paper-128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left-paper-128.png"; sourceTree = "<group>"; };
+		07CCBA3718E914AE00454468 /* left-paper-88.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left-paper-88.png"; sourceTree = "<group>"; };
+		07CCBA3818E914AE00454468 /* left-rock-128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left-rock-128.png"; sourceTree = "<group>"; };
+		07CCBA3918E914AE00454468 /* left-rock-88.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left-rock-88.png"; sourceTree = "<group>"; };
+		07CCBA3A18E914AE00454468 /* left-scissors-128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left-scissors-128.png"; sourceTree = "<group>"; };
+		07CCBA3B18E914AE00454468 /* left-scissors-88.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left-scissors-88.png"; sourceTree = "<group>"; };
+		07CCBA3C18E914AE00454468 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		07CCBA3D18E914AE00454468 /* OGProtocols.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OGProtocols.h; sourceTree = "<group>"; };
+		07CCBA3E18E914AE00454468 /* right-paper-128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right-paper-128.png"; sourceTree = "<group>"; };
+		07CCBA3F18E914AE00454468 /* right-paper-88.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right-paper-88.png"; sourceTree = "<group>"; };
+		07CCBA4018E914AE00454468 /* right-rock-128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right-rock-128.png"; sourceTree = "<group>"; };
+		07CCBA4118E914AE00454468 /* right-rock-88.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right-rock-88.png"; sourceTree = "<group>"; };
+		07CCBA4218E914AE00454468 /* right-scissors-128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right-scissors-128.png"; sourceTree = "<group>"; };
+		07CCBA4318E914AE00454468 /* right-scissors-88.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right-scissors-88.png"; sourceTree = "<group>"; };
+		07CCBA4418E914AE00454468 /* RPSAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPSAppDelegate.h; sourceTree = "<group>"; };
+		07CCBA4518E914AE00454468 /* RPSAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPSAppDelegate.m; sourceTree = "<group>"; };
+		07CCBA4618E914AE00454468 /* RPSCommonObjects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPSCommonObjects.h; sourceTree = "<group>"; };
+		07CCBA4718E914AE00454468 /* RPSCommonObjects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPSCommonObjects.m; sourceTree = "<group>"; };
+		07CCBA4818E914AE00454468 /* RPSDeeplyLinkedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPSDeeplyLinkedViewController.h; sourceTree = "<group>"; };
+		07CCBA4918E914AE00454468 /* RPSDeeplyLinkedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPSDeeplyLinkedViewController.m; sourceTree = "<group>"; };
+		07CCBA4A18E914AE00454468 /* RPSDeeplyLinkedViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RPSDeeplyLinkedViewController.xib; sourceTree = "<group>"; };
+		07CCBA4B18E914AE00454468 /* RPSFriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPSFriendsViewController.h; sourceTree = "<group>"; };
+		07CCBA4C18E914AE00454468 /* RPSFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPSFriendsViewController.m; sourceTree = "<group>"; };
+		07CCBA4D18E914AE00454468 /* RPSGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPSGameViewController.h; sourceTree = "<group>"; };
+		07CCBA4E18E914AE00454468 /* RPSGameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPSGameViewController.m; sourceTree = "<group>"; };
+		07CCBA4F18E914AE00454468 /* RPSSample-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "RPSSample-Info.plist"; sourceTree = "<group>"; };
+		07CCBA5018E914AE00454468 /* RPSSample-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RPSSample-Prefix.pch"; sourceTree = "<group>"; };
+		07CCBA5118E914AE00454468 /* RPSSample.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = RPSSample.xcodeproj; sourceTree = "<group>"; };
+		07CCBA5518E914AE00454468 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
+		07CCBA5618E914AE00454468 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		07CCBA5718E914AE00454468 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		07CCBA5818E914AE00454468 /* ReadMe.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ReadMe.txt; sourceTree = "<group>"; };
+		07CCBA5A18E914AE00454468 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		07CCBA5B18E914AE00454468 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		07CCBA5C18E914AE00454468 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		07CCBA5E18E914AE00454468 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		07CCBA6018E914AE00454468 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Scrumptious.strings; sourceTree = "<group>"; };
+		07CCBA6218E914AE00454468 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/SCViewController.xib; sourceTree = "<group>"; };
+		07CCBA6318E914AE00454468 /* FacebookSDKOverrides.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = FacebookSDKOverrides.bundle; sourceTree = "<group>"; };
+		07CCBA6418E914AE00454468 /* he */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = he; path = he.lproj/Scrumptious.strings; sourceTree = "<group>"; };
+		07CCBA6618E914AE00454468 /* action-eating.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "action-eating.png"; sourceTree = "<group>"; };
+		07CCBA6718E914AE00454468 /* action-location.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "action-location.png"; sourceTree = "<group>"; };
+		07CCBA6818E914AE00454468 /* action-people.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "action-people.png"; sourceTree = "<group>"; };
+		07CCBA6918E914AE00454468 /* action-photo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "action-photo.png"; sourceTree = "<group>"; };
+		07CCBA6A18E914AE00454468 /* facebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = facebook.png; sourceTree = "<group>"; };
+		07CCBA6B18E914AE00454468 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		07CCBA6C18E914AE00454468 /* SCAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCAppDelegate.h; sourceTree = "<group>"; };
+		07CCBA6D18E914AE00454468 /* SCAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCAppDelegate.m; sourceTree = "<group>"; };
+		07CCBA6E18E914AE00454468 /* SCLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCLoginViewController.h; sourceTree = "<group>"; };
+		07CCBA6F18E914AE00454468 /* SCLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCLoginViewController.m; sourceTree = "<group>"; };
+		07CCBA7018E914AE00454468 /* SCLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCLoginViewController.xib; sourceTree = "<group>"; };
+		07CCBA7118E914AE00454468 /* SCPhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCPhotoViewController.h; sourceTree = "<group>"; };
+		07CCBA7218E914AE00454468 /* SCPhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCPhotoViewController.m; sourceTree = "<group>"; };
+		07CCBA7318E914AE00454468 /* SCPhotoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCPhotoViewController.xib; sourceTree = "<group>"; };
+		07CCBA7418E914AE00454468 /* SCProtocols.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCProtocols.h; sourceTree = "<group>"; };
+		07CCBA7518E914AE00454468 /* scrumptious-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "scrumptious-Info.plist"; sourceTree = "<group>"; };
+		07CCBA7618E914AE00454468 /* scrumptious-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "scrumptious-Prefix.pch"; sourceTree = "<group>"; };
+		07CCBA7718E914AE00454468 /* SCViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCViewController.h; sourceTree = "<group>"; };
+		07CCBA7818E914AE00454468 /* SCViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCViewController.m; sourceTree = "<group>"; };
+		07CCBA7918E914AE00454468 /* Scrumptious.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = Scrumptious.xcodeproj; sourceTree = "<group>"; };
+		07CCBA7D18E914AE00454468 /* ReadMe.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ReadMe.txt; sourceTree = "<group>"; };
+		07CCBA7F18E914AE00454468 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		07CCBA8018E914AE00454468 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		07CCBA8118E914AE00454468 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		07CCBA8318E914AE00454468 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		07CCBA8518E914AE00454468 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/SLViewController_iPad.xib; sourceTree = "<group>"; };
+		07CCBA8718E914AE00454468 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/SLViewController_iPhone.xib; sourceTree = "<group>"; };
+		07CCBA8818E914AE00454468 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
+		07CCBA8918E914AE00454468 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72@2x.png"; sourceTree = "<group>"; };
+		07CCBA8A18E914AE00454468 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		07CCBA8B18E914AE00454468 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		07CCBA8C18E914AE00454468 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		07CCBA8D18E914AE00454468 /* SessionLoginSample-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "SessionLoginSample-Info.plist"; sourceTree = "<group>"; };
+		07CCBA8E18E914AE00454468 /* SessionLoginSample-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SessionLoginSample-Prefix.pch"; sourceTree = "<group>"; };
+		07CCBA8F18E914AE00454468 /* SLAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLAppDelegate.h; sourceTree = "<group>"; };
+		07CCBA9018E914AE00454468 /* SLAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLAppDelegate.m; sourceTree = "<group>"; };
+		07CCBA9118E914AF00454468 /* SLViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLViewController.h; sourceTree = "<group>"; };
+		07CCBA9218E914AF00454468 /* SLViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLViewController.m; sourceTree = "<group>"; };
+		07CCBA9318E914AF00454468 /* SessionLoginSample.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = SessionLoginSample.xcodeproj; sourceTree = "<group>"; };
+		07CCBA9718E914AF00454468 /* ReadMe.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ReadMe.txt; sourceTree = "<group>"; };
+		07CCBA9918E914AF00454468 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		07CCBA9A18E914AF00454468 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		07CCBA9B18E914AF00454468 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		07CCBA9D18E914AF00454468 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		07CCBA9E18E914AF00454468 /* first.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = first.png; sourceTree = "<group>"; };
+		07CCBA9F18E914AF00454468 /* first@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "first@2x.png"; sourceTree = "<group>"; };
+		07CCBAA018E914AF00454468 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
+		07CCBAA118E914AF00454468 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72@2x.png"; sourceTree = "<group>"; };
+		07CCBAA218E914AF00454468 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		07CCBAA318E914AF00454468 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		07CCBAA418E914AF00454468 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		07CCBAA518E914AF00454468 /* second.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = second.png; sourceTree = "<group>"; };
+		07CCBAA618E914AF00454468 /* second@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "second@2x.png"; sourceTree = "<group>"; };
+		07CCBAA718E914AF00454468 /* SUAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUAppDelegate.h; sourceTree = "<group>"; };
+		07CCBAA818E914AF00454468 /* SUAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUAppDelegate.m; sourceTree = "<group>"; };
+		07CCBAA918E914AF00454468 /* SUProfileTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUProfileTableViewCell.h; sourceTree = "<group>"; };
+		07CCBAAA18E914AF00454468 /* SUProfileTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUProfileTableViewCell.m; sourceTree = "<group>"; };
+		07CCBAAB18E914AF00454468 /* SUSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUSettingsViewController.h; sourceTree = "<group>"; };
+		07CCBAAC18E914AF00454468 /* SUSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUSettingsViewController.m; sourceTree = "<group>"; };
+		07CCBAAD18E914AF00454468 /* SUSettingsViewController_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SUSettingsViewController_iPad.xib; sourceTree = "<group>"; };
+		07CCBAAE18E914AF00454468 /* SUSettingsViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SUSettingsViewController_iPhone.xib; sourceTree = "<group>"; };
+		07CCBAAF18E914AF00454468 /* SUUserManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUUserManager.h; sourceTree = "<group>"; };
+		07CCBAB018E914AF00454468 /* SUUserManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUUserManager.m; sourceTree = "<group>"; };
+		07CCBAB118E914AF00454468 /* SUUsingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUUsingViewController.h; sourceTree = "<group>"; };
+		07CCBAB218E914AF00454468 /* SUUsingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUUsingViewController.m; sourceTree = "<group>"; };
+		07CCBAB318E914AF00454468 /* SUUsingViewController_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SUUsingViewController_iPad.xib; sourceTree = "<group>"; };
+		07CCBAB418E914AF00454468 /* SUUsingViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SUUsingViewController_iPhone.xib; sourceTree = "<group>"; };
+		07CCBAB518E914AF00454468 /* SwitchUserSample-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "SwitchUserSample-Info.plist"; sourceTree = "<group>"; };
+		07CCBAB618E914AF00454468 /* SwitchUserSample-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SwitchUserSample-Prefix.pch"; sourceTree = "<group>"; };
+		07CCBAB718E914AF00454468 /* SwitchUserSample.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = SwitchUserSample.xcodeproj; sourceTree = "<group>"; };
 		09144A7213C2997E00388B00 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
 		092354B213A1D7EB00DA740F /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		092354B413A1D7F000DA740F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -109,15 +582,489 @@
 				092354B513A1D7F000DA740F /* SystemConfiguration.framework in Frameworks */,
 				092354B313A1D7EB00DA740F /* CFNetwork.framework in Frameworks */,
 				09ABC07213A1D52D009C3FCF /* UIKit.framework in Frameworks */,
+				07CCBABA18E914AF00454468 /* FacebookSDK.framework in Frameworks */,
+				07CCB99118E90ADF00454468 /* FacebookSDK.framework in Frameworks */,
 				09ABC07413A1D52D009C3FCF /* Foundation.framework in Frameworks */,
 				094ACA0014367ACD008398F8 /* Parse.framework in Frameworks */,
-				0792C4EB18E8C4E30080FE8A /* FacebookSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		07CCB99418E914AE00454468 /* FacebookSDK */ = {
+			isa = PBXGroup;
+			children = (
+				07CCB99518E914AE00454468 /* FacebookSDK.framework */,
+				07CCB99618E914AE00454468 /* LICENSE */,
+				07CCB99718E914AE00454468 /* README.txt */,
+				07CCB99818E914AE00454468 /* Samples */,
+			);
+			path = FacebookSDK;
+			sourceTree = "<group>";
+		};
+		07CCB99818E914AE00454468 /* Samples */ = {
+			isa = PBXGroup;
+			children = (
+				07CCB99918E914AE00454468 /* Configurations */,
+				07CCB99E18E914AE00454468 /* FriendPickerSample */,
+				07CCB9B818E914AE00454468 /* GraphApiSample */,
+				07CCB9D218E914AE00454468 /* HelloFacebookSample */,
+				07CCB9EC18E914AE00454468 /* PlacePickerSample */,
+				07CCBA0618E914AE00454468 /* ProfilePictureSample */,
+				07CCBA2018E914AE00454468 /* RPSSample */,
+				07CCBA5418E914AE00454468 /* Scrumptious */,
+				07CCBA7C18E914AE00454468 /* SessionLoginSample */,
+				07CCBA9618E914AF00454468 /* SwitchUserSample */,
+			);
+			path = Samples;
+			sourceTree = "<group>";
+		};
+		07CCB99918E914AE00454468 /* Configurations */ = {
+			isa = PBXGroup;
+			children = (
+				07CCB99A18E914AE00454468 /* Application.xcconfig */,
+				07CCB99B18E914AE00454468 /* Project-Debug.xcconfig */,
+				07CCB99C18E914AE00454468 /* Project-Release.xcconfig */,
+				07CCB99D18E914AE00454468 /* Project.xcconfig */,
+			);
+			path = Configurations;
+			sourceTree = "<group>";
+		};
+		07CCB99E18E914AE00454468 /* FriendPickerSample */ = {
+			isa = PBXGroup;
+			children = (
+				07CCB99F18E914AE00454468 /* FriendPickerSample */,
+				07CCB9B418E914AE00454468 /* FriendPickerSample.xcodeproj */,
+				07CCB9B718E914AE00454468 /* ReadMe.txt */,
+			);
+			path = FriendPickerSample;
+			sourceTree = "<group>";
+		};
+		07CCB99F18E914AE00454468 /* FriendPickerSample */ = {
+			isa = PBXGroup;
+			children = (
+				07CCB9A018E914AE00454468 /* Default-568h@2x.png */,
+				07CCB9A118E914AE00454468 /* Default.png */,
+				07CCB9A218E914AE00454468 /* Default@2x.png */,
+				07CCB9A318E914AE00454468 /* FPViewController_iPad.xib */,
+				07CCB9A518E914AE00454468 /* FPViewController_iPhone.xib */,
+				07CCB9A718E914AE00454468 /* InfoPlist.strings */,
+				07CCB9A918E914AE00454468 /* FPAppDelegate.h */,
+				07CCB9AA18E914AE00454468 /* FPAppDelegate.m */,
+				07CCB9AB18E914AE00454468 /* FPViewController.h */,
+				07CCB9AC18E914AE00454468 /* FPViewController.m */,
+				07CCB9AD18E914AE00454468 /* FriendPickerSample-Info.plist */,
+				07CCB9AE18E914AE00454468 /* FriendPickerSample-Prefix.pch */,
+				07CCB9AF18E914AE00454468 /* Icon-72.png */,
+				07CCB9B018E914AE00454468 /* Icon-72@2x.png */,
+				07CCB9B118E914AE00454468 /* Icon.png */,
+				07CCB9B218E914AE00454468 /* Icon@2x.png */,
+				07CCB9B318E914AE00454468 /* main.m */,
+			);
+			path = FriendPickerSample;
+			sourceTree = "<group>";
+		};
+		07CCB9B518E914AE00454468 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				07CCBB7018E914AF00454468 /* FriendPickerSample.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		07CCB9B818E914AE00454468 /* GraphApiSample */ = {
+			isa = PBXGroup;
+			children = (
+				07CCB9B918E914AE00454468 /* GraphApiSample */,
+				07CCB9CE18E914AE00454468 /* GraphApiSample.xcodeproj */,
+				07CCB9D118E914AE00454468 /* ReadMe.txt */,
+			);
+			path = GraphApiSample;
+			sourceTree = "<group>";
+		};
+		07CCB9B918E914AE00454468 /* GraphApiSample */ = {
+			isa = PBXGroup;
+			children = (
+				07CCB9BA18E914AE00454468 /* Default-568h@2x.png */,
+				07CCB9BB18E914AE00454468 /* Default.png */,
+				07CCB9BC18E914AE00454468 /* Default@2x.png */,
+				07CCB9BD18E914AE00454468 /* GraphApiViewController_iPad.xib */,
+				07CCB9BF18E914AE00454468 /* GraphApiViewController_iPhone.xib */,
+				07CCB9C118E914AE00454468 /* InfoPlist.strings */,
+				07CCB9C318E914AE00454468 /* GraphApiAppDelegate.h */,
+				07CCB9C418E914AE00454468 /* GraphApiAppDelegate.m */,
+				07CCB9C518E914AE00454468 /* GraphApiSample-Info.plist */,
+				07CCB9C618E914AE00454468 /* GraphApiSample-Prefix.pch */,
+				07CCB9C718E914AE00454468 /* GraphApiViewController.h */,
+				07CCB9C818E914AE00454468 /* GraphApiViewController.m */,
+				07CCB9C918E914AE00454468 /* Icon-72.png */,
+				07CCB9CA18E914AE00454468 /* Icon-72@2x.png */,
+				07CCB9CB18E914AE00454468 /* Icon.png */,
+				07CCB9CC18E914AE00454468 /* Icon@2x.png */,
+				07CCB9CD18E914AE00454468 /* main.m */,
+			);
+			path = GraphApiSample;
+			sourceTree = "<group>";
+		};
+		07CCB9CF18E914AE00454468 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				07CCBB7318E914AF00454468 /* GraphApiSample.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		07CCB9D218E914AE00454468 /* HelloFacebookSample */ = {
+			isa = PBXGroup;
+			children = (
+				07CCB9D318E914AE00454468 /* HelloFacebookSample */,
+				07CCB9E818E914AE00454468 /* HelloFacebookSample.xcodeproj */,
+				07CCB9EB18E914AE00454468 /* ReadMe.txt */,
+			);
+			path = HelloFacebookSample;
+			sourceTree = "<group>";
+		};
+		07CCB9D318E914AE00454468 /* HelloFacebookSample */ = {
+			isa = PBXGroup;
+			children = (
+				07CCB9D418E914AE00454468 /* Default-568h@2x.png */,
+				07CCB9D518E914AE00454468 /* Default.png */,
+				07CCB9D618E914AE00454468 /* Default@2x.png */,
+				07CCB9D718E914AE00454468 /* HFViewController_iPad.xib */,
+				07CCB9D918E914AE00454468 /* HFViewController_iPhone.xib */,
+				07CCB9DB18E914AE00454468 /* InfoPlist.strings */,
+				07CCB9DD18E914AE00454468 /* HelloFacebookSample-Info.plist */,
+				07CCB9DE18E914AE00454468 /* HelloFacebookSample-Prefix.pch */,
+				07CCB9DF18E914AE00454468 /* HFAppDelegate.h */,
+				07CCB9E018E914AE00454468 /* HFAppDelegate.m */,
+				07CCB9E118E914AE00454468 /* HFViewController.h */,
+				07CCB9E218E914AE00454468 /* HFViewController.m */,
+				07CCB9E318E914AE00454468 /* Icon-72.png */,
+				07CCB9E418E914AE00454468 /* Icon-72@2x.png */,
+				07CCB9E518E914AE00454468 /* Icon.png */,
+				07CCB9E618E914AE00454468 /* Icon@2x.png */,
+				07CCB9E718E914AE00454468 /* main.m */,
+			);
+			path = HelloFacebookSample;
+			sourceTree = "<group>";
+		};
+		07CCB9E918E914AE00454468 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				07CCBB7618E914AF00454468 /* HelloFacebookSample.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		07CCB9EC18E914AE00454468 /* PlacePickerSample */ = {
+			isa = PBXGroup;
+			children = (
+				07CCB9ED18E914AE00454468 /* PlacePickerSample */,
+				07CCBA0218E914AE00454468 /* PlacePickerSample.xcodeproj */,
+				07CCBA0518E914AE00454468 /* ReadMe.txt */,
+			);
+			path = PlacePickerSample;
+			sourceTree = "<group>";
+		};
+		07CCB9ED18E914AE00454468 /* PlacePickerSample */ = {
+			isa = PBXGroup;
+			children = (
+				07CCB9EE18E914AE00454468 /* Default-568h@2x.png */,
+				07CCB9EF18E914AE00454468 /* Default.png */,
+				07CCB9F018E914AE00454468 /* Default@2x.png */,
+				07CCB9F118E914AE00454468 /* InfoPlist.strings */,
+				07CCB9F318E914AE00454468 /* PPViewController_iPad.xib */,
+				07CCB9F518E914AE00454468 /* PPViewController_iPhone.xib */,
+				07CCB9F718E914AE00454468 /* Icon-72.png */,
+				07CCB9F818E914AE00454468 /* Icon-72@2x.png */,
+				07CCB9F918E914AE00454468 /* Icon.png */,
+				07CCB9FA18E914AE00454468 /* Icon@2x.png */,
+				07CCB9FB18E914AE00454468 /* main.m */,
+				07CCB9FC18E914AE00454468 /* PlacePickerSample-Info.plist */,
+				07CCB9FD18E914AE00454468 /* PlacePickerSample-Prefix.pch */,
+				07CCB9FE18E914AE00454468 /* PPAppDelegate.h */,
+				07CCB9FF18E914AE00454468 /* PPAppDelegate.m */,
+				07CCBA0018E914AE00454468 /* PPViewController.h */,
+				07CCBA0118E914AE00454468 /* PPViewController.m */,
+			);
+			path = PlacePickerSample;
+			sourceTree = "<group>";
+		};
+		07CCBA0318E914AE00454468 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				07CCBB7918E914AF00454468 /* PlacePickerSample.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		07CCBA0618E914AE00454468 /* ProfilePictureSample */ = {
+			isa = PBXGroup;
+			children = (
+				07CCBA0718E914AE00454468 /* ProfilePictureSample */,
+				07CCBA1C18E914AE00454468 /* ProfilePictureSample.xcodeproj */,
+				07CCBA1F18E914AE00454468 /* ReadMe.txt */,
+			);
+			path = ProfilePictureSample;
+			sourceTree = "<group>";
+		};
+		07CCBA0718E914AE00454468 /* ProfilePictureSample */ = {
+			isa = PBXGroup;
+			children = (
+				07CCBA0818E914AE00454468 /* Default-568h@2x.png */,
+				07CCBA0918E914AE00454468 /* Default.png */,
+				07CCBA0A18E914AE00454468 /* Default@2x.png */,
+				07CCBA0B18E914AE00454468 /* InfoPlist.strings */,
+				07CCBA0D18E914AE00454468 /* PPViewController_iPad.xib */,
+				07CCBA0F18E914AE00454468 /* PPViewController_iPhone.xib */,
+				07CCBA1118E914AE00454468 /* Icon-72.png */,
+				07CCBA1218E914AE00454468 /* Icon-72@2x.png */,
+				07CCBA1318E914AE00454468 /* Icon.png */,
+				07CCBA1418E914AE00454468 /* Icon@2x.png */,
+				07CCBA1518E914AE00454468 /* main.m */,
+				07CCBA1618E914AE00454468 /* PPAppDelegate.h */,
+				07CCBA1718E914AE00454468 /* PPAppDelegate.m */,
+				07CCBA1818E914AE00454468 /* PPViewController.h */,
+				07CCBA1918E914AE00454468 /* PPViewController.m */,
+				07CCBA1A18E914AE00454468 /* ProfilePictureSample-Info.plist */,
+				07CCBA1B18E914AE00454468 /* ProfilePictureSample-Prefix.pch */,
+			);
+			path = ProfilePictureSample;
+			sourceTree = "<group>";
+		};
+		07CCBA1D18E914AE00454468 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				07CCBB7C18E914AF00454468 /* ProfilePictureSample.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		07CCBA2018E914AE00454468 /* RPSSample */ = {
+			isa = PBXGroup;
+			children = (
+				07CCBA2118E914AE00454468 /* post_app_objects.sh */,
+				07CCBA2218E914AE00454468 /* ReadMe.txt */,
+				07CCBA2318E914AE00454468 /* RPSSample */,
+				07CCBA5118E914AE00454468 /* RPSSample.xcodeproj */,
+			);
+			path = RPSSample;
+			sourceTree = "<group>";
+		};
+		07CCBA2318E914AE00454468 /* RPSSample */ = {
+			isa = PBXGroup;
+			children = (
+				07CCBA2418E914AE00454468 /* Default-568h@2x.png */,
+				07CCBA2518E914AE00454468 /* Default.png */,
+				07CCBA2618E914AE00454468 /* Default@2x.png */,
+				07CCBA2718E914AE00454468 /* InfoPlist.strings */,
+				07CCBA2918E914AE00454468 /* RPSFriendsViewController_iPad.xib */,
+				07CCBA2B18E914AE00454468 /* RPSFriendsViewController_iPhone.xib */,
+				07CCBA2D18E914AE00454468 /* RPSGameViewController_iPad.xib */,
+				07CCBA2F18E914AE00454468 /* RPSGameViewController_iPhone.xib */,
+				07CCBA3118E914AE00454468 /* Icon-72.png */,
+				07CCBA3218E914AE00454468 /* Icon-72@2x.png */,
+				07CCBA3318E914AE00454468 /* Icon.png */,
+				07CCBA3418E914AE00454468 /* Icon@2x.png */,
+				07CCBA3518E914AE00454468 /* IconFacebook-72@2x.png */,
+				07CCBA3618E914AE00454468 /* left-paper-128.png */,
+				07CCBA3718E914AE00454468 /* left-paper-88.png */,
+				07CCBA3818E914AE00454468 /* left-rock-128.png */,
+				07CCBA3918E914AE00454468 /* left-rock-88.png */,
+				07CCBA3A18E914AE00454468 /* left-scissors-128.png */,
+				07CCBA3B18E914AE00454468 /* left-scissors-88.png */,
+				07CCBA3C18E914AE00454468 /* main.m */,
+				07CCBA3D18E914AE00454468 /* OGProtocols.h */,
+				07CCBA3E18E914AE00454468 /* right-paper-128.png */,
+				07CCBA3F18E914AE00454468 /* right-paper-88.png */,
+				07CCBA4018E914AE00454468 /* right-rock-128.png */,
+				07CCBA4118E914AE00454468 /* right-rock-88.png */,
+				07CCBA4218E914AE00454468 /* right-scissors-128.png */,
+				07CCBA4318E914AE00454468 /* right-scissors-88.png */,
+				07CCBA4418E914AE00454468 /* RPSAppDelegate.h */,
+				07CCBA4518E914AE00454468 /* RPSAppDelegate.m */,
+				07CCBA4618E914AE00454468 /* RPSCommonObjects.h */,
+				07CCBA4718E914AE00454468 /* RPSCommonObjects.m */,
+				07CCBA4818E914AE00454468 /* RPSDeeplyLinkedViewController.h */,
+				07CCBA4918E914AE00454468 /* RPSDeeplyLinkedViewController.m */,
+				07CCBA4A18E914AE00454468 /* RPSDeeplyLinkedViewController.xib */,
+				07CCBA4B18E914AE00454468 /* RPSFriendsViewController.h */,
+				07CCBA4C18E914AE00454468 /* RPSFriendsViewController.m */,
+				07CCBA4D18E914AE00454468 /* RPSGameViewController.h */,
+				07CCBA4E18E914AE00454468 /* RPSGameViewController.m */,
+				07CCBA4F18E914AE00454468 /* RPSSample-Info.plist */,
+				07CCBA5018E914AE00454468 /* RPSSample-Prefix.pch */,
+			);
+			path = RPSSample;
+			sourceTree = "<group>";
+		};
+		07CCBA5218E914AE00454468 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				07CCBB7F18E914AF00454468 /* RPSSample.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		07CCBA5418E914AE00454468 /* Scrumptious */ = {
+			isa = PBXGroup;
+			children = (
+				07CCBA5518E914AE00454468 /* Icon-72.png */,
+				07CCBA5618E914AE00454468 /* Icon.png */,
+				07CCBA5718E914AE00454468 /* Icon@2x.png */,
+				07CCBA5818E914AE00454468 /* ReadMe.txt */,
+				07CCBA5918E914AE00454468 /* scrumptious */,
+				07CCBA7918E914AE00454468 /* Scrumptious.xcodeproj */,
+			);
+			path = Scrumptious;
+			sourceTree = "<group>";
+		};
+		07CCBA5918E914AE00454468 /* scrumptious */ = {
+			isa = PBXGroup;
+			children = (
+				07CCBA5A18E914AE00454468 /* Default-568h@2x.png */,
+				07CCBA5B18E914AE00454468 /* Default.png */,
+				07CCBA5C18E914AE00454468 /* Default@2x.png */,
+				07CCBA5D18E914AE00454468 /* InfoPlist.strings */,
+				07CCBA5F18E914AE00454468 /* Scrumptious.strings */,
+				07CCBA6118E914AE00454468 /* SCViewController.xib */,
+				07CCBA6318E914AE00454468 /* FacebookSDKOverrides.bundle */,
+				07CCBA6518E914AE00454468 /* images */,
+				07CCBA6B18E914AE00454468 /* main.m */,
+				07CCBA6C18E914AE00454468 /* SCAppDelegate.h */,
+				07CCBA6D18E914AE00454468 /* SCAppDelegate.m */,
+				07CCBA6E18E914AE00454468 /* SCLoginViewController.h */,
+				07CCBA6F18E914AE00454468 /* SCLoginViewController.m */,
+				07CCBA7018E914AE00454468 /* SCLoginViewController.xib */,
+				07CCBA7118E914AE00454468 /* SCPhotoViewController.h */,
+				07CCBA7218E914AE00454468 /* SCPhotoViewController.m */,
+				07CCBA7318E914AE00454468 /* SCPhotoViewController.xib */,
+				07CCBA7418E914AE00454468 /* SCProtocols.h */,
+				07CCBA7518E914AE00454468 /* scrumptious-Info.plist */,
+				07CCBA7618E914AE00454468 /* scrumptious-Prefix.pch */,
+				07CCBA7718E914AE00454468 /* SCViewController.h */,
+				07CCBA7818E914AE00454468 /* SCViewController.m */,
+			);
+			path = scrumptious;
+			sourceTree = "<group>";
+		};
+		07CCBA6518E914AE00454468 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				07CCBA6618E914AE00454468 /* action-eating.png */,
+				07CCBA6718E914AE00454468 /* action-location.png */,
+				07CCBA6818E914AE00454468 /* action-people.png */,
+				07CCBA6918E914AE00454468 /* action-photo.png */,
+				07CCBA6A18E914AE00454468 /* facebook.png */,
+			);
+			path = images;
+			sourceTree = "<group>";
+		};
+		07CCBA7A18E914AE00454468 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				07CCBB8218E914AF00454468 /* Scrumptious.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		07CCBA7C18E914AE00454468 /* SessionLoginSample */ = {
+			isa = PBXGroup;
+			children = (
+				07CCBA7D18E914AE00454468 /* ReadMe.txt */,
+				07CCBA7E18E914AE00454468 /* SessionLoginSample */,
+				07CCBA9318E914AF00454468 /* SessionLoginSample.xcodeproj */,
+			);
+			path = SessionLoginSample;
+			sourceTree = "<group>";
+		};
+		07CCBA7E18E914AE00454468 /* SessionLoginSample */ = {
+			isa = PBXGroup;
+			children = (
+				07CCBA7F18E914AE00454468 /* Default-568h@2x.png */,
+				07CCBA8018E914AE00454468 /* Default.png */,
+				07CCBA8118E914AE00454468 /* Default@2x.png */,
+				07CCBA8218E914AE00454468 /* InfoPlist.strings */,
+				07CCBA8418E914AE00454468 /* SLViewController_iPad.xib */,
+				07CCBA8618E914AE00454468 /* SLViewController_iPhone.xib */,
+				07CCBA8818E914AE00454468 /* Icon-72.png */,
+				07CCBA8918E914AE00454468 /* Icon-72@2x.png */,
+				07CCBA8A18E914AE00454468 /* Icon.png */,
+				07CCBA8B18E914AE00454468 /* Icon@2x.png */,
+				07CCBA8C18E914AE00454468 /* main.m */,
+				07CCBA8D18E914AE00454468 /* SessionLoginSample-Info.plist */,
+				07CCBA8E18E914AE00454468 /* SessionLoginSample-Prefix.pch */,
+				07CCBA8F18E914AE00454468 /* SLAppDelegate.h */,
+				07CCBA9018E914AE00454468 /* SLAppDelegate.m */,
+				07CCBA9118E914AF00454468 /* SLViewController.h */,
+				07CCBA9218E914AF00454468 /* SLViewController.m */,
+			);
+			path = SessionLoginSample;
+			sourceTree = "<group>";
+		};
+		07CCBA9418E914AF00454468 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				07CCBB8518E914AF00454468 /* SessionLoginSample.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		07CCBA9618E914AF00454468 /* SwitchUserSample */ = {
+			isa = PBXGroup;
+			children = (
+				07CCBA9718E914AF00454468 /* ReadMe.txt */,
+				07CCBA9818E914AF00454468 /* SwitchUserSample */,
+				07CCBAB718E914AF00454468 /* SwitchUserSample.xcodeproj */,
+			);
+			path = SwitchUserSample;
+			sourceTree = "<group>";
+		};
+		07CCBA9818E914AF00454468 /* SwitchUserSample */ = {
+			isa = PBXGroup;
+			children = (
+				07CCBA9918E914AF00454468 /* Default-568h@2x.png */,
+				07CCBA9A18E914AF00454468 /* Default.png */,
+				07CCBA9B18E914AF00454468 /* Default@2x.png */,
+				07CCBA9C18E914AF00454468 /* InfoPlist.strings */,
+				07CCBA9E18E914AF00454468 /* first.png */,
+				07CCBA9F18E914AF00454468 /* first@2x.png */,
+				07CCBAA018E914AF00454468 /* Icon-72.png */,
+				07CCBAA118E914AF00454468 /* Icon-72@2x.png */,
+				07CCBAA218E914AF00454468 /* Icon.png */,
+				07CCBAA318E914AF00454468 /* Icon@2x.png */,
+				07CCBAA418E914AF00454468 /* main.m */,
+				07CCBAA518E914AF00454468 /* second.png */,
+				07CCBAA618E914AF00454468 /* second@2x.png */,
+				07CCBAA718E914AF00454468 /* SUAppDelegate.h */,
+				07CCBAA818E914AF00454468 /* SUAppDelegate.m */,
+				07CCBAA918E914AF00454468 /* SUProfileTableViewCell.h */,
+				07CCBAAA18E914AF00454468 /* SUProfileTableViewCell.m */,
+				07CCBAAB18E914AF00454468 /* SUSettingsViewController.h */,
+				07CCBAAC18E914AF00454468 /* SUSettingsViewController.m */,
+				07CCBAAD18E914AF00454468 /* SUSettingsViewController_iPad.xib */,
+				07CCBAAE18E914AF00454468 /* SUSettingsViewController_iPhone.xib */,
+				07CCBAAF18E914AF00454468 /* SUUserManager.h */,
+				07CCBAB018E914AF00454468 /* SUUserManager.m */,
+				07CCBAB118E914AF00454468 /* SUUsingViewController.h */,
+				07CCBAB218E914AF00454468 /* SUUsingViewController.m */,
+				07CCBAB318E914AF00454468 /* SUUsingViewController_iPad.xib */,
+				07CCBAB418E914AF00454468 /* SUUsingViewController_iPhone.xib */,
+				07CCBAB518E914AF00454468 /* SwitchUserSample-Info.plist */,
+				07CCBAB618E914AF00454468 /* SwitchUserSample-Prefix.pch */,
+			);
+			path = SwitchUserSample;
+			sourceTree = "<group>";
+		};
+		07CCBAB818E914AF00454468 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				07CCBB8818E914AF00454468 /* SwitchUserSample.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		09ABC06213A1D52D009C3FCF = {
 			isa = PBXGroup;
 			children = (
@@ -138,7 +1085,8 @@
 		09ABC07013A1D52D009C3FCF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				0792C4EA18E8C4E30080FE8A /* FacebookSDK.framework */,
+				07CCB99418E914AE00454468 /* FacebookSDK */,
+				07CCB99018E90ADF00454468 /* FacebookSDK.framework */,
 				6372FF571613CC47002132AF /* AdSupport.framework */,
 				6372FF551613CC42002132AF /* Social.framework */,
 				6372FF521613CC3C002132AF /* Accounts.framework */,
@@ -237,10 +1185,49 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				he,
 			);
 			mainGroup = 09ABC06213A1D52D009C3FCF;
 			productRefGroup = 09ABC06E13A1D52D009C3FCF /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 07CCB9B518E914AE00454468 /* Products */;
+					ProjectRef = 07CCB9B418E914AE00454468 /* FriendPickerSample.xcodeproj */;
+				},
+				{
+					ProductGroup = 07CCB9CF18E914AE00454468 /* Products */;
+					ProjectRef = 07CCB9CE18E914AE00454468 /* GraphApiSample.xcodeproj */;
+				},
+				{
+					ProductGroup = 07CCB9E918E914AE00454468 /* Products */;
+					ProjectRef = 07CCB9E818E914AE00454468 /* HelloFacebookSample.xcodeproj */;
+				},
+				{
+					ProductGroup = 07CCBA0318E914AE00454468 /* Products */;
+					ProjectRef = 07CCBA0218E914AE00454468 /* PlacePickerSample.xcodeproj */;
+				},
+				{
+					ProductGroup = 07CCBA1D18E914AE00454468 /* Products */;
+					ProjectRef = 07CCBA1C18E914AE00454468 /* ProfilePictureSample.xcodeproj */;
+				},
+				{
+					ProductGroup = 07CCBA5218E914AE00454468 /* Products */;
+					ProjectRef = 07CCBA5118E914AE00454468 /* RPSSample.xcodeproj */;
+				},
+				{
+					ProductGroup = 07CCBA7A18E914AE00454468 /* Products */;
+					ProjectRef = 07CCBA7918E914AE00454468 /* Scrumptious.xcodeproj */;
+				},
+				{
+					ProductGroup = 07CCBA9418E914AF00454468 /* Products */;
+					ProjectRef = 07CCBA9318E914AF00454468 /* SessionLoginSample.xcodeproj */;
+				},
+				{
+					ProductGroup = 07CCBAB818E914AF00454468 /* Products */;
+					ProjectRef = 07CCBAB718E914AF00454468 /* SwitchUserSample.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				09ABC06C13A1D52D009C3FCF /* 5CNotify */,
@@ -248,24 +1235,234 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXReferenceProxy section */
+		07CCBB7018E914AF00454468 /* FriendPickerSample.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = FriendPickerSample.app;
+			remoteRef = 07CCBB6F18E914AF00454468 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		07CCBB7318E914AF00454468 /* GraphApiSample.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = GraphApiSample.app;
+			remoteRef = 07CCBB7218E914AF00454468 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		07CCBB7618E914AF00454468 /* HelloFacebookSample.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = HelloFacebookSample.app;
+			remoteRef = 07CCBB7518E914AF00454468 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		07CCBB7918E914AF00454468 /* PlacePickerSample.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = PlacePickerSample.app;
+			remoteRef = 07CCBB7818E914AF00454468 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		07CCBB7C18E914AF00454468 /* ProfilePictureSample.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = ProfilePictureSample.app;
+			remoteRef = 07CCBB7B18E914AF00454468 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		07CCBB7F18E914AF00454468 /* RPSSample.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = RPSSample.app;
+			remoteRef = 07CCBB7E18E914AF00454468 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		07CCBB8218E914AF00454468 /* Scrumptious.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = Scrumptious.app;
+			remoteRef = 07CCBB8118E914AF00454468 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		07CCBB8518E914AF00454468 /* SessionLoginSample.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = SessionLoginSample.app;
+			remoteRef = 07CCBB8418E914AF00454468 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		07CCBB8818E914AF00454468 /* SwitchUserSample.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = SwitchUserSample.app;
+			remoteRef = 07CCBB8718E914AF00454468 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
 /* Begin PBXResourcesBuildPhase section */
 		09ABC06B13A1D52D009C3FCF /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				09ABC07C13A1D52D009C3FCF /* InfoPlist.strings in Resources */,
+				07CCBB6218E914AF00454468 /* second.png in Resources */,
+				07CCBB3E18E914AF00454468 /* facebook.png in Resources */,
+				07CCBADF18E914AF00454468 /* Default-568h@2x.png in Resources */,
 				09ABC08513A1D52E009C3FCF /* MainWindow.xib in Resources */,
+				07CCBADA18E914AF00454468 /* Icon-72@2x.png in Resources */,
+				07CCBB1218E914AF00454468 /* RPSFriendsViewController_iPad.xib in Resources */,
+				07CCBAF618E914AF00454468 /* Icon.png in Resources */,
+				07CCBABF18E914AF00454468 /* Project-Release.xcconfig in Resources */,
+				07CCBB4C18E914AF00454468 /* SLViewController_iPad.xib in Resources */,
+				07CCBAEE18E914AF00454468 /* Default-568h@2x.png in Resources */,
+				07CCBB1D18E914AF00454468 /* left-rock-128.png in Resources */,
+				07CCBB4E18E914AF00454468 /* Icon-72.png in Resources */,
+				07CCBB0D18E914AF00454468 /* ReadMe.txt in Resources */,
+				07CCBB6318E914AF00454468 /* second@2x.png in Resources */,
+				07CCBAC518E914AF00454468 /* FPViewController_iPhone.xib in Resources */,
+				07CCBB1418E914AF00454468 /* RPSGameViewController_iPad.xib in Resources */,
+				07CCBB4D18E914AF00454468 /* SLViewController_iPhone.xib in Resources */,
+				07CCBB3718E914AF00454468 /* Scrumptious.strings in Resources */,
+				07CCBB1618E914AF00454468 /* Icon-72.png in Resources */,
+				07CCBB4418E914AF00454468 /* SCPhotoViewController.xib in Resources */,
+				07CCBB6018E914AF00454468 /* Icon@2x.png in Resources */,
+				07CCBB3618E914AF00454468 /* InfoPlist.strings in Resources */,
+				07CCBAE118E914AF00454468 /* Default@2x.png in Resources */,
+				07CCBB0A18E914AF00454468 /* ProfilePictureSample-Info.plist in Resources */,
+				07CCBB3B18E914AF00454468 /* action-location.png in Resources */,
 				3CD9D12D18C560C5003ACE29 /* Icon@2x.png in Resources */,
+				07CCBB1018E914AF00454468 /* Default@2x.png in Resources */,
+				07CCBAD518E914AF00454468 /* InfoPlist.strings in Resources */,
+				07CCBB5D18E914AF00454468 /* Icon-72.png in Resources */,
+				07CCBB1C18E914AF00454468 /* left-paper-88.png in Resources */,
+				07CCBAFC18E914AF00454468 /* ReadMe.txt in Resources */,
+				07CCBAFF18E914AF00454468 /* Default@2x.png in Resources */,
+				07CCBB5B18E914AF00454468 /* first.png in Resources */,
+				07CCBB5718E914AF00454468 /* Default-568h@2x.png in Resources */,
+				07CCBAF118E914AF00454468 /* InfoPlist.strings in Resources */,
+				07CCBAFE18E914AF00454468 /* Default.png in Resources */,
+				07CCBAC218E914AF00454468 /* Default.png in Resources */,
+				07CCBB0618E914AF00454468 /* Icon@2x.png in Resources */,
+				07CCBB2F18E914AF00454468 /* Icon-72.png in Resources */,
+				07CCBB6C18E914AF00454468 /* SUUsingViewController_iPhone.xib in Resources */,
+				07CCBB2B18E914AF00454468 /* RPSDeeplyLinkedViewController.xib in Resources */,
 				3CD9D12B18C560C5003ACE29 /* appLogo_80.png in Resources */,
+				07CCBAF718E914AF00454468 /* Icon@2x.png in Resources */,
+				07CCBB3A18E914AF00454468 /* action-eating.png in Resources */,
+				07CCBAE518E914AF00454468 /* HelloFacebookSample-Info.plist in Resources */,
+				07CCBB0B18E914AF00454468 /* ReadMe.txt in Resources */,
+				07CCBACF18E914AF00454468 /* ReadMe.txt in Resources */,
+				07CCBB1518E914AF00454468 /* RPSGameViewController_iPhone.xib in Resources */,
+				07CCBAE218E914AF00454468 /* HFViewController_iPad.xib in Resources */,
+				07CCBB2218E914AF00454468 /* right-paper-128.png in Resources */,
+				07CCBB0E18E914AF00454468 /* Default-568h@2x.png in Resources */,
+				07CCBAE818E914AF00454468 /* Icon-72.png in Resources */,
+				07CCBB1818E914AF00454468 /* Icon.png in Resources */,
+				07CCBABC18E914AF00454468 /* README.txt in Resources */,
+				07CCBAC418E914AF00454468 /* FPViewController_iPad.xib in Resources */,
+				07CCBAF418E914AF00454468 /* Icon-72.png in Resources */,
+				07CCBB1A18E914AF00454468 /* IconFacebook-72@2x.png in Resources */,
+				07CCBB6D18E914AF00454468 /* SwitchUserSample-Info.plist in Resources */,
+				07CCBB0218E914AF00454468 /* PPViewController_iPhone.xib in Resources */,
+				07CCBB1918E914AF00454468 /* Icon@2x.png in Resources */,
+				07CCBB1318E914AF00454468 /* RPSFriendsViewController_iPhone.xib in Resources */,
+				07CCBAF918E914AF00454468 /* PlacePickerSample-Info.plist in Resources */,
+				07CCBAD118E914AF00454468 /* Default.png in Resources */,
+				07CCBAFD18E914AF00454468 /* Default-568h@2x.png in Resources */,
+				07CCBB0318E914AF00454468 /* Icon-72.png in Resources */,
+				07CCBB3418E914AF00454468 /* Default.png in Resources */,
+				07CCBAED18E914AF00454468 /* ReadMe.txt in Resources */,
+				07CCBAD318E914AF00454468 /* GraphApiViewController_iPad.xib in Resources */,
+				07CCBB3518E914AF00454468 /* Default@2x.png in Resources */,
+				07CCBB4918E914AF00454468 /* Default.png in Resources */,
+				07CCBB0418E914AF00454468 /* Icon-72@2x.png in Resources */,
+				07CCBB3018E914AF00454468 /* Icon.png in Resources */,
+				07CCBB1B18E914AF00454468 /* left-paper-128.png in Resources */,
+				07CCBB3218E914AF00454468 /* ReadMe.txt in Resources */,
+				07CCBB2518E914AF00454468 /* right-rock-88.png in Resources */,
+				07CCBB1118E914AF00454468 /* InfoPlist.strings in Resources */,
+				07CCBB5C18E914AF00454468 /* first@2x.png in Resources */,
+				07CCBB1E18E914AF00454468 /* left-rock-88.png in Resources */,
 				3CD9D13018C560C5003ACE29 /* Default~iphone.png in Resources */,
+				07CCBB5F18E914AF00454468 /* Icon.png in Resources */,
+				07CCBAD418E914AF00454468 /* GraphApiViewController_iPhone.xib in Resources */,
+				07CCBAEA18E914AF00454468 /* Icon.png in Resources */,
 				09ABC08B13A1D52E009C3FCF /* ParseStarterProjectViewController.xib in Resources */,
+				07CCBB4718E914AF00454468 /* ReadMe.txt in Resources */,
+				07CCBADB18E914AF00454468 /* Icon.png in Resources */,
+				07CCBAF018E914AF00454468 /* Default@2x.png in Resources */,
+				07CCBAE018E914AF00454468 /* Default.png in Resources */,
+				07CCBB6B18E914AF00454468 /* SUUsingViewController_iPad.xib in Resources */,
+				07CCBACA18E914AF00454468 /* Icon-72.png in Resources */,
+				07CCBB0118E914AF00454468 /* PPViewController_iPad.xib in Resources */,
+				07CCBB2018E914AF00454468 /* left-scissors-88.png in Resources */,
+				07CCBB5918E914AF00454468 /* Default@2x.png in Resources */,
+				07CCBAD018E914AF00454468 /* Default-568h@2x.png in Resources */,
+				07CCBABD18E914AF00454468 /* Application.xcconfig in Resources */,
 				3CD9D12F18C560C5003ACE29 /* Default.png in Resources */,
+				07CCBB3118E914AF00454468 /* Icon@2x.png in Resources */,
+				07CCBB2618E914AF00454468 /* right-scissors-128.png in Resources */,
+				07CCBACB18E914AF00454468 /* Icon-72@2x.png in Resources */,
 				09144A7313C2997E00388B00 /* Entitlements.plist in Resources */,
+				07CCBAD718E914AF00454468 /* GraphApiSample-Info.plist in Resources */,
+				07CCBB0518E914AF00454468 /* Icon.png in Resources */,
+				07CCBB4F18E914AF00454468 /* Icon-72@2x.png in Resources */,
 				3CD9D12A18C560C5003ACE29 /* Icon@2x~iphone.png in Resources */,
+				07CCBAC018E914AF00454468 /* Project.xcconfig in Resources */,
+				07CCBAF218E914AF00454468 /* PPViewController_iPad.xib in Resources */,
+				07CCBB2318E914AF00454468 /* right-paper-88.png in Resources */,
+				07CCBB5A18E914AF00454468 /* InfoPlist.strings in Resources */,
+				07CCBAC118E914AF00454468 /* Default-568h@2x.png in Resources */,
+				07CCBB2E18E914AF00454468 /* RPSSample-Info.plist in Resources */,
+				07CCBB5118E914AF00454468 /* Icon@2x.png in Resources */,
+				07CCBB4818E914AF00454468 /* Default-568h@2x.png in Resources */,
+				07CCBACD18E914AF00454468 /* Icon@2x.png in Resources */,
+				07CCBB6818E914AF00454468 /* SUSettingsViewController_iPhone.xib in Resources */,
+				07CCBAF318E914AF00454468 /* PPViewController_iPhone.xib in Resources */,
+				07CCBB4218E914AF00454468 /* SCLoginViewController.xib in Resources */,
+				07CCBB4B18E914AF00454468 /* InfoPlist.strings in Resources */,
+				07CCBB0018E914AF00454468 /* InfoPlist.strings in Resources */,
+				07CCBB0C18E914AF00454468 /* post_app_objects.sh in Resources */,
+				07CCBB2418E914AF00454468 /* right-rock-128.png in Resources */,
+				07CCBB3818E914AF00454468 /* SCViewController.xib in Resources */,
 				3CD9D12918C560C5003ACE29 /* Icon.png in Resources */,
+				07CCBAEB18E914AF00454468 /* Icon@2x.png in Resources */,
+				07CCBB4518E914AF00454468 /* scrumptious-Info.plist in Resources */,
+				07CCBAC918E914AF00454468 /* FriendPickerSample-Info.plist in Resources */,
+				07CCBAC318E914AF00454468 /* Default@2x.png in Resources */,
+				07CCBAE918E914AF00454468 /* Icon-72@2x.png in Resources */,
+				07CCBB1F18E914AF00454468 /* left-scissors-128.png in Resources */,
+				07CCBAD218E914AF00454468 /* Default@2x.png in Resources */,
+				07CCBAC618E914AF00454468 /* InfoPlist.strings in Resources */,
+				07CCBB0F18E914AF00454468 /* Default.png in Resources */,
+				07CCBB3918E914AF00454468 /* FacebookSDKOverrides.bundle in Resources */,
+				07CCBB1718E914AF00454468 /* Icon-72@2x.png in Resources */,
+				07CCBB4A18E914AF00454468 /* Default@2x.png in Resources */,
+				07CCBB5818E914AF00454468 /* Default.png in Resources */,
+				07CCBABB18E914AF00454468 /* LICENSE in Resources */,
+				07CCBB6718E914AF00454468 /* SUSettingsViewController_iPad.xib in Resources */,
 				3CD9D12C18C560C5003ACE29 /* Icon~iphone.png in Resources */,
+				07CCBADE18E914AF00454468 /* ReadMe.txt in Resources */,
+				07CCBB5018E914AF00454468 /* Icon.png in Resources */,
 				3CD9D12818C560C5003ACE29 /* Icon-Small.png in Resources */,
+				07CCBB3C18E914AF00454468 /* action-people.png in Resources */,
+				07CCBAEF18E914AF00454468 /* Default.png in Resources */,
+				07CCBB2718E914AF00454468 /* right-scissors-88.png in Resources */,
+				07CCBADC18E914AF00454468 /* Icon@2x.png in Resources */,
+				07CCBAF518E914AF00454468 /* Icon-72@2x.png in Resources */,
+				07CCBB5318E914AF00454468 /* SessionLoginSample-Info.plist in Resources */,
+				07CCBB5E18E914AF00454468 /* Icon-72@2x.png in Resources */,
+				07CCBB3D18E914AF00454468 /* action-photo.png in Resources */,
+				07CCBAE418E914AF00454468 /* InfoPlist.strings in Resources */,
+				07CCBAE318E914AF00454468 /* HFViewController_iPhone.xib in Resources */,
+				07CCBAD918E914AF00454468 /* Icon-72.png in Resources */,
+				07CCBB3318E914AF00454468 /* Default-568h@2x.png in Resources */,
 				3CD9D12E18C560C5003ACE29 /* Default-568h@2x.png in Resources */,
+				07CCBACC18E914AF00454468 /* Icon.png in Resources */,
+				07CCBB5618E914AF00454468 /* ReadMe.txt in Resources */,
+				07CCBABE18E914AF00454468 /* Project-Debug.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -276,12 +1473,47 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07CCBB4018E914AF00454468 /* SCAppDelegate.m in Sources */,
+				07CCBB4618E914AF00454468 /* SCViewController.m in Sources */,
+				07CCBAE718E914AF00454468 /* HFViewController.m in Sources */,
+				07CCBB6A18E914AF00454468 /* SUUsingViewController.m in Sources */,
+				07CCBB2918E914AF00454468 /* RPSCommonObjects.m in Sources */,
+				07CCBADD18E914AF00454468 /* main.m in Sources */,
+				07CCBACE18E914AF00454468 /* main.m in Sources */,
+				07CCBAFB18E914AF00454468 /* PPViewController.m in Sources */,
+				07CCBB3F18E914AF00454468 /* main.m in Sources */,
 				09ABC07F13A1D52D009C3FCF /* main.m in Sources */,
 				09ABC08213A1D52D009C3FCF /* ParseStarterProjectAppDelegate.m in Sources */,
+				07CCBB2C18E914AF00454468 /* RPSFriendsViewController.m in Sources */,
+				07CCBB5418E914AF00454468 /* SLAppDelegate.m in Sources */,
+				07CCBB0918E914AF00454468 /* PPViewController.m in Sources */,
+				07CCBB6918E914AF00454468 /* SUUserManager.m in Sources */,
+				07CCBB5218E914AF00454468 /* main.m in Sources */,
+				07CCBB6418E914AF00454468 /* SUAppDelegate.m in Sources */,
+				07CCBB6518E914AF00454468 /* SUProfileTableViewCell.m in Sources */,
 				3C9BFB2418BC45AF007849B9 /* AddEventViewController.m in Sources */,
+				07CCBAEC18E914AF00454468 /* main.m in Sources */,
+				07CCBB2A18E914AF00454468 /* RPSDeeplyLinkedViewController.m in Sources */,
 				09ABC08813A1D52E009C3FCF /* ParseStarterProjectViewController.m in Sources */,
+				07CCBB2118E914AF00454468 /* main.m in Sources */,
+				07CCBB6618E914AF00454468 /* SUSettingsViewController.m in Sources */,
+				07CCBAFA18E914AF00454468 /* PPAppDelegate.m in Sources */,
+				07CCBB6118E914AF00454468 /* main.m in Sources */,
+				07CCBB4318E914AF00454468 /* SCPhotoViewController.m in Sources */,
+				07CCBB2818E914AF00454468 /* RPSAppDelegate.m in Sources */,
+				07CCBB0718E914AF00454468 /* main.m in Sources */,
+				07CCBAC718E914AF00454468 /* FPAppDelegate.m in Sources */,
+				07CCBAC818E914AF00454468 /* FPViewController.m in Sources */,
 				3C9BFB2718BC45E8007849B9 /* EventCell.m in Sources */,
+				07CCBB2D18E914AF00454468 /* RPSGameViewController.m in Sources */,
+				07CCBB4118E914AF00454468 /* SCLoginViewController.m in Sources */,
+				07CCBB0818E914AF00454468 /* PPAppDelegate.m in Sources */,
+				07CCBAD618E914AF00454468 /* GraphApiAppDelegate.m in Sources */,
+				07CCBAF818E914AF00454468 /* main.m in Sources */,
+				07CCBB5518E914AF00454468 /* SLViewController.m in Sources */,
 				3C9BFB2118BC4595007849B9 /* TableViewController.m in Sources */,
+				07CCBAD818E914AF00454468 /* GraphApiViewController.m in Sources */,
+				07CCBAE618E914AF00454468 /* HFAppDelegate.m in Sources */,
 				3CECA90118CD0E9B0081AEE4 /* Event.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -289,6 +1521,223 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		07CCB9A318E914AE00454468 /* FPViewController_iPad.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				07CCB9A418E914AE00454468 /* en */,
+			);
+			name = FPViewController_iPad.xib;
+			sourceTree = "<group>";
+		};
+		07CCB9A518E914AE00454468 /* FPViewController_iPhone.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				07CCB9A618E914AE00454468 /* en */,
+			);
+			name = FPViewController_iPhone.xib;
+			sourceTree = "<group>";
+		};
+		07CCB9A718E914AE00454468 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				07CCB9A818E914AE00454468 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		07CCB9BD18E914AE00454468 /* GraphApiViewController_iPad.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				07CCB9BE18E914AE00454468 /* en */,
+			);
+			name = GraphApiViewController_iPad.xib;
+			sourceTree = "<group>";
+		};
+		07CCB9BF18E914AE00454468 /* GraphApiViewController_iPhone.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				07CCB9C018E914AE00454468 /* en */,
+			);
+			name = GraphApiViewController_iPhone.xib;
+			sourceTree = "<group>";
+		};
+		07CCB9C118E914AE00454468 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				07CCB9C218E914AE00454468 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		07CCB9D718E914AE00454468 /* HFViewController_iPad.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				07CCB9D818E914AE00454468 /* en */,
+			);
+			name = HFViewController_iPad.xib;
+			sourceTree = "<group>";
+		};
+		07CCB9D918E914AE00454468 /* HFViewController_iPhone.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				07CCB9DA18E914AE00454468 /* en */,
+			);
+			name = HFViewController_iPhone.xib;
+			sourceTree = "<group>";
+		};
+		07CCB9DB18E914AE00454468 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				07CCB9DC18E914AE00454468 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		07CCB9F118E914AE00454468 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				07CCB9F218E914AE00454468 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		07CCB9F318E914AE00454468 /* PPViewController_iPad.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				07CCB9F418E914AE00454468 /* en */,
+			);
+			name = PPViewController_iPad.xib;
+			sourceTree = "<group>";
+		};
+		07CCB9F518E914AE00454468 /* PPViewController_iPhone.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				07CCB9F618E914AE00454468 /* en */,
+			);
+			name = PPViewController_iPhone.xib;
+			sourceTree = "<group>";
+		};
+		07CCBA0B18E914AE00454468 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				07CCBA0C18E914AE00454468 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		07CCBA0D18E914AE00454468 /* PPViewController_iPad.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				07CCBA0E18E914AE00454468 /* en */,
+			);
+			name = PPViewController_iPad.xib;
+			sourceTree = "<group>";
+		};
+		07CCBA0F18E914AE00454468 /* PPViewController_iPhone.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				07CCBA1018E914AE00454468 /* en */,
+			);
+			name = PPViewController_iPhone.xib;
+			sourceTree = "<group>";
+		};
+		07CCBA2718E914AE00454468 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				07CCBA2818E914AE00454468 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		07CCBA2918E914AE00454468 /* RPSFriendsViewController_iPad.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				07CCBA2A18E914AE00454468 /* en */,
+			);
+			name = RPSFriendsViewController_iPad.xib;
+			sourceTree = "<group>";
+		};
+		07CCBA2B18E914AE00454468 /* RPSFriendsViewController_iPhone.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				07CCBA2C18E914AE00454468 /* en */,
+			);
+			name = RPSFriendsViewController_iPhone.xib;
+			sourceTree = "<group>";
+		};
+		07CCBA2D18E914AE00454468 /* RPSGameViewController_iPad.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				07CCBA2E18E914AE00454468 /* en */,
+			);
+			name = RPSGameViewController_iPad.xib;
+			sourceTree = "<group>";
+		};
+		07CCBA2F18E914AE00454468 /* RPSGameViewController_iPhone.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				07CCBA3018E914AE00454468 /* en */,
+			);
+			name = RPSGameViewController_iPhone.xib;
+			sourceTree = "<group>";
+		};
+		07CCBA5D18E914AE00454468 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				07CCBA5E18E914AE00454468 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		07CCBA5F18E914AE00454468 /* Scrumptious.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				07CCBA6018E914AE00454468 /* en */,
+				07CCBA6418E914AE00454468 /* he */,
+			);
+			name = Scrumptious.strings;
+			sourceTree = "<group>";
+		};
+		07CCBA6118E914AE00454468 /* SCViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				07CCBA6218E914AE00454468 /* en */,
+			);
+			name = SCViewController.xib;
+			sourceTree = "<group>";
+		};
+		07CCBA8218E914AE00454468 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				07CCBA8318E914AE00454468 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		07CCBA8418E914AE00454468 /* SLViewController_iPad.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				07CCBA8518E914AE00454468 /* en */,
+			);
+			name = SLViewController_iPad.xib;
+			sourceTree = "<group>";
+		};
+		07CCBA8618E914AE00454468 /* SLViewController_iPhone.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				07CCBA8718E914AE00454468 /* en */,
+			);
+			name = SLViewController_iPhone.xib;
+			sourceTree = "<group>";
+		};
+		07CCBA9C18E914AF00454468 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				07CCBA9D18E914AF00454468 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		09ABC07A13A1D52D009C3FCF /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -379,6 +1828,7 @@
 					"$(inherited)",
 					"$(SRCROOT)",
 					/Users/Macbook23/Documents/FacebookSDK,
+					/Users/Macbook23/Desktop/Actual5CNotify/ParseStarterProject/FacebookSDK,
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -386,6 +1836,10 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "ParseStarterProject/5CNotify-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/Macbook23/Documents/FacebookSDK/FacebookSDK.framework/Versions/A,
+				);
 				PRODUCT_NAME = 5CNotify;
 				WRAPPER_EXTENSION = app;
 			};
@@ -401,12 +1855,17 @@
 					"$(inherited)",
 					"$(SRCROOT)",
 					/Users/Macbook23/Documents/FacebookSDK,
+					/Users/Macbook23/Desktop/Actual5CNotify/ParseStarterProject/FacebookSDK,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ParseStarterProject/5CNotify-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "ParseStarterProject/5CNotify-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/Macbook23/Documents/FacebookSDK/FacebookSDK.framework/Versions/A,
+				);
 				PRODUCT_NAME = 5CNotify;
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
