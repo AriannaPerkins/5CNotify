@@ -636,6 +636,9 @@ UILabel* descriptionAsterisk;
                                      green:(float) 190.0/ 255.0
                                       blue:(float) 20.0/ 255.0 alpha:1.0];
     
+    UIColor* orange = [UIColor colorWithRed:(float)255.0/255.0
+                                      green:(float)60.0/255.0  blue:(float)20.0/255.0 alpha:1.0];
+    
     // For the start time field
     UIDatePicker *startPicker = (UIDatePicker*)self.startTimeField.inputView;
     //get date from picker
@@ -678,7 +681,7 @@ UILabel* descriptionAsterisk;
         ++emptyFieldCount;
         
         // Add asterisk next to event name field
-        eventNameAsterisk.textColor = [UIColor redColor];
+        eventNameAsterisk.textColor = orange;
         
     } else {
         eventNameEmpty = NO;
