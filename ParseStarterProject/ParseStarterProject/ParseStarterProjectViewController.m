@@ -27,6 +27,7 @@
     
     //If using TableView uncomment this part
     self.tableViewController = [[TableViewController alloc] init];
+    
 //    [self presentModalViewController:self.tableViewController animated:YES];
     [self.navigationController pushViewController:self.tableViewController animated:NO];
     
