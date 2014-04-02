@@ -23,7 +23,6 @@ UIColor* lightlightGreen;
 UIFont* helvet15;
 BOOL* editing;
 
-
 NSInteger selected;
 NSMutableArray* parties;
 
