@@ -286,7 +286,7 @@ UILabel* descriptionAsterisk;
     // Colors
     UIColor* green = [UIColor colorWithRed:(float) 95.0/ 255.0
                                      green:(float) 190.0/ 255.0
-                                      blue:(float) 20.0/ 255.0 alpha:1.0];
+                                      blue:(float) 20.0/ 255.0 alpha:1.0]; //95,190,20
     
     UIColor* lightGreen = [UIColor colorWithRed:(float) 200.0/ 255.0
                                           green:(float) 240.0/ 255.0
@@ -637,7 +637,7 @@ UILabel* descriptionAsterisk;
                                       blue:(float) 20.0/ 255.0 alpha:1.0];
     
     UIColor* orange = [UIColor colorWithRed:(float)255.0/255.0
-                                      green:(float)60.0/255.0  blue:(float)20.0/255.0 alpha:1.0];
+                                      green:(float)100.0/255.0  blue:(float)40.0/255.0 alpha:1.0];
     
     // For the start time field
     UIDatePicker *startPicker = (UIDatePicker*)self.startTimeField.inputView;
@@ -698,7 +698,7 @@ UILabel* descriptionAsterisk;
         ++emptyFieldCount;
         
         // Add asterisk next to start time field
-        startAsterisk.textColor = [UIColor redColor];
+        startAsterisk.textColor = orange;
         
     } else {
         startEmpty = NO;
@@ -712,7 +712,7 @@ UILabel* descriptionAsterisk;
         ++emptyFieldCount;
         
         // Add asterisk next to end time field
-        endAsterisk.textColor = [UIColor redColor];
+        endAsterisk.textColor = orange;
         
     } else {
         endEmpty = NO;
@@ -726,7 +726,7 @@ UILabel* descriptionAsterisk;
         ++emptyFieldCount;
         
         // Add asterisk next to location field
-        locationAsterisk.textColor = [UIColor redColor];
+        locationAsterisk.textColor = orange;
         
     } else {
         locationEmpty = NO;
@@ -739,7 +739,7 @@ UILabel* descriptionAsterisk;
         ++emptyFieldCount;
         
         // Add asterisk next to openTo label
-        openToAsterisk.textColor = [UIColor redColor];
+        openToAsterisk.textColor = orange;
         
     } else {
         switchesEmpty = NO;
@@ -755,7 +755,7 @@ UILabel* descriptionAsterisk;
         ++emptyFieldCount;
         
         // Add asterisk next to description label
-        descriptionAsterisk.textColor = [UIColor redColor];
+        descriptionAsterisk.textColor = orange;
         
     } else {
         descriptionEmpty = NO;
