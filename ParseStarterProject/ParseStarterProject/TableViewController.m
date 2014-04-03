@@ -54,7 +54,6 @@ NSMutableArray* parties;
         self.view.backgroundColor = [UIColor blackColor];
         parties = [[NSMutableArray alloc] init];
         
-        
         NSDate *currentDate = [[NSDate alloc] init];
         PFQuery *query = [PFQuery queryWithClassName:@"UserEvents"];
         [query whereKey:@"startTime" greaterThan:currentDate];
@@ -100,6 +99,7 @@ NSMutableArray* parties;
                         if (temp.start<date) {
                             [oneDay addObject:temp];
                             [tempParties removeObject:temp];
+                            i--;
                         }
                     }
                     if (oneDay.count !=0) {
@@ -178,12 +178,12 @@ NSMutableArray* parties;
     [cell.layer setBorderWidth:2.0f];
     
     //Tag cannot be 0 because they are default 0, set it to the row plus 1
-    cell.tag = indexPath.section+indexPath.row + 1;
+    cell.tag = ((indexPath.section<<16) | indexPath.row)+1;
     
     NSMutableArray* day = [parties objectAtIndex:indexPath.section];
     Event* party = [day objectAtIndex:indexPath.row];
     
-    if (cell.tag % 2 == 0) {
+    if ((indexPath.row+indexPath.section) % 2 == 0) {
         cell.backgroundColor = green;
     } else {
         cell.backgroundColor = lightGreen;
@@ -191,6 +191,22 @@ NSMutableArray* parties;
     
     cell.eventNameLabel.text = party.name;
     cell.locationLabel.text = party.location;
+    
+    NSMutableString* stringOpenTo = [[NSMutableString alloc] init];
+    if (party.openToArray.count > 0) {
+        NSMutableArray* openTo = party.openToArray;
+        while (openTo.count>0) {
+            NSString* temp = [openTo objectAtIndex:0];
+            if (openTo.count == 1)
+                [stringOpenTo appendString:temp];
+            else
+                [stringOpenTo appendString:[NSString stringWithFormat:@"%@, ", temp]];
+            [openTo removeObjectAtIndex:0];
+        }
+    } else{
+        [stringOpenTo appendString:@"Private Party"];
+    }
+    cell.switchesLabel.text = stringOpenTo;
     
     NSDateFormatter* dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:@"MMM dd, yyyy HH:mm"];
@@ -212,28 +228,29 @@ NSMutableArray* parties;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    if (indexPath.row == selected) {
+    if (((indexPath.section<<16) | indexPath.row)+1 == selected) {
         //Sets height based on how large description is
         Event* selectedEvent = [parties objectAtIndex:indexPath.row];
         NSString *text = selectedEvent.description;
         CGSize constraint = CGSizeMake(260, 100);
         CGSize size = [text sizeWithFont:[UIFont systemFontOfSize:14] constrainedToSize:constraint];
-        CGFloat height = 60 + (size.height*1.2);
+        CGFloat height = 75 + (size.height*0.5);
         
         return height;
     }
-    return 60;
+    return 75;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    EventCell* cell = (EventCell*)[self.tableView viewWithTag:indexPath.section+indexPath.row+1];
+    EventCell* cell = (EventCell*)[self.tableView viewWithTag:((indexPath.section<<16)|indexPath.row)+1];
+    NSLog(@"section: %ld row: %ld tag: %ld", (long)indexPath.section, (long)indexPath.row, (long)cell.tag);
     //Check if already selected
-    if (selected == indexPath.row){
+    if (selected == cell.tag){
         selected=NSIntegerMin;
         cell.descriptionLabel.hidden = YES;
     }else{
-        selected = indexPath.row;
+        selected = cell.tag;
         //CGFloat height = [self tableView:[self tableView] heightForRowAtIndexPath:indexPath];
         //[cell longView: height];
         cell.descriptionLabel.hidden = NO;
@@ -255,9 +272,6 @@ NSMutableArray* parties;
     //Create view
     UIView* header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.tableView.sectionHeaderHeight)];
     header.backgroundColor = [UIColor blackColor];
-    [header.layer setCornerRadius:7.0f];
-    [header.layer setMasksToBounds:YES];
-    [header.layer setBorderWidth:2.0f];
     UILabel* date = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, header.frame.size.width, self.tableView.sectionHeaderHeight-5)];
     date.textAlignment = NSTextAlignmentCenter;
     date.textColor = green;
