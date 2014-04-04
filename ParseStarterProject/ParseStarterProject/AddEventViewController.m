@@ -777,9 +777,7 @@ UILabel* descriptionAsterisk;
         newEvent[@"openTo"] = openToSwitches;
         [newEvent saveInBackground];
         
-        // Go back to table view
-        TableViewController *tableView = [[TableViewController alloc] init];
-        [self.navigationController pushViewController:tableView animated:YES];
+        [_parseProjectViewController openTableView];
     }
 }
 

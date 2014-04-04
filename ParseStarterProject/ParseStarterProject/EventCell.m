@@ -45,7 +45,7 @@
         
         _switchesLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, height*0.65,width, height*0.35)];
         _switchesLabel.textColor = self.textColoring;
-        _switchesLabel.font = [UIFont fontWithName:@"Helvetica" size:14];
+        _switchesLabel.font = [UIFont fontWithName:@"Helvetica" size:13];
         _switchesLabel.textAlignment = NSTextAlignmentLeft;
         
         // make label for the time of the event

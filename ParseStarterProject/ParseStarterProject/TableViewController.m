@@ -52,6 +52,7 @@ NSMutableArray* parties;
         self.tableView.sectionHeaderHeight = 30;
         self.tableView.scrollEnabled = YES;
         self.tableView.scrollsToTop = YES;
+        self.automaticallyAdjustsScrollViewInsets = YES;
         
         self.view.backgroundColor = [UIColor blackColor];
         parties = [[NSMutableArray alloc] init];
@@ -123,10 +124,14 @@ NSMutableArray* parties;
 {
     [super viewDidLoad];
     
-    UIBarButtonItem *addItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(openAddEventView)];
+    UIBarButtonItem *addItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addEventView)];
     
-    NSArray *arrBtns = [[NSArray alloc]initWithObjects:addItem, nil];
-    self.navigationItem.rightBarButtonItems = arrBtns;
+    UIImage* profile = [UIImage imageNamed:@"profile_pic.png"];
+    UIImage* scaledProfile = [UIImage imageWithCGImage:[ profile CGImage] scale:10 orientation:profile.imageOrientation];
+    UIBarButtonItem *profileItem = [[UIBarButtonItem alloc] initWithImage:scaledProfile style:UIBarButtonItemStylePlain target:self action:@selector(profileView)];
+    
+    self.navigationItem.rightBarButtonItem = addItem;
+    self.navigationItem.leftBarButtonItem = profileItem;
     
     UILabel* notifyLabel = [ [UILabel alloc] initWithFrame:CGRectMake(0, 0, 80, 30)];
     notifyLabel.textAlignment = UITextAlignmentCenter;
@@ -139,15 +144,13 @@ NSMutableArray* parties;
     
 }
 
-- (IBAction)openAddEventView {
-    
-    NSLog(@"Push pressed");
-    
-    AddEventViewController *addView = [[AddEventViewController alloc] init];
-    [self.navigationController pushViewController:addView animated:YES];
-    
+-(void) addEventView{
+    [_parseProjectViewController openAddEventView];
 }
 
+-(void) profileView{
+    [_parseProjectViewController openProfileView];
+}
 
 - (void)didReceiveMemoryWarning
 {
@@ -246,7 +249,7 @@ NSMutableArray* parties;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
     EventCell* cell = (EventCell*)[self.tableView viewWithTag:((indexPath.section<<16)|indexPath.row)+1];
     //Check if already selected
     if (selected == cell.tag){
@@ -283,7 +286,6 @@ NSMutableArray* parties;
     
     return header;
 }
-
 
 /*
 // Override to support conditional editing of the table view.

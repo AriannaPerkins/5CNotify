@@ -1,18 +1,17 @@
 //
-//  TableViewController.h
-//  Notify
+//  LoginViewController.h
+//  5CNotify
 //
-//  Created by Paige Garratt on 2/24/14.
+//  Created by Paige Garratt on 4/4/14.
 //
 //
 
 @class ParseStarterProjectViewController;
-
 #import <UIKit/UIKit.h>
 #import "ParseStarterProjectViewController.h"
-#import "EventCell.h"
+# import <FacebookSDK/FacebookSDK.h>
 
-@interface TableViewController : UITableViewController
+@interface LoginViewController : UIViewController <FBLoginViewDelegate>
 
 @property(retain) ParseStarterProjectViewController* parseProjectViewController;
 

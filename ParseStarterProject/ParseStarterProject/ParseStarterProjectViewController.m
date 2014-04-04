@@ -1,7 +1,16 @@
 #import "ParseStarterProjectViewController.h"
 #import <Parse/Parse.h>
+#import "LoginViewController.h"
+#import "ProfileViewController.h"
+#import "AddEventViewController.h"
+#import "TableViewController.h"
 
-@implementation ParseStarterProjectViewController
+@implementation ParseStarterProjectViewController{
+    TableViewController *tableViewController;
+    AddEventViewController *eventViewController;
+    LoginViewController *loginViewController;
+    ProfileViewController* profileViewController;
+}
 
 
 - (void)didReceiveMemoryWarning {
@@ -25,18 +34,39 @@
     [super viewDidAppear:animated];
 	// Do any additional setup after loading the view, typically from a nib OR NOT
     
-    //If using TableView uncomment this part
-    self.tableViewController = [[TableViewController alloc] init];
+    //All view controllers
+    tableViewController = [[TableViewController alloc] init];
+    tableViewController.parseProjectViewController = self;
     
-//    [self presentModalViewController:self.tableViewController animated:YES];
-    [self.navigationController pushViewController:self.tableViewController animated:NO];
+    eventViewController = [[AddEventViewController alloc] init];
+    eventViewController.parseProjectViewController = self;
     
-    //If using AddEvent uncomment this part
-//    self.eventViewController = [[AddEventViewController alloc] init];
-//    [self.navigationController pushViewController:self.eventViewController animated:YES];
+    loginViewController = [[LoginViewController alloc] init];
+    loginViewController.parseProjectViewController = self;
+    
+    profileViewController = [[ProfileViewController alloc] init];
+    profileViewController.parseProjectViewController = self;
+    
+    //This does not actually make the switch...
+    FBSession* currentSession = [PFFacebookUtils session];
+    if (currentSession.accessTokenData.accessToken) {
+        [self.navigationController pushViewController:tableViewController animated:NO];
+    }else{
+        [self.navigationController pushViewController:loginViewController animated:NO];
+    }
 }
 
+-(void) openAddEventView{
+    [self.navigationController pushViewController:eventViewController animated:YES];
+}
 
+-(void) openTableView{
+    [self.navigationController pushViewController:tableViewController animated:YES];
+}
+
+-(void) openProfileView{
+    [self.navigationController pushViewController:profileViewController animated:YES];
+}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     // Return YES for supported orientations
