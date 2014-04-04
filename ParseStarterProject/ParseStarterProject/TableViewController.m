@@ -50,6 +50,8 @@ NSMutableArray* parties;
         selected = NSIntegerMin;
         
         self.tableView.sectionHeaderHeight = 30;
+        self.tableView.scrollEnabled = YES;
+        self.tableView.scrollsToTop = YES;
         
         self.view.backgroundColor = [UIColor blackColor];
         parties = [[NSMutableArray alloc] init];
@@ -209,14 +211,15 @@ NSMutableArray* parties;
     cell.switchesLabel.text = stringOpenTo;
     
     NSDateFormatter* dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateFormat:@"MMM dd, yyyy HH:mm"];
+    [dateFormat setDateStyle:NSDateFormatterNoStyle];
+    [dateFormat setTimeStyle:NSDateFormatterShortStyle];
     
     NSDate* startTime = party.start;
     NSDate* endTime = party.end;
     NSString *startDateString = [dateFormat stringFromDate: startTime];
     NSString *endDateString   = [dateFormat stringFromDate: endTime];
     
-    cell.timeLabel.text = [NSString stringWithFormat:@"%@, %@", startDateString, endDateString];
+    cell.timeLabel.text = [NSString stringWithFormat:@"%@ to %@", startDateString, endDateString];
     cell.descriptionLabel.text = party.description;
     
     UIView *bgView = [[UIView alloc] init];
@@ -243,8 +246,8 @@ NSMutableArray* parties;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
     EventCell* cell = (EventCell*)[self.tableView viewWithTag:((indexPath.section<<16)|indexPath.row)+1];
-    NSLog(@"section: %ld row: %ld tag: %ld", (long)indexPath.section, (long)indexPath.row, (long)cell.tag);
     //Check if already selected
     if (selected == cell.tag){
         selected=NSIntegerMin;

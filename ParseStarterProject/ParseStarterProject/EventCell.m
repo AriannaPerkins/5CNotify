@@ -10,6 +10,10 @@
 
 @implementation EventCell{
     CGFloat width;
+    UIImage* scaledIcon;
+    UIImage* scaledProfile;
+    UILabel* rsvp;
+    int attendees;
 }
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier 
@@ -64,11 +68,19 @@
         self.selected = NO;
         
         [self addSubview:_descriptionLabel];
+        _checkMark = [[UIButton alloc] initWithFrame:CGRectMake(width*0.85, height*0.25, 35, 35)];
+        [_checkMark addTarget:self action:@selector(buttonPressed) forControlEvents:UIControlEventTouchUpInside];
         
-        UIImage* icon = [UIImage imageNamed:@"Icon-Small.png"];
         UIImage* profile = [UIImage imageNamed:@"profile_pic.png"];
-        _checkMark = [[UIImageView alloc] initWithImage: [UIImage imageWithCGImage:[icon CGImage] scale:icon.scale*0.4 orientation:icon.imageOrientation] highlightedImage:[UIImage imageWithCGImage:[ profile CGImage] scale:profile.scale*0.2 orientation:profile.imageOrientation]];
-        _checkMark.frame = CGRectMake(width*0.85, height*0.25, 35, 35);
+        scaledProfile = [UIImage imageWithCGImage:[ profile CGImage] scale:profile.scale*0.05 orientation:profile.imageOrientation];
+        UIImage* icon = [UIImage imageNamed:@"Icon-Small.png"];
+        scaledIcon = [UIImage imageWithCGImage:[icon CGImage] scale:icon.scale*0.2 orientation:icon.imageOrientation];
+        
+        [_checkMark setImage:scaledIcon forState:UIControlStateNormal];
+        
+        rsvp = [[UILabel alloc] initWithFrame:CGRectMake(width*0.65, height*0.9, width*0.5, height*.35)];
+        rsvp.text = [NSString stringWithFormat:@"%i people are going", attendees];
+        rsvp.font = [UIFont fontWithName:@"Helvetica" size:12];
         
         // add these labels to the view
         [self addSubview:_eventNameLabel];
@@ -76,9 +88,22 @@
         [self addSubview:_switchesLabel];
         [self addSubview:_timeLabel];
         [self addSubview:_checkMark];
+        [self addSubview:rsvp];
         
     }
     return self;
+}
+
+-(void) buttonPressed{
+    if (_checkMark.imageView.image == scaledIcon){
+        [_checkMark setImage:scaledProfile forState:UIControlStateNormal];
+        attendees++;
+        rsvp.text = [NSString stringWithFormat:@"%i people are going", attendees];
+    }else{
+        [_checkMark setImage:scaledIcon forState:UIControlStateNormal];
+        attendees--;
+        rsvp.text = [NSString stringWithFormat:@"%i people are going", attendees];
+    }
 }
 
 -(void) setSelected:(BOOL)selected animated:(BOOL)animated{

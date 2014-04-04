@@ -14,7 +14,7 @@
 @property(nonatomic, retain)  UILabel *locationLabel;
 @property(nonatomic, retain)  UILabel *timeLabel;
 @property(nonatomic, retain)  UILabel *switchesLabel;
-@property(nonatomic, retain)  UIImageView *checkMark;
+@property(nonatomic, retain)  UIButton*checkMark;
 @property(nonatomic, retain)  UIColor *textColoring;
 @property(nonatomic, retain)  UIColor *cellBackgroundColor;
 @property(nonatomic, retain)  UITextView *descriptionLabel;
