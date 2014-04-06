@@ -789,7 +789,7 @@ UILabel* asteriskMessage;
         descriptionAsterisk.textColor = green;
     }
     
-    NSLog(@"There are %d fields that have not been filled out", emptyFieldCount);
+    NSLog(@"There are %lu fields that have not been filled out", (unsigned long)emptyFieldCount);
     
     // Only send info to parse and return to table view if all fields have been entered
     
