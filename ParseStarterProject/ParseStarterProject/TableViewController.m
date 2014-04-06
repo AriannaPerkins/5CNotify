@@ -57,7 +57,17 @@ NSMutableArray* parties;
         self.view.backgroundColor = [UIColor blackColor];
         parties = [[NSMutableArray alloc] init];
         
+        // Pull all events that have a start date today or later
         NSDate *currentDate = [[NSDate alloc] init];
+        
+        NSCalendar *calendar = [NSCalendar currentCalendar];
+        NSInteger comps = (NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit);
+        
+        NSDateComponents *currentDateComps = [calendar components:comps
+                                                         fromDate: currentDate];
+        
+        currentDate = [calendar dateFromComponents:currentDateComps];
+        
         PFQuery *query = [PFQuery queryWithClassName:@"UserEvents"];
         [query whereKey:@"startTime" greaterThan:currentDate];
         
@@ -124,6 +134,12 @@ NSMutableArray* parties;
 {
     [super viewDidLoad];
     
+    // Create pull to refresh functionality
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc]init];
+    refreshControl.tintColor = green;
+    [refreshControl addTarget:self action:@selector(refreshEvents) forControlEvents:UIControlEventValueChanged];
+    self.refreshControl = refreshControl;
+    
     UIBarButtonItem *addItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addEventView)];
     
     UIImage* profile = [UIImage imageNamed:@"profile_pic.png"];
@@ -142,6 +158,94 @@ NSMutableArray* parties;
     [self.navigationItem setTitleView:notifyLabel];
     [self.navigationItem setHidesBackButton:YES animated:YES];
     
+}
+
+-(void) refreshEvents{
+    // Pull all events that have a start date today or later
+    NSDate *currentDate = [[NSDate alloc] init];
+    
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSInteger comps = (NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit);
+    
+    NSDateComponents *currentDateComps = [calendar components:comps
+                                                     fromDate: currentDate];
+    
+    currentDate = [calendar dateFromComponents:currentDateComps];
+    
+    PFQuery *query = [PFQuery queryWithClassName:@"UserEvents"];
+    [query whereKey:@"startTime" greaterThan:currentDate];
+    
+    NSMutableArray* tempParties = [[NSMutableArray alloc] init];
+    
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            
+            // The find succeeded.
+            NSLog(@"Successfully retrieved %lu events.", (unsigned long)objects.count);
+            
+            // Do something with the found objects
+            
+            for (int i=0; i<objects.count; ++i) {
+                
+                PFObject *event = objects[i];
+                
+                NSString *name = event[@"eventName"];
+                NSString *location = event[@"locationText"];
+                NSDate *startTime = event[@"startTime"];
+                NSDate *endTime = event[@"endTime"];
+                NSString *description = event[@"description"];
+                NSMutableArray *switches = event[@"openTo"];
+                
+                Event* temp = [[Event alloc] initWith:name andLoc:location andStart:startTime andEnd:endTime andDescription:description andOpenTo:switches];
+                
+                BOOL newEvent = YES;
+                
+                for (int j=0; j<parties.count; ++j){
+                    if (temp == parties[j]){
+                        newEvent = NO;
+                    }
+                }
+                
+                if (newEvent){
+                    [tempParties addObject:temp];
+                }
+            }
+            
+            // Sorts events by date to later form sections
+            NSDate *date = [NSDate date];
+            NSCalendar *calendar = [NSCalendar autoupdatingCurrentCalendar];
+            NSUInteger preservedComponents = (NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit);
+            date = [calendar dateFromComponents:[calendar components:preservedComponents fromDate:date]];
+            NSDateComponents* components = [[NSDateComponents alloc] init];
+            [components setDay:1];
+            date = [calendar dateByAddingComponents:components toDate:date options:0];
+            NSLog(@"CurrDate is %@", date);
+            while (tempParties.count > 0) {
+                NSMutableArray *oneDay = [[NSMutableArray alloc] init];
+                for (NSInteger i=0; i<tempParties.count; i++) {
+                    Event* temp = [tempParties objectAtIndex:i];
+                    if (temp.start<date) {
+                        [oneDay addObject:temp];
+                        [tempParties removeObject:temp];
+                        i--;
+                    }
+                }
+                if (oneDay.count !=0) {
+                    [parties addObject:oneDay];
+                }
+                date = [calendar dateByAddingComponents:components toDate:date options:0];
+            }
+            [self.tableView reloadData];
+            
+        } else {
+            // Log details of the failure
+            NSLog(@"Error: %@ %@", error, [error userInfo]);
+    }}];
+    
+    [self.tableView reloadData];
+    
+    [self.refreshControl endRefreshing];
+
 }
 
 -(void) addEventView{

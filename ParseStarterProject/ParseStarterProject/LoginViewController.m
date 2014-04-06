@@ -7,6 +7,7 @@
 //
 
 #import "LoginViewController.h"
+#import <Parse/Parse.h>
 
 
 @interface LoginViewController ()
@@ -52,6 +53,11 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+//    // Check if user is cached and linked to Facebook, if so, bypass login
+//    if ([PFUser currentUser] && [PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]) {
+//        [self.navigationController pushViewController:[[UserDetailsViewController alloc] initWithStyle:UITableViewStyleGrouped] animated:NO];
+//    }
     
     //Create login screen
     CGSize windowSize =self.view.frame.size;

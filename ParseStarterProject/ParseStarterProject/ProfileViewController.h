@@ -9,6 +9,7 @@
 @class ParseStarterProjectViewController;
 #import <UIKit/UIKit.h>
 #import "ParseStarterProjectViewController.h"
+#import <FacebookSDK/FacebookSDK.h>
 
 @interface ProfileViewController : UIViewController
 
