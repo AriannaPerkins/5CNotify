@@ -51,6 +51,8 @@ UILabel* locationAsterisk;
 UILabel* openToAsterisk;
 UILabel* descriptionAsterisk;
 
+UILabel* asteriskMessage;
+
 
 
 
@@ -286,7 +288,7 @@ UILabel* descriptionAsterisk;
     // Colors
     UIColor* green = [UIColor colorWithRed:(float) 95.0/ 255.0
                                      green:(float) 190.0/ 255.0
-                                      blue:(float) 20.0/ 255.0 alpha:1.0];
+                                      blue:(float) 20.0/ 255.0 alpha:1.0]; //95,190,20
     
     UIColor* lightGreen = [UIColor colorWithRed:(float) 200.0/ 255.0
                                           green:(float) 240.0/ 255.0
@@ -306,6 +308,7 @@ UILabel* descriptionAsterisk;
     double top = 0;
     
     double eventsTop = top + 12;
+    
     
     // The Event name field
     self.addEventField = [[UITextField alloc] initWithFrame:CGRectMake(20, eventsTop, width - 40, 30)];
@@ -587,6 +590,16 @@ UILabel* descriptionAsterisk;
     descriptionAsterisk.textColor = green;
     [scrollingView addSubview:descriptionAsterisk];
     
+    // Initialize (but do not display) warning at the bottom to fill in all fields
+    asteriskMessage = [ [UILabel alloc] initWithFrame:CGRectMake(0, descriptionFieldTop+78, width, 50)];
+    asteriskMessage.textAlignment = UITextAlignmentLeft;
+    asteriskMessage.lineBreakMode = NSLineBreakByWordWrapping;
+    asteriskMessage.numberOfLines = 0;
+    asteriskMessage.font=[UIFont fontWithName:@"Helvetica" size:13.0 ];
+    asteriskMessage.textColor = [UIColor blackColor];
+    asteriskMessage.text = @"";
+    [scrollingView addSubview:asteriskMessage];
+    
     UILabel* notifyLabel = [ [UILabel alloc] initWithFrame:CGRectMake(0, 0, 80, 30)];
     notifyLabel.textAlignment = UITextAlignmentCenter;
     notifyLabel.text=@"Add an Event";
@@ -637,7 +650,7 @@ UILabel* descriptionAsterisk;
                                       blue:(float) 20.0/ 255.0 alpha:1.0];
     
     UIColor* orange = [UIColor colorWithRed:(float)255.0/255.0
-                                      green:(float)60.0/255.0  blue:(float)20.0/255.0 alpha:1.0];
+                                      green:(float)100.0/255.0  blue:(float)40.0/255.0 alpha:1.0];
     
     // For the start time field
     UIDatePicker *startPicker = (UIDatePicker*)self.startTimeField.inputView;
@@ -681,7 +694,7 @@ UILabel* descriptionAsterisk;
         ++emptyFieldCount;
         
         // Add asterisk next to event name field
-        eventNameAsterisk.textColor = orange;
+        eventNameAsterisk.textColor = [UIColor blackColor];
         
     } else {
         eventNameEmpty = NO;
@@ -692,13 +705,27 @@ UILabel* descriptionAsterisk;
     // before the current date
     NSDate *currentDate = [[NSDate alloc] init];
     
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSInteger comps = (NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit);
+    
+    NSDateComponents *startDateComps = [calendar components:comps
+                                                    fromDate: startDate];
+    NSDateComponents *currentDateComps = [calendar components:comps
+                                                    fromDate: currentDate];
+    NSDateComponents *endDateComps = [calendar components:comps
+                                                     fromDate: endDate];
+    
+    startDate = [calendar dateFromComponents:startDateComps];
+    currentDate = [calendar dateFromComponents:currentDateComps];
+    endDate = [calendar dateFromComponents:endDateComps];
+    
     if ([startDate compare:currentDate] == NSOrderedAscending) {
         
         startEmpty = YES;
         ++emptyFieldCount;
         
         // Add asterisk next to start time field
-        startAsterisk.textColor = [UIColor redColor];
+        startAsterisk.textColor = [UIColor blackColor];
         
     } else {
         startEmpty = NO;
@@ -712,7 +739,7 @@ UILabel* descriptionAsterisk;
         ++emptyFieldCount;
         
         // Add asterisk next to end time field
-        endAsterisk.textColor = [UIColor redColor];
+        endAsterisk.textColor = [UIColor blackColor];
         
     } else {
         endEmpty = NO;
@@ -726,7 +753,7 @@ UILabel* descriptionAsterisk;
         ++emptyFieldCount;
         
         // Add asterisk next to location field
-        locationAsterisk.textColor = [UIColor redColor];
+        locationAsterisk.textColor = [UIColor blackColor];
         
     } else {
         locationEmpty = NO;
@@ -739,7 +766,7 @@ UILabel* descriptionAsterisk;
         ++emptyFieldCount;
         
         // Add asterisk next to openTo label
-        openToAsterisk.textColor = [UIColor redColor];
+        openToAsterisk.textColor = [UIColor blackColor];
         
     } else {
         switchesEmpty = NO;
@@ -755,7 +782,7 @@ UILabel* descriptionAsterisk;
         ++emptyFieldCount;
         
         // Add asterisk next to description label
-        descriptionAsterisk.textColor = [UIColor redColor];
+        descriptionAsterisk.textColor = [UIColor blackColor];
         
     } else {
         descriptionEmpty = NO;
@@ -768,6 +795,8 @@ UILabel* descriptionAsterisk;
     
     if (emptyFieldCount == 0) {
         
+        asteriskMessage.text = @"";
+        
         // Push event information to Parse
         newEvent[@"eventName"] = self.addEventField.text;
         newEvent[@"startTime"] = startDate;
@@ -777,9 +806,16 @@ UILabel* descriptionAsterisk;
         newEvent[@"openTo"] = openToSwitches;
         [newEvent saveInBackground];
         
-        // Go back to table view
-        TableViewController *tableView = [[TableViewController alloc] init];
-        [self.navigationController pushViewController:tableView animated:YES];
+        [_parseProjectViewController openTableView];
+    } else {
+        if (startEmpty || endEmpty){
+            asteriskMessage.textAlignment = UITextAlignmentCenter;
+            asteriskMessage.text=@"* Please fill in all fields. For the time field(s), make\nsure the entered date is not before today's date.";
+        } else {
+            asteriskMessage.textAlignment = UITextAlignmentLeft;
+            asteriskMessage.text=@"    * Please fill in all fields.";
+        }
+    
     }
 }
 

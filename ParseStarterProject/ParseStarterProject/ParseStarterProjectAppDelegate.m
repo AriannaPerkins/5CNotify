@@ -1,6 +1,8 @@
 #import <Parse/Parse.h>
 #import "ParseStarterProjectAppDelegate.h"
 #import "ParseStarterProjectViewController.h"
+# import <FacebookSDK/FacebookSDK.h>
+
 
 @implementation ParseStarterProjectAppDelegate
 
@@ -16,7 +18,7 @@
     //
     // If you are using Facebook, uncomment and add your FacebookAppID to your bundle's plist as
     // described here: https://developers.facebook.com/docs/getting-started/facebook-sdk-for-ios/
-    //[PFFacebookUtils initializeFacebook];
+    [PFFacebookUtils initializeFacebook];
     // ****************************************************************************
 
     [PFUser enableAutomaticUser];
@@ -94,19 +96,19 @@
     return YES;
 }
 
-//- (BOOL)application:(UIApplication *)application
-//            openURL:(NSURL *)url
-//  sourceApplication:(NSString *)sourceApplication
-//         annotation:(id)annotation {
-//    return [FBAppCall handleOpenURL:url
-//                  sourceApplication:sourceApplication
-//                        withSession:[PFFacebookUtils session]];
-//}
-//
-//- (void)applicationDidBecomeActive:(UIApplication *)application {
-//    [FBAppCall handleDidBecomeActiveWithSession:[PFFacebookUtils session]];
-//}
-// 
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation {
+    return [FBAppCall handleOpenURL:url
+                  sourceApplication:sourceApplication
+                        withSession:[PFFacebookUtils session]];
+}
+
+- (void)applicationDidBecomeActive:(UIApplication *)application {
+    [FBAppCall handleDidBecomeActiveWithSession:[PFFacebookUtils session]];
+}
+ 
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)newDeviceToken {
     [PFPush storeDeviceToken:newDeviceToken];

@@ -49,16 +49,29 @@ NSMutableArray* parties;
         editing = NO;
         selected = NSIntegerMin;
         
+        self.tableView.sectionHeaderHeight = 30;
+        self.tableView.scrollEnabled = YES;
+        self.tableView.scrollsToTop = YES;
+        self.automaticallyAdjustsScrollViewInsets = YES;
+        
         self.view.backgroundColor = [UIColor blackColor];
         parties = [[NSMutableArray alloc] init];
         
-        // Get event info from Parse for events later than today
-        //NSUInteger limit = 10;
+        // Pull all events that have a start date today or later
         NSDate *currentDate = [[NSDate alloc] init];
+        
+        NSCalendar *calendar = [NSCalendar currentCalendar];
+        NSInteger comps = (NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit);
+        
+        NSDateComponents *currentDateComps = [calendar components:comps
+                                                         fromDate: currentDate];
+        
+        currentDate = [calendar dateFromComponents:currentDateComps];
         
         PFQuery *query = [PFQuery queryWithClassName:@"UserEvents"];
         [query whereKey:@"startTime" greaterThan:currentDate];
-        //[query setLimit: limit];
+        
+        NSMutableArray* tempParties = [[NSMutableArray alloc] init];
         
         [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
             if (!error) {
@@ -80,16 +93,39 @@ NSMutableArray* parties;
                     NSMutableArray *switches = event[@"openTo"];
                     
                     Event* temp = [[Event alloc] initWith:name andLoc:location andStart:startTime andEnd:endTime andDescription:description andOpenTo:switches];
-                    [parties addObject:temp];
+                    [tempParties addObject:temp];
                 }
                 
-
+                // Sorts events by date to later form sections
+                NSDate *date = [NSDate date];
+                NSCalendar *calendar = [NSCalendar autoupdatingCurrentCalendar];
+                NSUInteger preservedComponents = (NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit);
+                date = [calendar dateFromComponents:[calendar components:preservedComponents fromDate:date]];
+                NSDateComponents* components = [[NSDateComponents alloc] init];
+                [components setDay:1];
+                date = [calendar dateByAddingComponents:components toDate:date options:0];
+                NSLog(@"CurrDate is %@", date);
+                while (tempParties.count > 0) {
+                    NSMutableArray *oneDay = [[NSMutableArray alloc] init];
+                    for (NSInteger i=0; i<tempParties.count; i++) {
+                        Event* temp = [tempParties objectAtIndex:i];
+                        if (temp.start<date) {
+                            [oneDay addObject:temp];
+                            [tempParties removeObject:temp];
+                            i--;
+                        }
+                    }
+                    if (oneDay.count !=0) {
+                        [parties addObject:oneDay];
+                    }
+                    date = [calendar dateByAddingComponents:components toDate:date options:0];
+                }
+                [self.tableView reloadData];
+                
             } else {
                 // Log details of the failure
                 NSLog(@"Error: %@ %@", error, [error userInfo]);
-            }
-            [self.tableView reloadData];
-        }];
+            }}];
     }
     return self;
 }
@@ -98,10 +134,20 @@ NSMutableArray* parties;
 {
     [super viewDidLoad];
     
-    UIBarButtonItem *addItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(openAddEventView)];
+    // Create pull to refresh functionality
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc]init];
+    refreshControl.tintColor = green;
+    [refreshControl addTarget:self action:@selector(refreshEvents) forControlEvents:UIControlEventValueChanged];
+    self.refreshControl = refreshControl;
     
-    NSArray *arrBtns = [[NSArray alloc]initWithObjects:addItem, nil];
-    self.navigationItem.rightBarButtonItems = arrBtns;
+    UIBarButtonItem *addItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addEventView)];
+    
+    UIImage* profile = [UIImage imageNamed:@"profile_pic.png"];
+    UIImage* scaledProfile = [UIImage imageWithCGImage:[ profile CGImage] scale:10 orientation:profile.imageOrientation];
+    UIBarButtonItem *profileItem = [[UIBarButtonItem alloc] initWithImage:scaledProfile style:UIBarButtonItemStylePlain target:self action:@selector(profileView)];
+    
+    self.navigationItem.rightBarButtonItem = addItem;
+    self.navigationItem.leftBarButtonItem = profileItem;
     
     UILabel* notifyLabel = [ [UILabel alloc] initWithFrame:CGRectMake(0, 0, 80, 30)];
     notifyLabel.textAlignment = UITextAlignmentCenter;
@@ -114,15 +160,101 @@ NSMutableArray* parties;
     
 }
 
-- (IBAction)openAddEventView {
+-(void) refreshEvents{
+    // Pull all events that have a start date today or later
+    NSDate *currentDate = [[NSDate alloc] init];
     
-    NSLog(@"Push pressed");
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSInteger comps = (NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit);
     
-    AddEventViewController *addView = [[AddEventViewController alloc] init];
-    [self.navigationController pushViewController:addView animated:YES];
+    NSDateComponents *currentDateComps = [calendar components:comps
+                                                     fromDate: currentDate];
     
+    currentDate = [calendar dateFromComponents:currentDateComps];
+    
+    PFQuery *query = [PFQuery queryWithClassName:@"UserEvents"];
+    [query whereKey:@"startTime" greaterThan:currentDate];
+    
+    NSMutableArray* tempParties = [[NSMutableArray alloc] init];
+    
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            
+            // The find succeeded.
+            NSLog(@"Successfully retrieved %lu events.", (unsigned long)objects.count);
+            
+            // Do something with the found objects
+            
+            for (int i=0; i<objects.count; ++i) {
+                
+                PFObject *event = objects[i];
+                
+                NSString *name = event[@"eventName"];
+                NSString *location = event[@"locationText"];
+                NSDate *startTime = event[@"startTime"];
+                NSDate *endTime = event[@"endTime"];
+                NSString *description = event[@"description"];
+                NSMutableArray *switches = event[@"openTo"];
+                
+                Event* temp = [[Event alloc] initWith:name andLoc:location andStart:startTime andEnd:endTime andDescription:description andOpenTo:switches];
+                
+                BOOL newEvent = YES;
+                
+                for (int j=0; j<parties.count; ++j){
+                    if (temp == parties[j]){
+                        newEvent = NO;
+                    }
+                }
+                
+                if (newEvent){
+                    [tempParties addObject:temp];
+                }
+            }
+            
+            // Sorts events by date to later form sections
+            NSDate *date = [NSDate date];
+            NSCalendar *calendar = [NSCalendar autoupdatingCurrentCalendar];
+            NSUInteger preservedComponents = (NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit);
+            date = [calendar dateFromComponents:[calendar components:preservedComponents fromDate:date]];
+            NSDateComponents* components = [[NSDateComponents alloc] init];
+            [components setDay:1];
+            date = [calendar dateByAddingComponents:components toDate:date options:0];
+            NSLog(@"CurrDate is %@", date);
+            while (tempParties.count > 0) {
+                NSMutableArray *oneDay = [[NSMutableArray alloc] init];
+                for (NSInteger i=0; i<tempParties.count; i++) {
+                    Event* temp = [tempParties objectAtIndex:i];
+                    if (temp.start<date) {
+                        [oneDay addObject:temp];
+                        [tempParties removeObject:temp];
+                        i--;
+                    }
+                }
+                if (oneDay.count !=0) {
+                    [parties addObject:oneDay];
+                }
+                date = [calendar dateByAddingComponents:components toDate:date options:0];
+            }
+            [self.tableView reloadData];
+            
+        } else {
+            // Log details of the failure
+            NSLog(@"Error: %@ %@", error, [error userInfo]);
+    }}];
+    
+    [self.tableView reloadData];
+    
+    [self.refreshControl endRefreshing];
+
 }
 
+-(void) addEventView{
+    [_parseProjectViewController openAddEventView];
+}
+
+-(void) profileView{
+    [_parseProjectViewController openProfileView];
+}
 
 - (void)didReceiveMemoryWarning
 {
@@ -135,14 +267,13 @@ NSMutableArray* parties;
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return 1;
+    return parties.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-
-    // Return the number of rows in the section.
-    return parties.count;
+    NSMutableArray* temp = [parties objectAtIndex:section];
+    return temp.count;
 }
 
 - (EventCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -156,11 +287,12 @@ NSMutableArray* parties;
     [cell.layer setBorderWidth:2.0f];
     
     //Tag cannot be 0 because they are default 0, set it to the row plus 1
-    cell.tag = indexPath.row + 1;
+    cell.tag = ((indexPath.section<<16) | indexPath.row)+1;
     
-    Event* party = [parties objectAtIndex:indexPath.row];
+    NSMutableArray* day = [parties objectAtIndex:indexPath.section];
+    Event* party = [day objectAtIndex:indexPath.row];
     
-    if (indexPath.row % 2 == 0) {
+    if ((indexPath.row+indexPath.section) % 2 == 0) {
         cell.backgroundColor = green;
     } else {
         cell.backgroundColor = lightGreen;
@@ -169,15 +301,32 @@ NSMutableArray* parties;
     cell.eventNameLabel.text = party.name;
     cell.locationLabel.text = party.location;
     
+    NSMutableString* stringOpenTo = [[NSMutableString alloc] init];
+    if (party.openToArray.count > 0) {
+        NSMutableArray* openTo = party.openToArray;
+        while (openTo.count>0) {
+            NSString* temp = [openTo objectAtIndex:0];
+            if (openTo.count == 1)
+                [stringOpenTo appendString:temp];
+            else
+                [stringOpenTo appendString:[NSString stringWithFormat:@"%@, ", temp]];
+            [openTo removeObjectAtIndex:0];
+        }
+    } else{
+        [stringOpenTo appendString:@"Private Party"];
+    }
+    cell.switchesLabel.text = stringOpenTo;
+    
     NSDateFormatter* dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateFormat:@"MMM dd, yyyy HH:mm"];
+    [dateFormat setDateStyle:NSDateFormatterNoStyle];
+    [dateFormat setTimeStyle:NSDateFormatterShortStyle];
     
     NSDate* startTime = party.start;
     NSDate* endTime = party.end;
     NSString *startDateString = [dateFormat stringFromDate: startTime];
     NSString *endDateString   = [dateFormat stringFromDate: endTime];
     
-    cell.timeLabel.text = [NSString stringWithFormat:@"%@, %@", startDateString, endDateString];
+    cell.timeLabel.text = [NSString stringWithFormat:@"%@ to %@", startDateString, endDateString];
     cell.descriptionLabel.text = party.description;
     
     UIView *bgView = [[UIView alloc] init];
@@ -189,28 +338,29 @@ NSMutableArray* parties;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    if (indexPath.row == selected) {
+    if (((indexPath.section<<16) | indexPath.row)+1 == selected) {
         //Sets height based on how large description is
         Event* selectedEvent = [parties objectAtIndex:indexPath.row];
         NSString *text = selectedEvent.description;
         CGSize constraint = CGSizeMake(260, 100);
         CGSize size = [text sizeWithFont:[UIFont systemFontOfSize:14] constrainedToSize:constraint];
-        CGFloat height = 60 + (size.height*1.2);
+        CGFloat height = 75 + (size.height*0.5);
         
         return height;
     }
-    return 60;
+    return 75;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    EventCell* cell = (EventCell*)[self.tableView viewWithTag:indexPath.row+1];
+    [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
+    EventCell* cell = (EventCell*)[self.tableView viewWithTag:((indexPath.section<<16)|indexPath.row)+1];
     //Check if already selected
-    if (selected == indexPath.row){
+    if (selected == cell.tag){
         selected=NSIntegerMin;
         cell.descriptionLabel.hidden = YES;
     }else{
-        selected = indexPath.row;
+        selected = cell.tag;
         //CGFloat height = [self tableView:[self tableView] heightForRowAtIndexPath:indexPath];
         //[cell longView: height];
         cell.descriptionLabel.hidden = NO;
@@ -219,7 +369,27 @@ NSMutableArray* parties;
     [self.tableView endUpdates];
     
 }
-
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    //Get date and format it nicely
+    NSMutableArray* temp = [parties objectAtIndex:section];
+    Event* firstEvent = [temp objectAtIndex:0];
+    NSDate* today = firstEvent.start;
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateStyle:NSDateFormatterFullStyle];
+    [formatter setTimeStyle:NSDateFormatterNoStyle];
+    NSString* niceDate = [formatter stringFromDate:today];
+    
+    //Create view
+    UIView* header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.tableView.sectionHeaderHeight)];
+    header.backgroundColor = [UIColor blackColor];
+    UILabel* date = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, header.frame.size.width, self.tableView.sectionHeaderHeight-5)];
+    date.textAlignment = NSTextAlignmentCenter;
+    date.textColor = green;
+    date.text = niceDate;
+    [header addSubview:date];
+    
+    return header;
+}
 
 /*
 // Override to support conditional editing of the table view.

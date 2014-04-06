@@ -6,9 +6,13 @@
 //
 //
 
+@class ParseStarterProjectViewController;
+
 #import <UIKit/UIKit.h>
-#import "TableViewController.h"
+#import "ParseStarterProjectViewController.h"
 
 @interface AddEventViewController : UIViewController <UITextFieldDelegate>
+
+@property(retain) ParseStarterProjectViewController* parseProjectViewController;
 
 @end

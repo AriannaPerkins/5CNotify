@@ -8,7 +8,7 @@
 
 @property (nonatomic, strong) IBOutlet UIWindow *window;
 
-@property (nonatomic, strong) IBOutlet ParseStarterProjectViewController *viewController;
+@property (nonatomic, strong) ParseStarterProjectViewController *viewController;
 
 @property (nonatomic, retain) UINavigationController *navController;
 
