@@ -32,6 +32,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    PFUser *curr = [PFUser currentUser];
     // Do any additional setup after loading the view.
     CGSize window = self.view.frame.size;
     CGSize windowSize =self.view.frame.size;
@@ -39,7 +40,7 @@
     //Profile Information goes here
     UILabel* name = [[UILabel alloc] initWithFrame:CGRectMake(window.width*.1, window.height*.1, window.width*.8, window.height*0.2)];
     name.font = [UIFont fontWithName:@"Helvetica" size:18];
-    name.text = @"Name";
+    name.text = [NSString stringWithFormat:@"Name: %@", curr.username];
     
     [self.view addSubview:name];
     
@@ -48,6 +49,8 @@
     FBLoginView* loginView = [[FBLoginView alloc] initWithReadPermissions:@[@"basic_info"]];
     loginView.frame = CGRectMake(windowSize.width*.1, windowSize.height*.5, windowSize.width*.8, windowSize.height*.3);
     loginView.delegate = self;
+    
+    [self.view addSubview:loginView];
 }
 
 - (void)logoutButtonTouchHandler:(id)sender  {
