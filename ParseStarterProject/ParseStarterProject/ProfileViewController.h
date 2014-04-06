@@ -11,7 +11,7 @@
 #import "ParseStarterProjectViewController.h"
 #import <FacebookSDK/FacebookSDK.h>
 
-@interface ProfileViewController : UIViewController
+@interface ProfileViewController : UIViewController <FBLoginViewDelegate>
 
 @property(retain) ParseStarterProjectViewController* parseProjectViewController;
 
