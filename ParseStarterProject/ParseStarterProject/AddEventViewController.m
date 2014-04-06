@@ -806,7 +806,7 @@ UILabel* asteriskMessage;
         newEvent[@"openTo"] = openToSwitches;
         [newEvent saveInBackground];
         
-        [_parseProjectViewController openTableView];
+        [_parseProjectViewController pop];
     } else {
         if (startEmpty || endEmpty){
             asteriskMessage.textAlignment = UITextAlignmentCenter;

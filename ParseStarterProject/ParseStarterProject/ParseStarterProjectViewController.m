@@ -67,6 +67,9 @@
 -(void) openProfileView{
     [self.navigationController pushViewController:profileViewController animated:YES];
 }
+-(void) pop{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     // Return YES for supported orientations
