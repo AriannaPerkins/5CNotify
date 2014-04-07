@@ -16,6 +16,7 @@
 
 @implementation LoginViewController{
     UIColor *green;
+    NSArray* schools;
 }
 
 - (id)init{
@@ -27,6 +28,7 @@
                                  blue:(float) 20.0/ 255.0
                                 alpha:1.0];
         self.view.backgroundColor = green;
+        schools = [[NSArray alloc] initWithObjects:@"HMC", @"Scripps", @"Pitzer", @"Pomona", @"Pitzer", nil];
     }
     return self;
 }
@@ -54,10 +56,10 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [super viewDidLoad];
     
-//    // Check if user is cached and linked to Facebook, if so, bypass login
-//    if ([PFUser currentUser] && [PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]) {
-//        [self.navigationController pushViewController:[[UserDetailsViewController alloc] initWithStyle:UITableViewStyleGrouped] animated:NO];
-//    }
+    // Check if user is cached and linked to Facebook, if so, bypass login
+    if ([PFUser currentUser] && [PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]) {
+        [self goToTableView];
+    }
     
     //Create login screen
     CGSize windowSize =self.view.frame.size;
@@ -74,21 +76,43 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     welcome.numberOfLines = 5;
     welcome.lineBreakMode = NSLineBreakByWordWrapping;
     
-    //Facebook Login Button
-    FBLoginView* loginView = [[FBLoginView alloc] initWithReadPermissions:@[@"basic_info"]];
-    loginView.frame = CGRectMake(windowSize.width*.1, windowSize.height*.5, windowSize.width*.8, windowSize.height*.3);
-    loginView.delegate = self;
+    UIButton* login = [[UIButton alloc] initWithFrame:CGRectMake(windowSize.width*.1, windowSize.height*.5, windowSize.width*.8, windowSize.height*.3)];
+    login.backgroundColor = [UIColor blueColor];
+    [login setTitle:@"Login With Facebook" forState:UIControlStateNormal];
+    login.titleLabel.textColor = [UIColor whiteColor];
+    [login addTarget:self action:@selector(loginButtonPressed) forControlEvents:UIControlEventTouchUpInside];
     
     [self.view addSubview:welcome];
-    [self.view addSubview:loginView];
+    [self.view addSubview:login];
     [self.view addSubview:notify];
     
 }
 
-// This method will be called when the user information has been fetched
-- (void)loginViewFetchedUserInfo:(FBLoginView *)loginView
-                            user:(id<FBGraphUser>)user {
+-(void) goToTableView{
     [_parseProjectViewController openTableView];
+}
+
+-(void) loginButtonPressed{
+    [PFFacebookUtils logInWithPermissions:@[@"basic_info"] block:^(PFUser *user, NSError *error) {
+        if (!user) {
+            NSLog(@"Uh oh. The user cancelled the Facebook login.");
+        } else if (user.isNew) {
+            NSLog(@"User signed up and logged in through Facebook!");
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"School" message:@"Please Pick Your School" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"HMC", @"Scripps", @"Pitzer", @"Pomona", @"Pitzer", nil];
+            [alert show];
+            [self goToTableView];
+        } else {
+            NSLog(@"User logged in through Facebook!");
+            [self goToTableView];
+        }
+    }];
+
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSString* schoolName = [schools objectAtIndex:buttonIndex];
+    NSLog(@"School: %@", schoolName);
 }
 
 // Logged-in user experience
