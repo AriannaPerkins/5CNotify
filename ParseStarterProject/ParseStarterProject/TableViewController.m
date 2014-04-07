@@ -333,9 +333,6 @@ NSMutableArray* parties;
     cell.timeLabel.text = [NSString stringWithFormat:@"%@ to %@", startDateString, endDateString];
     cell.descriptionLabel.text = party.description;
     
-    UIView *bgView = [[UIView alloc] init];
-    bgView.backgroundColor = [UIColor whiteColor];
-    [cell setSelectedBackgroundView:bgView];
     return cell;
 
 }
