@@ -44,13 +44,15 @@
     
     [self.view addSubview:name];
     
-    //TODO: Add Facebook logout button and edit capabilities
-    //Facebook Login Button
-    FBLoginView* loginView = [[FBLoginView alloc] initWithReadPermissions:@[@"basic_info"]];
-    loginView.frame = CGRectMake(windowSize.width*.1, windowSize.height*.5, windowSize.width*.8, windowSize.height*.3);
-    loginView.delegate = self;
+    // Facebook logout button
+    UIButton* logoutButton = [[UIButton alloc] initWithFrame:CGRectMake(windowSize.width*.1, windowSize.height*.5, windowSize.width*.8, windowSize.width*.8*0.175)];
+    [logoutButton setBackgroundImage:[UIImage imageNamed:@"logout_button.png"]
+                     forState:UIControlStateNormal];
+    logoutButton.backgroundColor = [UIColor clearColor];
+    [logoutButton addTarget:self action:@selector(logoutButtonTouchHandler:) forControlEvents:UIControlEventTouchUpInside];
     
-    [self.view addSubview:loginView];
+    [self.view addSubview:logoutButton];
+
 }
 
 - (void)logoutButtonTouchHandler:(id)sender  {

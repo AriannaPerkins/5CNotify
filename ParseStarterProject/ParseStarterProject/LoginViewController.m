@@ -63,17 +63,18 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     
     //Create login screen
     CGSize windowSize =self.view.frame.size;
-    UILabel* notify = [[UILabel alloc] initWithFrame:CGRectMake(0, windowSize.height*.15, windowSize.width, windowSize.width*0.2)];
+    UILabel* notify = [[UILabel alloc] initWithFrame:CGRectMake(0, windowSize.height*.1, windowSize.width, windowSize.width*0.2)];
     notify.font = [UIFont fontWithName:@"Helvetica" size:40];
     notify.backgroundColor = [UIColor blackColor];
     notify.textColor = green;
     notify.textAlignment = NSTextAlignmentCenter;
     notify.text = @"5CNotify";
     UILabel* welcome = [[UILabel alloc] initWithFrame:CGRectMake(windowSize.width*.1, windowSize.height*.2, windowSize.width * 0.8, windowSize.height*0.3)];
-    welcome.font = [UIFont fontWithName:@"Helvetica" size:12];
+    welcome.font = [UIFont fontWithName:@"Helvetica" size:14];
     welcome.textAlignment = NSTextAlignmentCenter;
-    welcome.text = @"Welcome to 5CNotify, please sign in with Facebook below. \n \n We will only ask Facebook for your name. We will never post anything without your permission.";
-    welcome.numberOfLines = 5;
+    welcome.text = @"Welcome to 5CNotify! Please sign in with Facebook below. \n \n We will only ask Facebook for your name. We will never post anything without your permission.";
+    welcome.numberOfLines = 6;
+    welcome.textColor = [UIColor whiteColor];
     welcome.lineBreakMode = NSLineBreakByWordWrapping;
     
     // Facebook login button
@@ -81,8 +82,6 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     [login setBackgroundImage:[UIImage imageNamed:@"login_button.png"]
                      forState:UIControlStateNormal];
     login.backgroundColor = [UIColor clearColor];
-//    [login setTitle:@"Login With Facebook" forState:UIControlStateNormal];
-    login.titleLabel.textColor = [UIColor whiteColor];
     [login addTarget:self action:@selector(loginButtonPressed) forControlEvents:UIControlEventTouchUpInside];
     
     [self.view addSubview:welcome];

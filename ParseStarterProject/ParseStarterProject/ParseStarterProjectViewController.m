@@ -67,6 +67,11 @@
 -(void) openProfileView{
     [self.navigationController pushViewController:profileViewController animated:YES];
 }
+
+-(void) openLoginView{
+    [self.navigationController pushViewController:loginViewController animated:YES];
+}
+
 -(void) pop{
     [self.navigationController popViewControllerAnimated:YES];
 }

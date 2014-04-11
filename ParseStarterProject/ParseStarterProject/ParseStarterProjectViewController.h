@@ -4,6 +4,7 @@
 -(void) openAddEventView;
 -(void) openTableView;
 -(void) openProfileView;
+-(void) openLoginView;
 -(void) pop;
 
 @end
