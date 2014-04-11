@@ -76,9 +76,12 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     welcome.numberOfLines = 5;
     welcome.lineBreakMode = NSLineBreakByWordWrapping;
     
-    UIButton* login = [[UIButton alloc] initWithFrame:CGRectMake(windowSize.width*.1, windowSize.height*.5, windowSize.width*.8, windowSize.height*.3)];
-    login.backgroundColor = [UIColor blueColor];
-    [login setTitle:@"Login With Facebook" forState:UIControlStateNormal];
+    // Facebook login button
+    UIButton* login = [[UIButton alloc] initWithFrame:CGRectMake(windowSize.width*.1, windowSize.height*.5, windowSize.width*.8, windowSize.width*.8*0.175)];
+    [login setBackgroundImage:[UIImage imageNamed:@"login_button.png"]
+                     forState:UIControlStateNormal];
+    login.backgroundColor = [UIColor clearColor];
+//    [login setTitle:@"Login With Facebook" forState:UIControlStateNormal];
     login.titleLabel.textColor = [UIColor whiteColor];
     [login addTarget:self action:@selector(loginButtonPressed) forControlEvents:UIControlEventTouchUpInside];
     

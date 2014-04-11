@@ -43,6 +43,7 @@
 		3CED6C8B18ED3BCA00D4673A /* profile_pic.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CED6C8A18ED3BCA00D4673A /* profile_pic.png */; };
 		4998650515BF305000803E05 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4998650415BF305000803E05 /* StoreKit.framework */; };
 		743D7B6D157DA60100084B67 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 743D7B6C157DA60100084B67 /* CoreGraphics.framework */; };
+		D8BB985818F796EA007E34DE /* login_button.png in Resources */ = {isa = PBXBuildFile; fileRef = D8BB985718F796E9007E34DE /* login_button.png */; };
 		DD952FCB16E7F5CF00470144 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97E18B1E1624CB5700B17A67 /* CoreLocation.framework */; };
 /* End PBXBuildFile section */
 
@@ -101,6 +102,7 @@
 		6372FF571613CC47002132AF /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		743D7B6C157DA60100084B67 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		97E18B1E1624CB5700B17A67 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		D8BB985718F796E9007E34DE /* login_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = login_button.png; path = ../../../../../Desktop/login_button.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -209,6 +211,7 @@
 		09ABC07813A1D52D009C3FCF /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				D8BB985718F796E9007E34DE /* login_button.png */,
 				3CD9D11F18C560C5003ACE29 /* Icon-Small.png */,
 				3CED6C8A18ED3BCA00D4673A /* profile_pic.png */,
 				3CD9D12018C560C5003ACE29 /* Icon.png */,
@@ -285,6 +288,7 @@
 				3CD9D12B18C560C5003ACE29 /* appLogo_80.png in Resources */,
 				3CD9D13018C560C5003ACE29 /* Default~iphone.png in Resources */,
 				09ABC08B13A1D52E009C3FCF /* ParseStarterProjectViewController.xib in Resources */,
+				D8BB985818F796EA007E34DE /* login_button.png in Resources */,
 				3CD9D12F18C560C5003ACE29 /* Default.png in Resources */,
 				09144A7313C2997E00388B00 /* Entitlements.plist in Resources */,
 				3CD9D12A18C560C5003ACE29 /* Icon@2x~iphone.png in Resources */,
