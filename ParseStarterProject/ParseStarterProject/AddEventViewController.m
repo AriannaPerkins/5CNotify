@@ -806,6 +806,23 @@ UILabel* asteriskMessage;
         newEvent[@"openTo"] = openToSwitches;
         [newEvent saveInBackground];
         
+        //Reset all values of text fields
+        _addEventField.text = nil;
+        _startTimeField.text = nil;
+        _endTimeField.text = nil;
+        _locationField.text = nil;
+        _descriptionView.text = nil;
+        _openToCmc = NO;
+        _openToHmc = NO;
+        _openToOther = NO;
+        _openToPo = NO;
+        _openToPz = NO;
+        _openToSc = NO;
+        
+//        for (UISwitch* open in switches){
+//            [self setState:open];
+//        }
+        
         [_parseProjectViewController pop];
     } else {
         if (startEmpty || endEmpty){

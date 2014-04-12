@@ -204,9 +204,12 @@ NSMutableArray* parties;
                 
                 BOOL newEvent = YES;
                 
-                for (int j=0; j<parties.count; ++j){
-                    if (temp == parties[j]){
-                        newEvent = NO;
+                for (NSMutableArray* day in parties){
+                    for (Event* cell in day){
+                        if ([cell.name isEqualToString:temp.name]){
+                            newEvent = NO;
+                            break;
+                        }
                     }
                 }
                 
@@ -215,38 +218,54 @@ NSMutableArray* parties;
                 }
             }
             
-            // Sorts events by date to later form sections
-            NSDate *date = [NSDate date];
-            NSCalendar *calendar = [NSCalendar autoupdatingCurrentCalendar];
-            NSUInteger preservedComponents = (NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit);
-            date = [calendar dateFromComponents:[calendar components:preservedComponents fromDate:date]];
-            NSDateComponents* components = [[NSDateComponents alloc] init];
-            [components setDay:1];
-            date = [calendar dateByAddingComponents:components toDate:date options:0];
-            NSLog(@"CurrDate is %@", date);
+            NSLog(@"%lu new event(s)", (unsigned long)tempParties.count);
+            
+            // Sorts events by date
+            int i=0;
+            [self.tableView beginUpdates];
             while (tempParties.count > 0) {
-                NSMutableArray *oneDay = [[NSMutableArray alloc] init];
-                for (NSInteger i=0; i<tempParties.count; i++) {
-                    Event* temp = [tempParties objectAtIndex:i];
-                    if (temp.start<date) {
-                        [oneDay addObject:temp];
-                        [tempParties removeObject:temp];
+                if (i>=parties.count) {
+                    Event* sortee = tempParties[0];
+                    NSMutableArray* newDay = [[NSMutableArray alloc] init];
+                    [newDay addObject:sortee];
+                    [tempParties removeObject:sortee];
+                    [parties insertObject:newDay atIndex:i];
+                    [self.tableView insertSections:[NSIndexSet indexSetWithIndex:i] withRowAnimation:UITableViewRowAnimationAutomatic];
+                    NSIndexPath* path = [NSIndexPath indexPathForRow:0 inSection:i];
+                    [self.tableView insertRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationAutomatic];
+                }
+        
+                Event* temp = [[parties objectAtIndex:i] objectAtIndex:0];
+                NSDate* curr = temp.start;
+                for (int n=0; n<tempParties.count; n++) {
+                    Event* sortee =tempParties[n];
+                    if (sortee.start == curr) {
+                        [[parties objectAtIndex:i] addObject:sortee];
+                        [tempParties removeObject:sortee];
+                        int lastRow = ((NSMutableArray*)parties[i]).count -1;
+                        NSIndexPath* path = [NSIndexPath indexPathForRow:lastRow inSection:i];
+                        [self.tableView insertRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationAutomatic];
+                        n--;
+                    } else if (sortee.start < curr){
+                        NSMutableArray* newDay = [[NSMutableArray alloc] init];
+                        [newDay addObject:sortee];
+                        [tempParties removeObject:sortee];
+                        [parties insertObject:newDay atIndex:i];
+                        [self.tableView insertSections:[NSIndexSet indexSetWithIndex:i] withRowAnimation:UITableViewRowAnimationAutomatic];
+                        NSIndexPath* path = [NSIndexPath indexPathForRow:0 inSection:i];
+                        [self.tableView insertRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationAutomatic];
+                        n--;
                         i--;
                     }
                 }
-                if (oneDay.count !=0) {
-                    [parties addObject:oneDay];
-                }
-                date = [calendar dateByAddingComponents:components toDate:date options:0];
+                ++i;
             }
-            [self.tableView reloadData];
             
+            [self.tableView endUpdates];
         } else {
             // Log details of the failure
             NSLog(@"Error: %@ %@", error, [error userInfo]);
-    }}];
-    
-    [self.tableView reloadData];
+        }}];
     
     [self.refreshControl endRefreshing];
 
