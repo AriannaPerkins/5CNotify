@@ -32,7 +32,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-//    PFUser *curr = [PFUser currentUser];
+    PFUser *curr = [PFUser currentUser];
     
     // Do any additional setup after loading the view.
     CGSize window = self.view.frame.size;
@@ -59,6 +59,14 @@
             [self.view addSubview:name];
         }
     }];
+    
+    NSString* schoolName = [curr objectForKey:@"school"];
+    if (schoolName) {
+        UILabel* school = [[UILabel alloc] initWithFrame:CGRectMake(window.width*.1, window.height*.2, window.width*.8, window.height*0.2)];
+        school.font = [UIFont fontWithName:@"Helvetica" size:18];
+        school.text = [NSString stringWithFormat:@"School: %@", schoolName];
+        [self.view addSubview:school];
+    }
     
     // Facebook logout button
     UIButton* logoutButton = [[UIButton alloc] initWithFrame:CGRectMake(windowSize.width*.1, windowSize.height*.5, windowSize.width*.8, windowSize.width*.8*0.175)];
