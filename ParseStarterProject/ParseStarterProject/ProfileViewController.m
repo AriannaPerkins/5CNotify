@@ -31,7 +31,6 @@
 
 - (void)viewDidLoad
 {
-    NSLog(@"Loading profile view");
     [super viewDidLoad];
     PFUser *curr = [PFUser currentUser];
     
@@ -62,7 +61,6 @@
     }];
     
     NSString* schoolName = [curr objectForKey:@"school"];
-    NSLog(@"User school: %@", schoolName);
     
     if (schoolName) {
         UILabel* school = [[UILabel alloc] initWithFrame:CGRectMake(window.width*.1, window.height*.2, window.width*.8, window.height*0.2)];

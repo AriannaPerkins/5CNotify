@@ -107,11 +107,10 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
             [alert show];
         } else {
             NSLog(@"User logged in through Facebook.");
+            
+            // Reload the profile view to get new information
             [_parseProjectViewController reloadProfileView];
             [self goToTableView];
-            PFUser* user = [PFUser currentUser];
-            NSString* schoolName = [user objectForKey:@"school"];
-            NSLog(@"User school: %@", schoolName);
         }
     }];
 
