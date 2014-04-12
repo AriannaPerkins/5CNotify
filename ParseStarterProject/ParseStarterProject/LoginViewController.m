@@ -87,7 +87,6 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     [self.view addSubview:welcome];
     [self.view addSubview:login];
     [self.view addSubview:notify];
-    
 }
 
 -(void) goToTableView{

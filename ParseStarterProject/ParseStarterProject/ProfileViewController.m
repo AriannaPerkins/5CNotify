@@ -32,7 +32,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    PFUser *curr = [PFUser currentUser];
+//    PFUser *curr = [PFUser currentUser];
+    
     // Do any additional setup after loading the view.
     CGSize window = self.view.frame.size;
     CGSize windowSize =self.view.frame.size;
@@ -59,13 +60,6 @@
         }
     }];
     
-//    //Profile Information goes here
-//    UILabel* name = [[UILabel alloc] initWithFrame:CGRectMake(window.width*.1, window.height*.1, window.width*.8, window.height*0.2)];
-//    name.font = [UIFont fontWithName:@"Helvetica" size:18];
-//    name.text = [NSString stringWithFormat:@"Name: %@", curr.username];
-//    
-//    [self.view addSubview:name];
-    
     // Facebook logout button
     UIButton* logoutButton = [[UIButton alloc] initWithFrame:CGRectMake(windowSize.width*.1, windowSize.height*.5, windowSize.width*.8, windowSize.width*.8*0.175)];
     [logoutButton setBackgroundImage:[UIImage imageNamed:@"logout_button.png"]
@@ -78,7 +72,14 @@
 }
 
 - (void)logoutButtonTouchHandler:(id)sender  {
-    [PFUser logOut]; // Log out
+    // Log out from Facebook session, if we want to do that...
+//    [[PFFacebookUtils session] closeAndClearTokenInformation];
+//    [[PFFacebookUtils session] close];
+//    [[FBSession activeSession] closeAndClearTokenInformation];
+//    [[FBSession activeSession] close];
+//    [FBSession setActiveSession:nil];
+    
+    [PFUser logOut]; // Log out from Parse
     
     // Return to login page
     [self.navigationController popToRootViewControllerAnimated:YES];
