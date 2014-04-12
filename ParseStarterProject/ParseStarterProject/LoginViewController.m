@@ -108,6 +108,9 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
         } else {
             NSLog(@"User logged in through Facebook.");
             [self goToTableView];
+            PFUser* user = [PFUser currentUser];
+            NSString* schoolName = [user objectForKey:@"school"];
+            NSLog(@"User school: %@", schoolName);
         }
     }];
 

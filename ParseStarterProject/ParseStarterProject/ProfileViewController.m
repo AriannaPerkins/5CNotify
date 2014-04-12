@@ -61,6 +61,8 @@
     }];
     
     NSString* schoolName = [curr objectForKey:@"school"];
+    NSLog(@"User school: %@", schoolName);
+    
     if (schoolName) {
         UILabel* school = [[UILabel alloc] initWithFrame:CGRectMake(window.width*.1, window.height*.2, window.width*.8, window.height*0.2)];
         school.font = [UIFont fontWithName:@"Helvetica" size:18];
@@ -79,14 +81,7 @@
 
 }
 
-- (void)logoutButtonTouchHandler:(id)sender  {
-    // Log out from Facebook session, if we want to do that...
-//    [[PFFacebookUtils session] closeAndClearTokenInformation];
-//    [[PFFacebookUtils session] close];
-//    [[FBSession activeSession] closeAndClearTokenInformation];
-//    [[FBSession activeSession] close];
-//    [FBSession setActiveSession:nil];
-    
+- (void)logoutButtonTouchHandler:(id)sender  {    
     [PFUser logOut]; // Log out from Parse
     
     // Return to login page
