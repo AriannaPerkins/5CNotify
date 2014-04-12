@@ -37,12 +37,34 @@
     CGSize window = self.view.frame.size;
     CGSize windowSize =self.view.frame.size;
     
-    //Profile Information goes here
-    UILabel* name = [[UILabel alloc] initWithFrame:CGRectMake(window.width*.1, window.height*.1, window.width*.8, window.height*0.2)];
-    name.font = [UIFont fontWithName:@"Helvetica" size:18];
-    name.text = [NSString stringWithFormat:@"Name: %@", curr.username];
+    // Create request for user's Facebook data
+    FBRequest *request = [FBRequest requestForMe];
     
-    [self.view addSubview:name];
+    // Send request to Facebook
+    [request startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+        if (!error) {
+
+            // result is a dictionary with the user's Facebook data
+            NSDictionary *userData = (NSDictionary *)result;
+            NSString *username = userData[@"name"];
+            
+            // Now add the data to the UI elements
+
+            //Profile Information goes here
+            UILabel* name = [[UILabel alloc] initWithFrame:CGRectMake(window.width*.1, window.height*.1, window.width*.8, window.height*0.2)];
+            name.font = [UIFont fontWithName:@"Helvetica" size:18];
+            name.text = [NSString stringWithFormat:@"Name: %@", username];
+            
+            [self.view addSubview:name];
+        }
+    }];
+    
+//    //Profile Information goes here
+//    UILabel* name = [[UILabel alloc] initWithFrame:CGRectMake(window.width*.1, window.height*.1, window.width*.8, window.height*0.2)];
+//    name.font = [UIFont fontWithName:@"Helvetica" size:18];
+//    name.text = [NSString stringWithFormat:@"Name: %@", curr.username];
+//    
+//    [self.view addSubview:name];
     
     // Facebook logout button
     UIButton* logoutButton = [[UIButton alloc] initWithFrame:CGRectMake(windowSize.width*.1, windowSize.height*.5, windowSize.width*.8, windowSize.width*.8*0.175)];
