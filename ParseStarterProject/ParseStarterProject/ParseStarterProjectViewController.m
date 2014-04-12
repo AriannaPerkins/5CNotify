@@ -27,6 +27,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    UIImageView *background = [[UIImageView alloc] initWithImage: [UIImage imageNamed:@"Default.png"]];
+    background.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+    [self.view addSubview:background];
+    
 }
 
 -(void)viewDidAppear:(BOOL) animated

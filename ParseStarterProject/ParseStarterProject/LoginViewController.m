@@ -97,23 +97,32 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     [PFFacebookUtils logInWithPermissions:@[@"basic_info"] block:^(PFUser *user, NSError *error) {
         if (!user) {
             NSLog(@"Uh oh. The user cancelled the Facebook login.");
+            UIAlertView *error = [[UIAlertView alloc] initWithTitle:@"Canceled" message:@"You must use Facebook to use 5CNotify" delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            [error show];
+            
         } else if (user.isNew) {
             NSLog(@"User signed up and logged in through Facebook!");
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"School" message:@"Please Pick Your School" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"HMC", @"Scripps", @"Pitzer", @"Pomona", @"Pitzer", nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"School" message:@"Please Pick Your School" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"HMC", @"Scripps", @"Pitzer", @"Pomona", @"CMC", @"Other", nil];
+            alert.tag = 2;
             [alert show];
-            [self goToTableView];
         } else {
-            NSLog(@"User logged in through Facebook!");
+            NSLog(@"User logged in through Facebook.");
             [self goToTableView];
         }
     }];
 
 }
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
-    NSString* schoolName = [schools objectAtIndex:buttonIndex];
-    NSLog(@"School: %@", schoolName);
+    if (alertView.tag == 2) {
+        NSString* schoolName = [schools objectAtIndex:buttonIndex];
+        NSLog(@"School: %@", schoolName);
+        PFUser* user = [PFUser currentUser];
+        [user setObject:schoolName forKey:@"school"];
+        [user saveInBackground];
+        [self goToTableView];
+    }
 }
 
 // Logged-in user experience

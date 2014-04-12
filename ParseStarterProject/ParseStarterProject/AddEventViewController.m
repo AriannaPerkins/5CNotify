@@ -36,6 +36,7 @@ static const CGFloat MINIMUM_SCROLL_FRACTION = 0.2;
 static const CGFloat MAXIMUM_SCROLL_FRACTION = 0.8;
 static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 216;
 NSArray* switches;
+NSArray* switchObjects;
 
 BOOL eventNameEmpty;
 BOOL startEmpty;
@@ -613,6 +614,8 @@ UILabel* asteriskMessage;
     UIBarButtonItem *createItem = [[UIBarButtonItem alloc] initWithTitle:@"Create" style:UIBarButtonItemStyleBordered target:self action:@selector(createButtonPressed)];
     
     self.navigationItem.rightBarButtonItem = createItem;
+    
+    switchObjects = [[NSArray alloc] initWithObjects:hmcSwitch, cmcSwitch, pzSwitch, poSwitch, scSwitch, otherSwitch, nil];
 
 }
 
@@ -805,6 +808,23 @@ UILabel* asteriskMessage;
         newEvent[@"description"] = self.descriptionView.text;
         newEvent[@"openTo"] = openToSwitches;
         [newEvent saveInBackground];
+        
+        //Reset all values of text fields
+        _addEventField.text = nil;
+        _startTimeField.text = nil;
+        _endTimeField.text = nil;
+        _locationField.text = nil;
+        _descriptionView.text = nil;
+        _openToCmc = NO;
+        _openToHmc = NO;
+        _openToOther = NO;
+        _openToPo = NO;
+        _openToPz = NO;
+        _openToSc = NO;
+        
+        for (UISwitch* open in switchObjects){
+            [self setState:open];
+        }
         
         [_parseProjectViewController pop];
     } else {
