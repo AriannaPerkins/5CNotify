@@ -10,8 +10,8 @@
 
 @implementation EventCell{
     CGFloat width;
-    UIImage* scaledIcon;
-    UIImage* scaledProfile;
+    UIImage* unchecked;
+    UIImage* checked;
     UILabel* rsvp;
     int attendees;
 }
@@ -71,12 +71,12 @@
         _checkMark = [[UIButton alloc] initWithFrame:CGRectMake(width*0.85, height*0.25, 35, 35)];
         [_checkMark addTarget:self action:@selector(buttonPressed) forControlEvents:UIControlEventTouchUpInside];
         
-        UIImage* profile = [UIImage imageNamed:@"profile_pic.png"];
-        scaledProfile = [UIImage imageWithCGImage:[ profile CGImage] scale:profile.scale*0.05 orientation:profile.imageOrientation];
-        UIImage* icon = [UIImage imageNamed:@"Icon-Small.png"];
-        scaledIcon = [UIImage imageWithCGImage:[icon CGImage] scale:icon.scale*0.2 orientation:icon.imageOrientation];
+        UIImage* bigChecked = [UIImage imageNamed:@"black_check.png"];
+        checked = [UIImage imageWithCGImage:[ bigChecked CGImage] scale:bigChecked.scale*10 orientation:bigChecked.imageOrientation];
+        UIImage* bigUnchecked = [UIImage imageNamed:@"black_plus.png"];
+        unchecked = [UIImage imageWithCGImage:[bigUnchecked CGImage] scale:bigUnchecked.scale*10 orientation:bigUnchecked.imageOrientation];
         
-        [_checkMark setImage:scaledIcon forState:UIControlStateNormal];
+        [_checkMark setImage:unchecked forState:UIControlStateNormal];
         
         rsvp = [[UILabel alloc] initWithFrame:CGRectMake(width*0.65, height*0.9, width*0.5, height*.35)];
         rsvp.text = [NSString stringWithFormat:@"%i people are going", attendees];
@@ -95,12 +95,12 @@
 }
 
 -(void) buttonPressed{
-    if (_checkMark.imageView.image == scaledIcon){
-        [_checkMark setImage:scaledProfile forState:UIControlStateNormal];
+    if (_checkMark.imageView.image == unchecked){
+        [_checkMark setImage:checked forState:UIControlStateNormal];
         attendees++;
         rsvp.text = [NSString stringWithFormat:@"%i people are going", attendees];
     }else{
-        [_checkMark setImage:scaledIcon forState:UIControlStateNormal];
+        [_checkMark setImage:unchecked forState:UIControlStateNormal];
         attendees--;
         rsvp.text = [NSString stringWithFormat:@"%i people are going", attendees];
     }

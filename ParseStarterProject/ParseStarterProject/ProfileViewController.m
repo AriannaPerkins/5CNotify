@@ -59,12 +59,13 @@
         }
     }];
     
-//    //Profile Information goes here
-//    UILabel* name = [[UILabel alloc] initWithFrame:CGRectMake(window.width*.1, window.height*.1, window.width*.8, window.height*0.2)];
-//    name.font = [UIFont fontWithName:@"Helvetica" size:18];
-//    name.text = [NSString stringWithFormat:@"Name: %@", curr.username];
-//    
-//    [self.view addSubview:name];
+    NSString* schoolName = [curr objectForKey:@"school"];
+    if (schoolName) {
+        UILabel* school = [[UILabel alloc] initWithFrame:CGRectMake(window.width*.1, window.height*.2, window.width*.8, window.height*0.2)];
+        school.font = [UIFont fontWithName:@"Helvetica" size:18];
+        school.text = [NSString stringWithFormat:@"School: %@", schoolName];
+        [self.view addSubview:school];
+    }
     
     // Facebook logout button
     UIButton* logoutButton = [[UIButton alloc] initWithFrame:CGRectMake(windowSize.width*.1, windowSize.height*.5, windowSize.width*.8, windowSize.width*.8*0.175)];
