@@ -72,6 +72,11 @@
     [self.navigationController pushViewController:profileViewController animated:YES];
 }
 
+-(void) reloadProfileView{
+    profileViewController = [[ProfileViewController alloc] init];
+    profileViewController.parseProjectViewController = self;
+}
+
 -(void) openLoginView{
     [self.navigationController pushViewController:loginViewController animated:YES];
 }

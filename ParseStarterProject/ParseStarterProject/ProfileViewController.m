@@ -31,6 +31,7 @@
 
 - (void)viewDidLoad
 {
+    NSLog(@"Loading profile view");
     [super viewDidLoad];
     PFUser *curr = [PFUser currentUser];
     
@@ -78,10 +79,11 @@
     [logoutButton addTarget:self action:@selector(logoutButtonTouchHandler:) forControlEvents:UIControlEventTouchUpInside];
     
     [self.view addSubview:logoutButton];
+    [self.view reloadInputViews];
 
 }
 
-- (void)logoutButtonTouchHandler:(id)sender  {    
+- (void)logoutButtonTouchHandler:(id)sender  {
     [PFUser logOut]; // Log out from Parse
     
     // Return to login page
