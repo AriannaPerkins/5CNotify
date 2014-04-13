@@ -84,6 +84,17 @@
         school.text = [NSString stringWithFormat:@"School: %@", schoolName];
         school.textColor = [UIColor whiteColor];
         [self.view addSubview:school];
+    } else {
+        // Let them add/change their school
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        [button addTarget:self
+                   action:@selector(addSchool)
+         forControlEvents:UIControlEventTouchUpInside];
+        [button setTitle:@"Add School" forState:UIControlStateNormal];
+        button.titleLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:16];
+        button.tintColor = [UIColor redColor];
+        button.frame = CGRectMake(window.width*.1, window.height*.15, window.width*.8, window.height*0.2);
+        [self.view addSubview:button];
     }
     
     // Facebook logout button
@@ -96,6 +107,28 @@
 //    [self.view addSubview:logoutButton];
 //    [self.view reloadInputViews];
 
+}
+
+- (void)addSchool {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"School" message:@"Please Pick Your School" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"HMC", @"Scripps", @"Pitzer", @"Pomona", @"CMC", @"Other", nil];
+    alert.tag = 2;
+    [alert show];
+}
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    NSLog(@"Selected button on alert view");
+    if (alertView.tag == 2) {
+        NSArray* schools = [[NSArray alloc] initWithObjects:@"HMC", @"Scripps", @"Pitzer", @"Pomona", @"Pitzer", nil];
+        NSString* schoolName = [schools objectAtIndex:buttonIndex];
+        NSLog(@"School: %@", schoolName);
+        PFUser* user = [PFUser currentUser];
+        [user setObject:schoolName forKey:@"school"];
+        [user saveInBackground];
+        [_parseProjectViewController loadProfileView];
+        [_parseProjectViewController openProfileView];
+        
+    }
 }
 
 - (void)logoutButtonTouchHandler:(id)sender  {
