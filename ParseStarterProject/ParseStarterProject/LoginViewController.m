@@ -122,7 +122,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
             
         } else if (user.isNew) {
             NSLog(@"User signed up and logged in through Facebook!");
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"School" message:@"Please Pick Your School" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"HMC", @"Scripps", @"Pitzer", @"Pomona", @"CMC", @"Other", nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"School" message:@"Please Pick Your School" delegate:self cancelButtonTitle:nil otherButtonTitles:@"HMC", @"Scripps", @"Pitzer", @"Pomona", @"CMC", @"Other", nil];
             alert.tag = 2;
             [alert show];
         } else {
