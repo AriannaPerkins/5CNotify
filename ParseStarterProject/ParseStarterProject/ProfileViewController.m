@@ -53,8 +53,17 @@
 
             //Profile Information goes here
             UILabel* name = [[UILabel alloc] initWithFrame:CGRectMake(window.width*.1, window.height*.1, window.width*.8, window.height*0.2)];
-            name.font = [UIFont fontWithName:@"Helvetica" size:18];
-            name.text = [NSString stringWithFormat:@"Name: %@", username];
+            name.font = [UIFont fontWithName:@"Helvetica-Bold" size:25];
+            name.text = username;
+            name.textColor = [UIColor whiteColor];
+            
+            UILabel* profileLabel = [ [UILabel alloc] initWithFrame:CGRectMake(0, 0, 80, 30)];
+            profileLabel.textAlignment = UITextAlignmentCenter;
+            profileLabel.text=@"Profile";
+            profileLabel.font=[UIFont fontWithName:@"Helvetica" size:25.0 ];
+            profileLabel.textColor = green;
+            
+            [self.navigationItem setTitleView:profileLabel];
             
             [self.view addSubview:name];
         }
@@ -63,9 +72,11 @@
     NSString* schoolName = [curr objectForKey:@"school"];
     
     if (schoolName) {
-        UILabel* school = [[UILabel alloc] initWithFrame:CGRectMake(window.width*.1, window.height*.2, window.width*.8, window.height*0.2)];
-        school.font = [UIFont fontWithName:@"Helvetica" size:18];
+        UILabel* school = [[UILabel alloc] initWithFrame:CGRectMake(window.width*.1, window.height*.15, window.width*.8, window.height*0.2)];
+        school.font = [UIFont fontWithName:@"Helvetica" size:16];
         school.text = [NSString stringWithFormat:@"School: %@", schoolName];
+//        school.text = schoolName;
+        school.textColor = [UIColor whiteColor];
         [self.view addSubview:school];
     }
     
