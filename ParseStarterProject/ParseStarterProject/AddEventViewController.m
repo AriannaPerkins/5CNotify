@@ -709,7 +709,7 @@ UILabel* asteriskMessage;
     NSDate *currentDate = [[NSDate alloc] init];
     
     NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSInteger comps = (NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit);
+    NSInteger comps = (NSMinuteCalendarUnit|NSHourCalendarUnit|NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit);
     
     NSDateComponents *startDateComps = [calendar components:comps
                                                     fromDate: startDate];
@@ -718,11 +718,11 @@ UILabel* asteriskMessage;
     NSDateComponents *endDateComps = [calendar components:comps
                                                      fromDate: endDate];
     
-    startDate = [calendar dateFromComponents:startDateComps];
+    NSDate* startDay = [calendar dateFromComponents:startDateComps];
     currentDate = [calendar dateFromComponents:currentDateComps];
     endDate = [calendar dateFromComponents:endDateComps];
     
-    if ([startDate compare:currentDate] == NSOrderedAscending) {
+    if ([startDay compare:currentDate] == NSOrderedAscending) {
         
         startEmpty = YES;
         ++emptyFieldCount;
@@ -796,6 +796,7 @@ UILabel* asteriskMessage;
     
     // Only send info to parse and return to table view if all fields have been entered
     
+    
     if (emptyFieldCount == 0) {
         
         asteriskMessage.text = @"";
@@ -807,7 +808,7 @@ UILabel* asteriskMessage;
         newEvent[@"locationText"] = self.locationField.text;
         newEvent[@"description"] = self.descriptionView.text;
         newEvent[@"openTo"] = openToSwitches;
-        newEvent[@"rsvpCount"] = 0; // When created, rsvp count is 0
+        newEvent[@"rsvpCount"] = @0; // When created, rsvp count is 0
         [newEvent saveInBackground];
         
         //Reset all values of text fields
