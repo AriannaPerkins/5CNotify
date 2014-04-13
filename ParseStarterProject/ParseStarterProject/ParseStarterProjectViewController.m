@@ -38,22 +38,18 @@
     [super viewDidAppear:animated];
 	// Do any additional setup after loading the view, typically from a nib OR NOT
     
-    //All view controllers
-    tableViewController = [[TableViewController alloc] init];
-    tableViewController.parseProjectViewController = self;
-    
+    // Make view controllers    
     eventViewController = [[AddEventViewController alloc] init];
     eventViewController.parseProjectViewController = self;
     
     loginViewController = [[LoginViewController alloc] init];
     loginViewController.parseProjectViewController = self;
     
-    profileViewController = [[ProfileViewController alloc] init];
-    profileViewController.parseProjectViewController = self;
-    
     //This does not actually make the switch...
     FBSession* currentSession = [PFFacebookUtils session];
     if (currentSession.accessTokenData.accessToken) {
+        [self loadTableView];
+        [self loadProfileView];
         [self.navigationController pushViewController:tableViewController animated:NO];
     }else{
         [self.navigationController pushViewController:loginViewController animated:NO];
@@ -68,11 +64,16 @@
     [self.navigationController pushViewController:tableViewController animated:YES];
 }
 
+-(void) loadTableView{
+    tableViewController = [[TableViewController alloc] init];
+    tableViewController.parseProjectViewController = self;
+}
+
 -(void) openProfileView{
     [self.navigationController pushViewController:profileViewController animated:YES];
 }
 
--(void) reloadProfileView{
+-(void) loadProfileView{
     profileViewController = [[ProfileViewController alloc] init];
     profileViewController.parseProjectViewController = self;
 }

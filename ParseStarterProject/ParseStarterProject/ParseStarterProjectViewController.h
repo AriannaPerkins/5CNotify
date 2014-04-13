@@ -3,8 +3,9 @@
 
 -(void) openAddEventView;
 -(void) openTableView;
+-(void) loadTableView;
 -(void) openProfileView;
--(void) reloadProfileView;
+-(void) loadProfileView;
 -(void) openLoginView;
 -(void) pop;
 

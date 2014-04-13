@@ -79,12 +79,13 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     welcome.textColor = [UIColor whiteColor];
     welcome.lineBreakMode = NSLineBreakByWordWrapping;
     
+    // Bold text
     UILabel* notifytext = [[UILabel alloc] initWithFrame:CGRectMake(windowSize.width*.394, windowSize.height*.139, windowSize.width * 0.8, windowSize.height*0.3)];
     notifytext.font = [UIFont fontWithName:@"Helvetica-Bold" size:18];
-//    notifytext.textAlignment = NSTextAlignmentJustified;
     notifytext.text = @" 5CNotify";
     notifytext.textColor = [UIColor whiteColor];
     
+    // Promise of privacy
     UILabel* privacy = [[UILabel alloc] initWithFrame:CGRectMake(windowSize.width*.1, windowSize.height*.6, windowSize.width * 0.8, windowSize.height*0.3)];
     privacy.font = [UIFont fontWithName:@"Helvetica" size:18];
     privacy.textAlignment = NSTextAlignmentJustified;
@@ -93,7 +94,6 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     privacy.textColor = [UIColor whiteColor];
     privacy.lineBreakMode = NSLineBreakByWordWrapping;
 
-    
     // Facebook login button
     UIButton* login = [[UIButton alloc] initWithFrame:CGRectMake(windowSize.width*.1, windowSize.height*.46, windowSize.width*.8, windowSize.width*.8*0.175)];
     [login setBackgroundImage:[UIImage imageNamed:@"login_button.png"]
@@ -109,6 +109,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 }
 
 -(void) goToTableView{
+    [_parseProjectViewController loadTableView];
     [_parseProjectViewController openTableView];
 }
 
@@ -128,7 +129,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
             NSLog(@"User logged in through Facebook.");
             
             // Reload the profile view to get new information
-            [_parseProjectViewController reloadProfileView];
+            [_parseProjectViewController loadProfileView];
             [self goToTableView];
         }
     }];
