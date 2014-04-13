@@ -63,28 +63,47 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     
     //Create login screen
     CGSize windowSize =self.view.frame.size;
-    UILabel* notify = [[UILabel alloc] initWithFrame:CGRectMake(0, windowSize.height*.1, windowSize.width, windowSize.width*0.2)];
+    UILabel* notify = [[UILabel alloc] initWithFrame:CGRectMake(0, windowSize.height*.03, windowSize.width, windowSize.width*0.2)];
     notify.font = [UIFont fontWithName:@"Helvetica" size:40];
     notify.backgroundColor = [UIColor blackColor];
     notify.textColor = green;
     notify.textAlignment = NSTextAlignmentCenter;
     notify.text = @"5CNotify";
-    UILabel* welcome = [[UILabel alloc] initWithFrame:CGRectMake(windowSize.width*.1, windowSize.height*.2, windowSize.width * 0.8, windowSize.height*0.3)];
-    welcome.font = [UIFont fontWithName:@"Helvetica" size:14];
-    welcome.textAlignment = NSTextAlignmentCenter;
-    welcome.text = @"Welcome to 5CNotify! Please sign in with Facebook below. \n \n We will only ask Facebook for your name. We will never post anything without your permission.";
+    
+    // Welcome text
+    UILabel* welcome = [[UILabel alloc] initWithFrame:CGRectMake(windowSize.width*.1, windowSize.height*.16, windowSize.width * 0.8, windowSize.height*0.3)];
+    welcome.font = [UIFont fontWithName:@"Helvetica" size:18];
+    welcome.textAlignment = NSTextAlignmentJustified;
+    welcome.text = @"Welcome to                ! Please sign in with Facebook below.";
     welcome.numberOfLines = 6;
     welcome.textColor = [UIColor whiteColor];
     welcome.lineBreakMode = NSLineBreakByWordWrapping;
     
+    UILabel* notifytext = [[UILabel alloc] initWithFrame:CGRectMake(windowSize.width*.394, windowSize.height*.139, windowSize.width * 0.8, windowSize.height*0.3)];
+    notifytext.font = [UIFont fontWithName:@"Helvetica-Bold" size:18];
+//    notifytext.textAlignment = NSTextAlignmentJustified;
+    notifytext.text = @" 5CNotify";
+    notifytext.textColor = [UIColor whiteColor];
+    
+    UILabel* privacy = [[UILabel alloc] initWithFrame:CGRectMake(windowSize.width*.1, windowSize.height*.6, windowSize.width * 0.8, windowSize.height*0.3)];
+    privacy.font = [UIFont fontWithName:@"Helvetica" size:18];
+    privacy.textAlignment = NSTextAlignmentJustified;
+    privacy.text = @"We will only ask Facebook for your name. We will never post anything without your permission.";
+    privacy.numberOfLines = 6;
+    privacy.textColor = [UIColor whiteColor];
+    privacy.lineBreakMode = NSLineBreakByWordWrapping;
+
+    
     // Facebook login button
-    UIButton* login = [[UIButton alloc] initWithFrame:CGRectMake(windowSize.width*.1, windowSize.height*.5, windowSize.width*.8, windowSize.width*.8*0.175)];
+    UIButton* login = [[UIButton alloc] initWithFrame:CGRectMake(windowSize.width*.1, windowSize.height*.46, windowSize.width*.8, windowSize.width*.8*0.175)];
     [login setBackgroundImage:[UIImage imageNamed:@"login_button.png"]
                      forState:UIControlStateNormal];
     login.backgroundColor = [UIColor clearColor];
     [login addTarget:self action:@selector(loginButtonPressed) forControlEvents:UIControlEventTouchUpInside];
     
     [self.view addSubview:welcome];
+    [self.view addSubview:notifytext];
+    [self.view addSubview:privacy];
     [self.view addSubview:login];
     [self.view addSubview:notify];
 }
