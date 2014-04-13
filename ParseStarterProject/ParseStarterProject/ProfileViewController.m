@@ -57,38 +57,44 @@
             name.text = username;
             name.textColor = [UIColor whiteColor];
             
-            UILabel* profileLabel = [ [UILabel alloc] initWithFrame:CGRectMake(0, 0, 80, 30)];
-            profileLabel.textAlignment = UITextAlignmentCenter;
-            profileLabel.text=@"Profile";
-            profileLabel.font=[UIFont fontWithName:@"Helvetica" size:25.0 ];
-            profileLabel.textColor = green;
-            
-            [self.navigationItem setTitleView:profileLabel];
-            
             [self.view addSubview:name];
         }
     }];
     
+    // Navigation Bar Title
+    UILabel* profileLabel = [ [UILabel alloc] initWithFrame:CGRectMake(0, 0, 80, 30)];
+    profileLabel.textAlignment = UITextAlignmentCenter;
+    profileLabel.text=@"Profile";
+    profileLabel.font=[UIFont fontWithName:@"Helvetica" size:25.0 ];
+    profileLabel.textColor = green;
+    
+    [self.navigationItem setTitleView:profileLabel];
+    
+    // Log out button
+    UIBarButtonItem *createItem = [[UIBarButtonItem alloc] initWithTitle:@"Log out" style:UIBarButtonItemStyleBordered target:self action:@selector(logoutButtonTouchHandler:)];
+    
+    self.navigationItem.rightBarButtonItem = createItem;
+    
+    // School Name
     NSString* schoolName = [curr objectForKey:@"school"];
     
     if (schoolName) {
         UILabel* school = [[UILabel alloc] initWithFrame:CGRectMake(window.width*.1, window.height*.15, window.width*.8, window.height*0.2)];
         school.font = [UIFont fontWithName:@"Helvetica" size:16];
         school.text = [NSString stringWithFormat:@"School: %@", schoolName];
-//        school.text = schoolName;
         school.textColor = [UIColor whiteColor];
         [self.view addSubview:school];
     }
     
     // Facebook logout button
-    UIButton* logoutButton = [[UIButton alloc] initWithFrame:CGRectMake(windowSize.width*.1, windowSize.height*.5, windowSize.width*.8, windowSize.width*.8*0.175)];
-    [logoutButton setBackgroundImage:[UIImage imageNamed:@"logout_button.png"]
-                     forState:UIControlStateNormal];
-    logoutButton.backgroundColor = [UIColor clearColor];
-    [logoutButton addTarget:self action:@selector(logoutButtonTouchHandler:) forControlEvents:UIControlEventTouchUpInside];
-    
-    [self.view addSubview:logoutButton];
-    [self.view reloadInputViews];
+//    UIButton* logoutButton = [[UIButton alloc] initWithFrame:CGRectMake(windowSize.width*.1, windowSize.height*.5, windowSize.width*.8, windowSize.width*.8*0.175)];
+//    [logoutButton setBackgroundImage:[UIImage imageNamed:@"logout_button.png"]
+//                     forState:UIControlStateNormal];
+//    logoutButton.backgroundColor = [UIColor clearColor];
+//    [logoutButton addTarget:self action:@selector(logoutButtonTouchHandler:) forControlEvents:UIControlEventTouchUpInside];
+//    
+//    [self.view addSubview:logoutButton];
+//    [self.view reloadInputViews];
 
 }
 
