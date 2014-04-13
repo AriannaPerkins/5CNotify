@@ -70,7 +70,12 @@
 }
 
 -(void) openProfileView{
-    [self.navigationController pushViewController:profileViewController animated:YES];
+    CATransition *transition = [CATransition animation];
+    transition.type = kCATransitionPush;
+    transition.subtype = kCATransitionFromLeft;
+    transition.delegate = self;
+    [self.navigationController.view.layer addAnimation:transition forKey:nil];
+    [self.navigationController pushViewController:profileViewController animated:NO];
 }
 
 -(void) loadProfileView{

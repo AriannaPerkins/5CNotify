@@ -13,7 +13,7 @@
     UIImage* unchecked;
     UIImage* checked;
     UILabel* rsvp;
-    int attendees;
+//    int attendees;
 }
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier 
@@ -79,7 +79,7 @@
         [_checkMark setImage:unchecked forState:UIControlStateNormal];
         
         rsvp = [[UILabel alloc] initWithFrame:CGRectMake(width*0.65, height*0.9, width*0.5, height*.35)];
-        rsvp.text = [NSString stringWithFormat:@"%i people are going", attendees];
+        rsvp.text = [NSString stringWithFormat:@"%li people are going", (long)self.attendees];
         rsvp.font = [UIFont fontWithName:@"Helvetica" size:12];
         
         // add these labels to the view
@@ -97,12 +97,12 @@
 -(void) buttonPressed{
     if (_checkMark.imageView.image == unchecked){
         [_checkMark setImage:checked forState:UIControlStateNormal];
-        attendees++;
-        rsvp.text = [NSString stringWithFormat:@"%i people are going", attendees];
+        self.attendees++;
+        rsvp.text = [NSString stringWithFormat:@"%li people are going", (long)self.attendees];
     }else{
         [_checkMark setImage:unchecked forState:UIControlStateNormal];
-        attendees--;
-        rsvp.text = [NSString stringWithFormat:@"%i people are going", attendees];
+        self.attendees--;
+        rsvp.text = [NSString stringWithFormat:@"%li people are going", (long)self.attendees];
     }
 }
 

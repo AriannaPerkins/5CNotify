@@ -18,6 +18,7 @@
 @property(nonatomic, retain)  UIColor *textColoring;
 @property(nonatomic, retain)  UIColor *cellBackgroundColor;
 @property(nonatomic, retain)  UITextView *descriptionLabel;
+@property(nonatomic)  NSInteger attendees;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier;
 

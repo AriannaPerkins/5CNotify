@@ -91,8 +91,9 @@ NSMutableArray* parties;
                     NSDate *endTime = event[@"endTime"];
                     NSString *description = event[@"description"];
                     NSMutableArray *switches = event[@"openTo"];
+                    NSInteger rsvpCount = event[@"rsvpCount"]; // get the rsvp count
                     
-                    Event* temp = [[Event alloc] initWith:name andLoc:location andStart:startTime andEnd:endTime andDescription:description andOpenTo:switches];
+                    Event* temp = [[Event alloc] initWith:name andLoc:location andStart:startTime andEnd:endTime andDescription:description andOpenTo:switches andRSVPCount:rsvpCount];
                     [tempParties addObject:temp];
                 }
                 
@@ -199,8 +200,9 @@ NSMutableArray* parties;
                 NSDate *endTime = event[@"endTime"];
                 NSString *description = event[@"description"];
                 NSMutableArray *switches = event[@"openTo"];
+                NSInteger rsvpCount = event[@"rsvpCount"];
                 
-                Event* temp = [[Event alloc] initWith:name andLoc:location andStart:startTime andEnd:endTime andDescription:description andOpenTo:switches];
+                Event* temp = [[Event alloc] initWith:name andLoc:location andStart:startTime andEnd:endTime andDescription:description andOpenTo:switches andRSVPCount:rsvpCount];
                 
                 BOOL newEvent = YES;
                 
@@ -324,6 +326,7 @@ NSMutableArray* parties;
     cell.eventNameLabel.text = party.name;
     cell.locationLabel.text = party.location;
     
+    
     NSMutableString* stringOpenTo = [[NSMutableString alloc] init];
     if (party.openToArray.count > 0) {
         NSMutableArray* openTo = party.openToArray;
@@ -351,6 +354,7 @@ NSMutableArray* parties;
     
     cell.timeLabel.text = [NSString stringWithFormat:@"%@ to %@", startDateString, endDateString];
     cell.descriptionLabel.text = party.description;
+    cell.attendees = party.rsvpCount; // call the EventCell with the rsvp count from parse
     
     return cell;
 
@@ -373,7 +377,7 @@ NSMutableArray* parties;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
+    [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop-self.tableView.sectionHeaderHeight animated:NO];
     EventCell* cell = (EventCell*)[self.tableView viewWithTag:((indexPath.section<<16)|indexPath.row)+1];
     //Check if already selected
     if (selected == cell.tag){

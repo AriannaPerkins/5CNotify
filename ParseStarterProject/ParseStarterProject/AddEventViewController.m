@@ -807,6 +807,7 @@ UILabel* asteriskMessage;
         newEvent[@"locationText"] = self.locationField.text;
         newEvent[@"description"] = self.descriptionView.text;
         newEvent[@"openTo"] = openToSwitches;
+        newEvent[@"rsvpCount"] = 0; // When created, rsvp count is 0
         [newEvent saveInBackground];
         
         //Reset all values of text fields
