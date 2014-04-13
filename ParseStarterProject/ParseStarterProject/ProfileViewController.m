@@ -36,7 +36,6 @@
     
     // Do any additional setup after loading the view.
     CGSize window = self.view.frame.size;
-    CGSize windowSize =self.view.frame.size;
     
     // Create request for user's Facebook data
     FBRequest *request = [FBRequest requestForMe];
