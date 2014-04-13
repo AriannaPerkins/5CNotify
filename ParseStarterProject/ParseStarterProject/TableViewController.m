@@ -144,7 +144,7 @@ NSMutableArray* parties;
     UIBarButtonItem *addItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addEventView)];
     
     UIImage* profile = [UIImage imageNamed:@"profile_pic.png"];
-    UIImage* scaledProfile = [UIImage imageWithCGImage:[ profile CGImage] scale:13 orientation:profile.imageOrientation];
+    UIImage* scaledProfile = [UIImage imageWithCGImage:[ profile CGImage] scale:25 orientation:profile.imageOrientation];
     UIButton* tempProfileButton = [UIButton buttonWithType:UIButtonTypeCustom];
     tempProfileButton.bounds = CGRectMake(0, 0, scaledProfile.size.width, scaledProfile.size.height);
     [tempProfileButton setImage:scaledProfile forState:UIControlStateNormal];
