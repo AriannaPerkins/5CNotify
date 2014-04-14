@@ -328,10 +328,11 @@ NSMutableArray* parties;
     cell.eventNameLabel.text = party.name;
     cell.locationLabel.text = party.location;
     
-    
     NSMutableString* stringOpenTo = [[NSMutableString alloc] init];
     if (party.openToArray.count > 0) {
-        NSMutableArray* openTo = party.openToArray;
+        // Make openTo a copy of the party.openToArray
+        NSMutableArray* openTo = [NSMutableArray array];
+        [openTo addObjectsFromArray:party.openToArray];
         while (openTo.count>0) {
             NSString* temp = [openTo objectAtIndex:0];
             if (openTo.count == 1)
@@ -344,6 +345,10 @@ NSMutableArray* parties;
         [stringOpenTo appendString:@"Private Party"];
     }
     cell.switchesLabel.text = stringOpenTo;
+
+    // Set the scope of the party
+    cell.openToArray = party.openToArray;
+    [cell setPartyScope];
     
     NSDateFormatter* dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateStyle:NSDateFormatterNoStyle];
