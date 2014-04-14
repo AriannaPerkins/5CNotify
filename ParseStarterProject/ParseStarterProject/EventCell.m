@@ -118,7 +118,13 @@
 // Called upon refresh and when someone says they're attending an event
 -(void) updateRSVPText {
     [thisEvent refresh];
-    rsvp.text = [NSString stringWithFormat:@"%i people are going", [thisEvent[@"rsvpCount"] intValue]];
+    int attendees = [thisEvent[@"rsvpCount"] intValue];
+    if (attendees == 1) {
+        rsvp.text = [NSString stringWithFormat:@"%i person is going", attendees];
+    } else {
+        rsvp.text = [NSString stringWithFormat:@"%i people are going", attendees];
+    }
+    
 }
 
 -(void) buttonPressed{
