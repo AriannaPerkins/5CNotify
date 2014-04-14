@@ -356,7 +356,6 @@ NSMutableArray* parties;
     
     cell.timeLabel.text = [NSString stringWithFormat:@"%@ to %@", startDateString, endDateString];
     cell.descriptionLabel.text = party.description;
-    NSLog(@"objectid is %@",party.objectid);
     cell.objectid = party.objectid;
     [cell setUpRSVP];
     
