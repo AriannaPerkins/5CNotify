@@ -27,7 +27,7 @@
 
     // If you would like all objects to be private by default, remove this line.
     [defaultACL setPublicReadAccess:YES];
-    
+    [defaultACL setPublicWriteAccess:YES];
     [PFACL setDefaultACL:defaultACL withAccessForCurrentUser:YES];
     
     // Override point for customization after application launch.

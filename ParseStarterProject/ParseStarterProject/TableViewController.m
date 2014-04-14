@@ -91,9 +91,10 @@ NSMutableArray* parties;
                     NSDate *endTime = event[@"endTime"];
                     NSString *description = event[@"description"];
                     NSMutableArray *switches = event[@"openTo"];
-                    NSInteger rsvpCount = event[@"rsvpCount"]; // get the rsvp count
+                    int rsvpCount = [event[@"rsvpCount"] intValue]; // get the rsvp count
+                    NSString *objectid = event.objectId;
                     
-                    Event* temp = [[Event alloc] initWith:name andLoc:location andStart:startTime andEnd:endTime andDescription:description andOpenTo:switches andRSVPCount:rsvpCount];
+                    Event* temp = [[Event alloc] initWith:name andLoc:location andStart:startTime andEnd:endTime andDescription:description andOpenTo:switches andRSVPCount:rsvpCount andObjectID:objectid];
                     [tempParties addObject:temp];
                 }
                 
@@ -200,9 +201,10 @@ NSMutableArray* parties;
                 NSDate *endTime = event[@"endTime"];
                 NSString *description = event[@"description"];
                 NSMutableArray *switches = event[@"openTo"];
-                NSInteger rsvpCount = event[@"rsvpCount"];
+                int rsvpCount = [event[@"rsvpCount"] intValue];
+                NSString *objectid = event.objectId;
                 
-                Event* temp = [[Event alloc] initWith:name andLoc:location andStart:startTime andEnd:endTime andDescription:description andOpenTo:switches andRSVPCount:rsvpCount];
+                Event* temp = [[Event alloc] initWith:name andLoc:location andStart:startTime andEnd:endTime andDescription:description andOpenTo:switches andRSVPCount:rsvpCount andObjectID:objectid];
                 
                 BOOL newEvent = YES;
                 
@@ -354,7 +356,9 @@ NSMutableArray* parties;
     
     cell.timeLabel.text = [NSString stringWithFormat:@"%@ to %@", startDateString, endDateString];
     cell.descriptionLabel.text = party.description;
-    cell.attendees = party.rsvpCount; // call the EventCell with the rsvp count from parse
+    NSLog(@"objectid is %@",party.objectid);
+    cell.objectid = party.objectid;
+    [cell setUpRSVP];
     
     return cell;
 

@@ -13,7 +13,7 @@
     UIImage* unchecked;
     UIImage* checked;
     UILabel* rsvp;
-//    int attendees;
+    PFObject* thisEvent;
 }
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier 
@@ -78,9 +78,13 @@
         
         [_checkMark setImage:unchecked forState:UIControlStateNormal];
         
+        
+        
+        
         rsvp = [[UILabel alloc] initWithFrame:CGRectMake(width*0.65, height*0.9, width*0.5, height*.35)];
-        rsvp.text = [NSString stringWithFormat:@"%li people are going", (long)self.attendees];
+//        rsvp.text = [NSString stringWithFormat:@"%i people are going", [thisEvent[@"rsvpCount"] intValue]];
         rsvp.font = [UIFont fontWithName:@"Helvetica" size:12];
+
         
         // add these labels to the view
         [self addSubview:_eventNameLabel];
@@ -94,16 +98,40 @@
     return self;
 }
 
+-(void) setUpRSVP {
+    
+    PFQuery *query = [PFQuery queryWithClassName:@"UserEvents"];
+    [query getObjectInBackgroundWithId:_objectid block:^(PFObject *currentEvent, NSError *error) {
+        if (!error) {
+            // Do something with the returned PFObject in the gameScore variable.
+            NSLog(@"Event grabbed: %@", currentEvent);
+            thisEvent = currentEvent;
+        }
+        else {
+            NSLog(@"Not successful");
+        }
+    }];
+    
+    [self updateRSVPText];    
+}
+
+// Called upon refresh and when someone says they're attending an event
+-(void) updateRSVPText {
+    [thisEvent refresh];
+    rsvp.text = [NSString stringWithFormat:@"%i people are going", [thisEvent[@"rsvpCount"] intValue]];
+}
+
 -(void) buttonPressed{
+    [thisEvent refresh];
     if (_checkMark.imageView.image == unchecked){
         [_checkMark setImage:checked forState:UIControlStateNormal];
-        self.attendees++;
-        rsvp.text = [NSString stringWithFormat:@"%li people are going", (long)self.attendees];
+        [thisEvent incrementKey:@"rsvpCount"];
     }else{
         [_checkMark setImage:unchecked forState:UIControlStateNormal];
-        self.attendees--;
-        rsvp.text = [NSString stringWithFormat:@"%li people are going", (long)self.attendees];
+        [thisEvent incrementKey:@"rsvpCount" byAmount:@-1];
     }
+    [thisEvent save];
+    [self updateRSVPText];
 }
 
 -(void) setSelected:(BOOL)selected animated:(BOOL)animated{

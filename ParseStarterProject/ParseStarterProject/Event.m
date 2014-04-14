@@ -10,7 +10,7 @@
 
 @implementation Event
 
--(id)initWith:(NSString*)eventName andLoc: (NSString*) eventLoc andStart: (NSDate*) startTime andEnd: (NSDate*) endTime andDescription: (NSString*) descript andOpenTo: (NSMutableArray*) openTo andRSVPCount:(NSInteger) rsvpCount{
+-(id)initWith:(NSString*)eventName andLoc: (NSString*) eventLoc andStart: (NSDate*) startTime andEnd: (NSDate*) endTime andDescription: (NSString*) descript andOpenTo: (NSMutableArray*) openTo andRSVPCount:(int) rsvpCount andObjectID:(NSString*) objectid{
     if (self=[super init]) {
         _name = eventName;
         _location = eventLoc;
@@ -19,6 +19,7 @@
         _description = descript;
         _openToArray = openTo;
         _rsvpCount = rsvpCount;
+        _objectid = objectid;
     }
     return self;
 }

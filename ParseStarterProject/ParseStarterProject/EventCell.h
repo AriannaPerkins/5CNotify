@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Parse/Parse.h>
 
 @interface EventCell : UITableViewCell
 
@@ -18,8 +19,9 @@
 @property(nonatomic, retain)  UIColor *textColoring;
 @property(nonatomic, retain)  UIColor *cellBackgroundColor;
 @property(nonatomic, retain)  UITextView *descriptionLabel;
-@property(nonatomic)  NSInteger attendees;
+@property(nonatomic, retain) NSString *objectid;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier;
-
+-(void) setUpRSVP;
+-(void) updateRSVPText;
 @end

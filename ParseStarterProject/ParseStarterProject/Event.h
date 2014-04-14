@@ -16,8 +16,9 @@
 @property(nonatomic,retain) NSDate* end;
 @property(nonatomic,retain) NSString* description;
 @property(nonatomic,retain) NSMutableArray* openToArray;
-@property(nonatomic) NSInteger rsvpCount;
+@property(nonatomic) int rsvpCount;
+@property(nonatomic,retain) NSString* objectid;
 
--(id)initWith:(NSString*)eventName andLoc: (NSString*) eventLoc andStart: (NSDate*) startTime andEnd: (NSDate*) endTime andDescription: (NSString*) descript andOpenTo: (NSMutableArray*)openTo andRSVPCount: (NSInteger) rsvpCount;
+-(id)initWith:(NSString*)eventName andLoc: (NSString*) eventLoc andStart: (NSDate*) startTime andEnd: (NSDate*) endTime andDescription: (NSString*) descript andOpenTo: (NSMutableArray*)openTo andRSVPCount: (int) rsvpCount andObjectID:(NSString*) objectid;
 
 @end
