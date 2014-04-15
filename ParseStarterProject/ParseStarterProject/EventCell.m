@@ -103,10 +103,8 @@
     
     if ([_openToArray containsObject:schoolName]) {
         NSLog(@"School in scope");
-        // Uncomment the following 2 lines if for some reason, events
-        // that are open to your school are not showing up correctly.
-//        _checkMark.alpha = 1.0;
-//        _schoolInScope = YES;
+        _checkMark.alpha = 1.0;
+        _schoolInScope = YES;
     } else {
         NSLog(@"School not in scope");
         _checkMark.alpha = 0.2;
