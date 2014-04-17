@@ -807,7 +807,7 @@ UILabel* asteriskMessage;
         newEvent[@"locationText"] = self.locationField.text;
         newEvent[@"description"] = self.descriptionView.text;
         newEvent[@"openTo"] = openToSwitches;
-        newEvent[@"rsvpCount"] = @1; // When created, rsvp count is 0
+        newEvent[@"rsvpCount"] = @1; // When created, rsvp count is 1
         [newEvent saveInBackground];
 
 //        // Add the event's objectId to the fields in the current PFUser which are (will be)
