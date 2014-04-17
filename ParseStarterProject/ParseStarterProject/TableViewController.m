@@ -91,9 +91,10 @@ NSMutableArray* parties;
                     NSDate *endTime = event[@"endTime"];
                     NSString *description = event[@"description"];
                     NSMutableArray *switches = event[@"openTo"];
-                    NSInteger rsvpCount = event[@"rsvpCount"]; // get the rsvp count
+                    int rsvpCount = [event[@"rsvpCount"] intValue]; // get the rsvp count
+                    NSString *objectid = event.objectId;
                     
-                    Event* temp = [[Event alloc] initWith:name andLoc:location andStart:startTime andEnd:endTime andDescription:description andOpenTo:switches andRSVPCount:rsvpCount];
+                    Event* temp = [[Event alloc] initWith:name andLoc:location andStart:startTime andEnd:endTime andDescription:description andOpenTo:switches andRSVPCount:rsvpCount andObjectID:objectid];
                     [tempParties addObject:temp];
                 }
                 
@@ -200,9 +201,10 @@ NSMutableArray* parties;
                 NSDate *endTime = event[@"endTime"];
                 NSString *description = event[@"description"];
                 NSMutableArray *switches = event[@"openTo"];
-                NSInteger rsvpCount = event[@"rsvpCount"];
+                int rsvpCount = [event[@"rsvpCount"] intValue];
+                NSString *objectid = event.objectId;
                 
-                Event* temp = [[Event alloc] initWith:name andLoc:location andStart:startTime andEnd:endTime andDescription:description andOpenTo:switches andRSVPCount:rsvpCount];
+                Event* temp = [[Event alloc] initWith:name andLoc:location andStart:startTime andEnd:endTime andDescription:description andOpenTo:switches andRSVPCount:rsvpCount andObjectID:objectid];
                 
                 BOOL newEvent = YES;
                 
@@ -326,10 +328,11 @@ NSMutableArray* parties;
     cell.eventNameLabel.text = party.name;
     cell.locationLabel.text = party.location;
     
-    
     NSMutableString* stringOpenTo = [[NSMutableString alloc] init];
     if (party.openToArray.count > 0) {
-        NSMutableArray* openTo = party.openToArray;
+        // Make openTo a copy of the party.openToArray
+        NSMutableArray* openTo = [NSMutableArray array];
+        [openTo addObjectsFromArray:party.openToArray];
         while (openTo.count>0) {
             NSString* temp = [openTo objectAtIndex:0];
             if (openTo.count == 1)
@@ -342,6 +345,10 @@ NSMutableArray* parties;
         [stringOpenTo appendString:@"Private Party"];
     }
     cell.switchesLabel.text = stringOpenTo;
+
+    // Set the scope of the party
+    cell.openToArray = party.openToArray;
+    [cell setPartyScope];
     
     NSDateFormatter* dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateStyle:NSDateFormatterNoStyle];
@@ -354,7 +361,8 @@ NSMutableArray* parties;
     
     cell.timeLabel.text = [NSString stringWithFormat:@"%@ to %@", startDateString, endDateString];
     cell.descriptionLabel.text = party.description;
-    cell.attendees = party.rsvpCount; // call the EventCell with the rsvp count from parse
+    cell.objectid = party.objectid;
+    [cell setUpRSVP];
     
     return cell;
 

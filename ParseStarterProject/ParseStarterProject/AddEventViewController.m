@@ -810,6 +810,13 @@ UILabel* asteriskMessage;
         newEvent[@"openTo"] = openToSwitches;
         newEvent[@"rsvpCount"] = @0; // When created, rsvp count is 0
         [newEvent saveInBackground];
+
+//        // Add the event's objectId to the fields in the current PFUser which are (will be)
+//        // NSMutableArray* eventsCreated and NSMutableArray* eventsAttending.
+//        // Note: These need to be initialized somewhere.
+//        PFUser *curr = [PFUser currentUser];
+//        [curr[@"eventsCreated"] addObject:newEvent.objectId];
+//        [curr[@"eventsAttending"] addObject:newEvent.objectId];
         
         //Reset all values of text fields
         _addEventField.text = nil;

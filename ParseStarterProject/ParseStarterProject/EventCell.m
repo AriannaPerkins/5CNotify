@@ -13,7 +13,8 @@
     UIImage* unchecked;
     UIImage* checked;
     UILabel* rsvp;
-//    int attendees;
+    PFObject* thisEvent;
+    NSString* schoolName;
 }
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier 
@@ -78,9 +79,11 @@
         
         [_checkMark setImage:unchecked forState:UIControlStateNormal];
         
+        _schoolInScope = YES;
+        
         rsvp = [[UILabel alloc] initWithFrame:CGRectMake(width*0.65, height*0.9, width*0.5, height*.35)];
-        rsvp.text = [NSString stringWithFormat:@"%li people are going", (long)self.attendees];
         rsvp.font = [UIFont fontWithName:@"Helvetica" size:12];
+        
         
         // add these labels to the view
         [self addSubview:_eventNameLabel];
@@ -94,17 +97,72 @@
     return self;
 }
 
--(void) buttonPressed{
-    if (_checkMark.imageView.image == unchecked){
-        [_checkMark setImage:checked forState:UIControlStateNormal];
-        self.attendees++;
-        rsvp.text = [NSString stringWithFormat:@"%li people are going", (long)self.attendees];
-    }else{
-        [_checkMark setImage:unchecked forState:UIControlStateNormal];
-        self.attendees--;
-        rsvp.text = [NSString stringWithFormat:@"%li people are going", (long)self.attendees];
+-(void) setPartyScope {
+    PFUser *curr = [PFUser currentUser];
+    schoolName = [curr objectForKey:@"school"];
+    
+    if ([_openToArray containsObject:schoolName]) {
+        NSLog(@"School in scope");
+        _checkMark.alpha = 1.0;
+        _schoolInScope = YES;
+    } else {
+        NSLog(@"School not in scope");
+        _checkMark.alpha = 0.2;
+        _schoolInScope = NO;
     }
+    
 }
+
+-(void) setUpRSVP {
+    
+    PFQuery *query = [PFQuery queryWithClassName:@"UserEvents"];
+    [query getObjectInBackgroundWithId:_objectid block:^(PFObject *currentEvent, NSError *error) {
+        if (!error) {
+            // Do something with the returned PFObject in the gameScore variable.
+            NSLog(@"Event grabbed successfully");
+            thisEvent = currentEvent;
+        }
+        else {
+            NSLog(@"Not successful");
+        }
+    }];
+    
+    [self updateRSVPText];    
+}
+
+// Called upon refresh and when someone says they're attending an event
+-(void) updateRSVPText {
+    [thisEvent refresh];
+    int attendees = [thisEvent[@"rsvpCount"] intValue];
+    if (attendees == 1) {
+        rsvp.text = [NSString stringWithFormat:@"%i person is going", attendees];
+    } else {
+        rsvp.text = [NSString stringWithFormat:@"%i people are going", attendees];
+    }
+    
+}
+
+// This method determines what to do when you try to attend an event
+-(void) buttonPressed{
+    if (_schoolInScope) {
+        [thisEvent refresh];
+        if (_checkMark.imageView.image == unchecked){
+            [_checkMark setImage:checked forState:UIControlStateNormal];
+            [thisEvent incrementKey:@"rsvpCount"];
+        }else{
+            [_checkMark setImage:unchecked forState:UIControlStateNormal];
+            [thisEvent incrementKey:@"rsvpCount" byAmount:@-1];
+        }
+        [thisEvent save];
+        [self updateRSVPText];
+    } else {
+        NSString *title = [NSString stringWithFormat:@"Event not open to %@", schoolName];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:@"Consider contacting someone that can put you on the guest list directly." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+    }
+    
+}
+
 
 -(void) setSelected:(BOOL)selected animated:(BOOL)animated{
     
