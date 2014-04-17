@@ -16,6 +16,7 @@
 
 @implementation LoginViewController{
     UIColor *green;
+    UIColor *lightGreen;
     NSArray* schools;
 }
 
@@ -27,6 +28,11 @@
                                 green:(float) 190.0/ 255.0
                                  blue:(float) 20.0/ 255.0
                                 alpha:1.0];
+        lightGreen = [UIColor colorWithRed: 200.0/255.0
+                                     green: 240.0/255.0
+                                      blue: 160.0/255.0
+                                     alpha: 1.0];
+
         self.view.backgroundColor = green;
         schools = [[NSArray alloc] initWithObjects:@"HMC", @"Scripps", @"Pitzer", @"Pomona", @"Pitzer", nil];
     }
@@ -66,7 +72,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     UILabel* notify = [[UILabel alloc] initWithFrame:CGRectMake(0, windowSize.height*.03, windowSize.width, windowSize.width*0.2)];
     notify.font = [UIFont fontWithName:@"Helvetica" size:40];
     notify.backgroundColor = [UIColor blackColor];
-    notify.textColor = green;
+    notify.textColor = lightGreen;
     notify.textAlignment = NSTextAlignmentCenter;
     notify.text = @"5CNotify";
     

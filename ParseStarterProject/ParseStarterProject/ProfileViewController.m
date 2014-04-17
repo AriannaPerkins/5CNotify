@@ -15,6 +15,7 @@
 
 @implementation ProfileViewController{
     UIColor* green;
+    UIColor* lightGreen;
 }
 
 - (id)init{
@@ -24,6 +25,11 @@
                                 green:(float) 190.0/ 255.0
                                  blue:(float) 20.0/ 255.0
                                 alpha:1.0];
+        lightGreen = [UIColor colorWithRed: 200.0/255.0
+                                     green: 240.0/255.0
+                                      blue: 160.0/255.0
+                                     alpha: 1.0];
+
         self.view.backgroundColor = green;
     }
     return self;
@@ -65,7 +71,7 @@
     profileLabel.textAlignment = UITextAlignmentCenter;
     profileLabel.text=@"Profile";
     profileLabel.font=[UIFont fontWithName:@"Helvetica" size:25.0 ];
-    profileLabel.textColor = green;
+    profileLabel.textColor = lightGreen;
     
     [self.navigationItem setTitleView:profileLabel];
     
