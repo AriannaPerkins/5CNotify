@@ -72,7 +72,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     UILabel* notify = [[UILabel alloc] initWithFrame:CGRectMake(0, windowSize.height*.03, windowSize.width, windowSize.width*0.2)];
     notify.font = [UIFont fontWithName:@"Helvetica" size:40];
     notify.backgroundColor = [UIColor blackColor];
-    notify.textColor = lightGreen;
+    notify.textColor = green;
     notify.textAlignment = NSTextAlignmentCenter;
     notify.text = @"5CNotify";
     
