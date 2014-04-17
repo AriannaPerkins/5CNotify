@@ -25,6 +25,8 @@ BOOL* editing;
 
 NSInteger selected;
 NSMutableArray* parties;
+NSCalendar *calendar;
+NSInteger comps;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -60,11 +62,10 @@ NSMutableArray* parties;
         // Pull all events that have a start date today or later
         NSDate *currentDate = [[NSDate alloc] init];
         
-        NSCalendar *calendar = [NSCalendar currentCalendar];
-        NSInteger comps = (NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit);
+        calendar = [NSCalendar currentCalendar];
+        comps = (NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit);
         
-        NSDateComponents *currentDateComps = [calendar components:comps
-                                                         fromDate: currentDate];
+        NSDateComponents* currentDateComps = [calendar components:comps fromDate: currentDate];
         
         currentDate = [calendar dateFromComponents:currentDateComps];
         
@@ -167,16 +168,8 @@ NSMutableArray* parties;
 }
 
 -(void) refreshEvents{
-    // Pull all events that have a start date today or later
-    NSDate *currentDate = [[NSDate alloc] init];
     
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSInteger comps = (NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit);
-    
-    NSDateComponents *currentDateComps = [calendar components:comps
-                                                     fromDate: currentDate];
-    
-    currentDate = [calendar dateFromComponents:currentDateComps];
+    NSDate* currentDate = [[NSDate alloc] init];
     
     PFQuery *query = [PFQuery queryWithClassName:@"UserEvents"];
     [query whereKey:@"startTime" greaterThan:currentDate];
@@ -216,45 +209,60 @@ NSMutableArray* parties;
                         }
                     }
                 }
-                
                 if (newEvent){
                     [tempParties addObject:temp];
                 }
             }
             
-            NSLog(@"%lu new event(s)", (unsigned long)tempParties.count);
             
             // Sorts events by date
             int i=0;
             [self.tableView beginUpdates];
             while (tempParties.count > 0) {
+                //If the party starts after the current last party, add new section and corresponding
+                //backend array to hold this data
                 if (i>=parties.count) {
                     Event* sortee = tempParties[0];
                     NSMutableArray* newDay = [[NSMutableArray alloc] init];
                     [newDay addObject:sortee];
                     [tempParties removeObject:sortee];
                     [parties insertObject:newDay atIndex:i];
+                    
+                    //Add new section and row into the table
                     [self.tableView insertSections:[NSIndexSet indexSetWithIndex:i] withRowAnimation:UITableViewRowAnimationAutomatic];
                     NSIndexPath* path = [NSIndexPath indexPathForRow:0 inSection:i];
                     [self.tableView insertRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationAutomatic];
                 }
-        
+                //Grab new event
                 Event* temp = [[parties objectAtIndex:i] objectAtIndex:0];
                 NSDate* curr = temp.start;
+                NSDateComponents* currentComps = [calendar components:comps fromDate:curr];
+                curr = [calendar dateFromComponents: currentComps];
                 for (int n=0; n<tempParties.count; n++) {
                     Event* sortee =tempParties[n];
-                    if (sortee.start == curr) {
+                    NSDate* start = sortee.start;
+                    NSDateComponents* startComps = [calendar components:comps fromDate:start];
+                    start = [calendar dateFromComponents: startComps];
+                    
+                    //If the event starts on the current day
+                    if (start == curr) {
                         [[parties objectAtIndex:i] addObject:sortee];
                         [tempParties removeObject:sortee];
+                        
+                        //Add row to tableview
                         int lastRow = ((NSMutableArray*)parties[i]).count -1;
                         NSIndexPath* path = [NSIndexPath indexPathForRow:lastRow inSection:i];
                         [self.tableView insertRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationAutomatic];
                         n--;
-                    } else if (sortee.start < curr){
+                        
+                    //If the event starts on a new date
+                    } else if (start < curr){
                         NSMutableArray* newDay = [[NSMutableArray alloc] init];
                         [newDay addObject:sortee];
                         [tempParties removeObject:sortee];
                         [parties insertObject:newDay atIndex:i];
+                        
+                        //Insert section and row into tableview
                         [self.tableView insertSections:[NSIndexSet indexSetWithIndex:i] withRowAnimation:UITableViewRowAnimationAutomatic];
                         NSIndexPath* path = [NSIndexPath indexPathForRow:0 inSection:i];
                         [self.tableView insertRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -263,6 +271,10 @@ NSMutableArray* parties;
                     }
                 }
                 ++i;
+            }
+            NSArray* cells = [self.tableView visibleCells];
+            for (EventCell* cell in cells) {
+                [cell updateRSVPText];
             }
             
             [self.tableView endUpdates];
