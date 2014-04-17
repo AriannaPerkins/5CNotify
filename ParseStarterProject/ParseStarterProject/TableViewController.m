@@ -144,6 +144,7 @@ NSInteger comps;
     self.refreshControl = refreshControl;
     
     UIBarButtonItem *addItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addEventView)];
+//    addItem.tintColor = lightGreen;
     
     UIImage* profile = [UIImage imageNamed:@"profile_pic.png"];
     UIImage* scaledProfile = [UIImage imageWithCGImage:[ profile CGImage] scale:25 orientation:profile.imageOrientation];
@@ -160,7 +161,7 @@ NSInteger comps;
     notifyLabel.textAlignment = UITextAlignmentCenter;
     notifyLabel.text=@"5CNotify";
     notifyLabel.font=[UIFont fontWithName:@"Helvetica" size:25.0 ];
-    notifyLabel.textColor = green;
+    notifyLabel.textColor = lightGreen;
     
     [self.navigationItem setTitleView:notifyLabel];
     [self.navigationItem setHidesBackButton:YES animated:YES];

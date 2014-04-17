@@ -605,13 +605,15 @@ UILabel* asteriskMessage;
     notifyLabel.textAlignment = UITextAlignmentCenter;
     notifyLabel.text=@"Add an Event";
     notifyLabel.font=[UIFont fontWithName:@"Helvetica" size:25.0 ];
-    notifyLabel.textColor = green;
+    notifyLabel.textColor = lightGreen;
 
     [self.navigationItem setTitleView:notifyLabel];
     
     self.view.backgroundColor = green;
     
     UIBarButtonItem *createItem = [[UIBarButtonItem alloc] initWithTitle:@"Create" style:UIBarButtonItemStyleBordered target:self action:@selector(createButtonPressed)];
+//    createItem.tintColor = lightGreen;
+//    self.navigationItem.backBarButtonItem.tintColor = lightGreen;
     
     self.navigationItem.rightBarButtonItem = createItem;
     
