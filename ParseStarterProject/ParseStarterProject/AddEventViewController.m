@@ -813,12 +813,30 @@ UILabel* asteriskMessage;
         newEvent[@"rsvpCount"] = @1; // When created, rsvp count is 0
         [newEvent saveInBackground];
 
-//        // Add the event's objectId to the fields in the current PFUser which are (will be)
-//        // NSMutableArray* eventsCreated and NSMutableArray* eventsAttending.
-//        // Note: These need to be initialized somewhere.
-//        PFUser *curr = [PFUser currentUser];
-//        [curr[@"eventsCreated"] addObject:newEvent.objectId];
-//        [curr[@"eventsAttending"] addObject:newEvent.objectId];
+        // Add the event's objectId to the fields in the current PFUser which are (will be)
+        // NSMutableArray* eventsCreated and NSMutableArray* eventsAttending.
+        // Note: These need to be initialized somewhere.
+        PFUser *curr = [PFUser currentUser];
+        
+        NSMutableArray* eventsCreated = [curr objectForKey:@"eventsCreated"];
+        NSMutableArray* eventsAttending = [curr objectForKey:@"eventsAttending"];
+        
+        if (eventsCreated) {
+            [curr[@"eventsCreated"] addObject:newEvent];
+            NSLog(@"You have created %d events!!!", [curr[@"eventsCreated"] count]);
+        } else {
+            eventsCreated = [[NSMutableArray alloc] init];
+            [curr setObject:eventsCreated forKey:@"eventsCreated"];
+        }
+        
+        if (eventsAttending) {
+            [curr[@"eventsAttending"] addObject:newEvent];
+        } else {
+            eventsAttending = [[NSMutableArray alloc] init];
+            [curr setObject:eventsAttending forKey:@"eventsAttending"];
+        }
+        
+        [curr saveInBackground];
         
         //Reset all values of text fields
         _addEventField.text = nil;
