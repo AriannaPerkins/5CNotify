@@ -56,6 +56,11 @@
     }
 }
 
+-(void) loadAddEventView {
+    eventViewController = [[AddEventViewController alloc] init];
+    eventViewController.parseProjectViewController = self;
+}
+
 -(void) openAddEventView{
     [self.navigationController pushViewController:eventViewController animated:YES];
 }

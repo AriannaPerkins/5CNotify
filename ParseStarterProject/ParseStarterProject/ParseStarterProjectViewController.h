@@ -1,6 +1,7 @@
 
 @interface ParseStarterProjectViewController : UIViewController
 
+-(void) loadAddEventView;
 -(void) openAddEventView;
 -(void) openTableView;
 -(void) loadTableView;

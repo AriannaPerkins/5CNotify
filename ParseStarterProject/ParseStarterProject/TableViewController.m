@@ -252,7 +252,7 @@ NSInteger comps;
                         [tempParties removeObject:sortee];
                         
                         //Add row to tableview
-                        int lastRow = ((NSMutableArray*)parties[i]).count -1;
+                        NSInteger lastRow = ((NSMutableArray*)parties[i]).count -1;
                         NSIndexPath* path = [NSIndexPath indexPathForRow:lastRow inSection:i];
                         [self.tableView insertRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationAutomatic];
                         n--;
@@ -290,6 +290,7 @@ NSInteger comps;
 }
 
 -(void) addEventView{
+    [_parseProjectViewController loadAddEventView];
     [_parseProjectViewController openAddEventView];
 }
 
