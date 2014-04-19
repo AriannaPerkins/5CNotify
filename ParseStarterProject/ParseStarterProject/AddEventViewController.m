@@ -835,7 +835,8 @@ UILabel* asteriskMessage;
             [curr setObject:eventsAttending forKey:@"eventsAttending"];
         }
         
-        [curr saveInBackground];
+        [curr save];
+        [_parseProjectViewController loadProfileView];
         
         //Reset all values of text fields
         _addEventField.text = nil;

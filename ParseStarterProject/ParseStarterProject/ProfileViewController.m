@@ -151,7 +151,7 @@
         
         PFQuery *query = [PFQuery queryWithClassName:@"UserEvents"];
         [query whereKey:@"objectId" containedIn:eventsCreated];
-//        [query whereKey:@"startTime" greaterThan:currentDate];
+        [query whereKey:@"startTime" greaterThan:currentDate];
         
         NSMutableArray* tempParties = [[NSMutableArray alloc] init];
         
@@ -249,7 +249,7 @@
             
             PFQuery *query = [PFQuery queryWithClassName:@"UserEvents"];
             [query whereKey:@"objectId" containedIn:eventsAttending];
-//            [query whereKey:@"startTime" greaterThan:currentDate];
+            [query whereKey:@"startTime" greaterThan:currentDate];
             
             NSMutableArray* tempParties = [[NSMutableArray alloc] init];
             
@@ -313,18 +313,6 @@
         
             [self.view addSubview:eventsAttendingTable];
         }
-    
-//    if (eventsAttending) {
-//        UILabel* eventsAttendingLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, window.height*0.62, window.width, window.height*0.05)];
-//        eventsAttendingLabel.font = [UIFont fontWithName:@"Helvetica" size:16];
-//        eventsAttendingLabel.text = @"Events Attending";
-//        eventsAttendingLabel.textAlignment = NSTextAlignmentCenter;
-//        eventsAttendingLabel.textColor = [UIColor whiteColor];
-//        eventsAttendingLabel.backgroundColor = [UIColor blackColor];
-//        
-//        [self.view addSubview:eventsAttendingLabel];
-//    }
-//
 }
 
 - (void)addSchool {
