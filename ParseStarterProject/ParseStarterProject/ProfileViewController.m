@@ -130,7 +130,7 @@
         
         eventsCreatedTable = [[UITableView alloc] initWithFrame:CGRectMake(0, window.height*0.35, window.width, window.height*0.3)];
         eventsCreatedTable.backgroundColor = [UIColor blackColor];
-        eventsCreatedTable.sectionHeaderHeight = 30;
+        eventsCreatedTable.sectionHeaderHeight = 0;
         eventsCreatedTable.scrollEnabled = YES;
         eventsCreatedTable.scrollsToTop = YES;
         eventsCreatedTable.delegate = self;
@@ -228,7 +228,7 @@
             
             eventsAttendingTable = [[UITableView alloc] initWithFrame:CGRectMake(0, window.height*0.67, window.width, window.height*0.4)];
             eventsAttendingTable.backgroundColor = [UIColor blackColor];
-            eventsAttendingTable.sectionHeaderHeight = 30;
+            eventsAttendingTable.sectionHeaderHeight = 0;
             eventsAttendingTable.scrollEnabled = YES;
             eventsAttendingTable.scrollsToTop = YES;
             eventsAttendingTable.delegate = self;
@@ -478,6 +478,28 @@
     [tableView beginUpdates];
     [tableView endUpdates];
     
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    //Get date and format it nicely
+    NSMutableArray* temp = [parties objectAtIndex:section];
+    Event* firstEvent = [temp objectAtIndex:0];
+    NSDate* today = firstEvent.start;
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateStyle:NSDateFormatterFullStyle];
+    [formatter setTimeStyle:NSDateFormatterNoStyle];
+    NSString* niceDate = [formatter stringFromDate:today];
+    
+    //Create view
+    UIView* header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, tableView.sectionHeaderHeight)];
+    header.backgroundColor = [UIColor blackColor];
+    UILabel* date = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, header.frame.size.width, tableView.sectionHeaderHeight-5)];
+    date.textAlignment = NSTextAlignmentCenter;
+    date.textColor = green;
+    date.text = niceDate;
+//    [header addSubview:date];
+    
+    return header;
 }
 
 /*
