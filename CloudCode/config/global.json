@@ -1,0 +1,14 @@
+{
+    "applications": {
+        "5CNotify": {
+            "applicationId": "UtWGaS2DwCugGxxDK8KjqLUA43uUQpTz9gUpofeK", 
+            "masterKey": "NTpHRbO7y3FPJ7Ypct5fbjTKuxUqvxZa6lbLUkvE"
+        }, 
+        "_default": {
+            "link": "5CNotify"
+        }
+    }, 
+    "global": {
+        "parseVersion": "1.2.18"
+    }
+}
