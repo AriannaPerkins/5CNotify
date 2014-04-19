@@ -140,6 +140,17 @@
     [self updateRSVPText];    
 }
 
+-(void) setCheckMark {
+    PFUser *curr = [PFUser currentUser];
+    NSMutableArray* eventsAttending = [curr objectForKey:@"eventsAttending"];
+    
+    if ([eventsAttending containsObject:_objectid]) {
+        [_checkMark setImage:checked forState:UIControlStateNormal];
+    } else {
+        [_checkMark setImage:unchecked forState:UIControlStateNormal];
+    }
+}
+
 // Called upon refresh and when someone says they're attending an event
 -(void) updateRSVPText {
     [thisEvent refreshInBackgroundWithBlock:^(PFObject* thisEvent, NSError* error){
@@ -162,9 +173,33 @@
         if (_checkMark.imageView.image == unchecked){
             [_checkMark setImage:checked forState:UIControlStateNormal];
             [thisEvent incrementKey:@"rsvpCount"];
+            PFUser *curr = [PFUser currentUser];
+            NSMutableArray* eventsAttending = [curr objectForKey:@"eventsAttending"];
+            
+            if (eventsAttending) {
+                [curr[@"eventsAttending"] addObject:thisEvent.objectId];
+            } else {
+                eventsAttending = [[NSMutableArray alloc] init];
+                [eventsAttending addObject:thisEvent.objectId];
+                [curr setObject:eventsAttending forKey:@"eventsAttending"];
+            }
+            [curr save];
+
         }else{
             [_checkMark setImage:unchecked forState:UIControlStateNormal];
             [thisEvent incrementKey:@"rsvpCount" byAmount:@-1];
+            
+            PFUser *curr = [PFUser currentUser];
+            NSMutableArray* eventsAttending = [curr objectForKey:@"eventsAttending"];
+            
+            if (eventsAttending) {
+                [curr[@"eventsAttending"] removeObject:thisEvent.objectId];
+            } else {
+                eventsAttending = [[NSMutableArray alloc] init];
+                [curr setObject:eventsAttending forKey:@"eventsAttending"];
+            }
+            [curr save];
+
         }
         [thisEvent saveInBackground];
         [self updateRSVPText];
