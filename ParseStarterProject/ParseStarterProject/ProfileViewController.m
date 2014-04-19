@@ -133,10 +133,6 @@
         eventsCreatedTable.delegate = self;
         eventsCreatedTable.dataSource = self;
         eventsCreatedTable.separatorColor = [UIColor blackColor];
-
-        
-        NSMutableArray* eventsCreated = [curr objectForKey:@"eventsCreated"];
-        NSMutableArray* eventsAttending = [curr objectForKey:@"eventsAttending"];
         
         parties = [[NSMutableArray alloc] init];
         
@@ -349,6 +345,8 @@
     cell.descriptionLabel.text = party.description;
     cell.objectid = party.objectid;
     [cell setUpRSVP];
+    
+    [cell setCheckMark];
     
     return cell;
     

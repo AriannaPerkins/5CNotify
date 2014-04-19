@@ -364,6 +364,9 @@ NSInteger comps;
     cell.openToArray = party.openToArray;
     [cell setPartyScope];
     
+    cell.objectid = party.objectid;
+    [cell setCheckMark];
+    
     NSDateFormatter* dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateStyle:NSDateFormatterNoStyle];
     [dateFormat setTimeStyle:NSDateFormatterShortStyle];

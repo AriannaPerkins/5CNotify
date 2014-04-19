@@ -26,6 +26,7 @@
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier;
 -(void) setUpRSVP;
+-(void) setCheckMark;
 -(void) updateRSVPText;
 -(void) setPartyScope;
 @end
