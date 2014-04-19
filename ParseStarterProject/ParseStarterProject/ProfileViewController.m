@@ -96,16 +96,21 @@
     NSString* schoolName = [curr objectForKey:@"school"];
     
     if (schoolName) {
-        UILabel* school = [[UILabel alloc] initWithFrame:CGRectMake(window.width*.1, window.height*.13, window.width*.8, window.height*0.2)];
-        school.font = [UIFont fontWithName:@"Helvetica" size:16];
-        school.text = [NSString stringWithFormat:@"School: %@", schoolName];
-        school.textColor = [UIColor whiteColor];
+        UIButton *school = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        [school addTarget:self action:@selector(changeSchool)
+         forControlEvents:UIControlEventTouchUpInside];
+        [school setTitle:[NSString stringWithFormat:@"School: %@",schoolName]
+                forState:UIControlStateNormal];
+        school.titleLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:16];
+        school.tintColor = [UIColor whiteColor];
+        school.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+        school.frame = CGRectMake(window.width*.1, window.height*.13, window.width*.8, window.height*0.2);
+        
         [self.view addSubview:school];
     } else {
-        // Let them add/change their school
+        // Let users add/change their school
         UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        [button addTarget:self
-                   action:@selector(addSchool)
+        [button addTarget:self action:@selector(addSchool)
          forControlEvents:UIControlEventTouchUpInside];
         [button setTitle:@"Add School" forState:UIControlStateNormal];
         button.titleLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:16];
@@ -315,6 +320,12 @@
         }
 }
 
+- (void)changeSchool {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Edit School" message:@"Select a school from the list below to change your school. Please note that this will change what parties are available for you to select to attend." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"HMC", @"Scripps", @"Pitzer", @"Pomona", @"CMC", @"Other", nil];
+    alert.tag = 2;
+    [alert show];
+}
+
 - (void)addSchool {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"School" message:@"Please Pick Your School" delegate:self cancelButtonTitle:nil otherButtonTitles:@"HMC", @"Scripps", @"Pitzer", @"Pomona", @"CMC", @"Other", nil];
     alert.tag = 2;
@@ -325,9 +336,8 @@
 {
     NSLog(@"Selected button on alert view");
     if (alertView.tag == 2) {
-        NSArray* schools = [[NSArray alloc] initWithObjects:@"HMC", @"Scripps", @"Pitzer", @"Pomona", @"Pitzer", nil];
+        NSArray* schools = [[NSArray alloc] initWithObjects:@"HMC", @"Scripps", @"Pitzer", @"Pomona", @"CMC", @"Other", nil];
         NSString* schoolName = [schools objectAtIndex:buttonIndex];
-        NSLog(@"School: %@", schoolName);
         PFUser* user = [PFUser currentUser];
         [user setObject:schoolName forKey:@"school"];
         [user saveInBackground];
