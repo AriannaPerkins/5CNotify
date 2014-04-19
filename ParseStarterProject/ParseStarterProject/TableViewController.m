@@ -290,6 +290,7 @@ NSInteger comps;
 }
 
 -(void) addEventView{
+    [_parseProjectViewController loadAddEventView];
     [_parseProjectViewController openAddEventView];
 }
 
