@@ -111,114 +111,121 @@
         [self.view addSubview:button];
     }
     
-    UILabel* eventsCreatedLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, window.height*0.27, window.width, window.height*0.05)];
-    eventsCreatedLabel.font = [UIFont fontWithName:@"Helvetica" size:16];
-    eventsCreatedLabel.text = @"Events Created";
-    eventsCreatedLabel.textAlignment = NSTextAlignmentCenter;
-    eventsCreatedLabel.textColor = [UIColor whiteColor];
-    eventsCreatedLabel.backgroundColor = [UIColor blackColor];
-    
-    [self.view addSubview:eventsCreatedLabel];
-    
-    UILabel* eventsAttendingLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, window.height*0.62, window.width, window.height*0.05)];
-    eventsAttendingLabel.font = [UIFont fontWithName:@"Helvetica" size:16];
-    eventsAttendingLabel.text = @"Events Attending";
-    eventsAttendingLabel.textAlignment = NSTextAlignmentCenter;
-    eventsAttendingLabel.textColor = [UIColor whiteColor];
-    eventsAttendingLabel.backgroundColor = [UIColor blackColor];
-    
-    [self.view addSubview:eventsAttendingLabel];
-    
-    eventsCreatedTable = [[UITableView alloc] initWithFrame:CGRectMake(0, window.height*0.32, window.width, window.height*0.3)];
-    eventsCreatedTable.backgroundColor = [UIColor blackColor];
-    eventsCreatedTable.sectionHeaderHeight = 30;
-    eventsCreatedTable.scrollEnabled = YES;
-    eventsCreatedTable.scrollsToTop = YES;
-    eventsCreatedTable.delegate = self;
-    eventsCreatedTable.dataSource = self;
-    eventsCreatedTable.separatorColor = [UIColor blackColor];
-
-    
     NSMutableArray* eventsCreated = [curr objectForKey:@"eventsCreated"];
-    NSLog(@"YOU HAVE CREATED %d EVENTS! <<<<<<", eventsCreated.count);
-//    NSMutableArray* eventsAttending = [curr objectForKey:@"eventsAttending"];
+    NSMutableArray* eventsAttending = [curr objectForKey:@"eventsAttending"];
     
-    parties = [[NSMutableArray alloc] init];
+    if (eventsCreated){
     
-    // Pull all events that have a start date today or later
-    NSDate *currentDate = [[NSDate alloc] init];
-    
-    calendar = [NSCalendar currentCalendar];
-    comps = (NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit);
-    
-    NSDateComponents* currentDateComps = [calendar components:comps fromDate: currentDate];
-    
-    currentDate = [calendar dateFromComponents:currentDateComps];
-    
-    PFQuery *query = [PFQuery queryWithClassName:@"UserEvents"];
-    [query whereKey:@"objectId" containedIn:eventsCreated];
-    
-    NSMutableArray* tempParties = [[NSMutableArray alloc] init];
-    
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if (!error) {
-            
-            // The find succeeded.
-            NSLog(@"Successfully retrieved %lu events that user created.", (unsigned long)objects.count);
-            
-            // Do something with the found objects
-            
-            for (int i=0; i<objects.count; ++i) {
+        UILabel* eventsCreatedLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, window.height*0.27, window.width, window.height*0.05)];
+        eventsCreatedLabel.font = [UIFont fontWithName:@"Helvetica" size:16];
+        eventsCreatedLabel.text = @"Events Created";
+        eventsCreatedLabel.textAlignment = NSTextAlignmentCenter;
+        eventsCreatedLabel.textColor = [UIColor whiteColor];
+        eventsCreatedLabel.backgroundColor = [UIColor blackColor];
+        
+        [self.view addSubview:eventsCreatedLabel];
+        
+        eventsCreatedTable = [[UITableView alloc] initWithFrame:CGRectMake(0, window.height*0.32, window.width, window.height*0.3)];
+        eventsCreatedTable.backgroundColor = [UIColor blackColor];
+        eventsCreatedTable.sectionHeaderHeight = 30;
+        eventsCreatedTable.scrollEnabled = YES;
+        eventsCreatedTable.scrollsToTop = YES;
+        eventsCreatedTable.delegate = self;
+        eventsCreatedTable.dataSource = self;
+        eventsCreatedTable.separatorColor = [UIColor blackColor];
+
+        
+        NSMutableArray* eventsCreated = [curr objectForKey:@"eventsCreated"];
+        NSMutableArray* eventsAttending = [curr objectForKey:@"eventsAttending"];
+        
+        parties = [[NSMutableArray alloc] init];
+        
+        // Pull all events that have a start date today or later
+        NSDate *currentDate = [[NSDate alloc] init];
+        
+        calendar = [NSCalendar currentCalendar];
+        comps = (NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit);
+        
+        NSDateComponents* currentDateComps = [calendar components:comps fromDate: currentDate];
+        
+        currentDate = [calendar dateFromComponents:currentDateComps];
+        
+        PFQuery *query = [PFQuery queryWithClassName:@"UserEvents"];
+        [query whereKey:@"objectId" containedIn:eventsCreated];
+        
+        NSMutableArray* tempParties = [[NSMutableArray alloc] init];
+        
+        [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+            if (!error) {
                 
-                PFObject *event = objects[i];
+                // The find succeeded.
+                NSLog(@"Successfully retrieved %lu events that user created.", (unsigned long)objects.count);
                 
-                NSString *name = event[@"eventName"];
-                NSString *location = event[@"locationText"];
-                NSDate *startTime = event[@"startTime"];
-                NSDate *endTime = event[@"endTime"];
-                NSString *description = event[@"description"];
-                NSMutableArray *switches = event[@"openTo"];
-                int rsvpCount = [event[@"rsvpCount"] intValue]; // get the rsvp count
-                NSString *objectid = event.objectId;
+                // Do something with the found objects
                 
-                Event* temp = [[Event alloc] initWith:name andLoc:location andStart:startTime andEnd:endTime andDescription:description andOpenTo:switches andRSVPCount:rsvpCount andObjectID:objectid];
-                [tempParties addObject:temp];
-            }
-            
-            // Sorts events by date to later form sections
-            NSDate *date = [NSDate date];
-            NSCalendar *calendar = [NSCalendar autoupdatingCurrentCalendar];
-            NSUInteger preservedComponents = (NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit);
-            date = [calendar dateFromComponents:[calendar components:preservedComponents fromDate:date]];
-            NSDateComponents* components = [[NSDateComponents alloc] init];
-            [components setDay:1];
-            date = [calendar dateByAddingComponents:components toDate:date options:0];
-            NSLog(@"CurrDate is %@", date);
-            while (tempParties.count > 0) {
-                NSMutableArray *oneDay = [[NSMutableArray alloc] init];
-                for (NSInteger i=0; i<tempParties.count; i++) {
-                    Event* temp = [tempParties objectAtIndex:i];
-                    if (temp.start<date) {
-                        [oneDay addObject:temp];
-                        [tempParties removeObject:temp];
-                        i--;
-                    }
+                for (int i=0; i<objects.count; ++i) {
+                    
+                    PFObject *event = objects[i];
+                    
+                    NSString *name = event[@"eventName"];
+                    NSString *location = event[@"locationText"];
+                    NSDate *startTime = event[@"startTime"];
+                    NSDate *endTime = event[@"endTime"];
+                    NSString *description = event[@"description"];
+                    NSMutableArray *switches = event[@"openTo"];
+                    int rsvpCount = [event[@"rsvpCount"] intValue]; // get the rsvp count
+                    NSString *objectid = event.objectId;
+                    
+                    Event* temp = [[Event alloc] initWith:name andLoc:location andStart:startTime andEnd:endTime andDescription:description andOpenTo:switches andRSVPCount:rsvpCount andObjectID:objectid];
+                    [tempParties addObject:temp];
                 }
-                if (oneDay.count !=0) {
-                    [parties addObject:oneDay];
-                }
+                
+                // Sorts events by date to later form sections
+                NSDate *date = [NSDate date];
+                NSCalendar *calendar = [NSCalendar autoupdatingCurrentCalendar];
+                NSUInteger preservedComponents = (NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit);
+                date = [calendar dateFromComponents:[calendar components:preservedComponents fromDate:date]];
+                NSDateComponents* components = [[NSDateComponents alloc] init];
+                [components setDay:1];
                 date = [calendar dateByAddingComponents:components toDate:date options:0];
-            }
-            
-            [eventsCreatedTable reloadData];
-            
-        } else {
-            // Log details of the failure
-            NSLog(@"Error: %@ %@", error, [error userInfo]);
-        }}];
+                NSLog(@"CurrDate is %@", date);
+                while (tempParties.count > 0) {
+                    NSMutableArray *oneDay = [[NSMutableArray alloc] init];
+                    for (NSInteger i=0; i<tempParties.count; i++) {
+                        Event* temp = [tempParties objectAtIndex:i];
+                        if (temp.start<date) {
+                            [oneDay addObject:temp];
+                            [tempParties removeObject:temp];
+                            i--;
+                        }
+                    }
+                    if (oneDay.count !=0) {
+                        [parties addObject:oneDay];
+                    }
+                    date = [calendar dateByAddingComponents:components toDate:date options:0];
+                }
+                
+                [eventsCreatedTable reloadData];
+                
+            } else {
+                // Log details of the failure
+                NSLog(@"Error: %@ %@", error, [error userInfo]);
+            }}];
+        
+        
+        [self.view addSubview:eventsCreatedTable];
+    }
     
-    
-    [self.view addSubview:eventsCreatedTable];
+    if (eventsAttending) {
+        UILabel* eventsAttendingLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, window.height*0.62, window.width, window.height*0.05)];
+        eventsAttendingLabel.font = [UIFont fontWithName:@"Helvetica" size:16];
+        eventsAttendingLabel.text = @"Events Attending";
+        eventsAttendingLabel.textAlignment = NSTextAlignmentCenter;
+        eventsAttendingLabel.textColor = [UIColor whiteColor];
+        eventsAttendingLabel.backgroundColor = [UIColor blackColor];
+        
+        [self.view addSubview:eventsAttendingLabel];
+    }
     
     
     // Facebook logout button
