@@ -142,7 +142,10 @@
 
 // Called upon refresh and when someone says they're attending an event
 -(void) updateRSVPText {
-    [thisEvent refresh];
+    [thisEvent refreshInBackgroundWithBlock:^(PFObject* thisEvent, NSError* error){
+        if (error)
+            NSLog(@"Error: %@", error.localizedFailureReason);
+    }];
     int attendees = [thisEvent[@"rsvpCount"] intValue];
     if (attendees == 1) {
         rsvp.text = [NSString stringWithFormat:@"%i person is going", attendees];
@@ -163,7 +166,7 @@
             [_checkMark setImage:unchecked forState:UIControlStateNormal];
             [thisEvent incrementKey:@"rsvpCount" byAmount:@-1];
         }
-        [thisEvent save];
+        [thisEvent saveInBackground];
         [self updateRSVPText];
     } else {
         NSString *title = [NSString stringWithFormat:@"Event not open to %@", schoolName];

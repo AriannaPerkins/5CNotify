@@ -451,8 +451,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
-					/Users/Macbook23/Documents/FacebookSDK,
-					/Users/Macbook23/Desktop/Actual5CNotify/ParseStarterProject/FacebookSDK,
 					"$(PROJECT_DIR)/FacebookSDK",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -461,10 +459,7 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "ParseStarterProject/5CNotify-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					/Users/Macbook23/Documents/FacebookSDK/FacebookSDK.framework/Versions/A,
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = 5CNotify;
 				WRAPPER_EXTENSION = app;
 			};
@@ -479,8 +474,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
-					/Users/Macbook23/Documents/FacebookSDK,
-					/Users/Macbook23/Desktop/Actual5CNotify/ParseStarterProject/FacebookSDK,
 					"$(PROJECT_DIR)/FacebookSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -488,10 +481,7 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "ParseStarterProject/5CNotify-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					/Users/Macbook23/Documents/FacebookSDK/FacebookSDK.framework/Versions/A,
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = 5CNotify;
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;

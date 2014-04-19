@@ -625,7 +625,7 @@ UILabel* asteriskMessage;
 - (void)setState:(UISwitch*)sender
 {
     BOOL state = [sender isOn];
-    int identifier = sender.tag;
+    int identifier = (int)sender.tag;
     
     if (identifier == 0) {
         self.openToCmc = state == YES ? YES: NO;
@@ -808,7 +808,7 @@ UILabel* asteriskMessage;
         newEvent[@"description"] = self.descriptionView.text;
         newEvent[@"openTo"] = openToSwitches;
         newEvent[@"rsvpCount"] = @1; // When created, rsvp count is 1
-        [newEvent save];
+        [newEvent saveInBackground];
 
         // Add the event's objectId to the fields in the current PFUser which are (will be)
         // NSMutableArray* eventsCreated and NSMutableArray* eventsAttending.
@@ -820,7 +820,7 @@ UILabel* asteriskMessage;
 
         if (eventsCreated) {
             [curr[@"eventsCreated"] addObject:newEvent.objectId];
-            NSLog(@"You have created %d events!!!", [curr[@"eventsCreated"] count]);
+            NSLog(@"You have created %lu events!!!", (unsigned long)[curr[@"eventsCreated"] count]);
         } else {
             eventsCreated = [[NSMutableArray alloc] init];
             [eventsCreated addObject:newEvent.objectId];
