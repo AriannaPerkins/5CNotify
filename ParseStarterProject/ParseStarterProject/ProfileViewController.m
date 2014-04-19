@@ -320,6 +320,7 @@
         }
 }
 
+// Change school method: pops up an alert view
 - (void)changeSchool {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Edit School" message:@"Select a school from the list below to change your school. Please note that this will change what parties are available for you to select to attend." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"HMC", @"Scripps", @"Pitzer", @"Pomona", @"CMC", @"Other", nil];
     alert.tag = 2;
