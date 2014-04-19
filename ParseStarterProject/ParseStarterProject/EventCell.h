@@ -28,4 +28,5 @@
 -(void) setUpRSVP;
 -(void) updateRSVPText;
 -(void) setPartyScope;
+-(void) setChecked;
 @end

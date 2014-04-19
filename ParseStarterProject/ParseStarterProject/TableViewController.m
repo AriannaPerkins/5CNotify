@@ -377,6 +377,7 @@ NSInteger comps;
     cell.descriptionLabel.text = party.description;
     cell.objectid = party.objectid;
     [cell setUpRSVP];
+    [cell setChecked];
     
     return cell;
 

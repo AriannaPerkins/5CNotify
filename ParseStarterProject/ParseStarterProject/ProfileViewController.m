@@ -48,6 +48,7 @@
 {
     [super viewDidLoad];
     PFUser *curr = [PFUser currentUser];
+//    [curr refresh]; // Try refreshing the view
     
     // Do any additional setup after loading the view.
     CGSize window = self.view.frame.size;
@@ -305,7 +306,7 @@
     NSMutableArray* day = [parties objectAtIndex:indexPath.section];
     Event* party = [day objectAtIndex:indexPath.row];
     
-    if ((indexPath.row+indexPath.section) % 2 == 0) {
+    if (indexPath.row % 2 == 0) {
         cell.backgroundColor = green;
     } else {
         cell.backgroundColor = lightGreen;
