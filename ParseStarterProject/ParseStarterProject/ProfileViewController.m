@@ -92,20 +92,29 @@
     
     self.navigationItem.rightBarButtonItem = createItem;
     
+//    // Later, this might fix the issue with the current back button
+//    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"My Back" style: UIBarButtonItemStyleBordered target:self action:@selector(Back)];
+//    self.navigationItem.leftBarButtonItem = backButton;
+    
     // School Name
     NSString* schoolName = [curr objectForKey:@"school"];
     
     if (schoolName) {
-        UILabel* school = [[UILabel alloc] initWithFrame:CGRectMake(window.width*.1, window.height*.13, window.width*.8, window.height*0.2)];
-        school.font = [UIFont fontWithName:@"Helvetica" size:16];
-        school.text = [NSString stringWithFormat:@"School: %@", schoolName];
-        school.textColor = [UIColor whiteColor];
+        UIButton *school = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        [school addTarget:self action:@selector(changeSchool)
+         forControlEvents:UIControlEventTouchUpInside];
+        [school setTitle:[NSString stringWithFormat:@"School: %@",schoolName]
+                forState:UIControlStateNormal];
+        school.titleLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:16];
+        school.tintColor = [UIColor whiteColor];
+        school.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+        school.frame = CGRectMake(window.width*.1, window.height*.13, window.width*.8, window.height*0.2);
+        
         [self.view addSubview:school];
     } else {
-        // Let them add/change their school
+        // Let users add/change their school
         UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        [button addTarget:self
-                   action:@selector(addSchool)
+        [button addTarget:self action:@selector(addSchool)
          forControlEvents:UIControlEventTouchUpInside];
         [button setTitle:@"Add School" forState:UIControlStateNormal];
         button.titleLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:16];
@@ -130,7 +139,7 @@
         
         eventsCreatedTable = [[UITableView alloc] initWithFrame:CGRectMake(0, window.height*0.35, window.width, window.height*0.3)];
         eventsCreatedTable.backgroundColor = [UIColor blackColor];
-        eventsCreatedTable.sectionHeaderHeight = 30;
+        eventsCreatedTable.sectionHeaderHeight = 0;
         eventsCreatedTable.scrollEnabled = YES;
         eventsCreatedTable.scrollsToTop = YES;
         eventsCreatedTable.delegate = self;
@@ -151,7 +160,7 @@
         
         PFQuery *query = [PFQuery queryWithClassName:@"UserEvents"];
         [query whereKey:@"objectId" containedIn:eventsCreated];
-//        [query whereKey:@"startTime" greaterThan:currentDate];
+        [query whereKey:@"startTime" greaterThan:currentDate];
         
         NSMutableArray* tempParties = [[NSMutableArray alloc] init];
         
@@ -228,7 +237,7 @@
             
             eventsAttendingTable = [[UITableView alloc] initWithFrame:CGRectMake(0, window.height*0.67, window.width, window.height*0.4)];
             eventsAttendingTable.backgroundColor = [UIColor blackColor];
-            eventsAttendingTable.sectionHeaderHeight = 30;
+            eventsAttendingTable.sectionHeaderHeight = 0;
             eventsAttendingTable.scrollEnabled = YES;
             eventsAttendingTable.scrollsToTop = YES;
             eventsAttendingTable.delegate = self;
@@ -249,7 +258,7 @@
             
             PFQuery *query = [PFQuery queryWithClassName:@"UserEvents"];
             [query whereKey:@"objectId" containedIn:eventsAttending];
-//            [query whereKey:@"startTime" greaterThan:currentDate];
+            [query whereKey:@"startTime" greaterThan:currentDate];
             
             NSMutableArray* tempParties = [[NSMutableArray alloc] init];
             
@@ -313,18 +322,20 @@
         
             [self.view addSubview:eventsAttendingTable];
         }
-    
-//    if (eventsAttending) {
-//        UILabel* eventsAttendingLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, window.height*0.62, window.width, window.height*0.05)];
-//        eventsAttendingLabel.font = [UIFont fontWithName:@"Helvetica" size:16];
-//        eventsAttendingLabel.text = @"Events Attending";
-//        eventsAttendingLabel.textAlignment = NSTextAlignmentCenter;
-//        eventsAttendingLabel.textColor = [UIColor whiteColor];
-//        eventsAttendingLabel.backgroundColor = [UIColor blackColor];
-//        
-//        [self.view addSubview:eventsAttendingLabel];
-//    }
-//
+}
+
+//// Return from Profile View to Table View
+//- (IBAction)Back
+//{
+//    [_parseProjectViewController loadTableView];
+//    [_parseProjectViewController openTableView];
+//}
+
+// Change school method: pops up an alert view
+- (void)changeSchool {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Edit School" message:@"Select a school from the list below to change your school. Please note that this will change what parties are available for you to select to attend." delegate:self cancelButtonTitle:nil otherButtonTitles:@"HMC", @"Scripps", @"Pitzer", @"Pomona", @"CMC", @"Other", nil];
+    alert.tag = 2;
+    [alert show];
 }
 
 - (void)addSchool {
@@ -337,9 +348,8 @@
 {
     NSLog(@"Selected button on alert view");
     if (alertView.tag == 2) {
-        NSArray* schools = [[NSArray alloc] initWithObjects:@"HMC", @"Scripps", @"Pitzer", @"Pomona", @"Pitzer", nil];
+        NSArray* schools = [[NSArray alloc] initWithObjects:@"HMC", @"Scripps", @"Pitzer", @"Pomona", @"CMC", @"Other", nil];
         NSString* schoolName = [schools objectAtIndex:buttonIndex];
-        NSLog(@"School: %@", schoolName);
         PFUser* user = [PFUser currentUser];
         [user setObject:schoolName forKey:@"school"];
         [user saveInBackground];
@@ -398,6 +408,9 @@
     //Tag cannot be 0 because they are default 0, set it to the row plus 1
     cell.tag = ((indexPath.section<<16) | indexPath.row)+1;
     
+    NSLog(@">>>>>There are %d parties<<<<", parties.count);
+    NSLog(@"The index is %d", indexPath.section);
+    
     NSMutableArray* day = [parties objectAtIndex:indexPath.section];
     if (tableView == eventsAttendingTable) {
         day = [partiesAttending objectAtIndex:indexPath.section];
@@ -436,7 +449,7 @@
     [cell setPartyScope];
     
     NSDateFormatter* dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateStyle:NSDateFormatterNoStyle];
+    [dateFormat setDateStyle:NSDateFormatterShortStyle];
     [dateFormat setTimeStyle:NSDateFormatterShortStyle];
     
     NSDate* startTime = party.start;
@@ -490,6 +503,28 @@
     [tableView beginUpdates];
     [tableView endUpdates];
     
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    //Get date and format it nicely
+    NSMutableArray* temp = [parties objectAtIndex:section];
+    Event* firstEvent = [temp objectAtIndex:0];
+    NSDate* today = firstEvent.start;
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateStyle:NSDateFormatterFullStyle];
+    [formatter setTimeStyle:NSDateFormatterNoStyle];
+    NSString* niceDate = [formatter stringFromDate:today];
+    
+    //Create view
+    UIView* header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, tableView.sectionHeaderHeight)];
+    header.backgroundColor = [UIColor blackColor];
+    UILabel* date = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, header.frame.size.width, tableView.sectionHeaderHeight-5)];
+    date.textAlignment = NSTextAlignmentCenter;
+    date.textColor = green;
+    date.text = niceDate;
+//    [header addSubview:date];
+    
+    return header;
 }
 
 /*

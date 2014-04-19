@@ -55,6 +55,9 @@ UILabel* descriptionAsterisk;
 UILabel* asteriskMessage;
 
 
+UIDatePicker *startPicker;
+UIDatePicker *endPicker;
+
 
 
 - (id)init
@@ -176,7 +179,7 @@ UILabel* asteriskMessage;
         NSLog(@"Entered start time field");
         
         // For the start time field
-        UIDatePicker *startPicker = (UIDatePicker*)self.startTimeField.inputView;
+        startPicker = (UIDatePicker*)self.startTimeField.inputView;
         //get date from picker
         NSDate *startDate = startPicker.date;
         
@@ -192,7 +195,7 @@ UILabel* asteriskMessage;
         
         NSLog(@"Entered end time field");
         // For the end time field
-        UIDatePicker *endPicker = (UIDatePicker*)self.endTimeField.inputView;
+        endPicker = (UIDatePicker*)self.endTimeField.inputView;
         //get date from picker
         NSDate *endDate = endPicker.date;
         
@@ -359,19 +362,18 @@ UILabel* asteriskMessage;
     [scrollingView addSubview: endTimeLabel];
     
     // The start date picker
-    UIDatePicker *startDatePicker = [[UIDatePicker alloc]
-                                     initWithFrame:CGRectMake(0, 0, 250, 250)];
-    startDatePicker.datePickerMode = UIDatePickerModeDateAndTime;
-    startDatePicker.backgroundColor = datePickerGreen;
-    startDatePicker.tintColor = [UIColor whiteColor];
+    startPicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, 0, 250, 250)];
+    [startPicker addTarget:self action:@selector(datePickerDateChangedForStart:) forControlEvents:UIControlEventValueChanged];
+    startPicker.datePickerMode = UIDatePickerModeDateAndTime;
+    startPicker.backgroundColor = datePickerGreen;
+    startPicker.tintColor = [UIColor whiteColor];
     
     //get date from picker
-    NSDate *startDate = startDatePicker.date;
+    NSDate *startDate = startPicker.date;
     
     NSDateFormatter *startDateFormat = [[NSDateFormatter alloc] init];
     [startDateFormat setDateFormat:@"MM/dd/yy, hh:mm aa"];
     NSString *prettyStart = [startDateFormat stringFromDate:startDate];
-    
     
     double timeFieldsTop = timesTop + 25;
     
@@ -383,7 +385,7 @@ UILabel* asteriskMessage;
     self.startTimeField.delegate = self;
     [self.startTimeField setFont:[UIFont fontWithName:@"Helvetica" size:13]];
     
-    [self.startTimeField setInputView:startDatePicker];
+    [self.startTimeField setInputView:startPicker];
     [self.startTimeField setInputAccessoryView:inputToolbar];
     
     // add the field to the view
@@ -397,16 +399,13 @@ UILabel* asteriskMessage;
     [scrollingView addSubview:startAsterisk];
     
     // The end date picker
-    UIDatePicker *endDatePicker = [[UIDatePicker alloc]
-                                   initWithFrame:CGRectMake(0, 0, 250, 250)];
-    endDatePicker.datePickerMode = UIDatePickerModeDateAndTime;
-    endDatePicker.backgroundColor = datePickerGreen;
+    endPicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, 0, 250, 250)];
+    [endPicker addTarget:self action:@selector(datePickerDateChangedForEnd:) forControlEvents:UIControlEventValueChanged];
+    endPicker.datePickerMode = UIDatePickerModeDateAndTime;
+    endPicker.backgroundColor = datePickerGreen;
     
     //get date from picker
-    NSDate *endDate = endDatePicker.date;
-    
-    NSDateFormatter *endDateFormat = [[NSDateFormatter alloc] init];
-    [endDateFormat setDateFormat:@"MM/dd/yy, hh:mm aa"];
+    NSDate *endDate = endPicker.date;
     NSString *prettyEnd = [startDateFormat stringFromDate:endDate];
     
     // Create the end time field
@@ -417,7 +416,7 @@ UILabel* asteriskMessage;
     self.endTimeField.delegate = self;
     [self.endTimeField setFont:[UIFont fontWithName:@"Helvetica" size:13]];
     
-    [self.endTimeField setInputView:endDatePicker];
+    [self.endTimeField setInputView:endPicker];
     [self.endTimeField setInputAccessoryView:inputToolbar];
     [scrollingView addSubview:self.endTimeField];
     
@@ -648,6 +647,29 @@ UILabel* asteriskMessage;
 }
 
 
+// Update the date so it shows automatically when you pick a date.
+- (IBAction)datePickerDateChangedForStart:(id)sender {
+    // Make sure date is in the right format
+    NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
+    [outputFormatter setDateFormat:@"MM/dd/yy, hh:mm aa"];
+    
+    NSString *entryDateInString = [outputFormatter stringFromDate:startPicker.date];
+    
+    [[self startTimeField] setText: entryDateInString];
+}
+
+// Update the date so it shows automatically when you pick a date.
+- (IBAction)datePickerDateChangedForEnd:(id)sender {
+    // Make sure date is in the right format
+    NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
+    [outputFormatter setDateFormat:@"MM/dd/yy, hh:mm aa"];
+    
+    NSString *entryDateInString = [outputFormatter stringFromDate:endPicker.date];
+    
+    [[self endTimeField] setText: entryDateInString];
+}
+
+
 - (IBAction)createButtonPressed {
     
     UIColor* green = [UIColor colorWithRed:(float) 95.0/ 255.0
@@ -655,12 +677,12 @@ UILabel* asteriskMessage;
                                       blue:(float) 20.0/ 255.0 alpha:1.0];
     
     // For the start time field
-    UIDatePicker *startPicker = (UIDatePicker*)self.startTimeField.inputView;
+    startPicker = (UIDatePicker*)self.startTimeField.inputView;
     //get date from picker
     NSDate *startDate = startPicker.date;
     
     // For the end time field
-    UIDatePicker *endPicker = (UIDatePicker*)self.endTimeField.inputView;
+    endPicker = (UIDatePicker*)self.endTimeField.inputView;
     //get date from picker
     NSDate *endDate = endPicker.date;
     
@@ -835,7 +857,8 @@ UILabel* asteriskMessage;
             [curr setObject:eventsAttending forKey:@"eventsAttending"];
         }
         
-        [curr saveInBackground];
+        [curr save];
+        [_parseProjectViewController loadProfileView];
         
         //Reset all values of text fields
         _addEventField.text = nil;

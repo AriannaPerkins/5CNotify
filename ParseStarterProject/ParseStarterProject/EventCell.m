@@ -184,6 +184,7 @@
                 [curr setObject:eventsAttending forKey:@"eventsAttending"];
             }
             [curr save];
+            [_parseProjectViewController loadProfileView];
 
         }else{
             [_checkMark setImage:unchecked forState:UIControlStateNormal];
@@ -199,6 +200,7 @@
                 [curr setObject:eventsAttending forKey:@"eventsAttending"];
             }
             [curr save];
+            [_parseProjectViewController loadProfileView];
 
         }
         [thisEvent saveInBackground];
