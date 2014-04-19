@@ -117,7 +117,7 @@
     
     if (eventsCreated){
     
-        UILabel* eventsCreatedLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, window.height*0.27, window.width, window.height*0.05)];
+        UILabel* eventsCreatedLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, window.height*0.3, window.width, window.height*0.05)];
         eventsCreatedLabel.font = [UIFont fontWithName:@"Helvetica" size:16];
         eventsCreatedLabel.text = @"Events Created";
         eventsCreatedLabel.textAlignment = NSTextAlignmentCenter;
@@ -126,7 +126,7 @@
         
         [self.view addSubview:eventsCreatedLabel];
         
-        eventsCreatedTable = [[UITableView alloc] initWithFrame:CGRectMake(0, window.height*0.32, window.width, window.height*0.3)];
+        eventsCreatedTable = [[UITableView alloc] initWithFrame:CGRectMake(0, window.height*0.35, window.width, window.height*0.3)];
         eventsCreatedTable.backgroundColor = [UIColor blackColor];
         eventsCreatedTable.sectionHeaderHeight = 30;
         eventsCreatedTable.scrollEnabled = YES;
