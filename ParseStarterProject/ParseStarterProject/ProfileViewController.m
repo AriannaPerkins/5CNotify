@@ -386,6 +386,9 @@
     //Tag cannot be 0 because they are default 0, set it to the row plus 1
     cell.tag = ((indexPath.section<<16) | indexPath.row)+1;
     
+    NSLog(@">>>>>There are %d parties<<<<", parties.count);
+    NSLog(@"The index is %d", indexPath.section);
+    
     NSMutableArray* day = [parties objectAtIndex:indexPath.section];
     if (tableView == eventsAttendingTable) {
         day = [partiesAttending objectAtIndex:indexPath.section];
@@ -424,7 +427,7 @@
     [cell setPartyScope];
     
     NSDateFormatter* dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateStyle:NSDateFormatterNoStyle];
+    [dateFormat setDateStyle:NSDateFormatterShortStyle];
     [dateFormat setTimeStyle:NSDateFormatterShortStyle];
     
     NSDate* startTime = party.start;
