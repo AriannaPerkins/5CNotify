@@ -654,7 +654,7 @@ UIDatePicker *endPicker;
 
 // Update the date so it shows automatically when you pick a date.
 - (IBAction)datePickerDateChanged:(id)sender {
-    
+    // Make sure date is in the right format
     NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
     [outputFormatter setDateFormat:@"MM/dd/yy, hh:mm aa"];
     
