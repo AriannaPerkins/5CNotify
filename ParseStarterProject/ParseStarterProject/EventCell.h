@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
+#import "ParseStarterProjectViewController.h"
 
 @interface EventCell : UITableViewCell
 
@@ -22,10 +23,12 @@
 @property(nonatomic, retain)  UITextView *descriptionLabel;
 @property(nonatomic, retain) NSString *objectid;
 @property(nonatomic) BOOL schoolInScope;
+@property(retain) ParseStarterProjectViewController* parseProjectViewController;
 
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier;
 -(void) setUpRSVP;
+-(void) setCheckMark;
 -(void) updateRSVPText;
 -(void) setPartyScope;
 -(void) setChecked;
