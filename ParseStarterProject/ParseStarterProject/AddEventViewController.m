@@ -811,7 +811,7 @@ UILabel* asteriskMessage;
         newEvent[@"description"] = self.descriptionView.text;
         newEvent[@"openTo"] = openToSwitches;
         newEvent[@"rsvpCount"] = @1; // When created, rsvp count is 1
-        [newEvent saveInBackground];
+        [newEvent save];
 
         // Add the event's objectId to the fields in the current PFUser which are (will be)
         // NSMutableArray* eventsCreated and NSMutableArray* eventsAttending.
@@ -820,19 +820,21 @@ UILabel* asteriskMessage;
         
         NSMutableArray* eventsCreated = [curr objectForKey:@"eventsCreated"];
         NSMutableArray* eventsAttending = [curr objectForKey:@"eventsAttending"];
-        
+
         if (eventsCreated) {
-            [curr[@"eventsCreated"] addObject:newEvent];
+            [curr[@"eventsCreated"] addObject:newEvent.objectId];
             NSLog(@"You have created %d events!!!", [curr[@"eventsCreated"] count]);
         } else {
             eventsCreated = [[NSMutableArray alloc] init];
+            [eventsCreated addObject:newEvent.objectId];
             [curr setObject:eventsCreated forKey:@"eventsCreated"];
         }
         
         if (eventsAttending) {
-            [curr[@"eventsAttending"] addObject:newEvent];
+            [curr[@"eventsAttending"] addObject:newEvent.objectId];
         } else {
             eventsAttending = [[NSMutableArray alloc] init];
+            [eventsAttending addObject:newEvent.objectId];
             [curr setObject:eventsAttending forKey:@"eventsAttending"];
         }
         
