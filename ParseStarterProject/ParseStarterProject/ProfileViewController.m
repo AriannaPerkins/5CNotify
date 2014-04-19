@@ -71,7 +71,7 @@
     profileLabel.textAlignment = UITextAlignmentCenter;
     profileLabel.text=@"Profile";
     profileLabel.font=[UIFont fontWithName:@"Helvetica" size:25.0 ];
-    profileLabel.textColor = lightGreen;
+    profileLabel.textColor = green;
     
     [self.navigationItem setTitleView:profileLabel];
     

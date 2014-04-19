@@ -161,7 +161,7 @@ NSInteger comps;
     notifyLabel.textAlignment = UITextAlignmentCenter;
     notifyLabel.text=@"5CNotify";
     notifyLabel.font=[UIFont fontWithName:@"Helvetica" size:25.0 ];
-    notifyLabel.textColor = lightGreen;
+    notifyLabel.textColor = green;
     
     [self.navigationItem setTitleView:notifyLabel];
     [self.navigationItem setHidesBackButton:YES animated:YES];
