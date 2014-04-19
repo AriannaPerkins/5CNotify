@@ -57,6 +57,7 @@ NSInteger comps;
         self.automaticallyAdjustsScrollViewInsets = YES;
         
         self.view.backgroundColor = [UIColor blackColor];
+        self.tableView.separatorColor = [UIColor blackColor];
         parties = [[NSMutableArray alloc] init];
         
         // Pull all events that have a start date today or later

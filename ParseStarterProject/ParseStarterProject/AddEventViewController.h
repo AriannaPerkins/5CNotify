@@ -11,7 +11,7 @@
 #import <UIKit/UIKit.h>
 #import "ParseStarterProjectViewController.h"
 
-@interface AddEventViewController : UIViewController <UITextFieldDelegate>
+@interface AddEventViewController : UIViewController <UITextFieldDelegate, UITextViewDelegate>
 
 @property(retain) ParseStarterProjectViewController* parseProjectViewController;
 
