@@ -155,7 +155,7 @@ NSInteger comps;
     [tempProfileButton addTarget:self action:@selector(profileView) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *profileItem = [[UIBarButtonItem alloc] initWithCustomView:tempProfileButton];
     
-    self.navigationItem.rightBarButtonItem = addItem;
+    self.navigationItem.rightBarButtonItems = @[addItem, self.editButtonItem];
     self.navigationItem.leftBarButtonItem = profileItem;
     
     UILabel* notifyLabel = [ [UILabel alloc] initWithFrame:CGRectMake(0, 0, 80, 30)];
@@ -166,7 +166,7 @@ NSInteger comps;
     
     [self.navigationItem setTitleView:notifyLabel];
     [self.navigationItem setHidesBackButton:YES animated:YES];
-    
+
 }
 
 -(void) refreshEvents{
@@ -205,7 +205,7 @@ NSInteger comps;
                 
                 for (NSMutableArray* day in parties){
                     for (Event* cell in day){
-                        if ([cell.name isEqualToString:temp.name]){
+                        if ([cell.objectid isEqualToString:temp.objectid]){
                             newEvent = NO;
                             break;
                         }
@@ -248,14 +248,21 @@ NSInteger comps;
                     
                     //If the event starts on the current day
                     if (start == curr) {
-                        [[parties objectAtIndex:i] addObject:sortee];
-                        [tempParties removeObject:sortee];
+                        NSMutableArray* day = [parties objectAtIndex:i];
+                        for (int j=0; j<day.count; j++){
+                            Event* event = [day objectAtIndex:j];
+                            if (sortee.start < event.start){
+                                //Add row to tableview
+                                [day insertObject:sortee atIndex:j];
+                                NSIndexPath* path = [NSIndexPath indexPathForRow:(unsigned long)j inSection:i];
+                                [self.tableView insertRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationAutomatic];
+                                [self redoColoringForSection:i];
+                                break;
+                            }
+                        }
                         
-                        //Add row to tableview
-                        unsigned long lastRow = ((NSMutableArray*)parties[i]).count -1;
-                        NSIndexPath* path = [NSIndexPath indexPathForRow:lastRow inSection:i];
-                        [self.tableView insertRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationAutomatic];
                         n--;
+                        [tempParties removeObject:sortee];
                         
                     //If the event starts on a new date
                     } else if (start < curr){
@@ -390,11 +397,11 @@ NSInteger comps;
     
     if (((indexPath.section<<16) | indexPath.row)+1 == selected) {
         //Sets height based on how large description is
-        Event* selectedEvent = [parties objectAtIndex:indexPath.row];
+        Event* selectedEvent = [self getEventAtIndexPath:indexPath];
         NSString *text = selectedEvent.description;
         CGSize constraint = CGSizeMake(260, 100);
         CGSize size = [text sizeWithFont:[UIFont systemFontOfSize:14] constrainedToSize:constraint];
-        CGFloat height = 75 + (size.height*0.5);
+        CGFloat height = 80 + (size.height);
         
         return height;
     }
@@ -441,57 +448,63 @@ NSInteger comps;
     return header;
 }
 
+-(Event*) getEventAtIndexPath:(NSIndexPath*) indexpath{
+    NSMutableArray* day = [parties objectAtIndex:indexpath.section];
+    return [day objectAtIndex:indexpath.row];
+}
 
-
-/*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+    PFUser* user = [PFUser currentUser];
+    NSArray* createdEvents = [user objectForKey:@"eventsCreated"];
+    Event* thisEvent = [self getEventAtIndexPath:indexPath];
+    for (NSString* eventId in createdEvents){
+        NSLog(@"thisEvent: %@, userEvent: %@", thisEvent.objectid, eventId);
+        if ([thisEvent.objectid isEqualToString:eventId]){
+            
+            return YES;
+        }
+    }
+    return NO;
 }
-*/
 
-/*
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    //Allow for deletion of events
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
+        [tableView beginUpdates];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a story board-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+        NSMutableArray* day = [parties objectAtIndex:indexPath.section];
+        Event* deletee = [day objectAtIndex:indexPath.row];
+        PFObject* event = [PFObject objectWithoutDataWithClassName:@"UserEvents"
+                                                          objectId:deletee.objectid];
+        PFUser* user = [PFUser currentUser];
+        [user removeObjectsInArray:@[deletee.objectid] forKey:@"eventsCreated"];
+        [user removeObjectsInArray:@[deletee.objectid] forKey:@"eventsAttending"];
+        [event deleteEventually];
+        [day removeObjectAtIndex:indexPath.row];
+        if (day.count==0)
+            [parties removeObject:day];
+        [self redoColoringForSection:indexPath.section];
+        [tableView endUpdates];
+    }
 }
 
- */
+-(void) redoColoringForSection:(NSInteger) section{
+    NSInteger numRows = [self.tableView numberOfRowsInSection:section];
+    for (NSInteger i=0; i<numRows; i++) {
+        EventCell* cell = (EventCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:section]];
+        if ((i+section) % 2 == 0) {
+            cell.backgroundColor = green;
+        } else {
+            cell.backgroundColor = lightGreen;
+        }
+
+    }
+}
+
 
 @end

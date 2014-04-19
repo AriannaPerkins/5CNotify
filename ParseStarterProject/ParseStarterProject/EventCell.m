@@ -86,12 +86,12 @@
         
         
         // add these labels to the view
-        [self addSubview:_eventNameLabel];
-        [self addSubview:_locationLabel];
-        [self addSubview:_switchesLabel];
-        [self addSubview:_timeLabel];
-        [self addSubview:_checkMark];
-        [self addSubview:rsvp];
+        [self.contentView addSubview:_eventNameLabel];
+        [self.contentView addSubview:_locationLabel];
+        [self.contentView addSubview:_switchesLabel];
+        [self.contentView addSubview:_timeLabel];
+        [self.contentView addSubview:_checkMark];
+        [self.contentView addSubview:rsvp];
         
     }
     return self;
@@ -131,13 +131,13 @@
             // Do something with the returned PFObject in the gameScore variable.
             NSLog(@"Event grabbed successfully");
             thisEvent = currentEvent;
+            [self updateRSVPText];
         }
         else {
             NSLog(@"Not successful");
         }
     }];
     
-    [self updateRSVPText];    
 }
 
 -(void) setCheckMark {
@@ -163,7 +163,7 @@
     } else {
         rsvp.text = [NSString stringWithFormat:@"%i people are going", attendees];
     }
-    
+    NSLog(@"%i people attending", attendees);
 }
 
 // This method determines what to do when you try to attend an event
@@ -216,7 +216,7 @@
     
     CGFloat height = self.frame.size.height-5;
     
-    _descriptionLabel.frame =  CGRectMake(0, height*.95, width, height);
+    _descriptionLabel.frame =  CGRectMake(0, height*.95, width, height+50);
     _descriptionLabel.hidden = NO;
 }
 @end
