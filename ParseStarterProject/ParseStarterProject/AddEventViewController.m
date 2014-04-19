@@ -624,7 +624,7 @@ UIDatePicker *endPicker;
 - (void)setState:(UISwitch*)sender
 {
     BOOL state = [sender isOn];
-    int identifier = (int)sender.tag;
+    NSInteger identifier = sender.tag;
     
     if (identifier == 0) {
         self.openToCmc = state == YES ? YES: NO;
