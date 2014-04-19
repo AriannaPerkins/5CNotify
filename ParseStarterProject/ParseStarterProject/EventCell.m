@@ -113,6 +113,16 @@
     
 }
 
+// This method sets an event cell's attendance checkmark to a check if a user created the event
+-(void) setChecked {
+    PFUser *curr = [PFUser currentUser];
+    NSMutableArray* eventsCreated = [curr objectForKey:@"eventsCreated"];
+    if ([eventsCreated containsObject:_objectid]) {
+        NSLog(@"User created this party, so initially they are attending");
+        [_checkMark setImage:checked forState:UIControlStateNormal];
+    } // Otherwise, user did not create party and we don't need to do anything
+}
+
 -(void) setUpRSVP {
     
     PFQuery *query = [PFQuery queryWithClassName:@"UserEvents"];

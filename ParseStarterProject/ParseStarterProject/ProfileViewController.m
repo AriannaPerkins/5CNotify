@@ -48,6 +48,7 @@
 {
     [super viewDidLoad];
     PFUser *curr = [PFUser currentUser];
+//    [curr refresh]; // Try refreshing the view
     
     // Do any additional setup after loading the view.
     CGSize window = self.view.frame.size;
@@ -116,7 +117,7 @@
     
     if (eventsCreated){
     
-        UILabel* eventsCreatedLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, window.height*0.27, window.width, window.height*0.05)];
+        UILabel* eventsCreatedLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, window.height*0.3, window.width, window.height*0.05)];
         eventsCreatedLabel.font = [UIFont fontWithName:@"Helvetica" size:16];
         eventsCreatedLabel.text = @"Events Created";
         eventsCreatedLabel.textAlignment = NSTextAlignmentCenter;
@@ -125,7 +126,7 @@
         
         [self.view addSubview:eventsCreatedLabel];
         
-        eventsCreatedTable = [[UITableView alloc] initWithFrame:CGRectMake(0, window.height*0.32, window.width, window.height*0.3)];
+        eventsCreatedTable = [[UITableView alloc] initWithFrame:CGRectMake(0, window.height*0.35, window.width, window.height*0.3)];
         eventsCreatedTable.backgroundColor = [UIColor blackColor];
         eventsCreatedTable.sectionHeaderHeight = 30;
         eventsCreatedTable.scrollEnabled = YES;
@@ -301,7 +302,7 @@
     NSMutableArray* day = [parties objectAtIndex:indexPath.section];
     Event* party = [day objectAtIndex:indexPath.row];
     
-    if ((indexPath.row+indexPath.section) % 2 == 0) {
+    if (indexPath.row % 2 == 0) {
         cell.backgroundColor = green;
     } else {
         cell.backgroundColor = lightGreen;
