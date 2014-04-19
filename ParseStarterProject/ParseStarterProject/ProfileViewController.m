@@ -92,6 +92,10 @@
     
     self.navigationItem.rightBarButtonItem = createItem;
     
+//    // Later, this might fix the issue with the current back button
+//    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"My Back" style: UIBarButtonItemStyleBordered target:self action:@selector(Back)];
+//    self.navigationItem.leftBarButtonItem = backButton;
+    
     // School Name
     NSString* schoolName = [curr objectForKey:@"school"];
     
@@ -319,6 +323,13 @@
             [self.view addSubview:eventsAttendingTable];
         }
 }
+
+//// Return from Profile View to Table View
+//- (IBAction)Back
+//{
+//    [_parseProjectViewController loadTableView];
+//    [_parseProjectViewController openTableView];
+//}
 
 // Change school method: pops up an alert view
 - (void)changeSchool {
