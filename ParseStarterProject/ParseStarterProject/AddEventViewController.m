@@ -363,7 +363,7 @@ UIDatePicker *endPicker;
     
     // The start date picker
     startPicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, 0, 250, 250)];
-    [startPicker addTarget:self action:@selector(datePickerDateChanged:) forControlEvents:UIControlEventValueChanged];
+    [startPicker addTarget:self action:@selector(datePickerDateChangedForStart:) forControlEvents:UIControlEventValueChanged];
     startPicker.datePickerMode = UIDatePickerModeDateAndTime;
     startPicker.backgroundColor = datePickerGreen;
     startPicker.tintColor = [UIColor whiteColor];
@@ -374,7 +374,6 @@ UIDatePicker *endPicker;
     NSDateFormatter *startDateFormat = [[NSDateFormatter alloc] init];
     [startDateFormat setDateFormat:@"MM/dd/yy, hh:mm aa"];
     NSString *prettyStart = [startDateFormat stringFromDate:startDate];
-    
     
     double timeFieldsTop = timesTop + 25;
     
@@ -400,17 +399,13 @@ UIDatePicker *endPicker;
     [scrollingView addSubview:startAsterisk];
     
     // The end date picker
-    endPicker = [[UIDatePicker alloc]
-                                   initWithFrame:CGRectMake(0, 0, 250, 250)];
-    [endPicker addTarget:self action:@selector(datePickerDateChanged:) forControlEvents:UIControlEventValueChanged];
+    endPicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, 0, 250, 250)];
+    [endPicker addTarget:self action:@selector(datePickerDateChangedForEnd:) forControlEvents:UIControlEventValueChanged];
     endPicker.datePickerMode = UIDatePickerModeDateAndTime;
     endPicker.backgroundColor = datePickerGreen;
     
     //get date from picker
     NSDate *endDate = endPicker.date;
-    
-    NSDateFormatter *endDateFormat = [[NSDateFormatter alloc] init];
-    [endDateFormat setDateFormat:@"MM/dd/yy, hh:mm aa"];
     NSString *prettyEnd = [startDateFormat stringFromDate:endDate];
     
     // Create the end time field
@@ -629,7 +624,7 @@ UIDatePicker *endPicker;
 - (void)setState:(UISwitch*)sender
 {
     BOOL state = [sender isOn];
-    int identifier = sender.tag;
+    NSInteger identifier = sender.tag;
     
     if (identifier == 0) {
         self.openToCmc = state == YES ? YES: NO;
@@ -653,7 +648,7 @@ UIDatePicker *endPicker;
 
 
 // Update the date so it shows automatically when you pick a date.
-- (IBAction)datePickerDateChanged:(id)sender {
+- (IBAction)datePickerDateChangedForStart:(id)sender {
     // Make sure date is in the right format
     NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
     [outputFormatter setDateFormat:@"MM/dd/yy, hh:mm aa"];
@@ -661,6 +656,17 @@ UIDatePicker *endPicker;
     NSString *entryDateInString = [outputFormatter stringFromDate:startPicker.date];
     
     [[self startTimeField] setText: entryDateInString];
+}
+
+// Update the date so it shows automatically when you pick a date.
+- (IBAction)datePickerDateChangedForEnd:(id)sender {
+    // Make sure date is in the right format
+    NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
+    [outputFormatter setDateFormat:@"MM/dd/yy, hh:mm aa"];
+    
+    NSString *entryDateInString = [outputFormatter stringFromDate:endPicker.date];
+    
+    [[self endTimeField] setText: entryDateInString];
 }
 
 
