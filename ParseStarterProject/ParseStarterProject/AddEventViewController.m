@@ -857,7 +857,7 @@ UIDatePicker *endPicker;
             [curr setObject:eventsAttending forKey:@"eventsAttending"];
         }
         
-        [curr save];
+        [curr saveInBackground];
         [_parseProjectViewController loadProfileView];
         
         //Reset all values of text fields
