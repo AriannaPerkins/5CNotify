@@ -500,8 +500,6 @@
         cell.descriptionLabel.hidden = YES;
     }else{
         selected = cell.tag;
-        //CGFloat height = [self tableView:[self tableView] heightForRowAtIndexPath:indexPath];
-        //[cell longView: height];
         cell.descriptionLabel.hidden = NO;
     }
     [tableView beginUpdates];
