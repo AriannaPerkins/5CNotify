@@ -414,70 +414,62 @@
     NSLog(@">>>>>There are %lu parties<<<<", parties.count);
     NSLog(@"The index is %lu", indexPath.section);
     
-    NSLog(@"got here");
-    if (parties.count != 0) {
-        NSMutableArray* day = [parties objectAtIndex:indexPath.section];
-        NSLog(@"got here1");
-        if (tableView == eventsAttendingTable) {
-            day = [partiesAttending objectAtIndex:indexPath.section];
-        }
-        Event* party = [day objectAtIndex:indexPath.row];
-        
-        if (indexPath.row % 2 == 0) {
-            cell.backgroundColor = green;
-        } else {
-            cell.backgroundColor = lightGreen;
-        }
-        
-        cell.eventNameLabel.text = party.name;
-        cell.locationLabel.text = party.location;
-        
-        NSMutableString* stringOpenTo = [[NSMutableString alloc] init];
-        if (party.openToArray.count > 0) {
-            // Make openTo a copy of the party.openToArray
-            NSMutableArray* openTo = [NSMutableArray array];
-            [openTo addObjectsFromArray:party.openToArray];
-            while (openTo.count>0) {
-                NSString* temp = [openTo objectAtIndex:0];
-                if (openTo.count == 1)
-                    [stringOpenTo appendString:temp];
-                else
-                    [stringOpenTo appendString:[NSString stringWithFormat:@"%@, ", temp]];
-                [openTo removeObjectAtIndex:0];
-            }
-        } else{
-            [stringOpenTo appendString:@"Private Party"];
-        }
-        cell.switchesLabel.text = stringOpenTo;
-        
-        // Set the scope of the party
-        cell.openToArray = party.openToArray;
-        [cell setPartyScope];
-        
-        NSDateFormatter* dateFormat = [[NSDateFormatter alloc] init];
-        [dateFormat setDateFormat:@"MM/dd hh:mm aa"];
-
-//        [dateFormat setDateStyle:NSDateFormatterShortStyle];
-//        [dateFormat setTimeStyle:NSDateFormatterShortStyle];
-        
-        NSDate* startTime = party.start;
-        NSDate* endTime = party.end;
-        NSString *startDateString = [dateFormat stringFromDate: startTime];
-        NSString *endDateString   = [dateFormat stringFromDate: endTime];
-        
-        cell.timeLabel.text = [NSString stringWithFormat:@"%@ to %@", startDateString, endDateString];
-        cell.descriptionLabel.text = party.description;
-        cell.objectid = party.objectid;
-        [cell setUpRSVP];
-        
-        [cell setCheckMark];
+    
+    NSMutableArray* day;
+    if (tableView == eventsCreatedTable) {
+        day = [parties objectAtIndex:indexPath.section];
+    }
+    if (tableView == eventsAttendingTable) {
+        day = [partiesAttending objectAtIndex:indexPath.section];
+    }
+    Event* party = [day objectAtIndex:indexPath.row];
+    
+    if (indexPath.row % 2 == 0) {
+        cell.backgroundColor = green;
     } else {
-        // Temporary Fix Obviously
-        NSLog(@"Would have segfaulted here");
-//        [_parseProjectViewController loadProfileView];
-//        [_parseProjectViewController openProfileView];
+        cell.backgroundColor = lightGreen;
     }
     
+    cell.eventNameLabel.text = party.name;
+    cell.locationLabel.text = party.location;
+    
+    NSMutableString* stringOpenTo = [[NSMutableString alloc] init];
+    if (party.openToArray.count > 0) {
+        // Make openTo a copy of the party.openToArray
+        NSMutableArray* openTo = [NSMutableArray array];
+        [openTo addObjectsFromArray:party.openToArray];
+        while (openTo.count>0) {
+            NSString* temp = [openTo objectAtIndex:0];
+            if (openTo.count == 1)
+                [stringOpenTo appendString:temp];
+            else
+                [stringOpenTo appendString:[NSString stringWithFormat:@"%@, ", temp]];
+            [openTo removeObjectAtIndex:0];
+        }
+    } else{
+        [stringOpenTo appendString:@"Private Party"];
+    }
+    cell.switchesLabel.text = stringOpenTo;
+    
+    // Set the scope of the party
+    cell.openToArray = party.openToArray;
+    [cell setPartyScope];
+    
+    NSDateFormatter* dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"MM/dd hh:mm aa"];
+    
+    NSDate* startTime = party.start;
+    NSDate* endTime = party.end;
+    NSString *startDateString = [dateFormat stringFromDate: startTime];
+    NSString *endDateString   = [dateFormat stringFromDate: endTime];
+    
+    cell.timeLabel.text = [NSString stringWithFormat:@"%@ to %@", startDateString, endDateString];
+    cell.descriptionLabel.text = party.description;
+    cell.objectid = party.objectid;
+    [cell setUpRSVP];
+    
+    [cell setCheckMark];
+
     return cell;
     
 }
