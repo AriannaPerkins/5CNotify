@@ -192,7 +192,6 @@
                 
                 // Sorts events by date to later form sections
                 NSDate *date = [NSDate date];
-                NSCalendar *calendar = [NSCalendar autoupdatingCurrentCalendar];
                 NSUInteger preservedComponents = (NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit);
                 date = [calendar dateFromComponents:[calendar components:preservedComponents fromDate:date]];
                 NSDateComponents* components = [[NSDateComponents alloc] init];
@@ -292,7 +291,6 @@
                     
                     // Sorts events by date to later form sections
                     NSDate *date = [NSDate date];
-                    NSCalendar *calendar = [NSCalendar autoupdatingCurrentCalendar];
                     NSUInteger preservedComponents = (NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit);
                     date = [calendar dateFromComponents:[calendar components:preservedComponents fromDate:date]];
                     NSDateComponents* components = [[NSDateComponents alloc] init];
