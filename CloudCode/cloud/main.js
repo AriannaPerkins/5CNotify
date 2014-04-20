@@ -7,7 +7,7 @@ Parse.Cloud.job("eventDeletion", function(request, status) {
   var UserEvents = Parse.Object.extend("UserEvents");
   var query = new Parse.Query(UserEvents);
   var d = new Date();
-  query.lessThan(d);
+  query.lessThan("endTime", d);
   query.find( {
       success: function(results) {
         alert("Successfully retrieved " + results.length + " events");
@@ -16,16 +16,16 @@ Parse.Cloud.job("eventDeletion", function(request, status) {
             var object = results[i];
             object.destroy({
             success: function(object) {
-                alert("Object deleted");
+                console.log("Object deleted");
             },
             error: function(object, error) {
-                alert("Delete failed with error: " + error.code + " " + error.message);
+                console.log("Delete failed with error: " + error.code + " " + error.message);
             }
             });
         }
     },
     error: function(error) {
-        alert("Object retreival faile with error: " + error.code + " " + error.message);
+        console.log("Object retreival failed with error: " + error.code + " " + error.message);
     }
   });
 });
