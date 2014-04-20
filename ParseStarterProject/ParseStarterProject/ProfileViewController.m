@@ -161,7 +161,7 @@
         
         PFQuery *query = [PFQuery queryWithClassName:@"UserEvents"];
         [query whereKey:@"objectId" containedIn:eventsCreated];
-        [query whereKey:@"startTime" greaterThan:currentDate];
+        [query whereKey:@"endTime" greaterThan:currentDate];
         
         NSMutableArray* tempParties = [[NSMutableArray alloc] init];
         
@@ -169,7 +169,7 @@
             if (!error) {
                 
                 // The find succeeded.
-                NSLog(@"Successfully retrieved %lu events that user created.", objects.count);
+                NSLog(@"Successfully retrieved %d events that user created.", objects.count);
                 
                 // Do something with the found objects
                 
@@ -261,7 +261,7 @@
             
             PFQuery *query = [PFQuery queryWithClassName:@"UserEvents"];
             [query whereKey:@"objectId" containedIn:eventsAttending];
-            [query whereKey:@"startTime" greaterThan:currentDate];
+            [query whereKey:@"endTime" greaterThan:currentDate];
             
             NSMutableArray* tempParties = [[NSMutableArray alloc] init];
             
@@ -414,10 +414,6 @@
     
     //Tag cannot be 0 because they are default 0, set it to the row plus 1
     cell.tag = ((indexPath.section<<16) | indexPath.row)+1;
-    
-    NSLog(@">>>>>There are %lu parties<<<<", parties.count);
-    NSLog(@"The index is %lu", indexPath.section);
-    
     
     NSMutableArray* day;
     if (tableView == eventsCreatedTable) {
