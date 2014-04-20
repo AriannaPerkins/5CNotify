@@ -50,7 +50,6 @@
 {
     [super viewDidLoad];
     PFUser *curr = [PFUser currentUser];
-//    [curr refresh]; // Try refreshing the view
     
     // Do any additional setup after loading the view.
     CGSize window = self.view.frame.size;
@@ -92,9 +91,10 @@
     
     self.navigationItem.rightBarButtonItem = createItem;
     
-//    // Later, this might fix the issue with the current back button
-//    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"My Back" style: UIBarButtonItemStyleBordered target:self action:@selector(Back)];
-//    self.navigationItem.leftBarButtonItem = backButton;
+    // Later, this might fix the issue with the current back button
+    // TODO: Replace this with the calendar icon
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Calendar" style: UIBarButtonItemStyleBordered target:self action:@selector(Back)];
+    self.navigationItem.leftBarButtonItem = backButton;
     
     // School Name
     NSString* schoolName = [curr objectForKey:@"school"];
@@ -127,6 +127,7 @@
     NSMutableArray* eventsAttending = [curr objectForKey:@"eventsAttending"];
     
     if (eventsCreated){
+        NSLog(@"Got into events created");
     
         UILabel* eventsCreatedLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, window.height*0.3, window.width, window.height*0.05)];
         eventsCreatedLabel.font = [UIFont fontWithName:@"Helvetica" size:16];
@@ -168,7 +169,7 @@
             if (!error) {
                 
                 // The find succeeded.
-                NSLog(@"Successfully retrieved %lu events that user created.", (unsigned long)objects.count);
+                NSLog(@"Successfully retrieved %lu events that user created.", objects.count);
                 
                 // Do something with the found objects
                 
@@ -219,13 +220,15 @@
             } else {
                 // Log details of the failure
                 NSLog(@"Error: %@ %@", error, [error userInfo]);
-            }}];
+            }
+        }];
         
         [self.view addSubview:eventsCreatedTable];
     }
     
         if (eventsAttending){
-            
+            NSLog(@"Got into events attending");
+
             UILabel* eventsAttendingLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, window.height*0.62, window.width, window.height*0.05)];
             eventsAttendingLabel.font = [UIFont fontWithName:@"Helvetica" size:16];
             eventsAttendingLabel.text = @"Events Attending";
@@ -324,16 +327,16 @@
         }
 }
 
-//// Return from Profile View to Table View
-//- (IBAction)Back
-//{
-//    [_parseProjectViewController loadTableView];
-//    [_parseProjectViewController openTableView];
-//}
+// Return from Profile View to Table View
+- (IBAction)Back
+{
+    [_parseProjectViewController loadTableView];
+    [_parseProjectViewController openTableView];
+}
 
 // Change school method: pops up an alert view
 - (void)changeSchool {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Edit School" message:@"Select a school from the list below to change your school. Please note that this will change what parties are available for you to select to attend." delegate:self cancelButtonTitle:nil otherButtonTitles:@"HMC", @"Scripps", @"Pitzer", @"Pomona", @"CMC", @"Other", nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Edit School" message:@"Select a school from the list below to change your school. Please note that this will change what parties are available for you to select to attend." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"HMC", @"Scripps", @"Pitzer", @"Pomona", @"CMC", @"Other", nil];
     alert.tag = 2;
     [alert show];
 }
@@ -346,13 +349,17 @@
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
-    NSLog(@"Selected button on alert view");
     if (alertView.tag == 2) {
         NSArray* schools = [[NSArray alloc] initWithObjects:@"HMC", @"Scripps", @"Pitzer", @"Pomona", @"CMC", @"Other", nil];
-        NSString* schoolName = [schools objectAtIndex:buttonIndex];
-        PFUser* user = [PFUser currentUser];
-        [user setObject:schoolName forKey:@"school"];
-        [user saveInBackground];
+        NSString* schoolName;
+        if (buttonIndex != [alertView cancelButtonIndex]) {
+            // Off by one error since Cancel button is technically "first"
+            schoolName = [schools objectAtIndex:buttonIndex-1];
+            PFUser* user = [PFUser currentUser];
+            [user setObject:schoolName forKey:@"school"];
+            [user saveInBackground];
+        } // Otherwise, clicked cancel: do nothing
+
         [_parseProjectViewController loadProfileView];
         [_parseProjectViewController openProfileView];
         
@@ -408,10 +415,14 @@
     //Tag cannot be 0 because they are default 0, set it to the row plus 1
     cell.tag = ((indexPath.section<<16) | indexPath.row)+1;
     
-    NSLog(@">>>>>There are %d parties<<<<", parties.count);
-    NSLog(@"The index is %d", indexPath.section);
+    NSLog(@">>>>>There are %lu parties<<<<", parties.count);
+    NSLog(@"The index is %lu", indexPath.section);
     
-    NSMutableArray* day = [parties objectAtIndex:indexPath.section];
+    
+    NSMutableArray* day;
+    if (tableView == eventsCreatedTable) {
+        day = [parties objectAtIndex:indexPath.section];
+    }
     if (tableView == eventsAttendingTable) {
         day = [partiesAttending objectAtIndex:indexPath.section];
     }
@@ -449,8 +460,7 @@
     [cell setPartyScope];
     
     NSDateFormatter* dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateStyle:NSDateFormatterShortStyle];
-    [dateFormat setTimeStyle:NSDateFormatterShortStyle];
+    [dateFormat setDateFormat:@"MM/dd hh:mm aa"];
     
     NSDate* startTime = party.start;
     NSDate* endTime = party.end;
@@ -463,7 +473,7 @@
     [cell setUpRSVP];
     
     [cell setCheckMark];
-    
+
     return cell;
     
 }

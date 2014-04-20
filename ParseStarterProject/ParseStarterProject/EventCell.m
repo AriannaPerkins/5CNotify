@@ -81,9 +81,11 @@
         
         _schoolInScope = YES;
         
-        rsvp = [[UILabel alloc] initWithFrame:CGRectMake(width*0.65, height*0.9, width*0.5, height*.35)];
+        rsvp = [[UILabel alloc] initWithFrame:CGRectMake(width*0.78, height*0.9, width*0.2, height*.35)];
         rsvp.font = [UIFont fontWithName:@"Helvetica" size:12];
-        
+        rsvp.textAlignment = UIControlContentHorizontalAlignmentRight;
+
+
         
         // add these labels to the view
         [self.contentView addSubview:_eventNameLabel];
@@ -159,9 +161,11 @@
     }];
     int attendees = [thisEvent[@"rsvpCount"] intValue];
     if (attendees == 1) {
-        rsvp.text = [NSString stringWithFormat:@"%i person is going", attendees];
+        rsvp.text = [NSString stringWithFormat:@"%i attendee", attendees];
+//        rsvp.text = [NSString stringWithFormat:@"%i person is going", attendees];
     } else {
-        rsvp.text = [NSString stringWithFormat:@"%i people are going", attendees];
+        rsvp.text = [NSString stringWithFormat:@"%i attendees", attendees];
+//        rsvp.text = [NSString stringWithFormat:@"%i people are going", attendees];
     }
     NSLog(@"%i people attending", attendees);
 }

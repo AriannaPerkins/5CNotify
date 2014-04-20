@@ -302,6 +302,7 @@ NSInteger comps;
 }
 
 -(void) profileView{
+    [_parseProjectViewController loadProfileView];
     [_parseProjectViewController openProfileView];
 }
 
