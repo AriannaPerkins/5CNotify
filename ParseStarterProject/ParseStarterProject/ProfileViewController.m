@@ -93,7 +93,7 @@
     
     // Later, this might fix the issue with the current back button
     // TODO: Replace this with the calendar icon
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Calendar" style: UIBarButtonItemStyleBordered target:self action:@selector(Back)];
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style: UIBarButtonItemStyleBordered target:self action:@selector(Back)];
     self.navigationItem.rightBarButtonItem = backButton;
     
     // School Name

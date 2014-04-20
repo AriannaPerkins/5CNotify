@@ -176,8 +176,6 @@ UIDatePicker *endPicker;
     // Make the dates appear when user finishes editing
     if (self.currentTextField == self.startTimeField) {
         
-        NSLog(@"Entered start time field");
-        
         // For the start time field
         startPicker = (UIDatePicker*)self.startTimeField.inputView;
         //get date from picker
@@ -187,13 +185,9 @@ UIDatePicker *endPicker;
         [startDateFormat setDateFormat:@"MM/dd/yy, hh:mm aa"];
         NSString *prettyStart = [startDateFormat stringFromDate:startDate];
         
-        NSLog(@"The start time is %@", prettyStart);
-        
         self.startTimeField.text = prettyStart;
         
     } else if (self.currentTextField == self.endTimeField) {
-        
-        NSLog(@"Entered end time field");
         // For the end time field
         endPicker = (UIDatePicker*)self.endTimeField.inputView;
         //get date from picker
@@ -202,9 +196,7 @@ UIDatePicker *endPicker;
         NSDateFormatter *endDateFormat = [[NSDateFormatter alloc] init];
         [endDateFormat setDateFormat:@"MM/dd/yy, hh:mm aa"];
         NSString *prettyEnd = [endDateFormat stringFromDate:endDate];
-        
-        NSLog(@"The end time is %@", prettyEnd);
-        
+
         self.endTimeField.text = prettyEnd;
     }
     
