@@ -89,12 +89,12 @@
     // Log out button
     UIBarButtonItem *createItem = [[UIBarButtonItem alloc] initWithTitle:@"Log out" style:UIBarButtonItemStyleBordered target:self action:@selector(logoutButtonTouchHandler:)];
     
-    self.navigationItem.rightBarButtonItem = createItem;
+    self.navigationItem.leftBarButtonItem = createItem;
     
     // Later, this might fix the issue with the current back button
     // TODO: Replace this with the calendar icon
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Calendar" style: UIBarButtonItemStyleBordered target:self action:@selector(Back)];
-    self.navigationItem.leftBarButtonItem = backButton;
+    self.navigationItem.rightBarButtonItem = backButton;
     
     // School Name
     NSString* schoolName = [curr objectForKey:@"school"];

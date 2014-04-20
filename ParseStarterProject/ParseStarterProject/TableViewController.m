@@ -496,6 +496,7 @@ NSInteger comps;
 }
 
 -(void) redoColoringForSection:(NSInteger) section{
+    [self.tableView beginUpdates];
     NSInteger numRows = [self.tableView numberOfRowsInSection:section];
     for (NSInteger i=0; i<numRows; i++) {
         EventCell* cell = (EventCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:section]];
@@ -506,6 +507,7 @@ NSInteger comps;
         }
 
     }
+    [self.tableView endUpdates];
 }
 
 
