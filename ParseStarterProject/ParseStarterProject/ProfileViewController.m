@@ -349,13 +349,17 @@
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
-    NSLog(@"Selected button on alert view");
     if (alertView.tag == 2) {
         NSArray* schools = [[NSArray alloc] initWithObjects:@"HMC", @"Scripps", @"Pitzer", @"Pomona", @"CMC", @"Other", nil];
-        NSString* schoolName = [schools objectAtIndex:buttonIndex];
-        PFUser* user = [PFUser currentUser];
-        [user setObject:schoolName forKey:@"school"];
-        [user saveInBackground];
+        NSString* schoolName;
+        if (buttonIndex != [alertView cancelButtonIndex]) {
+            // Off by one error since Cancel button is technically "first"
+            schoolName = [schools objectAtIndex:buttonIndex-1];
+            PFUser* user = [PFUser currentUser];
+            [user setObject:schoolName forKey:@"school"];
+            [user saveInBackground];
+        } // Otherwise, clicked cancel: do nothing
+
         [_parseProjectViewController loadProfileView];
         [_parseProjectViewController openProfileView];
         
