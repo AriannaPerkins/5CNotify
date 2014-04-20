@@ -127,7 +127,6 @@
     NSMutableArray* eventsAttending = [curr objectForKey:@"eventsAttending"];
     
     if (eventsCreated){
-        NSLog(@"Got into events created");
     
         UILabel* eventsCreatedLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, window.height*0.3, window.width, window.height*0.05)];
         eventsCreatedLabel.font = [UIFont fontWithName:@"Helvetica" size:16];
@@ -167,12 +166,8 @@
         
         [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
             if (!error) {
-                
-                // The find succeeded.
-                NSLog(@"Successfully retrieved %d events that user created.", objects.count);
-                
-                // Do something with the found objects
-                
+                // The find succeeded. Do something with the found objects.
+
                 for (int i=0; i<objects.count; ++i) {
                     
                     PFObject *event = objects[i];
@@ -197,7 +192,6 @@
                 NSDateComponents* components = [[NSDateComponents alloc] init];
                 [components setDay:1];
                 date = [calendar dateByAddingComponents:components toDate:date options:0];
-                NSLog(@"CurrDate is %@", date);
                 while (tempParties.count > 0) {
                     NSMutableArray *oneDay = [[NSMutableArray alloc] init];
                     for (NSInteger i=0; i<tempParties.count; i++) {
@@ -226,7 +220,6 @@
     }
     
         if (eventsAttending){
-            NSLog(@"Got into events attending");
 
             UILabel* eventsAttendingLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, window.height*0.62, window.width, window.height*0.05)];
             eventsAttendingLabel.font = [UIFont fontWithName:@"Helvetica" size:16];
@@ -267,10 +260,7 @@
             [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
                 if (!error) {
                     
-                    // The find succeeded.
-                    NSLog(@"Successfully retrieved %lu events that user is attending.", (unsigned long)objects.count);
-                    
-                    // Do something with the found objects
+                    // The find succeeded. Do something with the found objects
                     
                     for (int i=0; i<objects.count; ++i) {
                         
@@ -296,7 +286,6 @@
                     NSDateComponents* components = [[NSDateComponents alloc] init];
                     [components setDay:1];
                     date = [calendar dateByAddingComponents:components toDate:date options:0];
-                    NSLog(@"CurrDate is %@", date);
                     while (tempParties.count > 0) {
                         NSMutableArray *oneDay = [[NSMutableArray alloc] init];
                         for (NSInteger i=0; i<tempParties.count; i++) {

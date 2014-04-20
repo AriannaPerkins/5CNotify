@@ -250,20 +250,16 @@ UIDatePicker *endPicker;
     NSInteger nextTag = self.currentTextField.tag + 1;
     
     if ((nextTag > 5) || (nextTag < 1)) {
-        NSLog(@"Out of bounds");
         [self.currentTextField resignFirstResponder];
         
     } else {
         // Try to find next responder
-        NSLog(@"In the correct bounds");
         UIView* nextResponder = [self.currentTextField.superview viewWithTag:nextTag];
         if (nextResponder) {
-            NSLog(@"Found next responder");
             // Found next responder, so set it.
             self.currentTextField = nextResponder;
             [nextResponder becomeFirstResponder];
         } else {
-            NSLog(@"Did not find next responder, so remove keyboard");
             // Not found, so remove keyboard.
             [self.currentTextField resignFirstResponder];
         }
@@ -805,7 +801,6 @@ UIDatePicker *endPicker;
         descriptionAsterisk.textColor = green;
     }
     
-    NSLog(@"There are %lu fields that have not been filled out", (unsigned long)emptyFieldCount);
     
     // Only send info to parse and return to table view if all fields have been entered
     
@@ -834,7 +829,6 @@ UIDatePicker *endPicker;
 
         if (eventsCreated) {
             [curr[@"eventsCreated"] addObject:newEvent.objectId];
-            NSLog(@"You have created %lu events!!!", (unsigned long)[curr[@"eventsCreated"] count]);
         } else {
             eventsCreated = [[NSMutableArray alloc] init];
             [eventsCreated addObject:newEvent.objectId];

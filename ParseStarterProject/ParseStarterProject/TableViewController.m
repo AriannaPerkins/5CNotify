@@ -78,10 +78,7 @@ NSInteger comps;
         [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
             if (!error) {
                 
-                // The find succeeded.
-                NSLog(@"Successfully retrieved %lu events.", (unsigned long)objects.count);
-                
-                // Do something with the found objects
+                // The find succeeded. Do something with the found objects
                 
                 for (int i=0; i<objects.count; ++i) {
                     
@@ -108,7 +105,6 @@ NSInteger comps;
                 NSDateComponents* components = [[NSDateComponents alloc] init];
                 [components setDay:1];
                 date = [calendar dateByAddingComponents:components toDate:date options:0];
-                NSLog(@"CurrDate is %@", date);
                 while (tempParties.count > 0) {
                     NSMutableArray *oneDay = [[NSMutableArray alloc] init];
                     for (NSInteger i=0; i<tempParties.count; i++) {

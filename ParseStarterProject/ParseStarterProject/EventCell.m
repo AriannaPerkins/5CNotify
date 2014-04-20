@@ -104,11 +104,9 @@
     schoolName = [curr objectForKey:@"school"];
     
     if ([_openToArray containsObject:schoolName]) {
-        NSLog(@"School in scope");
         _checkMark.alpha = 1.0;
         _schoolInScope = YES;
     } else {
-        NSLog(@"School not in scope");
         _checkMark.alpha = 0.2;
         _schoolInScope = NO;
     }
@@ -120,7 +118,6 @@
     PFUser *curr = [PFUser currentUser];
     NSMutableArray* eventsCreated = [curr objectForKey:@"eventsCreated"];
     if ([eventsCreated containsObject:_objectid]) {
-        NSLog(@"User created this party, so initially they are attending");
         [_checkMark setImage:checked forState:UIControlStateNormal];
     } // Otherwise, user did not create party and we don't need to do anything
 }
@@ -131,12 +128,8 @@
     [query getObjectInBackgroundWithId:_objectid block:^(PFObject *currentEvent, NSError *error) {
         if (!error) {
             // Do something with the returned PFObject in the gameScore variable.
-            NSLog(@"Event grabbed successfully");
             thisEvent = currentEvent;
             [self updateRSVPText];
-        }
-        else {
-            NSLog(@"Not successful");
         }
     }];
     
@@ -162,12 +155,9 @@
     int attendees = [thisEvent[@"rsvpCount"] intValue];
     if (attendees == 1) {
         rsvp.text = [NSString stringWithFormat:@"%i attendee", attendees];
-//        rsvp.text = [NSString stringWithFormat:@"%i person is going", attendees];
     } else {
         rsvp.text = [NSString stringWithFormat:@"%i attendees", attendees];
-//        rsvp.text = [NSString stringWithFormat:@"%i people are going", attendees];
     }
-    NSLog(@"%i people attending", attendees);
 }
 
 // This method determines what to do when you try to attend an event

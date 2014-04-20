@@ -122,18 +122,14 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 -(void) loginButtonPressed{
     [PFFacebookUtils logInWithPermissions:@[@"basic_info"] block:^(PFUser *user, NSError *error) {
         if (!user) {
-            NSLog(@"Uh oh. The user cancelled the Facebook login.");
             UIAlertView *error = [[UIAlertView alloc] initWithTitle:@"Canceled" message:@"You must use Facebook to use 5CNotify" delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
             [error show];
             
         } else if (user.isNew) {
-            NSLog(@"User signed up and logged in through Facebook!");
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"School" message:@"Please Pick Your School" delegate:self cancelButtonTitle:nil otherButtonTitles:@"HMC", @"Scripps", @"Pitzer", @"Pomona", @"CMC", @"Other", nil];
             alert.tag = 2;
             [alert show];
         } else {
-            NSLog(@"User logged in through Facebook.");
-            
             // Reload the profile view to get new information
             [_parseProjectViewController loadProfileView];
             [self goToTableView];
@@ -146,7 +142,6 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     if (alertView.tag == 2) {
         NSString* schoolName = [schools objectAtIndex:buttonIndex];
-        NSLog(@"School: %@", schoolName);
         PFUser* user = [PFUser currentUser];
         [user setObject:schoolName forKey:@"school"];
         [user saveInBackground];
@@ -182,7 +177,8 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
         // the user not being able to complete a task they had initiated in your app
         // (like accessing FB-stored information or posting to Facebook)
     } else if ([FBErrorUtility errorCategoryForError:error] == FBErrorCategoryUserCancelled) {
-        NSLog(@"user cancelled login");
+        alertTitle = @"User cancelled login";
+        alertMessage = @"You need to register with facebook to use our app. We only take your name, we never post anything to Facebook.";
         
         // For simplicity, this sample handles other errors with a generic message
         // You can checkout our error handling guide for more detailed information
@@ -190,7 +186,6 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     } else {
         alertTitle  = @"Something went wrong";
         alertMessage = @"Please try again later.";
-        NSLog(@"Unexpected error:%@", error);
     }
     
     if (alertMessage) {
