@@ -140,9 +140,10 @@ NSInteger comps;
     [refreshControl addTarget:self action:@selector(refreshEvents) forControlEvents:UIControlEventValueChanged];
     self.refreshControl = refreshControl;
     
+    //Make + button for navigation bar
     UIBarButtonItem *addItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addEventView)];
-//    addItem.tintColor = lightGreen;
     
+    //Make profile button for navigation bar
     UIImage* profile = [UIImage imageNamed:@"profile_pic.png"];
     UIImage* scaledProfile = [UIImage imageWithCGImage:[ profile CGImage] scale:25 orientation:profile.imageOrientation];
     UIButton* tempProfileButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -154,6 +155,7 @@ NSInteger comps;
     self.navigationItem.rightBarButtonItems = @[addItem, self.editButtonItem];
     self.navigationItem.leftBarButtonItem = profileItem;
     
+    //Make title of navigation bar
     UILabel* notifyLabel = [ [UILabel alloc] initWithFrame:CGRectMake(0, 0, 80, 30)];
     notifyLabel.textAlignment = UITextAlignmentCenter;
     notifyLabel.text=@"5CNotify";
@@ -169,9 +171,11 @@ NSInteger comps;
     
     NSDate* currentDate = [[NSDate alloc] init];
     
+    //Query for all events that end after the current time
     PFQuery *query = [PFQuery queryWithClassName:@"UserEvents"];
     [query whereKey:@"endTime" greaterThan:currentDate];
     
+    //Array to store events that need to be added
     NSMutableArray* tempParties = [[NSMutableArray alloc] init];
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
@@ -180,7 +184,7 @@ NSInteger comps;
             // The find succeeded.
             NSLog(@"Successfully retrieved %lu events.", (unsigned long)objects.count);
             
-            // Do something with the found objects
+            // Create event objects for each event found
             
             for (int i=0; i<objects.count; ++i) {
                 
@@ -197,8 +201,8 @@ NSInteger comps;
                 
                 Event* temp = [[Event alloc] initWith:name andLoc:location andStart:startTime andEnd:endTime andDescription:description andOpenTo:switches andRSVPCount:rsvpCount andObjectID:objectid];
                 
+                //If the event is new add it to tempParties to be added into data
                 BOOL newEvent = YES;
-                
                 for (NSMutableArray* day in parties){
                     for (Event* cell in day){
                         if ([cell.objectid isEqualToString:temp.objectid]){
@@ -217,25 +221,28 @@ NSInteger comps;
             int i=0;
             [self.tableView beginUpdates];
             while (tempParties.count > 0) {
-                //If the party starts after the current last party, add new section and corresponding
-                //backend array to hold this data
+                //If the party starts on a new day after the last party in our local data
                 if (i>=parties.count) {
                     Event* sortee = tempParties[0];
+                    
+                    //Remove object from tempParties and add it to local data parties
                     NSMutableArray* newDay = [[NSMutableArray alloc] init];
                     [newDay addObject:sortee];
                     [tempParties removeObject:sortee];
                     [parties insertObject:newDay atIndex:i];
                     
-                    //Add new section and row into the table
+                    //Add new section and row into the table for this new event
                     [self.tableView insertSections:[NSIndexSet indexSetWithIndex:i] withRowAnimation:UITableViewRowAnimationAutomatic];
                     NSIndexPath* path = [NSIndexPath indexPathForRow:0 inSection:i];
                     [self.tableView insertRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationAutomatic];
                 }
-                //Grab new event
+                //Grab first event to get start time from and increment off of
                 Event* temp = [[parties objectAtIndex:i] objectAtIndex:0];
                 NSDate* curr = temp.start;
                 NSDateComponents* currentComps = [calendar components:comps fromDate:curr];
                 curr = [calendar dateFromComponents: currentComps];
+                
+                //Go through all the parties in tempParties
                 for (int n=0; n<tempParties.count; n++) {
                     Event* sortee =tempParties[n];
                     NSDate* start = sortee.start;
@@ -244,10 +251,13 @@ NSInteger comps;
                     
                     //If the event starts on the current day
                     if (start == curr) {
+                        
+                        //Sort event into correct place in day based on start time
                         NSMutableArray* day = [parties objectAtIndex:i];
                         for (int j=0; j<day.count; j++){
                             Event* event = [day objectAtIndex:j];
                             if (sortee.start < event.start){
+                                
                                 //Add row to tableview
                                 [day insertObject:sortee atIndex:j];
                                 NSIndexPath* path = [NSIndexPath indexPathForRow:(unsigned long)j inSection:i];
@@ -262,6 +272,8 @@ NSInteger comps;
                         
                     //If the event starts on a new date
                     } else if (start < curr){
+                        
+                        //Add new day with object to local data and remove event from tempParties
                         NSMutableArray* newDay = [[NSMutableArray alloc] init];
                         [newDay addObject:sortee];
                         [tempParties removeObject:sortee];
@@ -277,6 +289,8 @@ NSInteger comps;
                 }
                 ++i;
             }
+            
+            //Update RSVP data in all cells of table
             NSArray* cells = [self.tableView visibleCells];
             for (EventCell* cell in cells) {
                 [cell updateRSVPText];
@@ -312,7 +326,6 @@ NSInteger comps;
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    // Return the number of sections.
     return parties.count;
 }
 
@@ -324,15 +337,17 @@ NSInteger comps;
 
 - (EventCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    //Make a generic event cell
     static NSString *CellIdentifier = @"EventCell";
     [self.tableView registerClass: [EventCell class] forCellReuseIdentifier:CellIdentifier];
     EventCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
+    //Make cell into rounded rect shape
     [cell.layer setCornerRadius:7.0f];
     [cell.layer setMasksToBounds:YES];
     [cell.layer setBorderWidth:2.0f];
     
-    //Tag cannot be 0 because they are default 0, set it to the row plus 1
+    //Tag cannot be 0 because they are default 0, this bit shifting gives a unique integer
     cell.tag = ((indexPath.section<<16) | indexPath.row)+1;
     
     NSMutableArray* day = [parties objectAtIndex:indexPath.section];
@@ -347,6 +362,7 @@ NSInteger comps;
     cell.eventNameLabel.text = party.name;
     cell.locationLabel.text = party.location;
     
+    //Make string with openTo list
     NSMutableString* stringOpenTo = [[NSMutableString alloc] init];
     if (party.openToArray.count > 0) {
         // Make openTo a copy of the party.openToArray
@@ -372,6 +388,7 @@ NSInteger comps;
     cell.objectid = party.objectid;
     [cell setCheckMark];
     
+    //Make pretty dates
     NSDateFormatter* dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateStyle:NSDateFormatterNoStyle];
     [dateFormat setTimeStyle:NSDateFormatterShortStyle];
@@ -393,6 +410,7 @@ NSInteger comps;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
+    //If cell is selected, make it as large as the description text it must fit
     if (((indexPath.section<<16) | indexPath.row)+1 == selected) {
         //Sets height based on how large description is
         Event* selectedEvent = [self getEventAtIndexPath:indexPath];
@@ -403,29 +421,33 @@ NSInteger comps;
         
         return height;
     }
+    
+    //All other cells are this height
     return 75;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    //Scroll to cell
     [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop-self.tableView.sectionHeaderHeight animated:NO];
+    
+    //Check if cell is already selected and do backend work
     EventCell* cell = (EventCell*)[self.tableView viewWithTag:((indexPath.section<<16)|indexPath.row)+1];
-    //Check if already selected
     if (selected == cell.tag){
         selected=NSIntegerMin;
         cell.descriptionLabel.hidden = YES;
     }else{
         selected = cell.tag;
-        //CGFloat height = [self tableView:[self tableView] heightForRowAtIndexPath:indexPath];
-        //[cell longView: height];
         cell.descriptionLabel.hidden = NO;
     }
+    
+    //Make animation happen
     [self.tableView beginUpdates];
     [self.tableView endUpdates];
     
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    //Get date and format it nicely
+    //Get date for this section and format it nicely
     NSMutableArray* temp = [parties objectAtIndex:section];
     Event* firstEvent = [temp objectAtIndex:0];
     NSDate* today = firstEvent.start;
@@ -451,7 +473,7 @@ NSInteger comps;
     return [day objectAtIndex:indexpath.row];
 }
 
-// Override to support conditional editing of the table view.
+// Check if this user created the event to check if they can edit it
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     PFUser* user = [PFUser currentUser];
@@ -471,30 +493,39 @@ NSInteger comps;
 {
     //Allow for deletion of events
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
         [tableView beginUpdates];
+        
+        //Delete the row from the physical table
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
         NSMutableArray* day = [parties objectAtIndex:indexPath.section];
         Event* deletee = [day objectAtIndex:indexPath.row];
+        
+        //Delete event from Parse and from this user's eventsCreated and eventsAttending
         PFObject* event = [PFObject objectWithoutDataWithClassName:@"UserEvents"
                                                           objectId:deletee.objectid];
         PFUser* user = [PFUser currentUser];
         [user removeObjectsInArray:@[deletee.objectid] forKey:@"eventsCreated"];
         [user removeObjectsInArray:@[deletee.objectid] forKey:@"eventsAttending"];
         [event deleteEventually];
+        
+        //Remove object from our backend data
         [day removeObjectAtIndex:indexPath.row];
         if (day.count==0)
             [parties removeObject:day];
+        
+        
         [self redoColoringForSection:indexPath.section];
         [tableView endUpdates];
     }
 }
 
 -(void) redoColoringForSection:(NSInteger) section{
-    [self.tableView beginUpdates];
+    //Get number of rows that need to be recolored
     NSInteger numRows = [self.tableView numberOfRowsInSection:section];
     for (NSInteger i=0; i<numRows; i++) {
         EventCell* cell = (EventCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:section]];
+        
+        //Recolor in every other pattern
         if ((i+section) % 2 == 0) {
             cell.backgroundColor = green;
         } else {
@@ -502,7 +533,10 @@ NSInteger comps;
         }
 
     }
-    [self.tableView endUpdates];
+    
+    //Make table reload section
+    NSIndexSet *set = [[NSIndexSet alloc] initWithIndex:section];
+    [self.tableView reloadSections:set withRowAnimation:UITableViewRowAnimationNone];
 }
 
 
