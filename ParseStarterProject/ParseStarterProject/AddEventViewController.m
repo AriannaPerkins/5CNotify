@@ -123,6 +123,7 @@ UIDatePicker *endPicker;
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {
     self.currentTextField = textView;
+
     
     //Get bounds of text field
     CGRect textViewRect = [self.view.window convertRect:textView.bounds fromView:textView];
@@ -164,7 +165,7 @@ UIDatePicker *endPicker;
     [UIView commitAnimations];
 }
 
-- (void)textFieldDidEndEditing:(UITextField *)textField
+- (void)textFieldDidEndEditing:(UITextView *)textField
 {
     CGRect viewFrame = self.view.frame;
     viewFrame.origin.y += animatedDistance;
@@ -202,10 +203,13 @@ UIDatePicker *endPicker;
     
     [self.view setFrame:viewFrame];
     
+//    if (textField == _descriptionView)
+//        [textField resignFirstResponder];
+    
     [UIView commitAnimations];
 }
 
-- (void)textViewDidEndEditing:(UITextField *)textView
+- (void)textViewDidEndEditing:(UITextView *)textView
 {
     CGRect viewFrame = self.view.frame;
     viewFrame.origin.y += animatedDistance;
@@ -248,6 +252,7 @@ UIDatePicker *endPicker;
 
 -(void)nextTextField {
     NSInteger nextTag = self.currentTextField.tag + 1;
+    NSLog(@"Next Tag called, next tag: %lu", nextTag);
     
     if ((nextTag > 5) || (nextTag < 1)) {
         [self.currentTextField resignFirstResponder];
@@ -464,7 +469,7 @@ UIDatePicker *endPicker;
     cmcSwitch.transform = CGAffineTransformMakeScale(0.65, 0.65);
     cmcSwitch.onTintColor = lightGreen;
     [scrollingView addSubview:cmcSwitch];
-    cmcSwitch.tag = 0;
+    cmcSwitch.tag = 10;
     [cmcSwitch addTarget:self action:@selector(setState:) forControlEvents:UIControlEventValueChanged];
 
     UILabel* cmcLabel = [ [UILabel alloc] initWithFrame:CGRectMake(110, switchesTop, (width/2) - 30, 30)];
@@ -478,7 +483,7 @@ UIDatePicker *endPicker;
     hmcSwitch.transform = CGAffineTransformMakeScale(0.65, 0.65);
     hmcSwitch.onTintColor = lightGreen;
     [scrollingView addSubview:hmcSwitch];
-    hmcSwitch.tag = 1;
+    hmcSwitch.tag = 11;
     [hmcSwitch addTarget:self action:@selector(setState:) forControlEvents:UIControlEventValueChanged];
 
     UILabel* hmcLabel = [ [UILabel alloc] initWithFrame:CGRectMake(110, switchesTop + 25, (width/2) - 30, 30)];
@@ -492,7 +497,7 @@ UIDatePicker *endPicker;
     poSwitch.transform = CGAffineTransformMakeScale(0.65, 0.65);
     poSwitch.onTintColor = lightGreen;
     [scrollingView addSubview:poSwitch];
-    poSwitch.tag = 2;
+    poSwitch.tag = 12;
     [poSwitch addTarget:self action:@selector(setState:) forControlEvents:UIControlEventValueChanged];
 
     UILabel* poLabel = [ [UILabel alloc] initWithFrame:CGRectMake(110, switchesTop + 50, (width/2) - 30, 30)];
@@ -508,7 +513,7 @@ UIDatePicker *endPicker;
     pzSwitch.transform = CGAffineTransformMakeScale(0.65, 0.65);
     pzSwitch.onTintColor = lightGreen;
     [scrollingView addSubview:pzSwitch];
-    pzSwitch.tag = 3;
+    pzSwitch.tag = 13;
     [pzSwitch addTarget:self action:@selector(setState:) forControlEvents:UIControlEventValueChanged];
 
     UILabel* pzLabel = [ [UILabel alloc] initWithFrame:CGRectMake(width - 90, switchesTop, (width/2) - 30, 30)];
@@ -522,7 +527,7 @@ UIDatePicker *endPicker;
     scSwitch.transform = CGAffineTransformMakeScale(0.65, 0.65);
     scSwitch.onTintColor = lightGreen;
     [scrollingView addSubview: scSwitch];
-    scSwitch.tag = 4;
+    scSwitch.tag = 14;
     [scSwitch addTarget:self action:@selector(setState:) forControlEvents:UIControlEventValueChanged];
     
     UILabel* scLabel = [ [UILabel alloc] initWithFrame:CGRectMake(width - 90, switchesTop + 25, (width/2) - 30, 30)];
@@ -535,7 +540,7 @@ UIDatePicker *endPicker;
     otherSwitch.transform = CGAffineTransformMakeScale(0.65, 0.65);
     otherSwitch.onTintColor = lightGreen;
     [scrollingView addSubview:otherSwitch];
-    otherSwitch.tag = 5;
+    otherSwitch.tag = 15;
     [otherSwitch addTarget:self action:@selector(setState:) forControlEvents:UIControlEventValueChanged];
 
     
@@ -614,22 +619,22 @@ UIDatePicker *endPicker;
     BOOL state = [sender isOn];
     NSInteger identifier = sender.tag;
     
-    if (identifier == 0) {
+    if (identifier == 10) {
         self.openToCmc = state == YES ? YES: NO;
     }
-    if (identifier == 1) {
+    if (identifier == 11) {
         self.openToHmc = state == YES ? YES: NO;
     }
-    if (identifier == 2) {
+    if (identifier == 12) {
         self.openToPo = state == YES ? YES: NO;
     }
-    if (identifier == 3) {
+    if (identifier == 13) {
         self.openToPz = state == YES ? YES: NO;
     }
-    if (identifier == 4) {
+    if (identifier == 14) {
         self.openToSc = state == YES ? YES: NO;
     }
-    if (identifier == 5) {
+    if (identifier == 15) {
         self.openToOther = state == YES ? YES: NO;
     }
 }

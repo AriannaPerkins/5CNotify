@@ -71,7 +71,7 @@ NSInteger comps;
         currentDate = [calendar dateFromComponents:currentDateComps];
         
         PFQuery *query = [PFQuery queryWithClassName:@"UserEvents"];
-        [query whereKey:@"startTime" greaterThan:currentDate];
+        [query whereKey:@"endTime" greaterThan:currentDate];
         
         NSMutableArray* tempParties = [[NSMutableArray alloc] init];
         
@@ -170,7 +170,7 @@ NSInteger comps;
     NSDate* currentDate = [[NSDate alloc] init];
     
     PFQuery *query = [PFQuery queryWithClassName:@"UserEvents"];
-    [query whereKey:@"startTime" greaterThan:currentDate];
+    [query whereKey:@"endTime" greaterThan:currentDate];
     
     NSMutableArray* tempParties = [[NSMutableArray alloc] init];
     
@@ -458,7 +458,6 @@ NSInteger comps;
     NSArray* createdEvents = [user objectForKey:@"eventsCreated"];
     Event* thisEvent = [self getEventAtIndexPath:indexPath];
     for (NSString* eventId in createdEvents){
-        NSLog(@"thisEvent: %@, userEvent: %@", thisEvent.objectid, eventId);
         if ([thisEvent.objectid isEqualToString:eventId]){
             
             return YES;
