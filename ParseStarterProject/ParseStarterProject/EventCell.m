@@ -179,6 +179,7 @@
             }
             [curr save];
             [_parseProjectViewController loadProfileView];
+            [_parseProjectViewController loadTableView];
 
         }else{
             [_checkMark setImage:unchecked forState:UIControlStateNormal];
@@ -195,6 +196,7 @@
             }
             [curr save];
             [_parseProjectViewController loadProfileView];
+            [_parseProjectViewController loadTableView];
 
         }
         [thisEvent saveInBackground];
