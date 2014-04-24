@@ -252,7 +252,6 @@ UIDatePicker *endPicker;
 
 -(void)nextTextField {
     NSInteger nextTag = self.currentTextField.tag + 1;
-    NSLog(@"Next Tag called, next tag: %lu", nextTag);
     
     if ((nextTag > 5) || (nextTag < 1)) {
         [self.currentTextField resignFirstResponder];
