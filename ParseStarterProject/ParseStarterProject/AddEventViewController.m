@@ -71,6 +71,7 @@ UIDatePicker *endPicker;
     return self;
 }
 
+// Set character limits on text fields
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     NSUInteger newLength = [textView.text length] + [text length] - range.length;
     return (newLength > 250) ? NO : YES;
@@ -202,9 +203,6 @@ UIDatePicker *endPicker;
     }
     
     [self.view setFrame:viewFrame];
-    
-//    if (textField == _descriptionView)
-//        [textField resignFirstResponder];
     
     [UIView commitAnimations];
 }
@@ -420,6 +418,7 @@ UIDatePicker *endPicker;
     endAsterisk.textColor = green;
     [scrollingView addSubview:endAsterisk];
     
+    //Location Set up
     double locationTop = timeFieldsTop + 35;
     
     UILabel* locationLabel = [ [UILabel alloc] initWithFrame:CGRectMake(20, locationTop, width, 30)];
@@ -550,6 +549,7 @@ UIDatePicker *endPicker;
     otherLabel.textColor = [UIColor whiteColor];
     [scrollingView addSubview: otherLabel];
     
+    //Description Setup
     double descriptionTop = switchesTop + 80;
     
     UILabel* descriptionLabel = [ [UILabel alloc] initWithFrame:CGRectMake(20, descriptionTop, width, 25)];
@@ -593,6 +593,7 @@ UIDatePicker *endPicker;
     asteriskMessage.text = @"";
     [scrollingView addSubview:asteriskMessage];
     
+    //Label for navigation bar
     UILabel* notifyLabel = [ [UILabel alloc] initWithFrame:CGRectMake(0, 0, 80, 30)];
     notifyLabel.textAlignment = UITextAlignmentCenter;
     notifyLabel.text=@"Add an Event";
@@ -604,8 +605,6 @@ UIDatePicker *endPicker;
     self.view.backgroundColor = green;
     
     UIBarButtonItem *createItem = [[UIBarButtonItem alloc] initWithTitle:@"Create" style:UIBarButtonItemStyleBordered target:self action:@selector(createButtonPressed)];
-//    createItem.tintColor = lightGreen;
-//    self.navigationItem.backBarButtonItem.tintColor = lightGreen;
     
     self.navigationItem.rightBarButtonItem = createItem;
     
@@ -824,9 +823,8 @@ UIDatePicker *endPicker;
         newEvent[@"rsvpCount"] = @1; // When created, rsvp count is 1
         [newEvent save];
 
-        // Add the event's objectId to the fields in the current PFUser which are (will be)
-        // NSMutableArray* eventsCreated and NSMutableArray* eventsAttending.
-        // Note: These need to be initialized somewhere.
+        // Add the event's objectId to the events created and events attending fields of the
+        // current user
         PFUser *curr = [PFUser currentUser];
         
         NSMutableArray* eventsCreated = [curr objectForKey:@"eventsCreated"];
@@ -851,28 +849,13 @@ UIDatePicker *endPicker;
         [curr saveInBackground];
         [_parseProjectViewController loadProfileView];
         
-        //Reset all values of text fields
-        _addEventField.text = nil;
-        _startTimeField.text = nil;
-        _endTimeField.text = nil;
-        _locationField.text = nil;
-        _descriptionView.text = nil;
-        _openToCmc = NO;
-        _openToHmc = NO;
-        _openToOther = NO;
-        _openToPo = NO;
-        _openToPz = NO;
-        _openToSc = NO;
-        
-        for (UISwitch* open in switchObjects){
-            [self setState:open];
-        }
-        
         [_parseProjectViewController pop];
+        
     } else {
+        //Set error messages if not all fields are filled in
         if (startEmpty || endEmpty){
             asteriskMessage.textAlignment = UITextAlignmentCenter;
-            asteriskMessage.text=@"* Please fill in all fields. For the time field(s), make\nsure the entered date is not before today's date.";
+            asteriskMessage.text=@"* Please fill in all fields. For the time field(s), make\ensure the entered date is not before today's date.";
         } else {
             asteriskMessage.textAlignment = UITextAlignmentLeft;
             asteriskMessage.text=@"    * Please fill in all fields.";
