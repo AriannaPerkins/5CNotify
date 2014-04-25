@@ -324,12 +324,43 @@ NSInteger comps;
     // Dispose of any resources that can be recreated.
 }
 
+// When section header is pressed
+-(void)sectionButtonTouchUpInside:(UIButton*)sender {
+    [self.tableView beginUpdates];
+    int section = sender.tag;
+    bool shouldCollapse = ![collapsedSections containsObject:@(section)];
+    if (shouldCollapse) {
+        int numOfRows = [self.tableView numberOfRowsInSection:section];
+        NSArray* indexPaths = [self indexPathsForSection:section withNumberOfRows:numOfRows];
+        [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationTop];
+        [collapsedSections addObject:@(section)];
+    } else {
+        NSMutableArray* temp = [[NSMutableArray alloc] init];
+        temp = [parties objectAtIndex:section];
+        int numOfRows = temp.count;
+        NSArray* indexPaths = [self indexPathsForSection:section withNumberOfRows:numOfRows];
+        [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationTop];
+        [collapsedSections removeObject:@(section)];
+    }
+    [self.tableView endUpdates];
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return parties.count;
 }
+
+-(NSArray*) indexPathsForSection:(int)section withNumberOfRows:(int)numberOfRows {
+    NSMutableArray* indexPaths = [NSMutableArray new];
+    for (int i = 0; i < numberOfRows; i++) {
+        NSIndexPath* indexPath = [NSIndexPath indexPathForRow:i inSection:section];
+        [indexPaths addObject:indexPath];
+    }
+    return indexPaths;
+}
+
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -412,7 +443,6 @@ NSInteger comps;
     [cell setChecked];
     
     return cell;
-
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -466,13 +496,20 @@ NSInteger comps;
     //Create view
     UIView* header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.tableView.sectionHeaderHeight)];
     header.backgroundColor = [UIColor blackColor];
-    UILabel* date = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, header.frame.size.width, self.tableView.sectionHeaderHeight-5)];
-    date.textAlignment = NSTextAlignmentCenter;
-    date.textColor = green;
-    date.text = niceDate;
-    [header addSubview:date];
     
-    return header;
+    // Make button
+    UIButton* dateButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, header.frame.size.width, self.tableView.sectionHeaderHeight)];
+    [dateButton addTarget:self action:@selector(sectionButtonTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
+    [dateButton setTitle:niceDate forState:UIControlStateNormal];
+    dateButton.backgroundColor = [UIColor blackColor];
+    dateButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:16];
+    dateButton.tintColor = green;
+    dateButton.tag = section;
+    
+//    [header addSubview:dateButton];
+    
+//    return header;
+    return dateButton;
 }
 
 -(Event*) getEventAtIndexPath:(NSIndexPath*) indexpath{
