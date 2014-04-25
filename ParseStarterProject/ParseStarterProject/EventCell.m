@@ -22,6 +22,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         
+        //Set up view
         self.textColoring = [UIColor blackColor];
         
         self.backgroundColor = [UIColor greenColor];
@@ -31,7 +32,6 @@
         
         // make label for the event
         self.eventNameLabel = [ [UILabel alloc] initWithFrame:CGRectMake(5, height*0.05, width, height*0.4)];
-        //self.eventNameLabel.text = [NSString stringWithFormat:@"Sample Party"];
         self.eventNameLabel.textColor = self.textColoring;
         self.eventNameLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:18];
         self.eventNameLabel.textAlignment = NSTextAlignmentLeft;
@@ -39,11 +39,11 @@
         
         // make label for the location of the event
         self.locationLabel = [ [UILabel alloc] initWithFrame:CGRectMake(5, height*0.42,width,height*0.3)];
-        //_locationLabel.text = [NSString stringWithFormat:@"%@",location];
         _locationLabel.textColor = self.textColoring;
         _locationLabel.font = [UIFont fontWithName:@"Helvetica" size:14];
         _locationLabel.textAlignment = NSTextAlignmentLeft;
         
+        //Label for array of switches
         _switchesLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, height*0.65,width, height*0.35)];
         _switchesLabel.textColor = self.textColoring;
         _switchesLabel.font = [UIFont fontWithName:@"Helvetica" size:13];
@@ -57,7 +57,7 @@
         _timeLabel.font = [UIFont fontWithName:@"Helvetica" size:14];
         _timeLabel.textAlignment = NSTextAlignmentLeft;
         
-        
+        //Set up description label
         _descriptionLabel = [[UITextView alloc] initWithFrame: CGRectMake(5, height*5, width, height*0.55)];
         _descriptionLabel.textColor = self.textColoring;
         _descriptionLabel.font = [UIFont fontWithName:@"Helvetica" size:14];
@@ -68,7 +68,7 @@
         
         self.selected = NO;
         
-        [self addSubview:_descriptionLabel];
+        //Make check mark image
         _checkMark = [[UIButton alloc] initWithFrame:CGRectMake(width*0.85, height*0.25, 35, 35)];
         [_checkMark addTarget:self action:@selector(buttonPressed) forControlEvents:UIControlEventTouchUpInside];
         
@@ -92,6 +92,7 @@
         [self.contentView addSubview:_locationLabel];
         [self.contentView addSubview:_switchesLabel];
         [self.contentView addSubview:_timeLabel];
+        [self addSubview:_descriptionLabel];
         [self.contentView addSubview:_checkMark];
         [self.contentView addSubview:rsvp];
         
@@ -99,6 +100,7 @@
     return self;
 }
 
+//Checks if user goes to school in openTo, and sets whether user can RSVP
 -(void) setPartyScope {
     PFUser *curr = [PFUser currentUser];
     schoolName = [curr objectForKey:@"school"];
@@ -122,12 +124,12 @@
     } // Otherwise, user did not create party and we don't need to do anything
 }
 
+//Queries for event to get RSVP value
 -(void) setUpRSVP {
     
     PFQuery *query = [PFQuery queryWithClassName:@"UserEvents"];
     [query getObjectInBackgroundWithId:_objectid block:^(PFObject *currentEvent, NSError *error) {
         if (!error) {
-            // Do something with the returned PFObject in the gameScore variable.
             thisEvent = currentEvent;
             [self updateRSVPText];
         }
@@ -135,6 +137,7 @@
     
 }
 
+//Makes image correct based on school in scope variable
 -(void) setCheckMark {
     PFUser *curr = [PFUser currentUser];
     NSMutableArray* eventsAttending = [curr objectForKey:@"eventsAttending"];
@@ -146,7 +149,7 @@
     }
 }
 
-// Called upon refresh and when someone says they're attending an event
+// Updates the RSVP text field
 -(void) updateRSVPText {
     [thisEvent refreshInBackgroundWithBlock:^(PFObject* thisEvent, NSError* error){
         if (error)
@@ -164,6 +167,8 @@
 -(void) buttonPressed{
     if (_schoolInScope) {
         [thisEvent refresh];
+        
+        //If user hits button to mark attending, change button image and update parse
         if (_checkMark.imageView.image == unchecked){
             [_checkMark setImage:checked forState:UIControlStateNormal];
             [thisEvent incrementKey:@"rsvpCount"];
@@ -182,6 +187,7 @@
             [_parseProjectViewController loadTableView];
 
         }else{
+            //If user hits to unattend event, change button image to unchecked and update parse
             [_checkMark setImage:unchecked forState:UIControlStateNormal];
             [thisEvent incrementKey:@"rsvpCount" byAmount:@-1];
             
@@ -209,7 +215,7 @@
     
 }
 
-
+//If the cell is pressed, expand the description label
 -(void) setSelected:(BOOL)selected animated:(BOOL)animated{
     
     CGFloat height = self.frame.size.height-5;

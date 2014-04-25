@@ -52,6 +52,7 @@ NSInteger comps;
         editing = NO;
         selected = NSIntegerMin;
         
+        //Set variables about the view
         self.tableView.sectionHeaderHeight = 30;
         self.tableView.scrollEnabled = YES;
         self.tableView.scrollsToTop = YES;
@@ -99,7 +100,7 @@ NSInteger comps;
                     [tempParties addObject:temp];
                 }
                 
-                // Sorts events by date to later form sections
+                //Make a date
                 NSDate *date = [NSDate date];
                 NSCalendar *calendar = [NSCalendar autoupdatingCurrentCalendar];
                 NSUInteger preservedComponents = (NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit);
@@ -107,7 +108,10 @@ NSInteger comps;
                 NSDateComponents* components = [[NSDateComponents alloc] init];
                 [components setDay:1];
                 date = [calendar dateByAddingComponents:components toDate:date options:0];
+                
                 while (tempParties.count > 0) {
+                    
+                    //If event is on this date add to the oneDay array to be added to parties
                     NSMutableArray *oneDay = [[NSMutableArray alloc] init];
                     for (NSInteger i=0; i<tempParties.count; i++) {
                         Event* temp = [tempParties objectAtIndex:i];

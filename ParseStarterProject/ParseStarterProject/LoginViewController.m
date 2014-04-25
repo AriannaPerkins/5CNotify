@@ -24,6 +24,7 @@
     self = [super init];
     if (self) {
         
+        //Set global variables
         green = [UIColor colorWithRed: 95.0/ 255.0
                                 green:(float) 190.0/ 255.0
                                  blue:(float) 20.0/ 255.0
@@ -39,6 +40,7 @@
     return self;
 }
 
+//Hides navigation bar for this view but brings it back for other views
 - (void)viewWillAppear:(BOOL)animated {
     [self.navigationController setNavigationBarHidden:YES animated:animated];
     [super viewWillAppear:animated];
@@ -107,6 +109,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     login.backgroundColor = [UIColor clearColor];
     [login addTarget:self action:@selector(loginButtonPressed) forControlEvents:UIControlEventTouchUpInside];
     
+    //Add all the elements to the view
     [self.view addSubview:welcome];
     [self.view addSubview:notifytext];
     [self.view addSubview:privacy];
@@ -140,6 +143,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
+    //If the user is new we need to process their alert data for their school
     if (alertView.tag == 2) {
         NSString* schoolName = [schools objectAtIndex:buttonIndex];
         PFUser* user = [PFUser currentUser];
@@ -208,16 +212,5 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
