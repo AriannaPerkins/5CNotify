@@ -25,6 +25,7 @@ BOOL* editing;
 
 NSInteger selected;
 NSMutableArray* parties;
+NSMutableArray* collapsedSections;
 NSCalendar *calendar;
 NSInteger comps;
 
@@ -59,6 +60,7 @@ NSInteger comps;
         self.view.backgroundColor = [UIColor blackColor];
         self.tableView.separatorColor = [UIColor blackColor];
         parties = [[NSMutableArray alloc] init];
+        collapsedSections = [[NSMutableArray alloc] init];
         
         // Pull all events that have a start date today or later
         NSDate *currentDate = [[NSDate alloc] init];
@@ -331,7 +333,12 @@ NSInteger comps;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSMutableArray* temp = [parties objectAtIndex:section];
+    NSMutableArray* temp = [[NSMutableArray alloc] init];
+    if ([collapsedSections containsObject:@(section)]) {
+        temp = 0;
+    } else {
+        temp = [parties objectAtIndex:section];
+    }
     return temp.count;
 }
 

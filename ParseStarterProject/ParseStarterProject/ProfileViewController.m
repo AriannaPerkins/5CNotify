@@ -149,7 +149,7 @@
         
         [self.view addSubview:eventsCreatedButton];
         
-        eventsCreatedTable = [[UITableView alloc] initWithFrame:CGRectMake(0, window.height*0.35, window.width, window.height*0.6)];
+        eventsCreatedTable = [[UITableView alloc] initWithFrame:CGRectMake(0, window.height*0.35, window.width, window.height*0.3)];
         eventsCreatedTable.backgroundColor = [UIColor blackColor];
         eventsCreatedTable.sectionHeaderHeight = 0;
         eventsCreatedTable.scrollEnabled = YES;
@@ -233,7 +233,7 @@
     
         if (eventsAttending){
 
-            eventsAttendingButton = [[UIButton alloc] initWithFrame:CGRectMake(0, window.height*0.67, window.width, window.height*0.05)];
+            eventsAttendingButton = [[UIButton alloc] initWithFrame:CGRectMake(0, window.height*0.65, window.width, window.height*0.05)];
             eventsAttendingButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:16];
             [eventsAttendingButton addTarget:self action:@selector(expandAttendingTable) forControlEvents:UIControlEventTouchUpInside];
             [eventsAttendingButton setTitle:@"Events Attending" forState:UIControlStateNormal];
@@ -243,7 +243,7 @@
             
             [self.view addSubview:eventsAttendingButton];
             
-            eventsAttendingTable = [[UITableView alloc] initWithFrame:CGRectMake(0, window.height*0.72, window.width, window.height*0.6)];
+            eventsAttendingTable = [[UITableView alloc] initWithFrame:CGRectMake(0, window.height*0.70, window.width, window.height*0.3)];
             eventsAttendingTable.backgroundColor = [UIColor blackColor];
             eventsAttendingTable.sectionHeaderHeight = 0;
             eventsAttendingTable.scrollEnabled = YES;
@@ -347,54 +347,77 @@
         
         // Move events attending button up
         newFrame = eventsAttendingButton.frame;
-        newFrame.origin.y = window.height*0.36;
+        newFrame.origin.y = window.height*0.35;
         [UIView animateWithDuration:0.25 animations:^(void){
             eventsAttendingButton.frame = newFrame;
         }];
         
-        // Move the events attending table up
-        newFrame = eventsAttendingTable.frame;
-        newFrame.origin.y = window.height*0.41;
-        [UIView animateWithDuration:0.25 animations:^(void){
-            eventsAttendingTable.frame = newFrame;
-        }];
+        if (eventsAttendingVisible) {
+            // Move the events attending table up
+            newFrame = eventsAttendingTable.frame;
+            newFrame.origin.y = window.height*0.40;
+            newFrame.size.height = window.height*0.59;
+            [UIView animateWithDuration:0.25 animations:^(void){
+                eventsAttendingTable.frame = newFrame;
+            }];
+        } else {
+            // Move the events attending table up
+            newFrame = eventsAttendingTable.frame;
+            newFrame.origin.y = window.height*0.41;
+            [UIView animateWithDuration:0.25 animations:^(void){
+                eventsAttendingTable.frame = newFrame;
+            }];
+        }
     } else {
-        //Expand the events created table
-        CGRect newFrame = eventsCreatedTable.frame;
-        newFrame.size.height = window.height*0.6;
-        [UIView animateWithDuration:0.25 animations:^(void){
-            eventsCreatedTable.frame = newFrame;
-        }];
+
         eventsCreatedVisible = YES;
         
         if (eventsAttendingVisible) {
+            //Expand the events created table
+            CGRect newFrame = eventsCreatedTable.frame;
+            newFrame.size.height = window.height*0.3;
+            [UIView animateWithDuration:0.25 animations:^(void){
+                eventsCreatedTable.frame = newFrame;
+            }];
+            
             // Move events attending button down
             newFrame = eventsAttendingButton.frame;
-            newFrame.origin.y = window.height*0.67;
+            newFrame.origin.y = window.height*0.65;
             [UIView animateWithDuration:0.25 animations:^(void){
                 eventsAttendingButton.frame = newFrame;
             }];
+            
+            // Move the events attending table down
+            newFrame = eventsAttendingTable.frame;
+            newFrame.origin.y = window.height*0.7;
+            newFrame.size.height = window.height*0.3;
+            [UIView animateWithDuration:0.25 animations:^(void){
+                eventsAttendingTable.frame = newFrame;
+            }];
+
         } else {
+            //Expand the events created table
+            CGRect newFrame = eventsCreatedTable.frame;
+            newFrame.size.height = window.height*0.6;
+            [UIView animateWithDuration:0.25 animations:^(void){
+                eventsCreatedTable.frame = newFrame;
+            }];
             
             // Move button down
             newFrame = eventsAttendingButton.frame;
-            newFrame.origin.y = window.height*0.9;
+            newFrame.origin.y = window.height*0.95;
             [UIView animateWithDuration:0.25 animations:^(void){
                 eventsAttendingButton.frame = newFrame;
             }];
             
+            // Move the events attending table down
+            newFrame = eventsAttendingTable.frame;
+            newFrame.origin.y = window.height*0.7;
+            [UIView animateWithDuration:0.25 animations:^(void){
+                eventsAttendingTable.frame = newFrame;
+            }];
         }
-    
-        // Move the events attending table down
-        newFrame = eventsAttendingTable.frame;
-        newFrame.origin.y = window.height*0.72;
-        [UIView animateWithDuration:0.25 animations:^(void){
-            eventsAttendingTable.frame = newFrame;
-        }];
-
-
     }
-    
 }
 
 // Expands or collapses the events attending table view
@@ -411,27 +434,50 @@
         if (eventsCreatedVisible) {
             // Move button down
             newFrame = eventsAttendingButton.frame;
-            newFrame.origin.y = window.height*0.9;
+            newFrame.origin.y = window.height*0.95;
             [UIView animateWithDuration:0.25 animations:^(void){
                 eventsAttendingButton.frame = newFrame;
+            }];
+            
+            // Grow the events created table
+            CGRect newFrame = eventsCreatedTable.frame;
+            newFrame.size.height = window.height*0.6;
+            [UIView animateWithDuration:0.25 animations:^(void){
+                eventsCreatedTable.frame = newFrame;
             }];
         }
         
     } else {
-        // Expand the events attending table
-        CGRect newFrame = eventsAttendingTable.frame;
-        newFrame.size.height = window.height*0.6;
-        [UIView animateWithDuration:0.25 animations:^(void){
-            eventsAttendingTable.frame = newFrame;
-        }];
+
         eventsAttendingVisible = YES;
         
         if (eventsCreatedVisible) {
+            // Expand the events attending table
+            CGRect newFrame = eventsAttendingTable.frame;
+            newFrame.size.height = window.height*0.3;
+            [UIView animateWithDuration:0.25 animations:^(void){
+                eventsAttendingTable.frame = newFrame;
+            }];
+
             // Move button up
             newFrame = eventsAttendingButton.frame;
-            newFrame.origin.y = window.height*0.67;
+            newFrame.origin.y = window.height*0.65;
             [UIView animateWithDuration:0.25 animations:^(void){
                 eventsAttendingButton.frame = newFrame;
+            }];
+            
+            // Shrink the events created table
+            newFrame = eventsCreatedTable.frame;
+            newFrame.size.height = window.height*0.3;
+            [UIView animateWithDuration:0.25 animations:^(void){
+                eventsCreatedTable.frame = newFrame;
+            }];
+        } else {
+            // Expand the events attending table
+            CGRect newFrame = eventsAttendingTable.frame;
+            newFrame.size.height = window.height*0.6;
+            [UIView animateWithDuration:0.25 animations:^(void){
+                eventsAttendingTable.frame = newFrame;
             }];
         }
     }
