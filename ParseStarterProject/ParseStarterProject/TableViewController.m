@@ -331,17 +331,17 @@ NSInteger comps;
 // When section header is pressed
 -(void)sectionButtonTouchUpInside:(UIButton*)sender {
     [self.tableView beginUpdates];
-    int section = sender.tag;
+    int section = (int)sender.tag;
     bool shouldCollapse = ![collapsedSections containsObject:@(section)];
     if (shouldCollapse) {
-        int numOfRows = [self.tableView numberOfRowsInSection:section];
+        int numOfRows = (int)[self.tableView numberOfRowsInSection:section];
         NSArray* indexPaths = [self indexPathsForSection:section withNumberOfRows:numOfRows];
         [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationTop];
         [collapsedSections addObject:@(section)];
     } else {
         NSMutableArray* temp = [[NSMutableArray alloc] init];
         temp = [parties objectAtIndex:section];
-        int numOfRows = temp.count;
+        int numOfRows = (int)temp.count;
         NSArray* indexPaths = [self indexPathsForSection:section withNumberOfRows:numOfRows];
         [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationTop];
         [collapsedSections removeObject:@(section)];
