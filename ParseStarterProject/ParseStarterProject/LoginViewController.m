@@ -148,6 +148,12 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
         NSString* schoolName = [schools objectAtIndex:buttonIndex];
         PFUser* user = [PFUser currentUser];
         [user setObject:schoolName forKey:@"school"];
+        
+        NSMutableArray* eventsCreated = [[NSMutableArray alloc] init];
+        [user setObject:eventsCreated forKey:@"eventsCreated"];
+        NSMutableArray* eventsAttending = [[NSMutableArray alloc] init];
+        [user setObject:eventsAttending forKey:@"eventsAttending"];
+        
         [user saveInBackground];
         [self goToTableView];
     }

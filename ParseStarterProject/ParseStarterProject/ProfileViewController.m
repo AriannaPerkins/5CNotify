@@ -27,6 +27,13 @@
     
     UITableView* eventsCreatedTable;
     UITableView* eventsAttendingTable;
+    UIButton* eventsCreatedButton;
+    UIButton* eventsAttendingButton;
+    
+    CGSize window;
+    
+    BOOL eventsCreatedVisible;
+    BOOL eventsAttendingVisible;
 }
 
 - (id)init{
@@ -49,10 +56,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    eventsCreatedVisible   = YES;
+    eventsAttendingVisible = YES;
+    
     PFUser *curr = [PFUser currentUser];
     
     // Do any additional setup after loading the view.
-    CGSize window = self.view.frame.size;
+    window = self.view.frame.size;
     
     // Create request for user's Facebook data
     FBRequest *request = [FBRequest requestForMe];
@@ -108,7 +119,7 @@
         school.titleLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:16];
         school.tintColor = [UIColor whiteColor];
         school.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-        school.frame = CGRectMake(window.width*.1, window.height*.13, window.width*.8, window.height*0.2);
+        school.frame = CGRectMake(window.width*.1, window.height*.2, window.width*.8, window.height*0.08);
         
         [self.view addSubview:school];
     } else {
@@ -119,7 +130,7 @@
         [button setTitle:@"Add School" forState:UIControlStateNormal];
         button.titleLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:16];
         button.tintColor = [UIColor redColor];
-        button.frame = CGRectMake(window.width*.1, window.height*.15, window.width*.8, window.height*0.13);
+        button.frame = CGRectMake(window.width*.1, window.height*.2, window.width*.8, window.height*0.08);
         [self.view addSubview:button];
     }
     
@@ -127,15 +138,16 @@
     NSMutableArray* eventsAttending = [curr objectForKey:@"eventsAttending"];
     
     if (eventsCreated){
-    
-        UILabel* eventsCreatedLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, window.height*0.3, window.width, window.height*0.05)];
-        eventsCreatedLabel.font = [UIFont fontWithName:@"Helvetica" size:16];
-        eventsCreatedLabel.text = @"Events Created";
-        eventsCreatedLabel.textAlignment = NSTextAlignmentCenter;
-        eventsCreatedLabel.textColor = [UIColor whiteColor];
-        eventsCreatedLabel.backgroundColor = [UIColor blackColor];
         
-        [self.view addSubview:eventsCreatedLabel];
+        eventsCreatedButton = [[UIButton alloc] initWithFrame:CGRectMake(0,window.height*0.3, window.width, window.height*0.05)];
+        [eventsCreatedButton addTarget:self action:@selector(expandCreatedTable) forControlEvents:UIControlEventTouchUpInside];
+        [eventsCreatedButton setTitle:@"Events Created" forState:UIControlStateNormal];
+        eventsCreatedButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:16];
+        eventsCreatedButton.tintColor = [UIColor whiteColor];
+        eventsCreatedButton.backgroundColor = [UIColor blackColor];
+        eventsCreatedButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+        
+        [self.view addSubview:eventsCreatedButton];
         
         eventsCreatedTable = [[UITableView alloc] initWithFrame:CGRectMake(0, window.height*0.35, window.width, window.height*0.3)];
         eventsCreatedTable.backgroundColor = [UIColor blackColor];
@@ -221,16 +233,17 @@
     
         if (eventsAttending){
 
-            UILabel* eventsAttendingLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, window.height*0.62, window.width, window.height*0.05)];
-            eventsAttendingLabel.font = [UIFont fontWithName:@"Helvetica" size:16];
-            eventsAttendingLabel.text = @"Events Attending";
-            eventsAttendingLabel.textAlignment = NSTextAlignmentCenter;
-            eventsAttendingLabel.textColor = [UIColor whiteColor];
-            eventsAttendingLabel.backgroundColor = [UIColor blackColor];
+            eventsAttendingButton = [[UIButton alloc] initWithFrame:CGRectMake(0, window.height*0.65, window.width, window.height*0.05)];
+            eventsAttendingButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:16];
+            [eventsAttendingButton addTarget:self action:@selector(expandAttendingTable) forControlEvents:UIControlEventTouchUpInside];
+            [eventsAttendingButton setTitle:@"Events Attending" forState:UIControlStateNormal];
+            eventsAttendingButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+            eventsAttendingButton.tintColor = [UIColor whiteColor];
+            eventsAttendingButton.backgroundColor = [UIColor blackColor];
             
-            [self.view addSubview:eventsAttendingLabel];
+            [self.view addSubview:eventsAttendingButton];
             
-            eventsAttendingTable = [[UITableView alloc] initWithFrame:CGRectMake(0, window.height*0.67, window.width, window.height*0.4)];
+            eventsAttendingTable = [[UITableView alloc] initWithFrame:CGRectMake(0, window.height*0.70, window.width, window.height*0.3)];
             eventsAttendingTable.backgroundColor = [UIColor blackColor];
             eventsAttendingTable.sectionHeaderHeight = 0;
             eventsAttendingTable.scrollEnabled = YES;
@@ -319,6 +332,156 @@
 {
     [_parseProjectViewController loadTableView];
     [_parseProjectViewController openTableView];
+}
+
+// Expands or collapses the events created table view
+- (void) expandCreatedTable {
+    if (eventsCreatedVisible) {
+        // Collapse the events created table
+        CGRect newFrame = eventsCreatedTable.frame;
+        newFrame.size.height = 0;
+        [UIView animateWithDuration:0.25 animations:^(void){
+            eventsCreatedTable.frame = newFrame;
+        }];
+        eventsCreatedVisible = NO;
+        
+        // Move events attending button up
+        newFrame = eventsAttendingButton.frame;
+        newFrame.origin.y = window.height*0.35;
+        [UIView animateWithDuration:0.25 animations:^(void){
+            eventsAttendingButton.frame = newFrame;
+        }];
+        
+        if (eventsAttendingVisible) {
+            // Move the events attending table up
+            newFrame = eventsAttendingTable.frame;
+            newFrame.origin.y = window.height*0.40;
+            newFrame.size.height = window.height*0.59;
+            [UIView animateWithDuration:0.25 animations:^(void){
+                eventsAttendingTable.frame = newFrame;
+            }];
+        } else {
+            // Move the events attending table up
+            newFrame = eventsAttendingTable.frame;
+            newFrame.origin.y = window.height*0.41;
+            [UIView animateWithDuration:0.25 animations:^(void){
+                eventsAttendingTable.frame = newFrame;
+            }];
+        }
+    } else {
+
+        eventsCreatedVisible = YES;
+        
+        if (eventsAttendingVisible) {
+            //Expand the events created table
+            CGRect newFrame = eventsCreatedTable.frame;
+            newFrame.size.height = window.height*0.3;
+            [UIView animateWithDuration:0.25 animations:^(void){
+                eventsCreatedTable.frame = newFrame;
+            }];
+            
+            // Move events attending button down
+            newFrame = eventsAttendingButton.frame;
+            newFrame.origin.y = window.height*0.65;
+            [UIView animateWithDuration:0.25 animations:^(void){
+                eventsAttendingButton.frame = newFrame;
+            }];
+            
+            // Move the events attending table down
+            newFrame = eventsAttendingTable.frame;
+            newFrame.origin.y = window.height*0.7;
+            newFrame.size.height = window.height*0.3;
+            [UIView animateWithDuration:0.25 animations:^(void){
+                eventsAttendingTable.frame = newFrame;
+            }];
+
+        } else {
+            //Expand the events created table
+            CGRect newFrame = eventsCreatedTable.frame;
+            newFrame.size.height = window.height*0.6;
+            [UIView animateWithDuration:0.25 animations:^(void){
+                eventsCreatedTable.frame = newFrame;
+            }];
+            
+            // Move button down
+            newFrame = eventsAttendingButton.frame;
+            newFrame.origin.y = window.height*0.95;
+            [UIView animateWithDuration:0.25 animations:^(void){
+                eventsAttendingButton.frame = newFrame;
+            }];
+            
+            // Move the events attending table down
+            newFrame = eventsAttendingTable.frame;
+            newFrame.origin.y = window.height*0.7;
+            [UIView animateWithDuration:0.25 animations:^(void){
+                eventsAttendingTable.frame = newFrame;
+            }];
+        }
+    }
+}
+
+// Expands or collapses the events attending table view
+- (void) expandAttendingTable {
+    if(eventsAttendingVisible) {
+        // Collapse the events attending table
+        CGRect newFrame = eventsAttendingTable.frame;
+        newFrame.size.height = 0;
+        [UIView animateWithDuration:0.25 animations:^(void){
+            eventsAttendingTable.frame = newFrame;
+        }];
+        eventsAttendingVisible = NO;
+        
+        if (eventsCreatedVisible) {
+            // Move button down
+            newFrame = eventsAttendingButton.frame;
+            newFrame.origin.y = window.height*0.95;
+            [UIView animateWithDuration:0.25 animations:^(void){
+                eventsAttendingButton.frame = newFrame;
+            }];
+            
+            // Grow the events created table
+            CGRect newFrame = eventsCreatedTable.frame;
+            newFrame.size.height = window.height*0.6;
+            [UIView animateWithDuration:0.25 animations:^(void){
+                eventsCreatedTable.frame = newFrame;
+            }];
+        }
+        
+    } else {
+
+        eventsAttendingVisible = YES;
+        
+        if (eventsCreatedVisible) {
+            // Expand the events attending table
+            CGRect newFrame = eventsAttendingTable.frame;
+            newFrame.size.height = window.height*0.3;
+            [UIView animateWithDuration:0.25 animations:^(void){
+                eventsAttendingTable.frame = newFrame;
+            }];
+
+            // Move button up
+            newFrame = eventsAttendingButton.frame;
+            newFrame.origin.y = window.height*0.65;
+            [UIView animateWithDuration:0.25 animations:^(void){
+                eventsAttendingButton.frame = newFrame;
+            }];
+            
+            // Shrink the events created table
+            newFrame = eventsCreatedTable.frame;
+            newFrame.size.height = window.height*0.3;
+            [UIView animateWithDuration:0.25 animations:^(void){
+                eventsCreatedTable.frame = newFrame;
+            }];
+        } else {
+            // Expand the events attending table
+            CGRect newFrame = eventsAttendingTable.frame;
+            newFrame.size.height = window.height*0.6;
+            [UIView animateWithDuration:0.25 animations:^(void){
+                eventsAttendingTable.frame = newFrame;
+            }];
+        }
+    }
+    
 }
 
 // Change school method: pops up an alert view
