@@ -98,12 +98,11 @@
     [self.navigationItem setTitleView:profileLabel];
     
     // Log out button
-    UIBarButtonItem *createItem = [[UIBarButtonItem alloc] initWithTitle:@"Log out" style:UIBarButtonItemStyleBordered target:self action:@selector(logoutButtonTouchHandler:)];
+    UIBarButtonItem *createItem = [[UIBarButtonItem alloc] initWithTitle:@"Log Out" style:UIBarButtonItemStyleBordered target:self action:@selector(logoutButtonTouchHandler:)];
     
     self.navigationItem.leftBarButtonItem = createItem;
     
-    // Later, this might fix the issue with the current back button
-    // TODO: Replace this with the calendar icon
+    // Navigation back to the calendar view
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style: UIBarButtonItemStyleBordered target:self action:@selector(Back)];
     self.navigationItem.rightBarButtonItem = backButton;
     
@@ -227,7 +226,6 @@
                 NSLog(@"Error: %@ %@", error, [error userInfo]);
             }
         }];
-        
         [self.view addSubview:eventsCreatedTable];
     }
     
@@ -325,7 +323,48 @@
         
             [self.view addSubview:eventsAttendingTable];
         }
+
+//    // TODO: Not working yet (can't get rows right)
+//    // Update coloring for each table
+//    [eventsCreatedTable beginUpdates];
+//    [self redoColoring:eventsCreatedTable];
+//    [eventsCreatedTable endUpdates];
+//
+//    [eventsAttendingTable beginUpdates];
+//    [self redoColoring:eventsAttendingTable];
+//    [eventsAttendingTable endUpdates];
+    
 }
+-(void)viewDidAppear:(BOOL) animated
+{
+    // Briefly flash scroll bar indicators to viewer after 0.5 seconds
+    [super viewDidAppear:animated];
+    [eventsCreatedTable performSelector:@selector(flashScrollIndicators) withObject:nil afterDelay:0.5];
+    [eventsAttendingTable performSelector:@selector(flashScrollIndicators) withObject:nil afterDelay:0.5];
+}
+
+-(void)redoColoring:(UITableView *)tableView
+{
+    NSInteger numRows = [eventsCreatedTable numberOfRowsInSection:0];
+    NSLog(@"number of rows is %ld", numRows);
+    
+    for (NSInteger i=0; i<numRows; i++) {
+        EventCell* cell = (EventCell*)[eventsCreatedTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
+
+        // Recolor in every other pattern
+        if (i % 2 == 0) {
+            cell.backgroundColor = green;
+        } else {
+            cell.backgroundColor = lightGreen;
+        }
+        
+    }
+
+    //Make table reload section
+    NSIndexSet *set = [[NSIndexSet alloc] initWithIndex:0];
+    [eventsCreatedTable reloadSections:set withRowAnimation:UITableViewRowAnimationNone];
+}
+
 
 // Return from Profile View to Table View
 - (IBAction)Back
@@ -398,7 +437,7 @@
         } else {
             //Expand the events created table
             CGRect newFrame = eventsCreatedTable.frame;
-            newFrame.size.height = window.height*0.6;
+            newFrame.size.height = window.height*0.65;
             [UIView animateWithDuration:0.25 animations:^(void){
                 eventsCreatedTable.frame = newFrame;
             }];
@@ -491,8 +530,9 @@
     [alert show];
 }
 
+// Add school method: pops up an alert view
 - (void)addSchool {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"School" message:@"Please Pick Your School" delegate:self cancelButtonTitle:nil otherButtonTitles:@"HMC", @"Scripps", @"Pitzer", @"Pomona", @"CMC", @"Other", nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Edit School" message:@"Select a school from the list below to add your school." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"HMC", @"Scripps", @"Pitzer", @"Pomona", @"CMC", @"Other", nil];
     alert.tag = 2;
     [alert show];
 }
@@ -508,10 +548,12 @@
             PFUser* user = [PFUser currentUser];
             [user setObject:schoolName forKey:@"school"];
             [user saveInBackground];
+            [_parseProjectViewController loadProfileView];
+            [_parseProjectViewController openProfileView];
+
         } // Otherwise, clicked cancel: do nothing
 
-        [_parseProjectViewController loadProfileView];
-        [_parseProjectViewController openProfileView];
+        
         
     }
 }
