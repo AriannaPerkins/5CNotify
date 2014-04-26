@@ -355,11 +355,13 @@
     if (editingEventsCreated) {
         // And looking at the events created table
         if (tableView == eventsCreatedTable) {
-            if ((indexPath.row + indexPath.section) % 2 == 0) {
-                cell.backgroundColor = [UIColor grayColor];
-            } else {
-                cell.backgroundColor = [UIColor lightGrayColor];
-            }
+                if ((indexPath.row + indexPath.section) % 2 == 0) {
+                   
+                    [cell setHighlighted:YES animated:YES]; // Some juice... :)
+                    cell.backgroundColor = [UIColor grayColor];
+                } else {
+                    cell.backgroundColor = [UIColor lightGrayColor];
+                }
         }
     } else {
         if  ((indexPath.row + indexPath.section) % 2 == 0) {
