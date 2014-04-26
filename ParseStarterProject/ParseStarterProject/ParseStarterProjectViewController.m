@@ -71,6 +71,12 @@
     editEventViewController = [[EditEventViewController alloc] init];
     editEventViewController.parseProjectViewController = self;
 }
+
+-(void) loadEditEventViewWithArguments:(NSString*)objectid {
+    editEventViewController = [[EditEventViewController alloc] initWith:objectid];
+    editEventViewController.parseProjectViewController = self;
+}
+
 -(void) openEditEventView {
     [self.navigationController pushViewController:editEventViewController animated:YES];
 }

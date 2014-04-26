@@ -731,10 +731,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    EventCell* cell = (EventCell*)[tableView viewWithTag:((indexPath.section<<16)|indexPath.row)+1];
     if (!editingEventsCreated) {
         [tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop-tableView.sectionHeaderHeight animated:NO];
-        EventCell* cell = (EventCell*)[tableView viewWithTag:((indexPath.section<<16)|indexPath.row)+1];
-        //Check if already selected
+                //Check if already selected
         if (selected == cell.tag){
             selected=NSIntegerMin;
             cell.descriptionLabel.hidden = YES;
@@ -745,8 +745,11 @@
         [tableView beginUpdates];
         [tableView endUpdates];
     } else {
-        // Open the edit event view controller
-        [_parseProjectViewController loadEditEventView];
+        // Get the object id of the cell
+        NSString* objectid = cell.objectid;
+
+        // Open the edit event view controller with the event that was selected
+        [_parseProjectViewController loadEditEventViewWithArguments:objectid];
         [_parseProjectViewController openEditEventView];
     }
     
