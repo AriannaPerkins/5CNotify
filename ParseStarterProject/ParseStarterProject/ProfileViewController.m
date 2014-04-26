@@ -743,8 +743,9 @@
         [tableView beginUpdates];
         [tableView endUpdates];
     } else {
-        NSLog(@"We're going to edit the cell that was selected now... load a new view controller");
-        NSLog(@"Row selected: %ld, Section selected: %ld", (long)indexPath.row, (long)indexPath.section);
+        // Open the edit event view controller
+        [_parseProjectViewController loadEditEventView];
+        [_parseProjectViewController openEditEventView];
     }
     
 }

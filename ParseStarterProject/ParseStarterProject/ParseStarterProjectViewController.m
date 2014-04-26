@@ -4,12 +4,14 @@
 #import "ProfileViewController.h"
 #import "AddEventViewController.h"
 #import "TableViewController.h"
+#import "EditEventViewController.h"
 
 @implementation ParseStarterProjectViewController{
     TableViewController *tableViewController;
     AddEventViewController *eventViewController;
     LoginViewController *loginViewController;
     ProfileViewController* profileViewController;
+    EditEventViewController* editEventViewController;
 }
 
 
@@ -40,6 +42,10 @@
     
     loginViewController = [[LoginViewController alloc] init];
     loginViewController.parseProjectViewController = self;
+
+    editEventViewController = [[EditEventViewController alloc] init];
+    editEventViewController.parseProjectViewController = self;
+    
     
     //This does not actually make the switch...
     FBSession* currentSession = [PFFacebookUtils session];
@@ -59,6 +65,14 @@
 
 -(void) openAddEventView{
     [self.navigationController pushViewController:eventViewController animated:YES];
+}
+
+-(void) loadEditEventView {
+    editEventViewController = [[EditEventViewController alloc] init];
+    editEventViewController.parseProjectViewController = self;
+}
+-(void) openEditEventView {
+    [self.navigationController pushViewController:editEventViewController animated:YES];
 }
 
 -(void) openTableView{
