@@ -21,7 +21,6 @@ UIColor* green;
 UIColor* lightGreen;
 UIColor* lightlightGreen;
 UIFont* helvet15;
-//BOOL* editing;
 
 NSInteger selected;
 NSMutableArray* parties;
@@ -49,7 +48,6 @@ NSInteger comps;
                                           alpha: 1.0];
         helvet15 = [UIFont fontWithName:@"Helvetica" size:15.0 ];
         
-//        editing = NO;
         selected = NSIntegerMin;
         
         //Set variables about the view
@@ -159,7 +157,6 @@ NSInteger comps;
     [tempProfileButton addTarget:self action:@selector(profileView) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *profileItem = [[UIBarButtonItem alloc] initWithCustomView:tempProfileButton];
     
-//    self.navigationItem.rightBarButtonItems = @[addItem, self.editButtonItem];
     self.navigationItem.rightBarButtonItem = addItem;
     self.navigationItem.leftBarButtonItem = profileItem;
     
@@ -529,9 +526,6 @@ NSInteger comps;
     dateButton.tintColor = green;
     dateButton.tag = section;
     
-//    [header addSubview:dateButton];
-    
-//    return header;
     return dateButton;
 }
 
@@ -540,51 +534,6 @@ NSInteger comps;
     return [day objectAtIndex:indexpath.row];
 }
 
-//// Check if this user created the event to check if they can edit it
-//- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    PFUser* user = [PFUser currentUser];
-//    NSArray* createdEvents = [user objectForKey:@"eventsCreated"];
-//    Event* thisEvent = [self getEventAtIndexPath:indexPath];
-//    for (NSString* eventId in createdEvents){
-//        if ([thisEvent.objectid isEqualToString:eventId]){
-//            
-//            return YES;
-//        }
-//    }
-//    return NO;
-//}
-
-//// Override to support editing the table view.
-//- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    //Allow for deletion of events
-//    if (editingStyle == UITableViewCellEditingStyleDelete) {
-//        [tableView beginUpdates];
-//        
-//        //Delete the row from the physical table
-//        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-//        NSMutableArray* day = [parties objectAtIndex:indexPath.section];
-//        Event* deletee = [day objectAtIndex:indexPath.row];
-//        
-//        //Delete event from Parse and from this user's eventsCreated and eventsAttending
-//        PFObject* event = [PFObject objectWithoutDataWithClassName:@"UserEvents"
-//                                                          objectId:deletee.objectid];
-//        PFUser* user = [PFUser currentUser];
-//        [user removeObjectsInArray:@[deletee.objectid] forKey:@"eventsCreated"];
-//        [user removeObjectsInArray:@[deletee.objectid] forKey:@"eventsAttending"];
-//        [event deleteEventually];
-//        
-//        //Remove object from our backend data
-//        [day removeObjectAtIndex:indexPath.row];
-//        if (day.count==0)
-//            [parties removeObject:day];
-//        
-//        
-//        [self redoColoringForSection:indexPath.section];
-//        [tableView endUpdates];
-//    }
-//}
 
 -(void) redoColoringForSection:(NSInteger) section{
     //Get number of rows that need to be recolored

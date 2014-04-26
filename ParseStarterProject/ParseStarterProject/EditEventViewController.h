@@ -13,6 +13,9 @@
 
 @interface EditEventViewController : UIViewController <UITextFieldDelegate, UITextViewDelegate>
 
+@property(nonatomic,retain) NSString* objectid;
+
 @property(retain) ParseStarterProjectViewController* parseProjectViewController;
+-(id)initWith:(NSString*) objectid;
 
 @end
