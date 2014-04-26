@@ -659,7 +659,7 @@
     }
     Event* party = [day objectAtIndex:indexPath.row];
     
-    if (indexPath.row % 2 == 0) {
+    if ((indexPath.row+indexPath.section) % 2 == 0) {
         cell.backgroundColor = green;
     } else {
         cell.backgroundColor = lightGreen;
