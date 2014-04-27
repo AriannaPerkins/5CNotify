@@ -720,9 +720,13 @@
     
     if (((indexPath.section<<16) | indexPath.row)+1 == selected) {
         //Sets height based on how large description is
-        Event* selectedEvent = [self getEventAtIndexPath:indexPath];
+        Event* selectedEvent;
+        if (tableView == eventsCreatedTable) {
+            selectedEvent = [self getEventAtIndexPath:indexPath];
+        }
         if (tableView == eventsAttendingTable) {
-            selectedEvent = [partiesAttending objectAtIndex:indexPath.row];
+            NSMutableArray* day = [partiesAttending objectAtIndex:indexPath.section];
+            selectedEvent = [day objectAtIndex:indexPath.row];
         }
         NSString *text = selectedEvent.description;
         CGSize constraint = CGSizeMake(260, 100);
