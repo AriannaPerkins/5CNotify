@@ -537,10 +537,7 @@ NSInteger comps;
     UIImageView* img = [[UIImageView alloc] initWithFrame:CGRectMake(header.frame.size.width - header.frame.size.height, 0, header.frame.size.height*0.7, header.frame.size.height*0.7)];
     img.image = [UIImage imageNamed:@"arrow_down.png"];
     [dateButton addSubview:img];
-    
-//    [header addSubview:dateButton];
-    
-//    return header;
+
     return dateButton;
 }
 
