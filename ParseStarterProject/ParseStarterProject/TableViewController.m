@@ -334,11 +334,19 @@ NSInteger comps;
     int section = sender.tag;
     bool shouldCollapse = ![collapsedSections containsObject:@(section)];
     if (shouldCollapse) {
+        UIImageView* img = [[UIImageView alloc] initWithFrame:CGRectMake(sender.frame.size.width - sender.frame.size.height, 0, sender.frame.size.height*0.7, sender.frame.size.height*0.7)];
+        img.image = [UIImage imageNamed:@"arrow_right.png"];
+        [sender addSubview:img];
+        
         int numOfRows = [self.tableView numberOfRowsInSection:section];
         NSArray* indexPaths = [self indexPathsForSection:section withNumberOfRows:numOfRows];
         [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationTop];
         [collapsedSections addObject:@(section)];
     } else {
+        UIImageView* img = [[UIImageView alloc] initWithFrame:CGRectMake(sender.frame.size.width - sender.frame.size.height, 0, sender.frame.size.height*0.7, sender.frame.size.height*0.7)];
+        img.image = [UIImage imageNamed:@"arrow_down.png"];
+        [sender addSubview:img];
+
         NSMutableArray* temp = [[NSMutableArray alloc] init];
         temp = [parties objectAtIndex:section];
         int numOfRows = temp.count;
@@ -509,6 +517,10 @@ NSInteger comps;
     dateButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:16];
     dateButton.tintColor = green;
     dateButton.tag = section;
+    
+    UIImageView* img = [[UIImageView alloc] initWithFrame:CGRectMake(header.frame.size.width - header.frame.size.height, 0, header.frame.size.height*0.7, header.frame.size.height*0.7)];
+    img.image = [UIImage imageNamed:@"arrow_down.png"];
+    [dateButton addSubview:img];
     
 //    [header addSubview:dateButton];
     
