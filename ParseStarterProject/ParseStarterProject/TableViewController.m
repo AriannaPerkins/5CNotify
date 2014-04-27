@@ -53,9 +53,8 @@ NSInteger comps;
         //Set variables about the view
         self.tableView.sectionHeaderHeight = 30;
         self.tableView.scrollEnabled = YES;
-        self.tableView.scrollsToTop = YES;
         self.automaticallyAdjustsScrollViewInsets = YES;
-        self.tableView.bounces = NO;
+
         
         self.view.backgroundColor = [UIColor blackColor];
         self.tableView.separatorColor = [UIColor blackColor];
@@ -477,26 +476,6 @@ NSInteger comps;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     EventCell* cell = (EventCell*)[self.tableView viewWithTag:((indexPath.section<<16)|indexPath.row)+1];
-    //Scroll to cell
-//    CGRect rect = [tableView rectForRowAtIndexPath:indexPath];
-//    double diff = (rect.origin.y-self.navigationController.navigationBar.frame.origin.y)/500;
-//    NSLog(@"navigation %f, rect %f, diff, %f", self.navigationController.navigationBar.frame.origin.y, rect.origin.y, diff);
-//    [UIView animateWithDuration: diff
-//                     animations: ^{
-//                         [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
-//                     }completion: ^(BOOL finished){
-//                     }
-//     ];
-    
-//    [UIView animateWithDuration:diff animations:^{
-//        //Move table view to where you want
-//        [tableView setContentOffset:rect.origin];
-//    } completion:^(BOOL finished){
-//    }];
-    
-//    [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
-    
-//    [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
     
     if (selected == cell.tag){
         selected=NSIntegerMin;

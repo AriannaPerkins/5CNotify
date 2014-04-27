@@ -23,9 +23,11 @@ Parse.Cloud.job("eventDeletion", function(request, status) {
             }
             });
         }
+        status.success("Events Deleted");
     },
     error: function(error) {
         console.log("Object retreival failed with error: " + error.code + " " + error.message);
+        status.error("Events Not Deleted, Error occured");
     }
   });
 });
@@ -78,9 +80,11 @@ Parse.Cloud.job("userEventArrayCleanup", function(request, status){
           });
         };
       }
+      status.success("Events Deleted");
     },
     error: function(object, error){
       console.log("Object retreival failed with error: " + error.code + " " + error.message);
+      status.error("Events Not Deleted, Error occured");
     }
   });
 });
