@@ -22,6 +22,7 @@
 		09ABC08813A1D52E009C3FCF /* ParseStarterProjectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09ABC08713A1D52E009C3FCF /* ParseStarterProjectViewController.m */; };
 		09ABC08B13A1D52E009C3FCF /* ParseStarterProjectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09ABC08913A1D52E009C3FCF /* ParseStarterProjectViewController.xib */; };
 		09BEF34C13D51C3F001BBCDB /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09BEF34B13D51C3F001BBCDB /* Security.framework */; };
+		18B5A6EE190BA9D700F8E482 /* EditEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B5A6ED190BA9D700F8E482 /* EditEventViewController.m */; };
 		2FCDD6B014A573F500295AAC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FCDD6AF14A573F500295AAC /* QuartzCore.framework */; };
 		3C09546B19077D8B00A184BD /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C09546A19077D8B00A184BD /* XCTest.framework */; };
 		3C09546C19077D8B00A184BD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09ABC07313A1D52D009C3FCF /* Foundation.framework */; };
@@ -99,6 +100,8 @@
 		09ABC08713A1D52E009C3FCF /* ParseStarterProjectViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ParseStarterProjectViewController.m; sourceTree = "<group>"; };
 		09ABC08A13A1D52E009C3FCF /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ParseStarterProjectViewController.xib; sourceTree = "<group>"; };
 		09BEF34B13D51C3F001BBCDB /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		18B5A6EC190BA9D700F8E482 /* EditEventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditEventViewController.h; sourceTree = "<group>"; };
+		18B5A6ED190BA9D700F8E482 /* EditEventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditEventViewController.m; sourceTree = "<group>"; };
 		2FCDD6AF14A573F500295AAC /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		3C09546919077D8A00A184BD /* 5CNotify Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "5CNotify Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3C09546A19077D8B00A184BD /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -256,6 +259,8 @@
 				3C9BFB2318BC45AF007849B9 /* AddEventViewController.m */,
 				3CD1C4ED18EF56AC00A4A34A /* ProfileViewController.h */,
 				3CD1C4EE18EF56AC00A4A34A /* ProfileViewController.m */,
+				18B5A6EC190BA9D700F8E482 /* EditEventViewController.h */,
+				18B5A6ED190BA9D700F8E482 /* EditEventViewController.m */,
 				3CECA8FF18CD0E9B0081AEE4 /* Event.h */,
 				3CECA90018CD0E9B0081AEE4 /* Event.m */,
 				3C9BFB2518BC45E8007849B9 /* EventCell.h */,
@@ -450,6 +455,7 @@
 				3CD1C4EB18EF42E000A4A34A /* LoginViewController.m in Sources */,
 				3CD1C4EF18EF56AC00A4A34A /* ProfileViewController.m in Sources */,
 				09ABC07F13A1D52D009C3FCF /* main.m in Sources */,
+				18B5A6EE190BA9D700F8E482 /* EditEventViewController.m in Sources */,
 				09ABC08213A1D52D009C3FCF /* ParseStarterProjectAppDelegate.m in Sources */,
 				3C9BFB2418BC45AF007849B9 /* AddEventViewController.m in Sources */,
 				09ABC08813A1D52E009C3FCF /* ParseStarterProjectViewController.m in Sources */,

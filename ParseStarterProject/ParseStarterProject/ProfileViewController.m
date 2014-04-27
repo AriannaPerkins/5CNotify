@@ -28,12 +28,15 @@
     UITableView* eventsCreatedTable;
     UITableView* eventsAttendingTable;
     UIButton* eventsCreatedButton;
+    UIButton* eventsCreatedEditButton;
     UIButton* eventsAttendingButton;
     
     CGSize window;
     
     BOOL eventsCreatedVisible;
     BOOL eventsAttendingVisible;
+    
+    BOOL editingEventsCreated;
 }
 
 - (id)init{
@@ -59,6 +62,7 @@
     
     eventsCreatedVisible   = YES;
     eventsAttendingVisible = YES;
+    editingEventsCreated   = NO;
     
     PFUser *curr = [PFUser currentUser];
     
@@ -98,12 +102,11 @@
     [self.navigationItem setTitleView:profileLabel];
     
     // Log out button
-    UIBarButtonItem *createItem = [[UIBarButtonItem alloc] initWithTitle:@"Log out" style:UIBarButtonItemStyleBordered target:self action:@selector(logoutButtonTouchHandler:)];
+    UIBarButtonItem *createItem = [[UIBarButtonItem alloc] initWithTitle:@"Log Out" style:UIBarButtonItemStyleBordered target:self action:@selector(logoutButtonTouchHandler:)];
     
     self.navigationItem.leftBarButtonItem = createItem;
     
-    // Later, this might fix the issue with the current back button
-    // TODO: Replace this with the calendar icon
+    // Navigation back to the calendar view
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style: UIBarButtonItemStyleBordered target:self action:@selector(Back)];
     self.navigationItem.rightBarButtonItem = backButton;
     
@@ -137,7 +140,7 @@
     NSMutableArray* eventsCreated = [curr objectForKey:@"eventsCreated"];
     NSMutableArray* eventsAttending = [curr objectForKey:@"eventsAttending"];
     
-    if (eventsCreated){
+    if (eventsCreated) {
         
         eventsCreatedButton = [[UIButton alloc] initWithFrame:CGRectMake(0,window.height*0.3, window.width, window.height*0.05)];
         [eventsCreatedButton addTarget:self action:@selector(expandCreatedTable) forControlEvents:UIControlEventTouchUpInside];
@@ -148,6 +151,16 @@
         eventsCreatedButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
         
         [self.view addSubview:eventsCreatedButton];
+        
+        eventsCreatedEditButton = [[UIButton alloc] initWithFrame:CGRectMake(window.width*0.86, window.height*0.3, window.width*0.12, window.height*0.05)];
+        [eventsCreatedEditButton addTarget:self action:@selector(editEventsCreated) forControlEvents:UIControlEventTouchUpInside];
+        [eventsCreatedEditButton setTitle:@"Edit" forState:UIControlStateNormal];
+        eventsCreatedEditButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:14];
+        [eventsCreatedEditButton setTitleColor:green forState:UIControlStateNormal];
+        eventsCreatedEditButton.backgroundColor = [UIColor blackColor];
+        eventsCreatedEditButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+        
+        [self.view addSubview:eventsCreatedEditButton];
         
         eventsCreatedTable = [[UITableView alloc] initWithFrame:CGRectMake(0, window.height*0.35, window.width, window.height*0.3)];
         eventsCreatedTable.backgroundColor = [UIColor blackColor];
@@ -227,112 +240,146 @@
                 NSLog(@"Error: %@ %@", error, [error userInfo]);
             }
         }];
-        
         [self.view addSubview:eventsCreatedTable];
     }
     
-        if (eventsAttending){
+    if (eventsAttending) {
 
-            eventsAttendingButton = [[UIButton alloc] initWithFrame:CGRectMake(0, window.height*0.65, window.width, window.height*0.05)];
-            eventsAttendingButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:16];
-            [eventsAttendingButton addTarget:self action:@selector(expandAttendingTable) forControlEvents:UIControlEventTouchUpInside];
-            [eventsAttendingButton setTitle:@"Events Attending" forState:UIControlStateNormal];
-            eventsAttendingButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-            eventsAttendingButton.tintColor = [UIColor whiteColor];
-            eventsAttendingButton.backgroundColor = [UIColor blackColor];
-            
-            [self.view addSubview:eventsAttendingButton];
-            
-            eventsAttendingTable = [[UITableView alloc] initWithFrame:CGRectMake(0, window.height*0.70, window.width, window.height*0.3)];
-            eventsAttendingTable.backgroundColor = [UIColor blackColor];
-            eventsAttendingTable.sectionHeaderHeight = 0;
-            eventsAttendingTable.scrollEnabled = YES;
-            eventsAttendingTable.scrollsToTop = YES;
-            eventsAttendingTable.delegate = self;
-            eventsAttendingTable.dataSource = self;
-            eventsAttendingTable.separatorColor = [UIColor blackColor];
-            
-            partiesAttending = [[NSMutableArray alloc] init];
-            
-            // Pull all events that have a start date today or later
-            NSDate *currentDate = [[NSDate alloc] init];
-            
-            calendar = [NSCalendar currentCalendar];
-            comps = (NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit);
-            
-            NSDateComponents* currentDateComps = [calendar components:comps fromDate: currentDate];
-            
-            currentDate = [calendar dateFromComponents:currentDateComps];
-            
-            PFQuery *query = [PFQuery queryWithClassName:@"UserEvents"];
-            [query whereKey:@"objectId" containedIn:eventsAttending];
-            [query whereKey:@"endTime" greaterThan:currentDate];
-            
-            NSMutableArray* tempParties = [[NSMutableArray alloc] init];
-            
-            [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-                if (!error) {
+        eventsAttendingButton = [[UIButton alloc] initWithFrame:CGRectMake(0, window.height*0.65, window.width, window.height*0.05)];
+        eventsAttendingButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:16];
+        [eventsAttendingButton addTarget:self action:@selector(expandAttendingTable) forControlEvents:UIControlEventTouchUpInside];
+        [eventsAttendingButton setTitle:@"Events Attending" forState:UIControlStateNormal];
+        eventsAttendingButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+        eventsAttendingButton.tintColor = [UIColor whiteColor];
+        eventsAttendingButton.backgroundColor = [UIColor blackColor];
+        
+        [self.view addSubview:eventsAttendingButton];
+        
+        
+        eventsAttendingTable = [[UITableView alloc] initWithFrame:CGRectMake(0, window.height*0.70, window.width, window.height*0.3)];
+        eventsAttendingTable.backgroundColor = [UIColor blackColor];
+        eventsAttendingTable.sectionHeaderHeight = 0;
+        eventsAttendingTable.scrollEnabled = YES;
+        eventsAttendingTable.scrollsToTop = YES;
+        eventsAttendingTable.delegate = self;
+        eventsAttendingTable.dataSource = self;
+        eventsAttendingTable.separatorColor = [UIColor blackColor];
+        
+        partiesAttending = [[NSMutableArray alloc] init];
+        
+        // Pull all events that have a start date today or later
+        NSDate *currentDate = [[NSDate alloc] init];
+        
+        calendar = [NSCalendar currentCalendar];
+        comps = (NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit);
+        
+        NSDateComponents* currentDateComps = [calendar components:comps fromDate: currentDate];
+        
+        currentDate = [calendar dateFromComponents:currentDateComps];
+        
+        PFQuery *query = [PFQuery queryWithClassName:@"UserEvents"];
+        [query whereKey:@"objectId" containedIn:eventsAttending];
+        [query whereKey:@"endTime" greaterThan:currentDate];
+        
+        NSMutableArray* tempParties = [[NSMutableArray alloc] init];
+        
+        [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+            if (!error) {
+                
+                // The find succeeded. Do something with the found objects
+                
+                for (int i=0; i<objects.count; ++i) {
                     
-                    // The find succeeded. Do something with the found objects
+                    PFObject *event = objects[i];
                     
-                    for (int i=0; i<objects.count; ++i) {
-                        
-                        PFObject *event = objects[i];
-                        
-                        NSString *name = event[@"eventName"];
-                        NSString *location = event[@"locationText"];
-                        NSDate *startTime = event[@"startTime"];
-                        NSDate *endTime = event[@"endTime"];
-                        NSString *description = event[@"description"];
-                        NSMutableArray *switches = event[@"openTo"];
-                        int rsvpCount = [event[@"rsvpCount"] intValue]; // get the rsvp count
-                        NSString *objectid = event.objectId;
-                        
-                        Event* temp = [[Event alloc] initWith:name andLoc:location andStart:startTime andEnd:endTime andDescription:description andOpenTo:switches andRSVPCount:rsvpCount andObjectID:objectid];
-                        [tempParties addObject:temp];
+                    NSString *name = event[@"eventName"];
+                    NSString *location = event[@"locationText"];
+                    NSDate *startTime = event[@"startTime"];
+                    NSDate *endTime = event[@"endTime"];
+                    NSString *description = event[@"description"];
+                    NSMutableArray *switches = event[@"openTo"];
+                    int rsvpCount = [event[@"rsvpCount"] intValue]; // get the rsvp count
+                    NSString *objectid = event.objectId;
+                    
+                    Event* temp = [[Event alloc] initWith:name andLoc:location andStart:startTime andEnd:endTime andDescription:description andOpenTo:switches andRSVPCount:rsvpCount andObjectID:objectid];
+                    [tempParties addObject:temp];
+                }
+                
+                // Sorts events by date to later form sections
+                NSDate *date = [NSDate date];
+                NSUInteger preservedComponents = (NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit);
+                date = [calendar dateFromComponents:[calendar components:preservedComponents fromDate:date]];
+                NSDateComponents* components = [[NSDateComponents alloc] init];
+                [components setDay:1];
+                date = [calendar dateByAddingComponents:components toDate:date options:0];
+                while (tempParties.count > 0) {
+                    NSMutableArray *oneDay = [[NSMutableArray alloc] init];
+                    for (NSInteger i=0; i<tempParties.count; i++) {
+                        Event* temp = [tempParties objectAtIndex:i];
+                        if (temp.start<date) {
+                            [oneDay addObject:temp];
+                            [tempParties removeObject:temp];
+                            i--;
+                        }
                     }
-                    
-                    // Sorts events by date to later form sections
-                    NSDate *date = [NSDate date];
-                    NSUInteger preservedComponents = (NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit);
-                    date = [calendar dateFromComponents:[calendar components:preservedComponents fromDate:date]];
-                    NSDateComponents* components = [[NSDateComponents alloc] init];
-                    [components setDay:1];
+                    if (oneDay.count !=0) {
+                        [partiesAttending addObject:oneDay];
+                    }
                     date = [calendar dateByAddingComponents:components toDate:date options:0];
-                    while (tempParties.count > 0) {
-                        NSMutableArray *oneDay = [[NSMutableArray alloc] init];
-                        for (NSInteger i=0; i<tempParties.count; i++) {
-                            Event* temp = [tempParties objectAtIndex:i];
-                            if (temp.start<date) {
-                                [oneDay addObject:temp];
-                                [tempParties removeObject:temp];
-                                i--;
-                            }
-                        }
-                        if (oneDay.count !=0) {
-                            [partiesAttending addObject:oneDay];
-                        }
-                        date = [calendar dateByAddingComponents:components toDate:date options:0];
-                    }
-                    
-                    [eventsAttendingTable reloadData];
-                    
-                } else {
-                    // Log details of the failure
-                    NSLog(@"Error: %@ %@", error, [error userInfo]);
-                }}];
+                }
+                
+                [eventsAttendingTable reloadData];
+                
+            } else {
+                // Log details of the failure
+                NSLog(@"Error: %@ %@", error, [error userInfo]);
+            }}];
         
         
-            [self.view addSubview:eventsAttendingTable];
-        }
+        [self.view addSubview:eventsAttendingTable];
+    
+    }
+    
+}
+-(void)viewDidAppear:(BOOL) animated
+{
+    // Briefly flash scroll bar indicators to viewer after 0.5 seconds
+    [super viewDidAppear:animated];
+    [eventsCreatedTable performSelector:@selector(flashScrollIndicators) withObject:nil afterDelay:0.5];
+    [eventsAttendingTable performSelector:@selector(flashScrollIndicators) withObject:nil afterDelay:0.5];
 }
 
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // If we are editing events created...
+    if (editingEventsCreated) {
+        // And looking at the events created table
+        if (tableView == eventsCreatedTable) {
+                if ((indexPath.row + indexPath.section) % 2 == 0) {
+                   
+                    [cell setHighlighted:YES animated:YES]; // Some juice... :)
+                    cell.backgroundColor = [UIColor grayColor];
+                } else {
+                    cell.backgroundColor = [UIColor lightGrayColor];
+                }
+        }
+    } else {
+        if  ((indexPath.row + indexPath.section) % 2 == 0) {
+            cell.backgroundColor = green;
+        } else {
+            cell.backgroundColor = lightGreen;
+        }
+    }
+}
+
+
 // Return from Profile View to Table View
-- (IBAction)Back
+- (IBAction) Back
 {
     [_parseProjectViewController loadTableView];
     [_parseProjectViewController openTableView];
 }
+
 
 // Expands or collapses the events created table view
 - (void) expandCreatedTable {
@@ -345,12 +392,16 @@
         }];
         eventsCreatedVisible = NO;
         
+        // Cannot edit in collapsed view
+        [eventsCreatedEditButton removeFromSuperview];
+        
         // Move events attending button up
         newFrame = eventsAttendingButton.frame;
         newFrame.origin.y = window.height*0.35;
         [UIView animateWithDuration:0.25 animations:^(void){
             eventsAttendingButton.frame = newFrame;
         }];
+        
         
         if (eventsAttendingVisible) {
             // Move the events attending table up
@@ -360,10 +411,11 @@
             [UIView animateWithDuration:0.25 animations:^(void){
                 eventsAttendingTable.frame = newFrame;
             }];
+
         } else {
             // Move the events attending table up
             newFrame = eventsAttendingTable.frame;
-            newFrame.origin.y = window.height*0.41;
+            newFrame.origin.y = window.height*0.40;
             [UIView animateWithDuration:0.25 animations:^(void){
                 eventsAttendingTable.frame = newFrame;
             }];
@@ -371,6 +423,9 @@
     } else {
 
         eventsCreatedVisible = YES;
+
+        // Users can edit in expanded view
+        [self.view addSubview:eventsCreatedEditButton];
         
         if (eventsAttendingVisible) {
             //Expand the events created table
@@ -398,7 +453,7 @@
         } else {
             //Expand the events created table
             CGRect newFrame = eventsCreatedTable.frame;
-            newFrame.size.height = window.height*0.6;
+            newFrame.size.height = window.height*0.65;
             [UIView animateWithDuration:0.25 animations:^(void){
                 eventsCreatedTable.frame = newFrame;
             }];
@@ -438,7 +493,7 @@
             [UIView animateWithDuration:0.25 animations:^(void){
                 eventsAttendingButton.frame = newFrame;
             }];
-            
+
             // Grow the events created table
             CGRect newFrame = eventsCreatedTable.frame;
             newFrame.size.height = window.height*0.6;
@@ -450,7 +505,7 @@
     } else {
 
         eventsAttendingVisible = YES;
-        
+
         if (eventsCreatedVisible) {
             // Expand the events attending table
             CGRect newFrame = eventsAttendingTable.frame;
@@ -475,11 +530,30 @@
         } else {
             // Expand the events attending table
             CGRect newFrame = eventsAttendingTable.frame;
-            newFrame.size.height = window.height*0.6;
+            newFrame.origin.y = window.height*0.40;
+            newFrame.size.height = window.height*0.59;
             [UIView animateWithDuration:0.25 animations:^(void){
                 eventsAttendingTable.frame = newFrame;
             }];
         }
+    }
+    
+}
+
+
+// Turn on and off editing for the events created view
+- (void) editEventsCreated
+{
+    if (!editingEventsCreated) {
+        editingEventsCreated = YES;
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Edit Events Created" message:@"Select an event in the events created table to edit or delete it." delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", @"Cancel", nil];
+        alert.tag = 3;
+        [alert show];
+    } else {
+        // Done editing, reset values
+        editingEventsCreated = NO;
+        [eventsCreatedEditButton setTitle:@"Edit" forState:UIControlStateNormal];
+        [eventsCreatedTable reloadData];
     }
     
 }
@@ -491,14 +565,16 @@
     [alert show];
 }
 
+// Add school method: pops up an alert view
 - (void)addSchool {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"School" message:@"Please Pick Your School" delegate:self cancelButtonTitle:nil otherButtonTitles:@"HMC", @"Scripps", @"Pitzer", @"Pomona", @"CMC", @"Other", nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Edit School" message:@"Select a school from the list below to add your school." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"HMC", @"Scripps", @"Pitzer", @"Pomona", @"CMC", @"Other", nil];
     alert.tag = 2;
     [alert show];
 }
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
+    // Updating user school
     if (alertView.tag == 2) {
         NSArray* schools = [[NSArray alloc] initWithObjects:@"HMC", @"Scripps", @"Pitzer", @"Pomona", @"CMC", @"Other", nil];
         NSString* schoolName;
@@ -508,11 +584,22 @@
             PFUser* user = [PFUser currentUser];
             [user setObject:schoolName forKey:@"school"];
             [user saveInBackground];
-        } // Otherwise, clicked cancel: do nothing
+            [_parseProjectViewController loadProfileView];
+            [_parseProjectViewController openProfileView];
 
-        [_parseProjectViewController loadProfileView];
-        [_parseProjectViewController openProfileView];
+        } // Otherwise, clicked cancel: do nothing
+    }
+    
+    // Selected an edit tag
+    if (alertView.tag == 3) {
         
+        // Clicked OK
+        if (buttonIndex == 0) {
+            [eventsCreatedEditButton setTitle:@"Done" forState:UIControlStateNormal];
+            editingEventsCreated = YES;
+
+            [eventsCreatedTable reloadData];
+        }
     }
 }
 
@@ -574,7 +661,7 @@
     }
     Event* party = [day objectAtIndex:indexPath.row];
     
-    if (indexPath.row % 2 == 0) {
+    if ((indexPath.row+indexPath.section) % 2 == 0) {
         cell.backgroundColor = green;
     } else {
         cell.backgroundColor = lightGreen;
@@ -644,18 +731,27 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop-tableView.sectionHeaderHeight animated:NO];
     EventCell* cell = (EventCell*)[tableView viewWithTag:((indexPath.section<<16)|indexPath.row)+1];
-    //Check if already selected
-    if (selected == cell.tag){
-        selected=NSIntegerMin;
-        cell.descriptionLabel.hidden = YES;
-    }else{
-        selected = cell.tag;
-        cell.descriptionLabel.hidden = NO;
+    if (!editingEventsCreated) {
+        [tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop-tableView.sectionHeaderHeight animated:NO];
+                //Check if already selected
+        if (selected == cell.tag){
+            selected=NSIntegerMin;
+            cell.descriptionLabel.hidden = YES;
+        }else{
+            selected = cell.tag;
+            cell.descriptionLabel.hidden = NO;
+        }
+        [tableView beginUpdates];
+        [tableView endUpdates];
+    } else {
+        // Get the object id of the cell
+        NSString* objectid = cell.objectid;
+
+        // Open the edit event view controller with the event that was selected
+        [_parseProjectViewController loadEditEventViewWithArguments:objectid];
+        [_parseProjectViewController openEditEventView];
     }
-    [tableView beginUpdates];
-    [tableView endUpdates];
     
 }
 

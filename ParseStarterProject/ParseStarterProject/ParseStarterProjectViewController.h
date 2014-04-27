@@ -3,6 +3,9 @@
 
 -(void) loadAddEventView;
 -(void) openAddEventView;
+-(void) loadEditEventView;
+-(void) loadEditEventViewWithArguments:(NSString*)objectid;
+-(void) openEditEventView;
 -(void) openTableView;
 -(void) loadTableView;
 -(void) openProfileView;
