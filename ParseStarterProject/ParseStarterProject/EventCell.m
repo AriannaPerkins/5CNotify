@@ -220,7 +220,7 @@
     
     CGFloat height = self.frame.size.height-5;
     
-    _descriptionLabel.frame =  CGRectMake(0, height*.95, width, height+50);
+    _descriptionLabel.frame =  CGRectMake(0, height*.95, width, height*1.25);
     _descriptionLabel.hidden = NO;
 }
 @end

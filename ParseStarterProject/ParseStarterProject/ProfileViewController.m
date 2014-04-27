@@ -711,18 +711,23 @@
     
 }
 
+-(Event*) getEventAtIndexPath:(NSIndexPath*) indexpath{
+    NSMutableArray* day = [parties objectAtIndex:indexpath.section];
+    return [day objectAtIndex:indexpath.row];
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     if (((indexPath.section<<16) | indexPath.row)+1 == selected) {
         //Sets height based on how large description is
-        Event* selectedEvent = [parties objectAtIndex:indexPath.row];
+        Event* selectedEvent = [self getEventAtIndexPath:indexPath];
         if (tableView == eventsAttendingTable) {
             selectedEvent = [partiesAttending objectAtIndex:indexPath.row];
         }
         NSString *text = selectedEvent.description;
         CGSize constraint = CGSizeMake(260, 100);
         CGSize size = [text sizeWithFont:[UIFont systemFontOfSize:14] constrainedToSize:constraint];
-        CGFloat height = 75 + (size.height*0.5);
+        CGFloat height = 80 + (size.height);
         
         return height;
     }
@@ -733,8 +738,7 @@
 {
     EventCell* cell = (EventCell*)[tableView viewWithTag:((indexPath.section<<16)|indexPath.row)+1];
     if (!editingEventsCreated) {
-        [tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop-tableView.sectionHeaderHeight animated:NO];
-                //Check if already selected
+        //Check if already selected
         if (selected == cell.tag){
             selected=NSIntegerMin;
             cell.descriptionLabel.hidden = YES;
