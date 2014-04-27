@@ -336,7 +336,7 @@ NSInteger comps;
         img.image = [UIImage imageNamed:@"arrow_right.png"];
         [sender addSubview:img];
         
-        int numOfRows = [self.tableView numberOfRowsInSection:section];
+        int numOfRows = (int)[self.tableView numberOfRowsInSection:section];
         NSArray* indexPaths = [self indexPathsForSection:section withNumberOfRows:numOfRows];
         [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationTop];
         [collapsedSections addObject:@(section)];
