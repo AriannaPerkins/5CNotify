@@ -780,7 +780,6 @@
     date.textAlignment = NSTextAlignmentCenter;
     date.textColor = green;
     date.text = niceDate;
-//    [header addSubview:date];
     
     return header;
 }
