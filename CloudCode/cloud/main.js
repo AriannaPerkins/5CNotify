@@ -45,46 +45,57 @@ Parse.Cloud.job("userEventArrayCleanup", function(request, status){
   userQuery.limit(1000);
   userQuery.find( {
     success: function(users){
-      for (var i = 0; i < users.length; i++) {
-        var user = users[i];
-        var eventsAttending = new Array( user.get("eventsAttending"));
-        for (var i = 0; i < eventsAttending.length; i++) {
-          var objectID = eventsAttending[i];
-          eventQuery.get(objectID, {
-          success: function(object) {
-            // The object was retrieved successfully. Do nothing
-          },
-          error: function(object, error) {
-            //Object does not exist, must be deleted
-            if (error.code == "101"){
-              user.remove("eventsAttending", objectID);
-              console.log("Object deleted");
-            } 
+      var userEvents = Parse.Object.extend("UserEvents");
+      var eventQuery = new Parse.Query(userEvents);
+      eventQuery.limit(1000);
+      eventQuery.find({
+        success: function(events){
+          var eventIDs = new Array();
+          for (var i = 0; i < events.length; i++) {
+            var theEvent = events[i];
+            var objectID = theEvent.get("objectId")
+            eventIDs.push(objectId); 
+          };
+          for (var i = 0; i < users.length; i++) {
+            var user = users[i];
+            var eventsAttending = new Array( user.get("eventsAttending"));
+            for (var i = 0; i < eventsAttending.length; i++) {
+              var objectID = eventsAttending[i];
+              var eventExists = false;
+              for (var i = 0; i < eventIDs.length; i++) {
+                if (eventIDs[i] == objectID){
+                  eventExists = true;
+                  break;
+                }
+              };
+              if (!eventExists)
+                user.remove("eventsAttending", objectID);
+            };
+            var eventsCreated = new Array(user.get("eventsCreated"));
+            for (var i = 0; i < eventsCreated.length; i++) {
+              var objectID = eventsCreated[i];
+              var eventExists = false;
+              for (var i = 0; i < eventIDs.length; i++) {
+                if (eventIDs[i] == objectID){
+                  eventExists = true;
+                  break;
+                }
+              }
+              if (!eventExists)
+                user.remove("eventsCreated", objectID);
+            }
           }
-          });
-        };
-        var eventsCreated = new Array(user.get("eventsCreated"));
-        for (var i = 0; i < eventsCreated.length; i++) {
-          var objectID = eventsCreated[i];
-          eventQuery.get(objectID, {
-          success: function(object) {
-            // The object was retrieved successfully. Do nothing
-          },
-          error: function(object, error) {
-            //Object does not exist, must be deleted
-            if (error.code == "101"){
-              user.remove("eventsCreated", objectID);
-              console.log("Object deleted");
-            } 
-          }
-          });
-        };
+          status.success("Events Deleted");
+      },
+      error: function(events, error){
+        console.log("Object retreival failed with error: " + error.code + " " + error.message);
+        status.error("Events Not Deleted, Error occured");
       }
-      status.success("Events Deleted");
+    });
     },
-    error: function(object, error){
-      console.log("Object retreival failed with error: " + error.code + " " + error.message);
-      status.error("Events Not Deleted, Error occured");
-    }
+    error: function(users, error){
+        console.log("Object retreival failed with error: " + error.code + " " + error.message);
+        status.error("Users not found");
+      }
   });
 });
