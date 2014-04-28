@@ -53,7 +53,7 @@ Parse.Cloud.job("userEventArrayCleanup", function(request, status){
           var eventIDs = new Array();
           for (var i = 0; i < events.length; i++) {
             var theEvent = events[i];
-            var objectID = theEvent.get("objectId")
+            var objectId = theEvent.id;
             eventIDs.push(objectId); 
           };
           for (var i = 0; i < users.length; i++) {
