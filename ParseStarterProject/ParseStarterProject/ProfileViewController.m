@@ -722,7 +722,7 @@
         //Sets height based on how large description is
         Event* selectedEvent;
         if (tableView == eventsCreatedTable) {
-            selectedEvent = [self getEventAtIndexPath:indexPath];
+            selectedEvent = [self getEventAtIndexPath:indexPath]; 
         }
         if (tableView == eventsAttendingTable) {
             NSMutableArray* day = [partiesAttending objectAtIndex:indexPath.section];
